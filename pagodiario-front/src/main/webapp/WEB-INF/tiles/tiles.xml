@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<!-- Default Main Template -->
+    <definition name="mainTemplate" template="/WEB-INF/pages/template/mainTemplate.jsp">
+        <put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
+    </definition>
+    <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp">
+    </definition>
+	<!-- PLain Views -->    
+    <definition name="index" extends="mainTemplate">
+    	<put-attribute name="title" value="Sistema de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
+    </definition>
+    
+    <definition name="login" extends="loginTemplate">
+    	<put-attribute name="title" value="Login Sistema de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    
+</tiles-definitions>

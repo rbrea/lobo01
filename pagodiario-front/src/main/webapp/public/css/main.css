@@ -1,0 +1,143 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+.bodyColapsable {
+    border-bottom: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-radius: 0 0 4px 4px;
+    border-right: 1px solid #e5e5e5;
+    padding: 10px 5px;
+}
+
+#filterfieldset legend {
+	margin-bottom: 0;
+}
+#filterColapse {
+	margin-bottom: 15px;
+	font-size: 11px;
+}
+#filterColapse label{
+	display: block;
+    margin-bottom: 5px;
+}
+#filterColapse .row {
+	margin-bottom: 5px;
+}
+#filterColapse .row > div {
+	box-shadow: none;
+}
+#filterColapse button {
+	margin-top: 21px;
+}
+
+.table {
+	font-size: 11px;
+}
+.table thead {
+	background-color: #0060a8;
+}
+.table thead tr th {
+    color: white;
+    font-size: 11px;
+}
+.table th {
+    font-weight: bold;
+}
+.table a {
+	cursor: pointer;
+}
+#myo-enavbar-collapse {
+	color: #fff;
+}
+
+#clientModal {
+	font-size: 11px;
+	line-height: 0.8;
+}
+
+.ui-widget-header {
+	/*
+    background: url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") repeat-x scroll 50% 50% #f6a828;
+    border: 1px solid #e78f08;
+    */
+    background-image: linear-gradient(to bottom, #428bca 0%, #2d6ca2 100%) !important;
+    background-repeat: repeat-x !important;
+    border-color: #2b669a !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.filter-container {
+	width: 100%;
+	margin-bottom: 5px;
+}
+#filterfieldset {
+	width: 100%;
+}
+#filterColapse {
+	width: 100%;
+}
+#toggle-filter,
+#toggle-filter-upload {
+	margin-top: 8px;
+}
+#dlgClient {
+	font-size: 11px;
+	line-height: 0.5;
+}
+.bar {
+    height: 18px;
+    background: green;
+}
+
+#filterColapseUpload button {
+    margin-top: 0;
+}
+
+#filterColapseUpload .container,
+#filterColapse .container {
+	width: 1130px !important;
+}
+
+#addBtn {
+	margin-bottom: 3px;
+}
+
+#filterColapse .row {
+	border: 1px solid #e5e5e5;
+	padding-bottom: 5px;
+}
+
+.form-group.required .control-label:after {
+  content:" *";color:red;
+}
+
+#client-form .error {
+ content:"*";color:red;
+}
+
+#excelBtn {
+	margin-right:3px;
+}
+
+.grad1 {
+    background: -webkit-linear-gradient(gray, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(gray, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(gray, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#FFF, #636660); /* Standard syntax (must be last) */
+    height:80%;
+}
+
+.grad2 {
+    background: -webkit-radial-gradient(#FFF, #ADB2B4); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#FFF, #ADB2B4); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#FFF, #ADB2B4); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#FFF, #ADB2B4); /* Standard syntax (must be last) */
+}
+
+.rounded-corner {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}

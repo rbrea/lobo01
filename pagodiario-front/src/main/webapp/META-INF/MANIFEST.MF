@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
+ 0.6.RELEASE.jar spring-aop-4.0.6.RELEASE.jar aopalliance-1.0.jar spri
+ ng-beans-4.0.6.RELEASE.jar spring-core-4.0.6.RELEASE.jar spring-expre
+ ssion-4.0.6.RELEASE.jar guava-15.0.jar commons-lang3-3.3.2.jar common
+ s-collections4-4.0.jar fest-assert-1.4.jar fest-util-1.1.6.jar jackso
+ n-core-asl-1.9.13.jar jackson-databind-2.3.2.jar jackson-annotations-
+ 2.3.0.jar jackson-core-2.3.2.jar spring-jdbc-4.0.6.RELEASE.jar spring
+ -tx-4.0.6.RELEASE.jar commons-logging-1.1.3.jar spring-orm-4.0.6.RELE
+ ASE.jar hibernate-core-4.3.6.Final.jar jboss-logging-3.1.3.GA.jar jbo
+ ss-logging-annotations-1.2.0.Beta1.jar jboss-transaction-api_1.2_spec
+ -1.0.0.Final.jar dom4j-1.6.1.jar xml-apis-1.0.b2.jar hibernate-common
+ s-annotations-4.0.5.Final.jar hibernate-jpa-2.1-api-1.0.0.Final.jar j
+ avassist-3.18.0-GA.jar antlr-2.7.7.jar jandex-1.1.0.Final.jar hiberna
+ te-envers-4.3.6.Final.jar hibernate-entitymanager-4.3.6.Final.jar mys
+ ql-connector-java-5.1.26.jar h2-1.3.174.jar aspectjrt-1.5.4.jar aspec
+ tjweaver-1.6.6.jar javax.inject-1.jar jcsv-1.4.0.jar jasypt-1.9.2.jar
+  spring-context-support-4.0.6.RELEASE.jar freemarker-2.3.15.jar tiles
+ -jsp-2.2.2.jar tiles-servlet-2.2.2.jar tiles-core-2.2.2.jar tiles-api
+ -2.2.2.jar commons-digester-2.0.jar commons-beanutils-1.8.0.jar tiles
+ -template-2.2.2.jar spring-webmvc-4.0.6.RELEASE.jar spring-web-4.0.6.
+ RELEASE.jar jstl-1.2.jar logback-classic-1.1.1.jar logback-core-1.1.1
+ .jar slf4j-api-1.7.6.jar jcl-over-slf4j-1.7.6.jar jackson-mapper-asl-
+ 1.9.13.jar commons-io-1.3.2.jar commons-fileupload-1.2.1.jar swagger-
+ springmvc-0.8.5.jar swagger-core_2.10-1.3.5.jar commons-lang-2.4.jar 
+ jackson-module-scala_2.10-2.1.5.jar scala-library-2.10.0.jar paraname
+ r-2.3.jar scala-reflect-2.10.0.jar jackson-module-jsonSchema-2.1.0.ja
+ r jackson-jaxrs-json-provider-2.0.0.jar jackson-module-jaxb-annotatio
+ ns-2.0.0.jar jsr311-api-1.1.1.jar swagger-annotations-1.3.5.jar json4
+ s-ext_2.10-3.2.5.jar joda-time-2.1.jar joda-convert-1.2.jar json4s-na
+ tive_2.10-3.2.5.jar json4s-core_2.10-3.2.5.jar json4s-ast_2.10-3.2.5.
+ jar scalap-2.10.0.jar scala-compiler-2.10.0.jar json4s-jackson_2.10-3
+ .2.5.jar cglib-2.2.jar asm-3.1.jar swagger-models-0.8.5.jar classmate
+ -1.0.0.jar poi-3.10.1.jar commons-codec-1.5.jar
+

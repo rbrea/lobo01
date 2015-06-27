@@ -1,0 +1,170 @@
+<database>
+  <db_name>Project de Ejemplo</db_name>
+  <version>1.0</version>
+  <tables>
+    <table table_name="Departamento">
+      <columns>
+        <column>
+          <column_name>Departamento.id_departamento</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>SI</id_pk>
+          <is_fk>NO</is_fk>
+          <description>identificador de departamento</description>
+        </column>
+        <column>
+          <column_name>nom_departamento</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>50</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>descripcion del departamento</description>
+        </column>
+        <column>
+          <column_name>ubicacion</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>50</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>nombre, en donde se ubica el departamento</description>
+        </column>
+      </columns>
+    </table>
+    <table table_name="Domicilio">
+      <columns>
+        <column>
+          <column_name>calle</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>100</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>nombre de calle</description>
+        </column>
+        <column>
+          <column_name>nro</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>10</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>nro de calle</description>
+        </column>
+        <column>
+          <column_name>piso</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>3</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>piso</description>
+        </column>
+        <column>
+          <column_name>depto</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>10</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>departamento</description>
+        </column>
+      </columns>
+    </table>
+    <table table_name="Empleado">
+      <columns>
+        <column>
+          <column_name>Empleado.id_empleado</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>SI</id_pk>
+          <is_fk>NO</is_fk>
+          <description>identificador de empleado, compartido por Gerente, Mecanico y Supervisor</description>
+        </column>
+        <column>
+          <column_name>Departamento.id_departamento</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>SI</is_fk>
+          <description>Clave foranea, relaciona con el departamento</description>
+        </column>
+        <column>
+          <column_name>nom_apellido</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>100</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>nombre y apellido del empleado</description>
+        </column>
+        <column>
+          <column_name>especialidad</column_name>
+          <column_type>CHARACTER</column_type>
+          <column_size>100</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>NO</id_pk>
+          <is_fk>NO</is_fk>
+          <description>cual es la tarea del empleado</description>
+        </column>
+      </columns>
+    </table>
+    <table table_name="Gerente">
+      <columns>
+        <column>
+          <column_name>Empleado.id_empleado</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>SI</id_pk>
+          <is_fk>SI</is_fk>
+          <description>identificador del gerente</description>
+        </column>
+      </columns>
+    </table>
+    <table table_name="Mecanico">
+      <columns>
+        <column>
+          <column_name>Empleado.id_empleado</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>SI</id_pk>
+          <is_fk>SI</is_fk>
+          <description>identificador del mecanico</description>
+        </column>
+      </columns>
+    </table>
+    <table table_name="Supervisor">
+      <columns>
+        <column>
+          <column_name>Empleado.id_empleado</column_name>
+          <column_type>INTEGER</column_type>
+          <column_size>15</column_size>
+          <is_unique>NO</is_unique>
+          <is_null>NO</is_null>
+          <id_pk>SI</id_pk>
+          <is_fk>SI</is_fk>
+          <description>identificador de supervisor</description>
+        </column>
+      </columns>
+    </table>
+  </tables>
+</database>
