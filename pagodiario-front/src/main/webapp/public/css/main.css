@@ -1,5 +1,5 @@
 body {
-  min-height: 2000px;
+  /*min-height: 1000px;*/
   padding-top: 70px;
 }
 .bodyColapsable {
@@ -140,4 +140,8 @@ body {
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
+}
+
+.centered {
+	text-align: center;
 }

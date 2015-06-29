@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -39,6 +41,12 @@ public class AuthenticationServiceImpl extends BasicServiceImpl implements
 				StringUtils.isNotBlank(userRegistration.getPassword()), 
 				"El password es requerido");
 		
+		User found = this.userDao.find(userRegistration.getUsername());
+		
+		if(found != null){
+			throw new RuntimeException("El nombre de usuario ya existe. Por favor elija otro.");
+		}
+		
 		PasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 		String encryptedPassword = passwordEncryptor.encryptPassword(userRegistration.getPassword());
 		
@@ -58,7 +66,7 @@ public class AuthenticationServiceImpl extends BasicServiceImpl implements
 		user.setEmail(userRegistration.getEmail());
 		user.setUsername(userRegistration.getUsername());
 		user.setPassword(encryptedPassword);
-		user.setToken(userRegistration.getToken());
+		user.setToken(UUID.randomUUID().toString());
 		user.setAdmin(userRegistration.isAdmin());
 		
 		return user;

@@ -73,7 +73,8 @@ public class SecurityFilter
 			if (!StringUtils.endsWith(endUrl, "/html/login") 
 					&& !StringUtils.endsWith(endUrl, "/html/logout")
 					&& !StringUtils.endsWith(endUrl, "/service/registration")
-					&& !StringUtils.endsWith(endUrl, "/service/login")) {
+					&& !StringUtils.endsWith(endUrl, "/service/login")
+					&& !StringUtils.endsWith(endUrl, "/html/user/registration")) {
 				LOGGER.trace("Filtering URL: " + httpServletRequest.getRequestURL());
 				LoggedDto loggedDto = this.getLoggedInUsername(httpServletRequest, httpServletResponse, chain);
 	            if(loggedDto != null){

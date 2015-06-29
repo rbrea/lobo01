@@ -85,32 +85,43 @@
         <h4 class="modal-title" id="modalRegistrationLabel">Registraci&oacute;n</h4>
       </div>
       <div class="modal-body">
-		<form id="frmRegistration" action="" method="post">
+		<form id="frmRegistration" action="${pageContext.request.contextPath}/controller/html/user/registration" 
+				method="POST" data-toggle="validator">
 	    	<div class="form-group">
 				<label for="name">Nombre y Apellido</label>
-			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido...">
+			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
+			    <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
 				<label for="email">e-mail</label>
-			    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
+			    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail..." required>
+			    <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
 				<label for="documentNumber">N&uacute;mero de Documento</label>
-			    <input type="text" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+			    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
+			    <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
-				<label for="-username">Nombre de Usuario</label>
-			    <input type="text" class="form-control" id="-username" name="username" placeholder="Ingrese Nombre de Usuario...">
+				<label for="nusername">Nombre de Usuario</label>
+			    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." required>
+			    <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
-				<label for="-password">Contrase&ntilde;a</label>
-			    <input type="password" class="form-control" id="-password" name="password" placeholder="Ingrese Contrase&ntilde;a...">
+				<label for="npassword">Contrase&ntilde;a</label>
+			    <input type="password" class="form-control" id="npassword" name="password" placeholder="Ingrese Contrase&ntilde;a..." data-minlength="6" required>
+			    <div class="help-block with-errors"></div>
+			</div>
+			<div class="form-group">
+				<label for="rpassword">Re-Ingrese Contrase&ntilde;a</label>
+			    <input type="password" class="form-control" id="rpassword" name="rpassword" placeholder="Re-Ingrese Contrase&ntilde;a..." data-minlength="6" data-match="#npassword" required>
+			    <div class="help-block with-errors"></div>
 			</div>
 		</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button id="btnRegistration" type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
@@ -143,7 +154,8 @@
         <div class="account-wall rounded-corner">
         	<img class="profile-img" src="${pageContext.request.contextPath}/public/images/photo.png?sz=120"
                     alt="">
-            <form id="frmLogin" class="form-signin" action="${pageContext.request.contextPath}/controller/service/login" method="POST">
+            <form id="frmLogin" class="form-signin" action="${pageContext.request.contextPath}/controller/html/login" 
+            		method="POST" data-toggle="validator">
             	<div class="form-group">
 	            	<input id="username" type="text" name="username" class="form-control" placeholder="username" required autofocus>
 	            	<div class="help-block with-errors"></div>
@@ -183,7 +195,23 @@
             	if(errorMsg != null && errorMsg != ""){
             		Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), errorMsg);
             	}
-                
+            	
+            	$("#btnRegistration").click(
+            		function(){
+            			
+            			$("#frmRegistration").submit();
+            			
+            			return;
+            		}		
+            	);
+
+            	$('#modalRegistration').on('hidden.bs.modal', function (e) {
+            		
+            		Login.registrationReset();
+            		
+            		return;
+            	});
+            	
                 return;
             }
         );

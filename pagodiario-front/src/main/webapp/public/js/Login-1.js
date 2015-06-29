@@ -39,3 +39,13 @@ Login.doLogin = function(){
 	return;
 }
 
+Login.registrationReset = function(){
+	
+	$("#name").val("");
+	$("#email").val("");
+	$("#documentNumber").val("");
+	$("#-username").val("");
+	$("#-password").val("");
+	
+	return;
+}

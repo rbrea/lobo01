@@ -10,15 +10,21 @@
     </definition>
     <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp">
     </definition>
+	<!-- login -->
+	<definition name="login" extends="loginTemplate">
+    	<put-attribute name="title" value="Login Sistema de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    
 	<!-- PLain Views -->    
     <definition name="index" extends="mainTemplate">
     	<put-attribute name="title" value="Sistema de Pago Diario" />
         <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
     </definition>
     
-    <definition name="login" extends="loginTemplate">
-    	<put-attribute name="title" value="Login Sistema de Pago Diario" />
-        <put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
+    <definition name="user" extends="mainTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/user.jsp" />
     </definition>
     
 </tiles-definitions>

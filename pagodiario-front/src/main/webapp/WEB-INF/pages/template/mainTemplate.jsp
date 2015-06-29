@@ -21,6 +21,8 @@
 <link href="${pageContext.request.contextPath}/public/css/dashboard.css" rel="stylesheet">
 
 <link href="${pageContext.request.contextPath}/public/css/main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -55,6 +57,8 @@
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Login-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/validator.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
+    <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
 </body>
 </html>

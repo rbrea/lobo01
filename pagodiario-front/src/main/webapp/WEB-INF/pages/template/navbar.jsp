@@ -14,10 +14,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/index">SGPD - Sistema de Gesti&oacute;n de Pago Diario</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">SGPD - Sistema de Gesti&oacute;n de Pago Diario</a>
 		</div>
-		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout">
-				</form>
+		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout"></form>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -37,8 +36,19 @@
 	                -->
 	              </ul>
 	            </li>
-				<li><a href="#">Ayuda</a></li>
-					<li><a id="btnLogout" href="javascript:void(0);">Cerrar sesi&oacute;n</a></li>
+				<li class="dropdown">
+	              <a id="dropAbm" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">ABM <span class="caret"></span></a>
+	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
+	                <li role="presentation">
+	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user">Usuarios</a>
+	                </li>
+	                <!--  
+	                <li role="presentation" class="divider"></li>
+	                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
+	                -->
+	              </ul>
+	            </li>
+				<li><a id="btnLogout" href="javascript:void(0);">Cerrar sesi&oacute;n</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				

@@ -58,7 +58,7 @@ public class LoginController extends ExceptionHandlingController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/service/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/html/login", method = RequestMethod.POST)
 	public String doLogin(
 			@ModelAttribute LoginDto loginDto,
 			ModelMap model,
@@ -78,7 +78,7 @@ public class LoginController extends ExceptionHandlingController {
 					AuthenticationConstants.AUTHENTICATION_ACCESS_KEY + userDto.getToken(), 
 					userDto);
 			
-			return "index";
+			return "redirect:index";
 		} catch (IncorrectUserLoginException e) {
 			errorMsg = e.getMessage();
 		} catch (PasswordIncorrectException e) {
@@ -106,7 +106,7 @@ public class LoginController extends ExceptionHandlingController {
 		response.addCookie(cookie);
 		response.addCookie(new Cookie(AuthenticationConstants.COOKIE_MAX_AGE_MINUTES, null));
 		
-		return "login";
+		return "redirect:login";
 	}
 
 	@RequestMapping(value = "/service/userData", method = RequestMethod.GET, produces = "application/json")
@@ -141,16 +141,33 @@ public class LoginController extends ExceptionHandlingController {
 		return this.authenticationService.register(userRegistration);
 	}
 	
-	@RequestMapping(value = "/service/user", method = RequestMethod.POST)
-	public String saveUser(HttpServletRequest request,
+	@RequestMapping(value = "/html/user", method = RequestMethod.GET)
+	public String showUserPage(HttpServletRequest request,
 		HttpServletResponse response,
 		ModelMap model,		
 		@ModelAttribute UserRegistrationDto userRegistration,
 		HttpSession session)
 				throws JsonParseException, JsonMappingException, IOException {
 	
-		// si tiene errores tiene q agregar los mjes al modelmap
-		this.authenticationService.register(userRegistration);
+		return "user";
+	}
+	
+	@RequestMapping(value = "/html/user/registration", method = RequestMethod.POST)
+	public String saveUser(HttpServletRequest request,
+		HttpServletResponse response,
+		ModelMap model,		
+		@ModelAttribute UserRegistrationDto userRegistration,
+		HttpSession session)
+				throws JsonParseException, JsonMappingException, IOException {
+		String errorMsg = "";
+		try {
+			// si tiene errores tiene q agregar los mjes al modelmap
+			this.authenticationService.register(userRegistration);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			errorMsg = e.getMessage();
+		}
+		model.addAttribute("errorMsg", errorMsg);
 		
 		return "login";
 	}
