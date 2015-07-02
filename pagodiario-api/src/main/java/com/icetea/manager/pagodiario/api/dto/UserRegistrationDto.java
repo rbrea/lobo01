@@ -11,6 +11,7 @@ public class UserRegistrationDto extends UserDto {
 	private String documentType = "DNI";
 	private String email;
 	private boolean admin;
+	private String pageFrom;
 	
 	public String getEmail() {
 		return email;
@@ -66,6 +67,14 @@ public class UserRegistrationDto extends UserDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getPageFrom() {
+		return pageFrom;
+	}
+
+	public void setPageFrom(String pageFrom) {
+		this.pageFrom = pageFrom;
 	}
 
 }

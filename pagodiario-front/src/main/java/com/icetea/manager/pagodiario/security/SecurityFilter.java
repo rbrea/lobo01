@@ -112,6 +112,12 @@ public class SecurityFilter
             LoggedDto loggerDto = new LoggedDto();
             loggerDto.setUsername(userDto.getUsername());
             
+            UserDto validated = this.authenticationService.search(userDto.getUsername());/*validateAccessToken(userDto.getToken());*/
+            if(validated == null){
+            	// si no encontre el token en la bd ,, entonces el usuario ya no existe o no es valido su token ...
+            	return null;
+            }
+            
             return loggerDto;
         }
 

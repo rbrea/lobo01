@@ -133,4 +133,10 @@ public class AuthenticationServiceImpl extends BasicServiceImpl implements
 		return this.userDao.delete(user);
 	}
 	
+	@Override
+	public UserDto search(String username){
+		
+		return this.userDtoModelTransformer.transform(this.userDao.find(username));
+	}
+	
 }

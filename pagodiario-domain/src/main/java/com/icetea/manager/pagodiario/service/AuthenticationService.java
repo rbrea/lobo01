@@ -18,5 +18,7 @@ public interface AuthenticationService extends BasicService {
 	UserDto editUser(UserRegistrationDto userRegistration);
 	
 	boolean removeUser(Long id);
+
+	UserDto search(String username);
 	
 }

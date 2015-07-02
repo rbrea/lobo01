@@ -87,6 +87,7 @@
       <div class="modal-body">
 		<form id="frmRegistration" action="${pageContext.request.contextPath}/controller/html/user/registration" 
 				method="POST" data-toggle="validator">
+				<input type="hidden" id="pageFrom" name="pageFrom" value="login">
 	    	<div class="form-group">
 				<label for="name">Nombre y Apellido</label>
 			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>

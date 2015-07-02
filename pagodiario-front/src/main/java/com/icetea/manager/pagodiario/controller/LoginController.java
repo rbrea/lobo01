@@ -161,7 +161,7 @@ public class LoginController extends ExceptionHandlingController {
 		}
 		model.addAttribute("errorMsg", errorMsg);
 		
-		return "login";
+		return userRegistration.getPageFrom();
 	}
 
 	@RequestMapping(value = "/html/user/registration/edit", method = RequestMethod.POST)
