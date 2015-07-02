@@ -1,7 +1,6 @@
 package com.icetea.manager.pagodiario.api.dto;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import com.google.common.collect.Lists;
 
@@ -15,7 +14,7 @@ public class FileResponseDto extends BasicOutputDto {
 		super();
 	}
 
-	public FileResponseDto(Integer status, String message, List<String> causes) {
+	public FileResponseDto(Integer status, String message, String causes) {
 		super(status, message, causes);
 	}
 

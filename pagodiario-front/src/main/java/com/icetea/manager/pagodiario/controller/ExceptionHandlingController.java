@@ -25,7 +25,7 @@ public abstract class ExceptionHandlingController {
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.ILLEGAL_ARGUMENTS.getId());
 		dto.setMessage("Bad Request, illegal arguments received.");
-		dto.addCause(exception.getMessage());
+		dto.setCause(exception.getMessage());
 
 		return dto;
 	}
@@ -37,7 +37,7 @@ public abstract class ExceptionHandlingController {
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.UNHANDLED_ERROR.getId());
 		dto.setMessage("username incorrecto. Por favor intente nuevamente.");
-		dto.addCause(exception.getMessage());
+		dto.setCause(exception.getMessage());
 
 		return dto;
 	}
@@ -52,7 +52,7 @@ public abstract class ExceptionHandlingController {
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.UNHANDLED_ERROR.getId());
 		dto.setMessage("An unhandled error has ocurred on FIDIAS DD.");
-		dto.addCause(exception.getMessage());
+		dto.setCause(exception.getMessage());
 
 		return dto;
 	}
@@ -67,7 +67,7 @@ public abstract class ExceptionHandlingController {
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.UNHANDLED_ERROR.getId());
 		dto.setMessage("An unhandled error has ocurred on FIDIAS DD.");
-		dto.addCause(exception.getMessage());
+		dto.setCause(exception.getMessage());
 
 		return dto;
 	}
@@ -86,7 +86,7 @@ public abstract class ExceptionHandlingController {
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.SQL_CONSTRAINT_ERROR.getId());
 		dto.setMessage(String.format("Se ha producido un error de clave duplicada al querer insertar el proyecto. FIDIAS DDM. SQLState: %s", 
 				ce.getSQLState()));
-		dto.addCause(ce.getSQLException().getMessage());
+		dto.setCause(ce.getSQLException().getMessage());
 
 		return dto;
 	}

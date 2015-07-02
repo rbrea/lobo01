@@ -40,7 +40,7 @@
 	              <a id="dropAbm" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">ABM <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
 	                <li role="presentation">
-	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user">Usuarios</a>
+	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="glyphicon glyphicon-user"></i>&nbsp;Usuarios</a>
 	                </li>
 	                <!--  
 	                <li role="presentation" class="divider"></li>

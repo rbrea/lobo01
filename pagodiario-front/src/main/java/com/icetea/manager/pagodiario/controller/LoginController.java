@@ -4,7 +4,7 @@ import static com.icetea.manager.pagodiario.security.AuthenticationConstants.COO
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -20,19 +20,20 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.common.collect.Lists;
+import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
+import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.LoginDto;
 import com.icetea.manager.pagodiario.api.dto.UserDto;
 import com.icetea.manager.pagodiario.api.dto.UserRegistrationDto;
 import com.icetea.manager.pagodiario.cache.Cache;
 import com.icetea.manager.pagodiario.exception.IncorrectUserLoginException;
 import com.icetea.manager.pagodiario.exception.PasswordIncorrectException;
-import com.icetea.manager.pagodiario.model.Role;
 import com.icetea.manager.pagodiario.security.AuthenticationConstants;
 import com.icetea.manager.pagodiario.security.SecurityHelper;
 import com.icetea.manager.pagodiario.service.AuthenticationService;
@@ -123,22 +124,13 @@ public class LoginController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "/service/registration", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody UserDto doRegistration(HttpServletRequest request,
-		HttpServletResponse response, RedirectAttributes redirectAttributes, 
-		HttpSession session)
-				throws JsonParseException, JsonMappingException, IOException {
-	
-		UserRegistrationDto userRegistration = new UserRegistrationDto();
-		userRegistration.setAdmin(true);
-		userRegistration.setDocumentNumber("29575093");
-		userRegistration.setDocumentType("dni");
-		userRegistration.setName("Rodrigo hernandez");
-		userRegistration.setPassword("123456");
-		userRegistration.setToken(UUID.randomUUID().toString());
-		userRegistration.setUsername("roher");
-		userRegistration.setRoles(Lists.newArrayList(Role.ROLE_NAME_ADMIN));
+	public @ResponseBody ListOutputDto<UserRegistrationDto> getUsers(
+			@RequestParam(required = false) Long id) {
+		ListOutputDto<UserRegistrationDto> r = new ListOutputDto<UserRegistrationDto>();
+		List<UserRegistrationDto> list = this.authenticationService.getUserRegistration(id);
+		r.setData(list);
 		
-		return this.authenticationService.register(userRegistration);
+		return r;
 	}
 	
 	@RequestMapping(value = "/html/user", method = RequestMethod.GET)
@@ -170,6 +162,40 @@ public class LoginController extends ExceptionHandlingController {
 		model.addAttribute("errorMsg", errorMsg);
 		
 		return "login";
+	}
+
+	@RequestMapping(value = "/html/user/registration/edit", method = RequestMethod.POST)
+	public String editUser(HttpServletRequest request,
+		HttpServletResponse response,
+		ModelMap model,		
+		@ModelAttribute UserRegistrationDto userRegistration,
+		HttpSession session)
+				throws JsonParseException, JsonMappingException, IOException {
+		String errorMsg = "";
+		try {
+			// si tiene errores tiene q agregar los mjes al modelmap
+			this.authenticationService.editUser(userRegistration);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			errorMsg = e.getMessage();
+		}
+		model.addAttribute("errorMsg", errorMsg);
+		
+		return "user";
+	}
+	
+	@RequestMapping(value = "/service/user/registration/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody BasicOutputDto removeUser(HttpServletRequest request,
+		HttpServletResponse response,
+		@PathVariable Long id,
+		ModelMap model,		
+		HttpSession session)
+				throws JsonParseException, JsonMappingException, IOException {
+		this.authenticationService.removeUser(id);
+		
+		BasicOutputDto r = new BasicOutputDto();
+
+		return r;
 	}
 	
 }
