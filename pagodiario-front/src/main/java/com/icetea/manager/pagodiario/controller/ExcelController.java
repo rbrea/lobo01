@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/xls")
 public class ExcelController {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = getLogger(ExcelController.class);
 	
 }

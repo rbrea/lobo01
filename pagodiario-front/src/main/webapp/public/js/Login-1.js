@@ -59,7 +59,7 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:Login.showEditModal('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
+                    return "<a href=\"javascript:Login.showEditModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
                         + "&nbsp;<a href=\"javascript:Login.removeUser('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
          	}

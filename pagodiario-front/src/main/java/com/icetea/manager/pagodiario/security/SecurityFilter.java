@@ -31,7 +31,8 @@ public class SecurityFilter
 
 	private static final String XCLIENT = "X-CLIENT";
 	
-    private static final String _filterPatterns = "/html/(?!source/upload/add).*,/public/(?!.*(css/|js/|images/)).*$";
+    @SuppressWarnings("unused")
+	private static final String _filterPatterns = "/html/(?!source/upload/add).*,/public/(?!.*(css/|js/|images/)).*$";
     private final AuthenticationService authenticationService;
     private final Cache cache;
 	private final Boolean disableSecurity;
@@ -124,6 +125,7 @@ public class SecurityFilter
         return null;
 	}
 
+	@SuppressWarnings("unused")
 	private LoggedDto validateToken(String accessToken, HttpServletRequest request) throws IOException {
     	UserDto userDto = (UserDto) this.cache.get(
 				AuthenticationConstants.AUTHENTICATION_EXCHANGE_KEY + accessToken);

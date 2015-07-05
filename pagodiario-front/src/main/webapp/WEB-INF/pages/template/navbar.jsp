@@ -39,6 +39,10 @@
 				<li class="dropdown">
 	              <a id="dropAbm" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">ABM <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
+	              	<li role="presentation">
+	                	<a id="optClients" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/index"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Clientes</a>
+	                </li>
+	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">
 	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="glyphicon glyphicon-user"></i>&nbsp;Usuarios</a>
 	                </li>

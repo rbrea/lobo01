@@ -145,3 +145,7 @@ body {
 .centered {
 	text-align: center;
 }
+
+.tools-bar {
+	border-bottom: 1px solid #ccc;padding-bottom:16px;
+}

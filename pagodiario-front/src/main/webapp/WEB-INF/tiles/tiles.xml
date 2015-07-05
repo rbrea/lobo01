@@ -10,6 +10,12 @@
     </definition>
     <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp">
     </definition>
+    <definition name="mainModalTemplate" template="/WEB-INF/pages/template/mainModalTemplate.jsp">
+    	<put-attribute name="head" value="/WEB-INF/pages/template/head.jsp" />
+    	<put-attribute name="scripts" value="/WEB-INF/pages/template/scripts.jsp" />
+    	<put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
+    </definition>
+    
 	<!-- login -->
 	<definition name="login" extends="loginTemplate">
     	<put-attribute name="title" value="Login Sistema de Pago Diario" />
@@ -23,8 +29,16 @@
     </definition>
     
     <definition name="user" extends="mainTemplate">
-    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario" />
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Usuarios" />
         <put-attribute name="body" value="/WEB-INF/pages/user.jsp" />
+    </definition>
+    
+    <definition name="client" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Clientes" />
+        <put-attribute name="body" value="/WEB-INF/pages/client.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-client.jsp" />
+    	</put-list-attribute>
     </definition>
     
 </tiles-definitions>

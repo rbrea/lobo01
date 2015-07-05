@@ -99,34 +99,25 @@
 <div class="col-md-10">
 	<div class="row">
 		<div class="col-md-12">
-			<nav class="navbar navbar-default">
-			  <div class="container-fluid">
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			    </div>
-			    <p class="navbar-text navbar-left">Herramientas: </p>
-			    <button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-primary navbar-btn"><i class="glyphicon glyphicon-plus"></i>&nbsp;Nuevo</button>
-				<!--  
-				<button id="btnUpdate" type="button" data-loading-text="Espere..." class="btn btn-success navbar-btn disabled"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Modificar</button>
-				<button id="btnRemove" type="button" data-loading-text="Espere..." class="btn btn-danger navbar-btn disabled"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
-				-->
-			  </div><!-- /.container-fluid -->
-			</nav>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title">ABM de Usuarios</h3>
 		  		</div>
 		  		<div class="panel-body">
+		  			<div class="row tools-bar">
+		  				<div class="col-md-11">
+		  					&nbsp;
+		  				</div>
+		  				<div class="col-md-1">
+		  					<button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i>&nbsp;Nuevo</button>
+		  				</div>
+		  				
+		  			</div>
+		    		<div class="row" >
+		  				<div class="col-md-12">
+		  					&nbsp;
+		  				</div>
+		  			</div>
 		    		<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">
@@ -144,18 +135,6 @@
 							            </tr>
 							        </thead>
 							 
-							        <tfoot>
-							            <tr>
-							            	<th></th>
-							                <th>Nombre</th>
-							                <th>Nombre de Usuario</th>
-							                <th>Es administrador?</th>
-							                <th>Tipo de Documento</th>
-							                <th>Nro. de Documento</th>
-							                <th>Email</th>
-							                <th>Acciones</th>
-							            </tr>
-							        </tfoot>
 								</table>							
 							</div>
 						</div>
