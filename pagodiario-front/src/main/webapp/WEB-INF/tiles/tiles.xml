@@ -51,4 +51,12 @@
     	</put-list-attribute>
     </definition>
     
+    <definition name="trader" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Vendedores/Supervisores" />
+        <put-attribute name="body" value="/WEB-INF/pages/trader.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
 </tiles-definitions>
