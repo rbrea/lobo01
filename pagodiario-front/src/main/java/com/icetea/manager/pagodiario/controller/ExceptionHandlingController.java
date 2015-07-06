@@ -51,7 +51,7 @@ public abstract class ExceptionHandlingController {
 						+ exception.getMessage(), exception);
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.UNHANDLED_ERROR.getId());
-		dto.setMessage("An unhandled error has ocurred on FIDIAS DD.");
+		dto.setMessage("An unhandled error has ocurred.");
 		dto.setCause(exception.getMessage());
 
 		return dto;
@@ -66,7 +66,7 @@ public abstract class ExceptionHandlingController {
 						+ exception.getMessage(), exception);
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.UNHANDLED_ERROR.getId());
-		dto.setMessage("An unhandled error has ocurred on FIDIAS DD.");
+		dto.setMessage("An unhandled error has ocurred.");
 		dto.setCause(exception.getMessage());
 
 		return dto;
@@ -84,7 +84,7 @@ public abstract class ExceptionHandlingController {
 						+ ce.getSQLException().getMessage(), exception);
 
 		BasicOutputDto dto = new BasicOutputDto(BasicOutputType.SQL_CONSTRAINT_ERROR.getId());
-		dto.setMessage(String.format("Se ha producido un error de clave duplicada al querer insertar el proyecto. FIDIAS DDM. SQLState: %s", 
+		dto.setMessage(String.format("Se ha producido un error de clave duplicada al querer insertar el proyecto. SQLState: %s", 
 				ce.getSQLState()));
 		dto.setCause(ce.getSQLException().getMessage());
 

@@ -11,7 +11,9 @@
     <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp">
     </definition>
     <definition name="mainModalTemplate" template="/WEB-INF/pages/template/mainModalTemplate.jsp">
-    	<put-attribute name="head" value="/WEB-INF/pages/template/head.jsp" />
+    	<put-attribute name="head" value="/WEB-INF/pages/template/head.jsp">
+    		
+    	</put-attribute>
     	<put-attribute name="scripts" value="/WEB-INF/pages/template/scripts.jsp" />
     	<put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
     </definition>
