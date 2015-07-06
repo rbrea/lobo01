@@ -43,4 +43,12 @@
     	</put-list-attribute>
     </definition>
     
+    <definition name="product" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Productos" />
+        <put-attribute name="body" value="/WEB-INF/pages/product.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
 </tiles-definitions>

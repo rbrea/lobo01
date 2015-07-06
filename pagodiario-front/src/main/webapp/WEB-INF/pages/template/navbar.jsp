@@ -23,17 +23,8 @@
 	              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Acciones <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 	                <li role="presentation">
-	                	<a id="optEliminar" style="cursor:pointer;" data-toggle="modal" role="menuitem" tabindex="-1" data-target="#eliminarProyectoModal">Eliminar Proyecto</a>
+	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura</a>
 	                </li>
-	                <li role="presentation" class="divider"></li>
-	                <li role="presentation">
-	                	<a id="optXlsAll" style="cursor:pointer;" role="menuitem" tabindex="0" href="#")>Exportar a Excel</a>
-	                
-	                </li>
-	                <!--  
-	                <li role="presentation" class="divider"></li>
-	                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
-	                -->
 	              </ul>
 	            </li>
 				<li class="dropdown">
@@ -41,6 +32,9 @@
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
 	              	<li role="presentation">
 	                	<a id="optClients" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/index"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Clientes</a>
+	                </li>
+	                <li role="presentation">
+	                	<a id="optProducts" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/product/index"><i class="glyphicon glyphicon-folder-close"></i>&nbsp;Productos</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">

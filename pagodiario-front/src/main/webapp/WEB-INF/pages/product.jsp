@@ -2,14 +2,14 @@
 	&nbsp;
 </div>
 <div class="col-md-10">
-	<div id="clientMessages" class="row hide">
+	<div id="productMessages" class="row hide">
 	    <div class="col-md-2">
 	        &nbsp;
 	    </div>
 	    <div class="col-md-8">
-	        <div id="clientAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	        <div id="productAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
 	          <button type="button" class="close" 
-	                    onclick="javascript:$('#clientAlertMessages').children('span').eq(0).html('');$('#clientMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	                    onclick="javascript:$('#productAlertMessages').children('span').eq(0).html('');$('#productMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	              <span></span>
 	        </div>
 	    </div>
@@ -21,7 +21,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">ABM de Clientes</h3>
+		    		<h3 class="panel-title">ABM de Productos</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row tools-bar">
@@ -41,17 +41,13 @@
 		    		<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">
-								<table id="tClientResult" class="table table-condensed display">
+								<table id="tProductResult" class="table table-condensed display">
 									<thead>
 							            <tr>
 							            	<th></th>
-							                <th>Nombre y apellido</th>
-							                <th>DNI</th>
-							                <th>Tel&eacute;fono</th>
-							                <th>Domicilio</th>
-							                <th>Entre Calles</th>
-							                <th>Localidad / Barrio</th>
-							                <th>Tipo Comercio</th>
+							                <th>C&oacute;digo de Producto</th>
+							                <th>Descripci&oacute;n</th>
+							                <th>Precio Unitario</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
@@ -76,10 +72,10 @@
 			
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
-			Client.initDataTable(imgCheckUrl);
+			Product.initDataTable(imgCheckUrl);
 		    
            	$("#btnNew").click(function(){
-           		$("#modalClient").modal("show");
+           		$("#modalProduct").modal("show");
            		
            		return;
            	});
