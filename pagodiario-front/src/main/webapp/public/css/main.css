@@ -174,3 +174,33 @@ body {
 .lov {
 	cursor:pointer;
 }
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+
+.badge.badge-primary {
+	background-color: #428bca !important;
+}
+
+.badge.badge-info {
+	background-color: #5bc0de !important;
+}
+
+.badge.badge-success {
+	background-color: #47a447 !important;
+}
+
+.badge.badge-warning {
+	background-color: #ed9c28 !important;
+}
+
+.badge.badge-danger {
+	background-color: #d2322d !important;
+}

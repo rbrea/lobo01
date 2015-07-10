@@ -23,6 +23,7 @@
 <link href="${pageContext.request.contextPath}/public/css/main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/public/bootstrap-dialog/css/bootstrap-dialog.min.css" type="text/css" media="screen" />
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -59,6 +60,6 @@
     <script src="${pageContext.request.contextPath}/public/js/validator.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 </body>
 </html>

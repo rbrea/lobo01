@@ -186,35 +186,33 @@ Client.showModal = function(id){
 }
 
 Client.remove = function(id){
-	if(!confirm("Esta seguro de eliminar el registro seleccionado?")){
-		return false;
-	}
-	
-	// TODO: Hacer logica para q no pueda borrarse a si mismo ...
-	
-	$.ajax({ 
-	   type    : "DELETE",
-	   url     : Constants.contextRoot + "/controller/html/client/" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var table = $('#tClientResult').dataTable();
+	BootstrapDialog.confirm("Esta seguro de eliminar el registro seleccionado?", function(result){
+		if(result) {
+			$.ajax({ 
+			   type    : "DELETE",
+			   url     : Constants.contextRoot + "/controller/html/client/" + id,
+			   dataType: 'json',
+			   contentType: "application/json;",
+			   success:function(data) {
+				   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
+				   if(data != null && data.status == 0){
+					   
+					   var table = $('#tClientResult').dataTable();
 
-			   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
+					   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+					   
+					   return;
+				   }else{
+					   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
+				   }
+			   },
+			   error:function(data){
+				   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
+				   
+				   return;
+			   }
+			});
+		}
 	});
 	
 	return;

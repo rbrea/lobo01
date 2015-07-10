@@ -74,4 +74,21 @@ public class Trader extends Person {
 		return false;
 	}
 	
+	public boolean addTrader(final Trader trader){
+		if(trader == null){
+			return false;
+		}
+		Trader found = CollectionUtils.find(this.getTraders(), new Predicate<Trader>() {
+			@Override
+			public boolean evaluate(Trader t) {
+				return t.getId().equals(trader.getId());
+			}
+		});
+		if(found == null){
+			return this.getTraders().add(trader);
+		}
+		
+		return false;
+	}
+	
 }

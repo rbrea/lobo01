@@ -85,4 +85,22 @@ public class TraderServiceImpl
 		return true;
 	}
 	
+	@Override
+	public boolean addChild(Long parentId, Long childId){
+	
+		Trader parent = this.getDao().findById(parentId);
+		if(parent != null){
+			Trader child = this.getDao().findById(childId);
+			if(child == null){
+				return false;
+			}
+			parent.addTrader(child);
+			child.setParent(parent);
+			this.getDao().save(parent);
+			this.getDao().saveOrUpdate(child);
+		}
+		
+		return true;
+	}
+	
 }

@@ -7,13 +7,12 @@
     
     <!-- Add mousewheel plugin (this is optional) -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-	
-	<!-- Add fancyBox -->
+	<!-- 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	<!-- Optionally add helpers - button, thumbnail and/or media -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+ 	-->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 	
     <!-- Placed at the end of the document so the pages load faster -->

@@ -202,37 +202,37 @@ Login.showEditModal = function(id){
 
 Login.removeUser = function(id){
 	
-	if(!confirm("Esta seguro de eliminar el registro seleccionado?")){
-		return false;
-	}
-	
-	// TODO: Hacer logica para q no pueda borrarse a si mismo ...
-	
-	$.ajax({ 
-	   type    : "DELETE",
-	   url     : Constants.contextRoot + "/controller/service/user/registration/" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#loginAlertMessages'), $("#loginMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var table = $('#tResult').dataTable();
+	BootstrapDialog.confirm("Esta seguro de eliminar el registro seleccionado?", function(result){
+		if(result) {
+			// TODO: Hacer logica para q no pueda borrarse a si mismo ...
+			
+			$.ajax({ 
+			   type    : "DELETE",
+			   url     : Constants.contextRoot + "/controller/service/user/registration/" + id,
+			   dataType: 'json',
+			   contentType: "application/json;",
+			   success:function(data) {
+				   Message.hideMessages($('#loginAlertMessages'), $("#loginMessages"));
+				   if(data != null && data.status == 0){
+					   
+					   var table = $('#tResult').dataTable();
 
-			   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
+					   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+					   
+					   return;
+				   }else{
+					   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.message);
+				   }
+			   },
+			   error:function(data){
+				   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.responseJSON.message);
+				   
+				   return;
+			   }
+			});
+		}
 	});
-
+	
 	return;
 }
 

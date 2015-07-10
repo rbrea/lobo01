@@ -134,10 +134,17 @@ public class TraderController extends ExceptionHandlingController {
 			@PathVariable Long childId){
 		BasicOutputDto r = new BasicOutputDto();
 
-		TraderDto parent = this.traderService.searchById(parentId);
-		if(parent != null){
-			this.traderService.deleteChild(parentId, childId);
-		}
+		this.traderService.deleteChild(parentId, childId);
+		
+		return r;
+	}
+	
+	@RequestMapping(value = "/children/{parentId}/{childId}", method = RequestMethod.POST)
+	public @ResponseBody ListOutputDto<TraderDto> addChildToParentTrader(@PathVariable Long parentId,
+			@PathVariable Long childId){
+		ListOutputDto<TraderDto> r = new ListOutputDto<TraderDto>();
+		
+		this.traderService.addChild(parentId, childId);
 		
 		return r;
 	}

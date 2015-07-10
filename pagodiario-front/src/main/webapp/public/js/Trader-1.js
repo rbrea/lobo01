@@ -78,7 +78,8 @@ Trader.initDataTable = function(imgCheckUrl){
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:Trader.showModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
+                    return "<a href=\"javascript:Trader.showModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>"
+                    	+ "&nbsp;<a href=\"javascript:Trader.addTrader('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-th-list\"></i></a>"
                         + "&nbsp;<a href=\"javascript:Trader.remove('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
          	}
@@ -209,35 +210,35 @@ Trader.showModal = function(id){
 }
 
 Trader.remove = function(id){
-	if(!confirm("Esta seguro de eliminar el registro seleccionado?")){
-		return false;
-	}
-	
-	// TODO: Hacer logica para q no pueda borrarse a si mismo ...
-	
-	$.ajax({ 
-	   type    : "DELETE",
-	   url     : Constants.contextRoot + "/controller/html/trader/" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var table = $('#tTraderResult').dataTable();
+	BootstrapDialog.confirm("Esta seguro de eliminar el registro seleccionado?", function(result){
+		if(result) {
+			$.ajax({ 
+			   type    : "DELETE",
+			   url     : Constants.contextRoot + "/controller/html/trader/" + id,
+			   dataType: 'json',
+			   contentType: "application/json;",
+			   success:function(data) {
+				   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+				   if(data != null && data.status == 0){
+					   
+					   var table = $('#tTraderResult').dataTable();
 
-			   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
+					   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+					   
+					   return;
+				   }else{
+					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+				   }
+			   },
+			   error:function(data){
+				   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+				   
+				   return;
+			   }
+			});
+		}
+		
+		return;
 	});
 	
 	return;
@@ -270,31 +271,31 @@ Trader.showTraders = function(parentId){
 		autodestroy: false,
         message: function(dialog) {
         	
-        var list = [];
+        	var list = [];
         	
-    	$.ajax({ 
-    		   type    : "GET",
-    		   url     : Constants.contextRoot + "/controller/html/trader/children?parentId=" + parentId,
-    		   dataType: 'json',
-    		   async:false,
-    		   contentType: "application/json;",
-    		   success:function(data) {
-    			   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
-    			   if(data != null && data.status == 0){
-    				   
-    				   list = data.data;
-    				   
-    				   return;
-    			   }else{
-    				   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
-    			   }
-    		   },
-    		   error:function(data){
-    			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
-    			   
-    			   return;
-    		   }
-    		});
+	    	$.ajax({ 
+			   type    : "GET",
+			   url     : Constants.contextRoot + "/controller/html/trader/children?parentId=" + parentId,
+			   dataType: 'json',
+			   async:false,
+			   contentType: "application/json;",
+			   success:function(data) {
+				   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+				   if(data != null && data.status == 0){
+					   
+					   list = data.data;
+					   
+					   return;
+				   }else{
+					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+				   }
+			   },
+			   error:function(data){
+				   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+				   
+				   return;
+			   }
+			});
         	
             var traderChildrenDiv = $('#traderChildrenDiv');
             
@@ -348,13 +349,13 @@ Trader.showTraders = function(parentId){
             	
             });
             
-            traderChildrenDiv.css({"display": "block"})
+            traderChildrenDiv.css({"display": "block"});
             
             return traderChildrenDiv;
         },
         buttons: [
 			{
-			    label: 'Close',
+			    label: 'Cerrar',
 			    action: function(dialogItself){
 			    	var traderChildrenDiv = $('#traderChildrenDiv');
 			    	
@@ -402,6 +403,129 @@ Trader.removeChild = function(parentId, childId){
     		});
         }
     });
+	
+	return;
+}
+
+Trader.addTrader = function(parentId){
+	var c = "";
+	
+	if(parentId != ""){
+		c = "?parentId=" + parentId;
+	}
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/trader" + c,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   var tbody = $("#tTraderChildrenResult tbody");
+		   
+		   tbody.children('tr').remove();
+		   
+		   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+		   if(data != null && data.status == 0){
+
+			   var table = $("#tTraderChildrenResult").dataTable( {
+			   		"data" : data.data,
+			   		"bDestroy" : true,
+			        "columns": [
+						{ 
+							"className": 'centered',
+							"data": "id" 
+						},
+						{ 
+							"className": 'centered',
+							"data": "documentNumber" 
+						},
+			            { 	
+			            	"className": 'centered',
+			            	"data": "name" 
+			            }
+			        ],
+			        "order": [[1, 'asc']],
+			        "language": {
+			            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+			            "zeroRecords": "No se ha encontrado ningun elemento",
+			            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay registros disponibles",
+			            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			            	"previous": "Anterior",
+							"next": "Siguiente"
+						}
+			        } 
+			   	});
+			   
+			   	$('#tTraderChildrenResult tbody').on( 'mouseover', 'tr', function () {
+					$(this).css({"cursor": "pointer"});	
+					
+					return;
+				});
+				
+				$('#tTraderChildrenResult tbody').on( 'click', 'tr', function () {
+			        if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        } else {
+			            table.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			            
+			            var selectedId = $(this).children('td').eq(0).html().trim();
+			            var selectedDescription = $(this).children('td').eq(2).html().trim();
+			            
+			            $.ajax({ 
+			     		   type    : "POST",
+			     		   url     : Constants.contextRoot + "/controller/html/trader/children/" + parentId + "/" + selectedId,
+			     		   success:function(data) {
+			     			   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+			     			   if(data != null && data.status == 0){
+			     				   
+			     				   $("#lov-container").css({"display": "none"});
+
+						           BootstrapDialog.closeAll();
+			     				   
+			     				   return;
+			     			   }else{
+			     				   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+			     			   }
+			     		   },
+			     		   error:function(data){
+			     			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+			     			   
+			     			   return;
+			     		   }
+			     		});
+			            
+			        }
+			        
+					return;
+			    });
+				
+				BootstrapDialog.show({
+					type:BootstrapDialog.TYPE_SUCCESS,
+					title: 'Vendedores',
+					autodestroy: false,
+			        message: function(dialog) {
+			        	
+			        	$("#lov-container").css({"display":"block"});
+			        	
+			        	return $("#lov-container");
+			        }
+			    });
+				
+			} else {
+				Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+			}
+	   },
+	   error:function(data){
+		   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
 	
 	return;
 }

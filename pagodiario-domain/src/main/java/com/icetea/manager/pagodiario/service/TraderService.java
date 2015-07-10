@@ -11,5 +11,7 @@ public interface TraderService extends
 	TraderDto update(TraderDto d);
 
 	boolean deleteChild(Long parentId, Long childId);
+
+	boolean addChild(Long parentId, Long childId);
 	
 }

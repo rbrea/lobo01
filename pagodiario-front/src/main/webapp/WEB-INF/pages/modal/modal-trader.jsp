@@ -1,27 +1,16 @@
-<div id="lov-container" class="container-fluid" style="margin-top:-10%;display:none;">
+<div id="lov-container" class="container-fluid" style="display:none;">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-primary">
-		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Lista de Vendedores</h3>
-		  		</div>
-		  		<div class="panel-body">
-		    		<div class="row">
-						<div class="col-md-12">
-							<div class="table-responsive">
-								<table id="tTraderChildrenResult" class="table table-condensed display">
-									<thead>
-							            <tr>
-							            	<th>C&oacute;digo</th>
-							                <th>DNI</th>
-							                <th>Nombre y apellido</th>
-							            </tr>
-							        </thead>
-								</table>							
-							</div>
-						</div>
-					</div>
-		  		</div>
+			<div class="table-responsive">
+				<table id="tTraderChildrenResult" class="table table-condensed display">
+					<thead>
+			            <tr>
+			            	<th>C&oacute;digo</th>
+			                <th>DNI</th>
+			                <th>Nombre y apellido</th>
+			            </tr>
+			        </thead>
+				</table>							
 			</div>
 		</div>
 	</div>
@@ -62,9 +51,8 @@
 									<label for="traderParentDescription">Supervisor</label>
 									<div class="inner-addon right-addon">
 										<input type="hidden" id="traderParentId" name="traderParentId" value="">
-									    <input type="text" class="form-control lov" id="traderParentDescription" name="traderParentDescription" placeholder="Asignar supervisor..." readonly>
+									    <input type="text" class="form-control lov" id="traderParentDescription" name="traderParentDescription" placeholder="Asignar supervisor...">
 										<i class="glyphicon glyphicon-search"></i>
-										<a id="lovTraderShow" href="javascript:void(0);"></a>
 										<div class="help-block with-errors"></div>
 									</div>
 								</div>
@@ -143,85 +131,119 @@
            		return;
            	});
 			
+			$('#traderParentDescription').keypress(function(e) {
+		         e.preventDefault();
+		         
+		         return;
+			});
+			
 			$("#traderParentDescription").on('click', function(){
-				$("#lovTraderShow").fancybox({
-					'onStart': function() { 
-						$("#lov-container").css("display","block"); 
+				
+				var traderId = $("#traderId").val();
+				
+				var c = "";
+				
+				if(traderId != ""){
+					c = "?parentId=" + traderId;
+				}
+				
+	        	$.ajax({ 
+				   type    : "GET",
+				   url     : Constants.contextRoot + "/controller/html/trader" + c,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
 						
-						return;
-					},            
-			        'onClosed': function() { $("#lov-container").css("display","none"); },
-			        'content' : $("#lov-container").html(),
-					padding     : 5,
-					margin      : 2,
-					maxWidth	: 800,
-					maxHeight	: 600,
-					width		: '70%',
-					height		: '60%',
-					autoSize	: false,
-					closeClick	: false,
-					openEffect	: 'fade',
-					closeEffect	: 'none'
+					   var tbody = $("#tTraderChildrenResult tbody");
+					   
+					   tbody.children('tr').remove();
+					   
+					   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+					   if(data != null && data.status == 0){
+
+						   var table = $("#tTraderChildrenResult").dataTable( {
+						   		"data" : data.data,
+						   		"bDestroy" : true,
+						        "columns": [
+									{ 
+										"className": 'centered',
+										"data": "id" 
+									},
+									{ 
+										"className": 'centered',
+										"data": "documentNumber" 
+									},
+						            { 	
+						            	"className": 'centered',
+						            	"data": "name" 
+						            }
+						        ],
+						        "order": [[1, 'asc']],
+						        "language": {
+						            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						            "zeroRecords": "No se ha encontrado ningun elemento",
+						            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+						            "infoEmpty": "No hay registros disponibles",
+						            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+						            "search": "Buscar: ",
+						            "paginate": {
+						            	"previous": "Anterior",
+										"next": "Siguiente"
+									}
+						        } 
+						   	});
+						   
+						   	$('#tTraderChildrenResult tbody').on( 'mouseover', 'tr', function () {
+								$(this).css({"cursor": "pointer"});	
+								
+								return;
+							});
+							
+							$('#tTraderChildrenResult tbody').on( 'click', 'tr', function () {
+						        if ( $(this).hasClass('selected') ) {
+						            $(this).removeClass('selected');
+						        } else {
+						            table.$('tr.selected').removeClass('selected');
+						            $(this).addClass('selected');
+						            
+						            var selectedId = $(this).children('td').eq(0).html().trim();
+						            var selectedDescription = $(this).children('td').eq(2).html().trim();
+						            $("#traderParentId").val(selectedId);
+						            $("#traderParentDescription").val(selectedDescription);
+						            $("#lov-container").css({"display": "none"});
+
+						            BootstrapDialog.closeAll();
+						        }
+						        
+								return;
+						    });
+							
+							BootstrapDialog.show({
+								type:BootstrapDialog.TYPE_SUCCESS,
+								title: 'Vendedores',
+								autodestroy: false,
+						        message: function(dialog) {
+						        	
+						        	$("#lov-container").css({"display":"block"});
+						        	
+						        	return $("#lov-container");
+						        }
+						    });
+							
+						} else {
+							Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+						}
+				   },
+				   error:function(data){
+					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+					   
+					   return;
+				   }
 				});
-				
-				$("#lovTraderShow").trigger('click');		
-				
-				$('#tTraderChildrenResult tbody').on( 'mouseover', 'tr', function () {
-					$(this).css({"cursor": "pointer"});	
-					
-					return;
-				});
-				
-				$('#tTraderChildrenResult tbody').on( 'click', 'tr', function () {
-			        if ( $(this).hasClass('selected') ) {
-			            $(this).removeClass('selected');
-			        } else {
-			            table.$('tr.selected').removeClass('selected');
-			            $(this).addClass('selected');
-			            
-			            var selectedId = $(this).children('td').eq(0).html().trim();
-			            var selectedDescription = $(this).children('td').eq(2).html().trim();
-			            $("#traderParentId").val(selectedId);
-			            $("#traderParentDescription").val(selectedDescription);
-			            $.fancybox.close();
-			        }
-			    } );
-				
+	        	
 				return;
 			});
 			
-			var table = $("#tTraderChildrenResult").dataTable( {
-		        "ajax": Constants.contextRoot + "/controller/html/trader",
-		        "columns": [
-					{ 
-						"className": 'centered',
-						"data": "id" 
-					},
-					{ 
-						"className": 'centered',
-						"data": "documentNumber" 
-					},
-		            { 	
-		            	"className": 'centered',
-		            	"data": "name" 
-		            }
-		        ],
-		        "order": [[1, 'asc']],
-		        "language": {
-		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
-		            "zeroRecords": "No se ha encontrado ningun elemento",
-		            "info": "P&aacute;gina _PAGE_ de _PAGES_",
-		            "infoEmpty": "No hay registros disponibles",
-		            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
-		            "search": "Buscar: ",
-		            "paginate": {
-		            	"previous": "Anterior",
-						"next": "Siguiente"
-					}
-		        } 
-		    });
-			
-			return;
 		});
-
+			
 </script>
