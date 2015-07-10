@@ -31,6 +31,12 @@ public class TraderServiceImpl
 		e.setName(input.getName());
 		e.setNearStreets(input.getNearStreets());
 		e.setPhone(input.getPhone());
+		e.setSupervisor(input.isSupervisor());
+		
+		if(input.getParentId() != null){
+			Trader parent = this.getDao().findById(input.getParentId());
+			e.setParent(parent);
+		}
 		
 		this.getDao().saveOrUpdate(e);
 		
@@ -50,11 +56,33 @@ public class TraderServiceImpl
 		e.setName(d.getName());
 		e.setNearStreets(d.getNearStreets());
 		e.setPhone(d.getPhone());
+		e.setSupervisor(d.isSupervisor());
+		
+		if(d.getParentId() != null){
+			Trader parent = this.getDao().findById(d.getParentId());
+			e.setParent(parent);
+		}
 		
 		this.getDao().saveOrUpdate(e);
 		
 		return this.getTransformer().transform(e);
 	}
 
-
+	@Override
+	public boolean deleteChild(Long parentId, Long childId){
+	
+		Trader parent = this.getDao().findById(parentId);
+		if(parent != null){
+			parent.removeTrader(childId);
+		}
+		this.getDao().save(parent);
+		Trader child = this.getDao().findById(childId);
+		if(child != null){
+			child.setParent(null);
+		}
+		this.getDao().saveOrUpdate(child);
+		
+		return true;
+	}
+	
 }

@@ -16,12 +16,12 @@
 						  	<div class="panel-body">
 						    	<div class="form-group">
 									<label for="productCode">C&oacute;digo de Producto</label>
-								    <input type="text" class="form-control" id="productCode" name="productCode" placeholder="Ingrese C&oacute;digo de Producto..." data-minlength="40" required>
+								    <input type="text" class="form-control" id="productCode" name="productCode" placeholder="Ingrese C&oacute;digo de Producto..." data-maxlength="40" required>
 								    <div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group">
 									<label for="productDescription">Descripci&oacute;n</label>
-								    <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Ingrese Descripci&oacute;n..." data-minlength="140" required>
+								    <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Ingrese Descripci&oacute;n..." data-maxlength="140" required>
 								    <div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group">

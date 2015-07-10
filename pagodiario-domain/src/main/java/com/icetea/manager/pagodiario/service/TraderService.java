@@ -9,5 +9,7 @@ public interface TraderService extends
 	TraderDto insert(TraderDto input);
 
 	TraderDto update(TraderDto d);
+
+	boolean deleteChild(Long parentId, Long childId);
 	
 }

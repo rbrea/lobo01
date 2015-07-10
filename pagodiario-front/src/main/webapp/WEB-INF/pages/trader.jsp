@@ -2,6 +2,27 @@
 	&nbsp;
 </div>
 <div class="col-md-10">
+	<div id="traderChildrenDiv" class="container-fluid" style="display:none;">
+		<div class="row">
+			<div class="col-md-12">
+				<table id="tTraderChildrenTable" class="table table-condensed display">
+					<thead>
+			            <tr>
+			            	<th>ID</th>
+			                <th>Nombre y apellido</th>
+			                <th>DNI</th>
+			                <th>Acciones</th>
+			            </tr>
+			        </thead>
+					<tbody>
+						
+					</tbody>			 
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
 	<div id="traderMessages" class="row hide">
 	    <div class="col-md-2">
 	        &nbsp;
@@ -49,8 +70,9 @@
 							                <th>DNI</th>
 							                <th>Tel&eacute;fono</th>
 							                <th>Domicilio</th>
-							                <th>Entre Calles</th>
 							                <th>Localidad / Barrio</th>
+							                <th>Es supervisor?</th>
+							                <th>Vendedores</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

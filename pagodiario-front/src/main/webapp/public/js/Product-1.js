@@ -88,11 +88,12 @@ Product.add = function(){
 	   success:function(data) {
 		   Message.hideMessages($('#productAlertMessages'), $("#productMessages"));
 		   if(data != null && data.status == 0){
-			   $('#tProductResult').dataTable().fnClearTable();
+			   var table = $('#tProductResult').dataTable();
+
+			   table.api().ajax.url(Constants.contextRoot + "/controller/html/product").load();
 			   
 			   $("#modalProduct").modal('hide');
-			   
-			   window.location.reload();
+
 			   return;
 		   }else{
 			   Message.showMessages($('#productAlertMessages'), $("#productMessages"), data.message);

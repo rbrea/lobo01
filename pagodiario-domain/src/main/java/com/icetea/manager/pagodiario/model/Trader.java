@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
@@ -20,10 +22,10 @@ public class Trader extends Person {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "IS_SUPERVISOR")
-	private boolean isSupervisor = false;
+	@Column(name = "SUPERVISOR")
+	private boolean supervisor = false;
 	@ManyToOne
-	private Trader supervisor;
+	private Trader parent;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Trader> traders = Lists.newArrayList();
 
@@ -35,23 +37,41 @@ public class Trader extends Person {
 		super(createdBy);
 	}
 	
-	public boolean isSupervisor() {
-		return isSupervisor;
-	}
-	public void setSupervisor(boolean isSupervisor) {
-		this.isSupervisor = isSupervisor;
-	}
-	public Trader getSupervisor() {
-		return supervisor;
-	}
-	public void setSupervisor(Trader supervisor) {
-		this.supervisor = supervisor;
-	}
 	public List<Trader> getTraders() {
 		return traders;
 	}
 	public void setTraders(List<Trader> traders) {
 		this.traders = traders;
+	}
+
+	public boolean isSupervisor() {
+		return supervisor;
+	}
+
+	public void setSupervisor(boolean supervisor) {
+		this.supervisor = supervisor;
+	}
+
+	public Trader getParent() {
+		return parent;
+	}
+
+	public void setParent(Trader parent) {
+		this.parent = parent;
+	}
+
+	public boolean removeTrader(final Long id){
+		Trader trader = CollectionUtils.find(this.getTraders(), new Predicate<Trader>() {
+			@Override
+			public boolean evaluate(Trader t) {
+				return t.getId().equals(id);
+			}
+		});
+		if(trader != null){
+			return this.getTraders().remove(trader);
+		}
+		
+		return false;
 	}
 	
 }

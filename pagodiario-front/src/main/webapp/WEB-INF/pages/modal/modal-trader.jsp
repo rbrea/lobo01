@@ -1,3 +1,32 @@
+<div id="lov-container" class="container-fluid" style="margin-top:-10%;display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+		  		<div class="panel-heading">
+		    		<h3 class="panel-title">Lista de Vendedores</h3>
+		  		</div>
+		  		<div class="panel-body">
+		    		<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table id="tTraderChildrenResult" class="table table-condensed display">
+									<thead>
+							            <tr>
+							            	<th>C&oacute;digo</th>
+							                <th>DNI</th>
+							                <th>Nombre y apellido</th>
+							            </tr>
+							        </thead>
+								</table>							
+							</div>
+						</div>
+					</div>
+		  		</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade" id="modalTrader" tabindex="-1" role="dialog" aria-labelledby="modalTraderLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -30,19 +59,21 @@
 								    <div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group">
-									<label for="companyPhone">Tel&eacute;fono</label>
-								    <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
-								    <div class="help-block with-errors"></div>
+									<label for="traderParentDescription">Supervisor</label>
+									<div class="inner-addon right-addon">
+										<input type="hidden" id="traderParentId" name="traderParentId" value="">
+									    <input type="text" class="form-control lov" id="traderParentDescription" name="traderParentDescription" placeholder="Asignar supervisor..." readonly>
+										<i class="glyphicon glyphicon-search"></i>
+										<a id="lovTraderShow" href="javascript:void(0);"></a>
+										<div class="help-block with-errors"></div>
+									</div>
 								</div>
 								<div class="form-group">
-									<label for="companyAddress">Domicilio</label>
-								    <input type="text" class="form-control" id="companyAddress" name="companyAddress" placeholder="Ingrese domicilio..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="nearStreets">Entre Calles</label>
-								    <input type="text" class="form-control" id="nearStreets" name="nearStreets" placeholder="Ingrese entre calles...">
-								    <div class="help-block with-errors"></div>
+									<div class="checkbox">
+								    	<label>
+								      		<input type="checkbox" name="supervisor" id="supervisor"> Es Supervisor?
+								    	</label>
+								  	</div>
 								</div>
 						  	</div>
 						</div>
@@ -112,8 +143,85 @@
            		return;
            	});
 			
+			$("#traderParentDescription").on('click', function(){
+				$("#lovTraderShow").fancybox({
+					'onStart': function() { 
+						$("#lov-container").css("display","block"); 
+						
+						return;
+					},            
+			        'onClosed': function() { $("#lov-container").css("display","none"); },
+			        'content' : $("#lov-container").html(),
+					padding     : 5,
+					margin      : 2,
+					maxWidth	: 800,
+					maxHeight	: 600,
+					width		: '70%',
+					height		: '60%',
+					autoSize	: false,
+					closeClick	: false,
+					openEffect	: 'fade',
+					closeEffect	: 'none'
+				});
+				
+				$("#lovTraderShow").trigger('click');		
+				
+				$('#tTraderChildrenResult tbody').on( 'mouseover', 'tr', function () {
+					$(this).css({"cursor": "pointer"});	
+					
+					return;
+				});
+				
+				$('#tTraderChildrenResult tbody').on( 'click', 'tr', function () {
+			        if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        } else {
+			            table.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			            
+			            var selectedId = $(this).children('td').eq(0).html().trim();
+			            var selectedDescription = $(this).children('td').eq(2).html().trim();
+			            $("#traderParentId").val(selectedId);
+			            $("#traderParentDescription").val(selectedDescription);
+			            $.fancybox.close();
+			        }
+			    } );
+				
+				return;
+			});
+			
+			var table = $("#tTraderChildrenResult").dataTable( {
+		        "ajax": Constants.contextRoot + "/controller/html/trader",
+		        "columns": [
+					{ 
+						"className": 'centered',
+						"data": "id" 
+					},
+					{ 
+						"className": 'centered',
+						"data": "documentNumber" 
+					},
+		            { 	
+		            	"className": 'centered',
+		            	"data": "name" 
+		            }
+		        ],
+		        "order": [[1, 'asc']],
+		        "language": {
+		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+		            "zeroRecords": "No se ha encontrado ningun elemento",
+		            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+		            "infoEmpty": "No hay registros disponibles",
+		            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+		            "search": "Buscar: ",
+		            "paginate": {
+		            	"previous": "Anterior",
+						"next": "Siguiente"
+					}
+		        } 
+		    });
+			
 			return;
-		}		
-	);
+		});
 
 </script>

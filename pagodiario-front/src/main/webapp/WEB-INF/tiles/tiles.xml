@@ -8,8 +8,8 @@
     <definition name="mainTemplate" template="/WEB-INF/pages/template/mainTemplate.jsp">
         <put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
     </definition>
-    <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp">
-    </definition>
+    <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp" />
+    <definition name="lovTemplate" template="/WEB-INF/pages/template/lovTemplate.jsp" />
     <definition name="mainModalTemplate" template="/WEB-INF/pages/template/mainModalTemplate.jsp">
     	<put-attribute name="head" value="/WEB-INF/pages/template/head.jsp">
     		
@@ -59,4 +59,18 @@
     	</put-list-attribute>
     </definition>
     
+    <definition name="trader" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Vendedores/Supervisores" />
+        <put-attribute name="body" value="/WEB-INF/pages/trader.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
+    	</put-list-attribute>
+    </definition>
+	
+	<!-- lov -->
+	<definition name="lovTrader" extends="lovTemplate">
+    	<put-attribute name="title" value="Lista de Valores de Vendedores" />
+        <put-attribute name="body" value="/WEB-INF/pages/lovTrader.jsp" />
+    </definition>
+        
 </tiles-definitions>

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import com.icetea.manager.pagodiario.api.dto.TraderDto;
 import com.icetea.manager.pagodiario.service.TraderService;
 
 @Controller
+@RequestMapping(value = "/html/trader")
 public class TraderController extends ExceptionHandlingController {
 
 	private static final Logger LOGGER = getLogger(TraderController.class);
@@ -41,13 +44,26 @@ public class TraderController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<TraderDto> getList(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<TraderDto> getList(@RequestParam(required = false) final Long id,
+			@RequestParam(required = false) final Long parentId){
 		ListOutputDto<TraderDto> r = new ListOutputDto<TraderDto>();
 
 		List<TraderDto> list = Lists.newArrayList();
 		
 		if(id == null){
 			list = this.traderService.searchAll();
+			if(parentId != null && list != null && !list.isEmpty()){
+				TraderDto parent = CollectionUtils.find(list, new Predicate<TraderDto>() {
+					@Override
+					public boolean evaluate(TraderDto object) {
+						
+						return object.getId().equals(parentId);
+					}
+				}); 
+				if(parent != null){
+					list.remove(parent);
+				}
+			}
 		} else {
 			list.add(this.traderService.searchById(id));
 		}
@@ -84,4 +100,46 @@ public class TraderController extends ExceptionHandlingController {
 		return r;
 	}
 
+	@RequestMapping(value = "/lov", method = RequestMethod.GET)
+	public String showLov(){
+		
+		return "lovTrader";
+	}
+
+	@RequestMapping(value = "/children", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<TraderDto> getChildren(@RequestParam(required = false) final Long parentId){
+		ListOutputDto<TraderDto> r = new ListOutputDto<TraderDto>();
+
+		List<TraderDto> list = Lists.newArrayList();
+		
+		TraderDto dto = this.traderService.searchById(parentId);
+		if(dto != null){
+			List<Long> ids = dto.getListOfTraderIds();
+			if(ids != null && !ids.isEmpty()){
+				for(Long id : ids){
+					TraderDto child = this.traderService.searchById(id);
+					if(child != null){
+						list.add(child);
+					}
+				}
+			}
+		}
+		r.setData(list);
+		
+		return r;
+	}
+
+	@RequestMapping(value = "/children/{parentId}/{childId}", method = RequestMethod.DELETE)
+	public @ResponseBody BasicOutputDto deleteChild(@PathVariable Long parentId,
+			@PathVariable Long childId){
+		BasicOutputDto r = new BasicOutputDto();
+
+		TraderDto parent = this.traderService.searchById(parentId);
+		if(parent != null){
+			this.traderService.deleteChild(parentId, childId);
+		}
+		
+		return r;
+	}
+	
 }

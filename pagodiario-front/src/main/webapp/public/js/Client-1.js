@@ -120,11 +120,12 @@ Client.add = function(){
 	   success:function(data) {
 		   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
 		   if(data != null && data.status == 0){
-			   $('#tClientResult').dataTable().fnClearTable();
+			   var table = $('#tClientResult').dataTable();
+			   
+			   table.api().ajax.url(Constants.contextRoot + "/controller/html/client").load();
 			   
 			   $("#modalClient").modal('hide');
 			   
-			   window.location.reload();
 			   return;
 		   }else{
 			   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);

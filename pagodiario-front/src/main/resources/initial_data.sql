@@ -16,3 +16,22 @@ insert into PRODUCT (ID, created_date, CODE, DESCRIPTION, PRICE) values (9, curd
 insert into PRODUCT (ID, created_date, CODE, DESCRIPTION, PRICE) values (10, curdate(), 'P0010', 'Producto 10', '170.20');
 insert into PRODUCT (ID, created_date, CODE, DESCRIPTION, PRICE) values (11, curdate(), 'P0011', 'Producto 11', '199.99');
 insert into PRODUCT (ID, created_date, CODE, DESCRIPTION, PRICE) values (12, curdate(), 'P0012', 'Producto 12', '112.33');
+
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (1, curdate(), 'Rodrigo Martinez', 'DNI', 29788987, true, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (2, curdate(), 'Martin Rodriguez', 'DNI', 29788999, false, 1);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (3, curdate(), 'Eliana Fernandez', 'DNI', 29778987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (4, curdate(), 'Fernanda Delgado', 'DNI', 29748987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (5, curdate(), 'Ramiro Gonzalez', 'DNI', 29788117, false, 1);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (6, curdate(), 'Gonzalo Ramirez', 'DNI', 29711987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (7, curdate(), 'Tobias Hernandez', 'DNI', 29711111, false, 1);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (8, curdate(), 'Maria Ines Brea', 'DNI', 23238987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (9, curdate(), 'Jose Maria Hernandez', 'DNI', 21788987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (10, curdate(), 'Facundo Brea', 'DNI', 19788987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (11, curdate(), 'Mirta Alicia Gomez', 'DNI', 12788987, false, null);
+insert into TRADER(ID, CREATED_DATE, NAME, DOCUMENT_TYPE, DOCUMENT_NUMBER, SUPERVISOR, parent_ID) values (12, curdate(), 'Angel Franz', 'DNI', 11788007, false, null);
+
+insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 2);
+insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 2);
+insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 5);
+insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 7);
+

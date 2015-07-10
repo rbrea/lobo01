@@ -21,7 +21,8 @@ public class TraderDtoModelTransformer extends AbstractDtoModelTransformer<Trade
 		d.setNearStreets(e.getNearStreets());
 		d.setPhone(e.getPhone());
 		d.setSupervisor(e.isSupervisor());
-		d.setTraderId((e.getSupervisor() != null) ? e.getSupervisor().getId() : null);
+		d.setParentId((e.getParent() != null) ? e.getParent().getId() : null);
+		d.setParentDescription((e.getParent() != null) ? e.getParent().getName() : null);
 		if(e.getTraders() != null && !e.getTraders().isEmpty()){
 			for(Trader t : e.getTraders()){
 				d.getListOfTraderIds().add(t.getId());
