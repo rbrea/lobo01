@@ -58,19 +58,21 @@
 	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
     	</put-list-attribute>
     </definition>
-    
-    <definition name="trader" extends="mainModalTemplate">
-    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Vendedores/Supervisores" />
-        <put-attribute name="body" value="/WEB-INF/pages/trader.jsp" />
-        <put-list-attribute name="modals">
-	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
-    	</put-list-attribute>
-    </definition>
 	
 	<!-- lov -->
 	<definition name="lovTrader" extends="lovTemplate">
     	<put-attribute name="title" value="Lista de Valores de Vendedores" />
         <put-attribute name="body" value="/WEB-INF/pages/lovTrader.jsp" />
+    </definition>
+    
+    <definition name="bill" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Cargar Factura" />
+        <put-attribute name="body" value="/WEB-INF/pages/bill.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-client.jsp" />
+    	</put-list-attribute>
     </definition>
         
 </tiles-definitions>

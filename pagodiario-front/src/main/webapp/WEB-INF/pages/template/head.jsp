@@ -16,6 +16,7 @@
 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/public/bootstrap-dialog/css/bootstrap-dialog.min.css" type="text/css" media="screen" />
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/bootstrap-datetimepicker.min.css" type="text/css" media="screen" />
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->

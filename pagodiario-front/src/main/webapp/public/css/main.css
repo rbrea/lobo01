@@ -204,3 +204,8 @@ body {
 .badge.badge-danger {
 	background-color: #d2322d !important;
 }
+
+.badge.badge-blank {
+	background-color: #FFF !important;
+	color: #47a447 !important;
+}

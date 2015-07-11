@@ -14,6 +14,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
  	-->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/moment.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/locales.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/bootstrap-datetimepicker.min.js"></script>
 	
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
@@ -26,3 +29,4 @@
     <script src="${pageContext.request.contextPath}/public/js/Client-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Product-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Factura-1.js"></script>

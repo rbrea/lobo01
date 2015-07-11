@@ -25,11 +25,11 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row tools-bar">
-		  				<div class="col-md-11">
+		  				<div class="col-md-10">
 		  					&nbsp;
 		  				</div>
-		  				<div class="col-md-1">
-		  					<button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i>&nbsp;Nuevo</button>
+		  				<div class="col-md-2">
+		  					<button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-success btn-lg"><span class="badge badge-blank"><i class="glyphicon glyphicon-plus"></i></span>&nbsp;Nuevo</button>
 		  				</div>
 		  				
 		  			</div>

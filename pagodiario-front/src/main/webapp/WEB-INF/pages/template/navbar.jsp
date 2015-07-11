@@ -23,7 +23,18 @@
 	              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Acciones <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 	                <li role="presentation">
-	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1"><span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Cargar Factura</a>
+	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
+	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Cargar Factura
+	                	</a>
+	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="#">
+	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Generar cup&oacute;n de Cobro (ticket)
+	                	</a>
+	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="#">
+	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Ingresar Cobro diario
+	                	</a>
 	                </li>
 	              </ul>
 	            </li>
