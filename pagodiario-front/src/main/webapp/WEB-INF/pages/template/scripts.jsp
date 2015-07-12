@@ -29,4 +29,4 @@
     <script src="${pageContext.request.contextPath}/public/js/Client-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Product-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Factura-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Bill-1.js"></script>

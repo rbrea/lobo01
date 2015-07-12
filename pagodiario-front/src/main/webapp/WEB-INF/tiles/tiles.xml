@@ -71,7 +71,7 @@
         <put-list-attribute name="modals">
 	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
 	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
-	    	<add-attribute value="/WEB-INF/pages/modal/modal-client.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/lov/lov-client.jsp" />
     	</put-list-attribute>
     </definition>
         
