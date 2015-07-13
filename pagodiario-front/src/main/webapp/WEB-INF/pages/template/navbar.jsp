@@ -25,15 +25,15 @@
 	                <li role="presentation">
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
-	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Cargar Factura
+	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura
 	                	</a>
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="#">
-	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Generar cup&oacute;n de Cobro (ticket)
+	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
 	                	</a>
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="#">
-	                		<span class="badge badge-primary"><i class="glyphicon glyphicon-list-alt"></i></span>&nbsp;Ingresar Cobro diario
+	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Ingresar Cobro diario
 	                	</a>
 	                </li>
 	              </ul>
@@ -42,17 +42,17 @@
 	              <a id="dropAbm" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">ABM <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
 	              	<li role="presentation">
-	                	<a id="optClients" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/index"><span class="badge badge-primary"><i class="glyphicon glyphicon-briefcase"></i></span>&nbsp;Clientes</a>
+	                	<a id="optClients" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/index"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Clientes</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optProducts" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/product/index"><span class="badge badge-primary"><i class="glyphicon glyphicon-folder-close"></i></span>&nbsp;Productos</a>
+	                	<a id="optProducts" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/product/index"><i class="glyphicon glyphicon-folder-close"></i>&nbsp;Productos</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optTraders" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/trader/index"><span class="badge badge-primary"><i class="glyphicon glyphicon-globe"></i></span>&nbsp;Vendedores/Supervidores</a>
+	                	<a id="optTraders" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/trader/index"><i class="glyphicon glyphicon-globe"></i>&nbsp;Vendedores/Supervidores</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">
-	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><span class="badge badge-primary"><i class="glyphicon glyphicon-user"></i></span>&nbsp;Usuarios</a>
+	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="glyphicon glyphicon-user"></i>&nbsp;Usuarios</a>
 	                </li>
 	                <!--  
 	                <li role="presentation" class="divider"></li>
