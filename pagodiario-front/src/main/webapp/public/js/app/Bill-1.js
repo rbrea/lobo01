@@ -55,6 +55,8 @@ Bill.init = function(){
 	Bill.initModalClient();
 	Bill.initModalTrader();
 	
+	Bill.initCantInput();
+	
 	$("#btnBillAddProduct").on("click", function(){
 		
 		var i = $("div[id*='product_']").length;
@@ -213,11 +215,11 @@ Bill.init = function(){
 				    });
 					
 				} else {
-					Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+					Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
 				}
 		   },
 		   error:function(data){
-			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
 			   
 			   return;
 		   }
@@ -504,3 +506,161 @@ Bill.addClient = function(){
 }
 
 
+Bill.showLovProduct = function(elementId){
+	
+	var idValue = elementId.substring(elementId.indexOf("_") + 1);
+	
+	$("#elementSelectedId").val(idValue);
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/product",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   var tbody = $("#tLovProductResult tbody");
+		   
+		   tbody.children('tr').remove();
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   if(data != null && data.status == 0){
+
+			   var table = $("#tLovProductResult").dataTable( {
+			   		"data" : data.data,
+			   		"bDestroy" : true,
+			        "columns": [
+						{ 
+							"className": 'centered',
+							"data": "id" 
+						},
+						{ 
+							"className": 'centered',
+							"data": "code" 
+						},
+			            { 	
+			            	"className": 'centered',
+			            	"data": "description" 
+			            },
+			            { 	
+			            	"className": 'centered',
+			            	"data": "price" 
+			            }
+			        ],
+			        "order": [[0, 'asc']],
+			        "language": {
+			            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+			            "zeroRecords": "No se ha encontrado ningun elemento",
+			            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay registros disponibles",
+			            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			            	"previous": "Anterior",
+							"next": "Siguiente"
+						}
+			        } 
+			   	});
+			   
+			   	$('#tLovProductResult tbody').on('mouseover', 'tr', function () {
+					$(this).css({"cursor": "pointer"});	
+					
+					return;
+				});
+				
+				$('#tLovProductResult tbody').on( 'click', 'tr', function () {
+			        if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        } else {
+			            table.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			            
+			            var selectedId = $(this).children('td').eq(0).html().trim();
+			            var selectedCode = $(this).children('td').eq(1).html().trim();
+			            var selectedDescription = $(this).children('td').eq(2).html().trim();
+			            var price = $(this).children('td').eq(3).html().trim();
+			            
+			            var idValue = $("#elementSelectedId").val();
+			            
+			            var realPrice = 0;
+			            if(price != ""){
+			            	realPrice = parseFloat(Math.floor(price * 100) / 100);
+			            }
+			            
+			            $("#billProductId_" + idValue).val(selectedId);
+			            $("#bname_" + idValue).val(selectedCode + " - " + selectedDescription + " - $" + realPrice);
+			            var cant = $("#bcant_" + idValue).val();
+			            if(cant == null || cant == ""){
+			            	cant = 0;
+			            }
+			            $("#bimp_" + idValue).val(realPrice * cant);
+			            $("#billProductPrice_" + idValue).val(realPrice);
+			            $("#lov-client-container").css({"display": "none"});
+
+			            BootstrapDialog.closeAll();
+			        }
+			        
+					return;
+			    });
+				
+				BootstrapDialog.show({
+					type:BootstrapDialog.TYPE_SUCCESS,
+					title: 'Productos',
+					autodestroy: false,
+			        message: function(dialog) {
+			        	
+			        	$("#lov-product-container").css({"display":"block"});
+			        	
+			        	return $("#lov-product-container");
+			        }
+			    });
+				
+			} else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+			}
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
+
+
+Bill.initCantInput = function(){
+	
+	$("input[id*='bcant_']").on('blur', function(){
+		
+		Bill.calculateImp($(this));
+		Bill.calculateImporteTotal();
+		
+		return;
+	});
+	
+	return;
+}
+
+
+Bill.calculateImp = function(element){
+	var id = element.attr("id");
+	
+	var idValue = id.substring(id.indexOf("_") + 1);
+	
+	var price = parseFloat($("#billProductPrice_" + idValue).val());
+	
+	var cant = element.val();
+	if(cant != ""){
+		cant = parseInt(cant);
+	} else {
+		cant = 0;
+	}
+	
+	var imp = price * cant;
+	
+	$("#bimp_" + idValue).val(imp.toFixed(2));
+	
+	return;
+}

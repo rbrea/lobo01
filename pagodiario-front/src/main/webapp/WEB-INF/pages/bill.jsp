@@ -219,7 +219,7 @@
 		  				<div class="col-md-2">
 							<div class="form-group">
 		  						<label for="bnroticket">N&uacute;mero de ticket</label>
-				                <input type="text" class="form-control input-sm not-writable" id="bnroticket" name="bnroticket" placeholder="Nro.Ticket">
+				                <input type="text" class="form-control input-sm not-writable" id="bnroticket" name="bnroticket" placeholder="Nro.Ticket" readonly>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
@@ -233,7 +233,7 @@
 		  				<div class="col-md-2">
 							<div class="form-group">
 		  						<label for="batraso">D&iacute;as de Atraso</label>
-				                <input type="number" class="form-control input-sm" id="batraso" name="batraso" placeholder="D&iacute;as de Atraso">
+				                <input type="number" class="form-control input-sm not-writable" id="batraso" name="batraso" placeholder="D&iacute;as de Atraso" readonly>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
@@ -445,11 +445,13 @@
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
+		  				<input type="hidden" id="billProductId_X" name="billProductId_X">
+		  				<input type="hidden" id="billProductPrice_X" name="billProductPrice_X">
 		  				<div class="col-md-6">
 		  					<div class="form-group centered">
 		  						<div class="input-group">
 					                <input type="text" class="form-control input-sm not-writable" id="bname_X" name="bname_X" placeholder="Art&iacute;culo">
-									<span id="btnSearchProduct_X" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>		  						
+									<span id="btnSearchProduct_X" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_X');"><i class="glyphicon glyphicon-search"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
 				            </div>
@@ -480,12 +482,14 @@
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
+		  				<input type="hidden" id="billProductId_0" name="billProductId_0">
+		  				<input type="hidden" id="billProductPrice_0" name="billProductPrice_0">
 		  				<div class="col-md-6">
 		  					<div class="form-group centered">
 		  						<label for="bname_0">Articulo/s</label>
 		  						<div class="input-group">
 					                <input type="text" class="form-control input-sm not-writable" id="bname_0" name="bname_0" placeholder="Art&iacute;culo">
-									<span id="btnSearchProduct_0" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>		  						
+									<span id="btnSearchProduct_0" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_0');"><i class="glyphicon glyphicon-search"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
 				            </div>
@@ -517,11 +521,13 @@
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
+		  				<input type="hidden" id="billProductId_1" name="billProductId_1">
+		  				<input type="hidden" id="billProductPrice_1" name="billProductPrice_1">
 		  				<div class="col-md-6">
 		  					<div class="form-group centered">
 			  					<div class="input-group">
 					                <input type="text" class="form-control input-sm not-writable" id="bname_1" name="bname_1"  placeholder="Art&iacute;culo">
-									<span id="btnSearchProduct_1" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>		  					
+									<span id="btnSearchProduct_1" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_1');"><i class="glyphicon glyphicon-search"></i></span>		  					
 			  					</div>
 								<div class="help-block with-errors"></div>
 				            </div>
