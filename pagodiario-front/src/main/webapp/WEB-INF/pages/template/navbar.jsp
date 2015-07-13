@@ -28,6 +28,10 @@
 	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura
 	                	</a>
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
+	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Historial Factura
+	                	</a>
+	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="#">
 	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
 	                	</a>
@@ -67,28 +71,34 @@
 			</form>
 			<div class="nav navbar-nav navbar-right" style="width:15%;">&nbsp;</div>
 			<div class="nav navbar-nav navbar-right" style="width:10%;">&nbsp;</div>
+			<!--  
 			<div id="loading" class="nav navbar-nav navbar-right" style="color: WHITE;height:40px;margin-top:0.5%;position:relative;">
 				<i class="fa fa-spinner fa-5 fa-spin"></i> &nbsp;Espere por favor ...
 			</div>
+			-->
 		</div>
 	</div>
 </nav>
+
+<div id="loading-message-div">
+	<img src="${pageContext.request.contextPath}/public/images/spiffygif_32x32.gif">&nbsp;&nbsp;Espere por favor ...
+</div>
 
 <script>
 		
     	$(document).ready(
     		function(){
     			
-    			$("#loading").css({"display": "none"});
+    			$("#loading-message-div").css({"display": "none"});
     			
     	        $(document).ajaxStart(function () {
-    	        	$("#loading").css({"display": "block"});
+    	        	$("#loading-message-div").css({"display": "block"});
     	        	
     	        	return;
     	        });
 
     	        $(document).ajaxStop(function () {
-    	        	$("#loading").css({"display": "none"});
+    	        	$("#loading-message-div").css({"display": "none"});
     	        	
     	        	return;
     	        });

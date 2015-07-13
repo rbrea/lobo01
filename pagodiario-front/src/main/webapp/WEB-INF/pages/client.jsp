@@ -29,7 +29,7 @@
 		  					&nbsp;
 		  				</div>
 		  				<div class="col-md-2">
-		  					<button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-success btn-lg"><span class="badge badge-blank"><i class="glyphicon glyphicon-plus"></i></span>&nbsp;Nuevo</button>
+		  					<button id="btnNew" type="button" data-loading-text="Espere..." class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>&nbsp;Nuevo</button>
 		  				</div>
 		  				
 		  			</div>

@@ -209,3 +209,21 @@ body {
 	background-color: #FFF !important;
 	color: #47a447 !important;
 }
+
+#loading-message-div {
+	position: fixed;
+	bottom: 1%;
+	right: 1%;
+	background: rgba(25, 25, 25, .5);
+	/*background-color: RED;*/
+	border: 1px double #000;
+	text-align: center;
+	height: 60px;
+	width: 190px;
+	color: #fff;
+	z-index: 1000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 14px 0px;
+}
