@@ -49,13 +49,22 @@ Bill.init = function(){
 	});
 	
 	$('#billDate').datetimepicker({
-        locale: 'es'
+        locale: 'es',
+        showTodayButton: true
     });
 	
 	Bill.initModalClient();
 	Bill.initModalTrader();
 	
 	Bill.initCantInput();
+	
+	$("#btnCancel").on('click', function(){
+		Bill.resetPage();
+		
+		return;
+	});
+	
+	Bill.resetPage();
 	
 	$("#btnBillAddProduct").on("click", function(){
 		
@@ -661,6 +670,45 @@ Bill.calculateImp = function(element){
 	var imp = price * cant;
 	
 	$("#bimp_" + idValue).val(imp.toFixed(2));
+	
+	return;
+}
+
+Bill.resetPage = function(){
+	$("#billDate").val("");
+	$("#billNumber").val("");
+	$("#bnroticket").val("");
+	$("#bcobrador").val("");
+	$("#batraso").val("");
+	$("#billClientIdSelected").val("");
+	$("#bname").val("");
+	$("#baddress").val("");
+	$("#btraderid").val("");
+	$("#btradername").val("");
+	$("#bdni").val("");
+	$("#bcant_0").val("");
+	$("#bname_0").val("");
+	$("#bcuotadiaria_0").val("");
+	$("#bimp_0").val("");
+	$("#bcant_1").val("");
+	$("#bname_1").val("");
+	$("#bcuotadiaria_1").val("");
+	$("#bimp_1").val("");
+	$("#bcuotaTotal").val("");
+	$("#bimpTotal").val("");
+	
+	var list = $("div[id*='product_']");
+	
+	if(list.length > 2){
+		for(var i = list.length-1;i>1;i--){
+			$("#product_" + i).remove();
+		}
+	}
+	
+	Bill.doPanelDisabled("#pnlClient");
+	Bill.doPanelDisabled("#pnlTrader");
+	Bill.doPanelDisabled("#pnlProduct");
+	Bill.doPanelDisabled("#pnlFinalize");
 	
 	return;
 }

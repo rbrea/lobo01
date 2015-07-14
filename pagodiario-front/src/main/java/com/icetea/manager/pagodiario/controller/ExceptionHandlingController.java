@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto.BasicOutputType;
+import com.icetea.manager.pagodiario.api.dto.exception.FormErrorsOutputDto;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.exception.IncorrectUserLoginException;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 public abstract class ExceptionHandlingController {
 
@@ -91,4 +94,25 @@ public abstract class ExceptionHandlingController {
 		return dto;
 	}
 	
+	@ResponseStatus(value = HttpStatus.ACCEPTED)
+	@ExceptionHandler(ErrorTypedException.class)
+	public @ResponseBody FormErrorsOutputDto errorTypedException(
+			HttpServletRequest req, Exception exception) {
+		ErrorTypedException e = (ErrorTypedException)exception;
+		this.getOwnLogger().error(
+				"Url: " + req.getRequestURL() + ", errorType: " + e.getErrorType() + ", raised: " + e.getMessage());
+		// FIXME: [roher] porque no puedo usar el enum?!?!? es null,, q raro!
+		FormErrorsOutputDto dto = new FormErrorsOutputDto(BasicOutputType.TYPED_ERROR.getId());
+		String message = e.getMessage();
+		if(StringUtils.isEmpty(message)){
+			message = e.getErrorType().getText();
+		}
+		dto.setMessage(message);
+		dto.setCause(e.getErrorType().getText());
+		dto.setErrorType(e.getErrorType());
+		dto.setFormErrorList(e.getFormErrors());
+		
+		return dto;
+	}
+
 }

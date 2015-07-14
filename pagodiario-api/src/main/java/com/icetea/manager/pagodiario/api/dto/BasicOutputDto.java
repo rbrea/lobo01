@@ -1,7 +1,6 @@
 package com.icetea.manager.pagodiario.api.dto;
 
-import javax.lang.model.type.ErrorType;
-
+import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 
 public class BasicOutputDto extends BasicDto {
 
