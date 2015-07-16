@@ -210,5 +210,12 @@ public class Bill extends Identifiable {
 	public void setRemainingAmount(BigDecimal remainingAmount) {
 		this.remainingAmount = remainingAmount;
 	}
+
+	public void addPayment(Payment payment){
+		if(this.payments == null){
+			this.payments = Lists.newArrayList();
+		}
+		this.payments.add(payment);
+	}
 	
 }

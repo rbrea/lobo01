@@ -18,5 +18,19 @@ public class PaymentServiceImpl
 			PaymentDtoModelTransformer transformer) {
 		super(dao, transformer);
 	}
+	
+	@Override
+	public PaymentDto insert(PaymentDto input) {
+		PaymentDto d = new PaymentDto();
+		
+		return d;
+	}
+	
+	@Override
+	public PaymentDto update(PaymentDto input) {
+		PaymentDto d = new PaymentDto();
+		
+		return d;
+	}
 
 }

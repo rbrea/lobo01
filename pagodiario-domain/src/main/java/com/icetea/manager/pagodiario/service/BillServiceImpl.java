@@ -18,6 +18,7 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.BillDtoModelTransformer;
@@ -95,6 +96,14 @@ public class BillServiceImpl
 		e.setEndDate(e.calculateEndDate());
 		e.setCollectorId(d.getCollectorId());
 		e.setCreditNumber(Long.valueOf(d.getCreditNumber()));
+		
+		Payment payment = new Payment();
+		payment.setAmount(calculatedTotalDailyInstallment);
+		payment.setBill(e);
+		payment.setCollectorId(d.getCollectorId());
+		payment.setDate(DateUtils.parseDate(d.getStartDate()));
+		
+		e.addPayment(payment);
 		
 		this.getDao().saveOrUpdate(e);
 		

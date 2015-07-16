@@ -5,4 +5,8 @@ import com.icetea.manager.pagodiario.model.Payment;
 
 public interface PaymentService extends BasicIdentifiableService<Payment, PaymentDto>{
 
+	PaymentDto update(PaymentDto input);
+
+	PaymentDto insert(PaymentDto input);
+
 }
