@@ -50,7 +50,8 @@ Bill.init = function(){
 	
 	$('#billDate').datetimepicker({
         locale: 'es',
-        showTodayButton: true
+        showTodayButton: true,
+        format: 'DD/MM/YYYY HH:mm:ss'
     });
 	
 	Bill.initModalClient();
@@ -365,6 +366,114 @@ Bill.init = function(){
 		Bill.doPanelEnabled("#pnlFinalize");
 		$("#btnFinalize").focus();
 		
+		return;
+	});
+	
+	$("#btnFinalize").on('click', function(){
+		
+		// TODO
+		var startDate = $("#billDateValue").val();
+		var billNumber = $("#billNumber").val();
+		var collectorId = $("#bcobrador").val();
+		var clientId = $("#billClientIdSelected").val();
+		var traderId = $("#btraderid").val();
+		
+		var obj = new Object();
+
+		obj.startDate = startDate;
+		obj.creditNumber = billNumber;
+		obj.collectorId = collectorId;
+		
+		obj.clientId = clientId;
+		
+		obj.traderId = traderId;
+
+		obj.billProducts = [];
+
+		var billProductList = $("div[id*='product_']");
+		
+		var i = 0;
+		
+		$.each(billProductList, function(){
+			
+			var productCant = $(this).find("#bcant_" + i).val();
+			var productId = $(this).find("#billProductId_" + i).val();
+			var productPrice = $(this).find("#billProductPrice_" + i).val();
+			var dailyInstallment = $(this).find("#bcuotadiaria_" + i).val();
+			var amount = $(this).find("#bimp_" + i).val();
+			
+			if(productCant != null && productCant != ""){
+				if(productId != null && productId != ""){
+					if(productPrice != null && productPrice != ""){
+						if(dailyInstallment != null && dailyInstallment != ""){
+							if(amount != null && amount != ""){
+								var billProduct = new Object();
+
+								billProduct.count = productCant;
+								billProduct.productId = productId;
+								billProduct.price = productPrice;
+								billProduct.dailyInstallment = dailyInstallment;
+								billProduct.amount = amount;
+								
+								obj.billProducts.push(billProduct);
+							}
+						}
+					}
+				}	
+			}
+			
+			i++;
+			
+			return;
+		});
+		/*
+		var billProductListLength = billProductList.length;
+		
+		for(var i=0;i<billProductListLength;i++){
+			var productCant = $("#bcant_" + i).val();
+			var productId = $("#billProductId_" + i).val();
+			var productPrice = $("#billProductPrice_" + i).val();
+			var dailyInstallment = $("#bcuotadiaria_" + i).val();
+			var amount = $("#bimp_" + i).val();
+			
+			var billProduct = new Object();
+			billProduct.count = productCant;
+			billProduct.productId = productId;
+			billProduct.price = productPrice;
+			billProduct.dailyInstallment = dailyInstallment;
+			billProduct.amount = amount;
+			
+			obj.billProducts.push(billProduct);
+		}
+		*/
+		obj.totalAmount = $("#bimpTotal").val();
+		obj.totalDailyInstallment = $("#bcuotaTotal").val();
+		obj.overdueDays = 0;
+		
+		$.ajax({ 
+		   type    : "POST",
+		   url     : Constants.contextRoot + "/controller/html/bill",
+		   dataType: 'json',
+		   data: JSON.stringify(obj),
+		   contentType: "application/json;",
+		   success:function(data) {
+			   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+			   if(data != null && data.status == 0){
+
+				   Bill.resetPage();
+				   
+				   return;
+			   }else{
+				   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+			   }
+		   },
+		   error:function(data){
+			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+			   
+			   return;
+		   }
+		});
+	
 		return;
 	});
 	

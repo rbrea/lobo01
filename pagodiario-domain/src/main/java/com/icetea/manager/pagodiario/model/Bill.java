@@ -1,6 +1,8 @@
 package com.icetea.manager.pagodiario.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
+import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
 @Table(name = "BILL")
@@ -35,9 +38,9 @@ public class Bill extends Identifiable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<BillProduct> billProducts = Lists.newArrayList();
 	@Column(name = "TOTAL_DAILY_INSTALLMENT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-	private BigDecimal totalDailyInstallment;
+	private BigDecimal totalDailyInstallment = BigDecimal.ZERO;
 	@Column(name = "TOTAL_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-	private BigDecimal totalAmount;
+	private BigDecimal totalAmount = BigDecimal.ZERO;
 	@Column(name = "OVERDUE_DAYS", nullable = false)
 	private Integer overdueDays = 0; // DATO CALCULADO
 	@Column(name = "START_DATE", columnDefinition = "DATETIME")
@@ -49,6 +52,12 @@ public class Bill extends Identifiable {
 	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Payment> payments = Lists.newArrayList();
+	@Column(name = "COLLECTOR_ID", nullable = false)
+	private Integer collectorId;
+	@Column(name = "CREDIT_NUMBER", nullable = false)
+	private Long creditNumber;
+	@Column(name = "REMAINING_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
+	private BigDecimal remainingAmount = BigDecimal.ZERO; // DATO CALCULADO
 
 	public Bill() {
 		super();
@@ -136,6 +145,70 @@ public class Bill extends Identifiable {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
+	}
+	
+	public BigDecimal calculateTotalAmount(){
+		
+		BigDecimal sum = BigDecimal.ZERO;
+		
+		if(this.billProducts == null){
+			return BigDecimal.ZERO;
+		}
+		for(BillProduct b : this.billProducts){
+			sum = NumberUtils.add(sum, b.getAmount());
+		}
+		
+		return sum;
+	}
+
+	public BigDecimal calculateTotalDailyInstallment(){
+		
+		BigDecimal sum = BigDecimal.ZERO;
+		
+		if(this.billProducts == null){
+			return BigDecimal.ZERO;
+		}
+		for(BillProduct b : this.billProducts){
+			sum = NumberUtils.add(sum, b.getDailyInstallment());
+		}
+		
+		return sum;
+	}
+	
+	public Date calculateEndDate(){
+		
+		BigDecimal result = this.totalAmount.divide(this.totalDailyInstallment, RoundingMode.UP);
+		int days = result.intValue();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(this.startDate);
+		c.add(Calendar.DATE, days);
+		
+		return c.getTime();
+	}
+
+	public Integer getCollectorId() {
+		return collectorId;
+	}
+
+	public void setCollectorId(Integer collectorId) {
+		this.collectorId = collectorId;
+	}
+
+	public Long getCreditNumber() {
+		return creditNumber;
+	}
+
+	public void setCreditNumber(Long creditNumber) {
+		this.creditNumber = creditNumber;
+	}
+
+	public BigDecimal getRemainingAmount() {
+		return remainingAmount;
+	}
+
+	public void setRemainingAmount(BigDecimal remainingAmount) {
+		this.remainingAmount = remainingAmount;
 	}
 	
 }

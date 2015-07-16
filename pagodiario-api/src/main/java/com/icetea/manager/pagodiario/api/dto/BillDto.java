@@ -17,6 +17,9 @@ public class BillDto extends BasicIdentifiableDto {
 	private String startDate;
 	private String endDate;
 	private String status;
+	private String creditNumber;
+	private Integer collectorId;
+	private String remainingAmount;
 
 	public Long getTraderId() {
 		return traderId;
@@ -71,6 +74,24 @@ public class BillDto extends BasicIdentifiableDto {
 	}
 	public void setOverdueDays(int overdueDays) {
 		this.overdueDays = overdueDays;
+	}
+	public String getCreditNumber() {
+		return creditNumber;
+	}
+	public void setCreditNumber(String creditNumber) {
+		this.creditNumber = creditNumber;
+	}
+	public Integer getCollectorId() {
+		return collectorId;
+	}
+	public void setCollectorId(Integer collectorId) {
+		this.collectorId = collectorId;
+	}
+	public String getRemainingAmount() {
+		return remainingAmount;
+	}
+	public void setRemainingAmount(String remainingAmount) {
+		this.remainingAmount = remainingAmount;
 	}
 	
 }

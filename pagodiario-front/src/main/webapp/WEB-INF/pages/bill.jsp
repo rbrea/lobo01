@@ -200,9 +200,9 @@
 		  			<div class="row">
 		  				<div class="col-md-3">
 		  					<div class="form-group">
-		  						<label for="billDate">Fecha de Factura</label>
+		  						<label for="billDateValue">Fecha de Factura</label>
 				                <div class='input-group date' id='billDate'>
-				                    <input type='text' class="form-control input-sm not-writable" id="billDate" name="billDate" placeholder="Ingrese fecha..."/>
+				                    <input type='text' class="form-control input-sm not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..."/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -441,7 +441,7 @@
 	  				<div id="baseProductRow" class="row hide">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm" id="bcant_X" name="bcant_X" placeholder="Cant">
+				                <input type="number" class="form-control input-sm" id="bcant_X" name="bcant_X" placeholder="Cant" min="0">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -478,7 +478,7 @@
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bcant_0">Cantidad</label>
-				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant">
+				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant" min="0">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -517,7 +517,7 @@
 		  			<div id="product_1" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm" id="bcant_1" name="bcant_1" placeholder="Cant">
+				                <input type="number" class="form-control input-sm" id="bcant_1" name="bcant_1" placeholder="Cant" min="0">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>

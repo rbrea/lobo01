@@ -28,7 +28,7 @@
 	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura
 	                	</a>
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
+	                			href="${pageContext.request.contextPath}/controller/html/bill/history/index">
 	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Historial Factura
 	                	</a>
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 

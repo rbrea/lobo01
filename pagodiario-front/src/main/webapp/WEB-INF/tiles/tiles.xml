@@ -75,5 +75,12 @@
 	    	<add-attribute value="/WEB-INF/pages/lov/lov-product.jsp" />
     	</put-list-attribute>
     </definition>
+    
+    <definition name="bill-history" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Historial de Factura" />
+        <put-attribute name="body" value="/WEB-INF/pages/bill-history.jsp" />
+        <put-list-attribute name="modals">
+        </put-list-attribute>
+    </definition>
         
 </tiles-definitions>

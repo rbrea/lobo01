@@ -34,9 +34,15 @@ public class BillController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String showClientForm(){
+	public String showBillForm(){
 		
 		return "bill";
+	}
+	
+	@RequestMapping(value = "/history/index", method = RequestMethod.GET)
+	public String showHistory(){
+		
+		return "bill-history";
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)

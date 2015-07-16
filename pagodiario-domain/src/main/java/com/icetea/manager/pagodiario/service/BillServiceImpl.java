@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,7 +51,6 @@ public class BillServiceImpl
 				String.format("No se registran productos asociados a la factura"), 
 				ErrorType.PRODUCT_REQUIRED);
 		
-		
 		Client client = this.clientDao.findById(d.getClientId());
 		
 		ErrorTypedConditions.checkArgument(client != null, String.format("Cliente no encontrado con id: %s", d.getClientId()), 
@@ -79,15 +79,28 @@ public class BillServiceImpl
 		}
 		e.setClient(client);
 		e.setStartDate(DateUtils.parseDate(d.getStartDate()));
-		e.setTotalAmount(NumberUtils.toBigDecimal(d.getTotalAmount()));
-		e.setTotalDailyInstallment(NumberUtils.toBigDecimal(d.getTotalDailyInstallment()));
+		BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
+//		if(calculatedTotalAmount.compareTo(NumberUtils.toBigDecimal(d.getTotalAmount())) != 0){
+//			throw new ErrorTypedException("Error de validacion de importe total", ErrorType.UNKNOWN_ERROR);
+//		}
+		e.setTotalAmount(calculatedTotalAmount);
+		BigDecimal calculatedTotalDailyInstallment = e.calculateTotalDailyInstallment();
+//		if(calculatedTotalDailyInstallment.compareTo(NumberUtils.toBigDecimal(d.getTotalDailyInstallment())) != 0){
+//			throw new ErrorTypedException("Error de validacion de total de valor de cuota diaria", ErrorType.UNKNOWN_ERROR);
+//		}
+		e.setTotalDailyInstallment(calculatedTotalDailyInstallment);
+		e.setOverdueDays(0);
+		e.setRemainingAmount(calculatedTotalAmount);
 		e.setTrader(trader);
+		e.setEndDate(e.calculateEndDate());
+		e.setCollectorId(d.getCollectorId());
+		e.setCreditNumber(Long.valueOf(d.getCreditNumber()));
 		
 		this.getDao().saveOrUpdate(e);
 		
 		return this.getTransformer().transform(e);
 	}
-
+	
 	@Override
 	public BillDto update(BillDto d) {
 
