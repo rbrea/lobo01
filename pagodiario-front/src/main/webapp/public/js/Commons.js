@@ -63,3 +63,8 @@ Commons.formatDate = function(d){
 	return defaultDateFormat+" "+defaultTimeFormat;	
 }
 
+Commons.setTooltip = function(id){
+	$("a[id*='" + id + "']").tooltip();
+	
+	return true;
+}

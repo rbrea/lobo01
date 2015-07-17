@@ -16,6 +16,7 @@ import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
 import com.icetea.manager.pagodiario.model.Payment;
@@ -96,17 +97,20 @@ public class BillServiceImpl
 		e.setEndDate(e.calculateEndDate());
 		e.setCollectorId(d.getCollectorId());
 		e.setCreditNumber(Long.valueOf(d.getCreditNumber()));
+		this.getDao().saveOrUpdate(e);
 		
 		Payment payment = new Payment();
 		payment.setAmount(calculatedTotalDailyInstallment);
-		// le resto el 1er pago ...
-		e.setRemainingAmount(NumberUtils.subtract(calculatedTotalAmount, calculatedTotalDailyInstallment));
 		
 		payment.setBill(e);
 		payment.setCollectorId(d.getCollectorId());
 		payment.setDate(DateUtils.parseDate(d.getStartDate()));
 		
 		e.addPayment(payment);
+		// le resto el 1er pago ...
+		e.setRemainingAmount(NumberUtils.subtract(calculatedTotalAmount, calculatedTotalDailyInstallment));
+		
+		e.setStatus(Status.ACTIVE);
 		
 		this.getDao().saveOrUpdate(e);
 		
@@ -125,6 +129,25 @@ public class BillServiceImpl
 		this.getDao().saveOrUpdate(e);
 		
 		return this.getTransformer().transform(e);
+	}
+	
+	@Override
+	public List<BillDto> searchActives(){
+	
+		return this.getTransformer().transformAllTo(this.getDao().find(Status.ACTIVE));
+	}
+	
+	@Override
+	public boolean updateOverdueDays(Long billId){
+		
+		Bill bill = this.getDao().findById(billId);
+
+		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
+		
+		bill.incrementOverdueDays();
+		bill.audit();
+		
+		return this.getDao().saveOrUpdate(bill);
 	}
 	
 }

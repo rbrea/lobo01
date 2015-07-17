@@ -66,7 +66,8 @@ BillHistory.init = function(){
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:BillHistory.showPayments('" + row.id + "');\" class=\"btn btn-xs btn-info\"><i class=\"glyphicon glyphicon-list\"></i></a>";
+                    return "<a id=\"btnShowPayments_" + row.id + "\" href=\"javascript:BillHistory.showPayments('" + row.id + "');\" onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\" class=\"btn btn-xs btn-info\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Mostrar pagos asociados a la factura\"><i class=\"glyphicon glyphicon-list\"></i></a>"
+                    + "<a id=\"btnShowModalPayment_" + row.id + "\" href=\"javascript:BillHistory.showModalPayment('" + row.id + "');\" onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\" class=\"btn btn-xs btn-info\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Mostrar formulario de pago\"><i class=\"glyphicon glyphicon-ok-sign\"></i></a>";
                 }
          	}
         ],

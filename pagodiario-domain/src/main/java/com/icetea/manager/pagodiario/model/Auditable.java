@@ -10,7 +10,7 @@ public abstract class Auditable extends Model {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String DEFAULT_USERNAME = "MYO_USER";
+	public static final String DEFAULT_USERNAME = "DEFAULT_USER";
 
 	@Column(name = "CREATED_BY", length = 40)
 	private String createdBy;

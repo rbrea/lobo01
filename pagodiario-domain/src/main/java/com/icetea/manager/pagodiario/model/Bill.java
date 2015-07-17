@@ -217,5 +217,17 @@ public class Bill extends Identifiable {
 		}
 		this.payments.add(payment);
 	}
+
+	public void incrementOverdueDays(){
+		this.overdueDays++;
+	}
+	
+	public void decrementOverdueDays(){
+		this.decrementOverdueDays(1);
+	}
+	
+	public void decrementOverdueDays(int days){
+		this.overdueDays = this.overdueDays - days;
+	}
 	
 }

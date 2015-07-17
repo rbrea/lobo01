@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,6 +49,14 @@ public class PaymentServiceImpl
 		this.getDao().saveOrUpdate(e);
 		
 		bill.addPayment(e);
+		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
+		// tengo q restar el monto (calculando los dias de atraso)
+		
+		int overdueDays = e.getAmount().divide(
+				bill.getTotalDailyInstallment(), RoundingMode.CEILING).intValue();
+		
+		bill.decrementOverdueDays(overdueDays);
+		
 		this.billDao.saveOrUpdate(bill);
 		
 		return d;
