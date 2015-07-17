@@ -80,6 +80,7 @@
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Historial de Factura" />
         <put-attribute name="body" value="/WEB-INF/pages/bill-history.jsp" />
         <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-payment.jsp" />
         </put-list-attribute>
     </definition>
         

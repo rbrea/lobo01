@@ -27,19 +27,14 @@
 	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
 	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura
 	                	</a>
-	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="${pageContext.request.contextPath}/controller/html/bill/history/index">
-	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Historial Factura
-	                	</a>
-	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="#">
-	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
-	                	</a>
-	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="#">
-	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Ingresar Cobro diario
-	                	</a>
 	                </li>
+	                <li role="presentation">
+	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index">Historial Factura</a>
+	                </li>
+	               	<li role="presentation" class="divider"></li>
+	               	<li role="presentation">
+	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#" disabled>Generar cup&oacute;n de Cobro (ticket)</a>
+	               	</li>
 	              </ul>
 	            </li>
 				<li class="dropdown">

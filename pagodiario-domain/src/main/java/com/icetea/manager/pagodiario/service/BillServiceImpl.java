@@ -99,6 +99,9 @@ public class BillServiceImpl
 		
 		Payment payment = new Payment();
 		payment.setAmount(calculatedTotalDailyInstallment);
+		// le resto el 1er pago ...
+		e.setRemainingAmount(NumberUtils.subtract(calculatedTotalAmount, calculatedTotalDailyInstallment));
+		
 		payment.setBill(e);
 		payment.setCollectorId(d.getCollectorId());
 		payment.setDate(DateUtils.parseDate(d.getStartDate()));

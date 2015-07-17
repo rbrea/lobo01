@@ -3,6 +3,7 @@ package com.icetea.manager.pagodiario.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,9 +19,11 @@ public class Payment extends Identifiable {
 
 	@ManyToOne
 	private Bill bill;
-	
-	private BigDecimal amount;
+	@Column(name = "AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal amount = BigDecimal.ZERO;
+	@Column(name = "PAYMENT_DATE", columnDefinition = "DATETIME", nullable = false)
 	private Date date;
+	@Column(name = "COLLECTOR_ID")
 	private Integer collectorId; // FIXME: [roher] esto deberia ser una entidad "COBRADOR" ???
 	
 	public Bill getBill() {

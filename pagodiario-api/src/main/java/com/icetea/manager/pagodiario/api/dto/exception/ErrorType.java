@@ -8,7 +8,8 @@ public enum ErrorType {
     UNKNOWN_ERROR(4, "Error desconocido"),
     PRODUCT_REQUIRED(5, "producto requerido"),
     PRODUCT_NOT_FOUND(6, "producto no encontrado"),
-    BILL_NOT_FOUND(7, "Factura no encontrada");
+    BILL_NOT_FOUND(7, "Factura no encontrada"),
+    BILL_REQUIRED(8, "Factura requerida");
 
     private final Integer id;
     private final String text;

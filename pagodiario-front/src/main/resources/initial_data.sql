@@ -35,3 +35,8 @@ insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 2);
 insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 5);
 insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 7);
 
+insert into BILL (ID, CREATED_DATE, COLLECTOR_ID, CREDIT_NUMBER, START_DATE, END_DATE, OVERDUE_DAYS, REMAINING_AMOUNT, STATUS, TOTAL_AMOUNT, TOTAL_DAILY_INSTALLMENT, client_ID, trader_ID) values (1, curdate(), 11, '1234', curdate(), curdate() + 20, 0, '190.00', 'ACTIVE', '200.00', '10.00', 1, 1);
+insert into BILL_PRODUCT (ID, CREATED_DATE, AMOUNT, COUNT, DAILY_INSTALLMENT, bill_ID, product_ID) values (1, curdate(), '200.00', 2, '10.00', 1, 1);
+insert into BILL_BILL_PRODUCT (BILL_ID, billProducts_ID) values (1, 1);
+insert into PAYMENT (ID, CREATED_DATE, AMOUNT, COLLECTOR_ID, PAYMENT_DATE, bill_ID) values (1, curdate(), '10.00', 11, curdate(), 1);
+insert into BILL_PAYMENT (BILL_ID, payments_ID) values (1, 1);
