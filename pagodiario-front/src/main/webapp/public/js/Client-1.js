@@ -5,6 +5,12 @@ Client.initDataTable = function(imgCheckUrl){
 	var table = $("#tClientResult").dataTable( {
 		"bDestroy" : true,
         "ajax": Constants.contextRoot + "/controller/html/client",
+        "createdRow": function ( row, data, index ) {
+    		
+    		$(row).data('email', data.email).data('phone', data.phone).data('address', data.address).data('city', data.city);
+    		
+    		return;
+        },
         "columns": [
 			{
 				"className":      'centered',
@@ -50,6 +56,26 @@ Client.initDataTable = function(imgCheckUrl){
             { 	
             	"className": 'centered',
             	"data": "companyType" 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "email",
+            	"visible":false
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "phone",
+            	"visible":false 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "address",
+            	"visible":false 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "city",
+            	"visible":false
             },
             {
             	"className":      'centered',
@@ -190,17 +216,26 @@ Client.showModal = function(id){
         		var companyType = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(7)').html().trim();
         		
+        		var email = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+        			.children("img[id='imgCheck_" + id + "']").parent().parent().data('email');
+        		var phone = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+					.children("img[id='imgCheck_" + id + "']").parent().parent().data('phone');
+        		var address = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+					.children("img[id='imgCheck_" + id + "']").parent().parent().data('address');
+        		var city = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+					.children("img[id='imgCheck_" + id + "']").parent().parent().data('city');
+        		
  			    $("#name").val(name);
  			    $("#documentNumber").attr("readonly", true).val(documentNumber);
- 			    $("#email").val("");
+ 			    $("#email").val(email);
  			    $("#companyPhone").val(companyPhone);
  			    $("#companyAddress").val(companyAddress);
  			    $("#nearStreets").val(nearStreets);
  			    $("#companyCity").val(companyCity);
  			    $("#companyType").val(companyType);
- 			    $("#phone").val("");
- 			    $("#address").val("");
- 			    $("#city").val("");
+ 			    $("#phone").val(phone);
+ 			    $("#address").val(address);
+ 			    $("#city").val(city);
         	}
         	
         	$("#modal-client-container").css({"display":"block"});

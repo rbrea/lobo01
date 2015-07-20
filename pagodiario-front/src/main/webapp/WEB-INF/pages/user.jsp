@@ -9,6 +9,16 @@
 		<form id="frmEditUser" action="${pageContext.request.contextPath}/controller/html/user/registration/edit" 
 				method="POST" data-toggle="validator">
 			<input type="hidden" id="userId" name="id" value="">
+			<div class="form-group">
+				<label for="nusername">Nombre de Usuario</label>
+			    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
+			    <div class="help-block with-errors"></div>
+			</div>
+			<div class="checkbox">
+		    	<label>
+		      		<input type="checkbox" name="admin" id="admin"> Es Administrador?
+		    	</label>
+		  	</div>
 	    	<div class="form-group">
 				<label for="name">Nombre y Apellido</label>
 			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
@@ -24,16 +34,6 @@
 			    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
 			    <div class="help-block with-errors"></div>
 			</div>
-			<div class="form-group">
-				<label for="nusername">Nombre de Usuario</label>
-			    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="checkbox">
-		    	<label>
-		      		<input type="checkbox" name="admin" id="admin"> Es Administrador?
-		    	</label>
-		  	</div>
 		</form>
       </div>
       <div class="modal-footer">
@@ -65,7 +65,7 @@
 			    <div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
-				<label for="documentNumber">N&uacute;mero de Documento</label>
+				<label for="documentNumber">DNI</label>
 			    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
 			    <div class="help-block with-errors"></div>
 			</div>
@@ -99,6 +99,26 @@
 <div class="col-md-10">
 	<div class="row">
 		<div class="col-md-12">
+			&nbsp;
+		</div>
+	</div>
+	<div id="userMessages" class="row hide">
+	    <div class="col-md-2">
+	        &nbsp;
+	    </div>
+	    <div class="col-md-8">
+	        <div id="userAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#userAlertMessages').children('span').eq(0).html('');$('#userMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	    <div class="col-md-2">
+	        &nbsp;
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title">ABM de Usuarios</h3>
@@ -125,11 +145,10 @@
 									<thead>
 							            <tr>
 							            	<th></th>
-							                <th>Nombre</th>
 							                <th>Nombre de Usuario</th>
 							                <th>Es administrador?</th>
-							                <th>Tipo de Documento</th>
-							                <th>Nro. de Documento</th>
+							                <th>Nombre</th>
+							                <th>DNI</th>
 							                <th>Email</th>
 							                <th>Acciones</th>
 							            </tr>

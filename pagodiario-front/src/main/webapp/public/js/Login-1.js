@@ -22,29 +22,26 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
                 "data":           null,
                 "defaultContent": ''
             },*/
+			{ 
+				"className": 'centered',
+				"data": "username" 
+			},
+			{ 
+				"className": 'centered',
+				"render": function ( data, type, row ) {
+					//return data +' ('+ row[3]+')';
+					var value = "NO";
+					if(row.admin){
+						value = "SI";
+					}
+					
+					return value;
+				} 
+			},
             { 	
             	"className": 'centered',
             	"data": "name" 
             },
-            { 
-            	"className": 'centered',
-            	"data": "username" 
-            },
-            { 
-            	"className": 'centered',
-            	"render": function ( data, type, row ) {
-			        //return data +' ('+ row[3]+')';
-			        var value = "NO";
-			        if(row.admin){
-			        	value = "SI";
-			        }
-			        
-			        return value;
-			    } 
-            },
-            { 
-            	"className": 'centered',
-            	"data": "documentType" },
             { 	
             	"className": 'centered',
             	"data": "documentNumber" },
@@ -64,7 +61,7 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
                 }
          	}
         ],
-        "order": [[1, 'asc']],
+        "order": [[2, 'asc']],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",

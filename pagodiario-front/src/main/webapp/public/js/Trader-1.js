@@ -6,6 +6,13 @@ Trader.initDataTable = function(imgCheckUrl){
 		"bDestroy" : true,
 		"bRedraw" : true,
         "ajax": Constants.contextRoot + "/controller/html/trader",
+        "createdRow": function ( row, data, index ) {
+    		
+    		$(row).data('email', data.email).data('traderParentId', data.parentId)
+    			.data('traderParentDescription', data.parentDescription);
+    		
+    		return;
+        },
         "columns": [
 			{
 				"className":      'centered',
@@ -77,8 +84,22 @@ Trader.initDataTable = function(imgCheckUrl){
                 // this case `data: 0`.
                 "orderable": false,
                 "render": function ( data, type, row ) {
+                	
+                	var email = "";
+                	if(row.email != null){
+                		email = row.email;
+                	}
+                	var parentId = "";
+                	if(row.parentId != null){
+                		parentId = row.parentId;
+                	}
+                	var parentDescription = "";
+                	if(row.parentDescription != null){
+                		parentDescription = row.parentDescription;
+                	}
+                	
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:Trader.showModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>"
+                    return "<a href=\"javascript:Trader.showModal('" + row.id + "', '" + email + "', '" + parentId + "', '" + parentDescription + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>"
                     	+ "&nbsp;<a href=\"javascript:Trader.addTrader('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-th-list\"></i></a>"
                         + "&nbsp;<a href=\"javascript:Trader.remove('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
@@ -176,7 +197,7 @@ Trader.add = function(dialog, btn){
 	return;
 }
 
-Trader.showModal = function(id){
+Trader.showModal = function(id, email, parentId, parentDescription){
 	
 	var dialog = new BootstrapDialog({
 		onhidden:function(){
@@ -207,10 +228,17 @@ Trader.showModal = function(id){
 					.parent().parent().find('td:eq(5)').html().trim();
         		var isSupervisor = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(6)').html().trim();
-        		
+        	/*	
+        		var email = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+    				.children("img[id='imgCheck_" + id + "']").parent().parent().data('email');
+        		var traderParentId = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+					.children("img[id='imgCheck_" + id + "']").parent().parent().data('traderParentId');
+        		var traderParentDescription = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+					.children("img[id='imgCheck_" + id + "']").parent().parent().data('traderParentDescription');
+        		*/
  			   	$("#name").val(name).attr("readonly", "readonly");
  			   	$("#documentNumber").val(documentNumber).attr("readonly", "readonly");
- 			   	$("#email").val("");
+ 			   	$("#email").val(email);
  			   	$("#phone").val(phone);
  			   	$("#address").val(address);
  			   	$("#city").val(city);
@@ -219,8 +247,8 @@ Trader.showModal = function(id){
  			   	} else {
  				   $("#supervisor").attr("checked", false);
  			   	}
- 			   	$("#traderParentId").val("");
- 			   	$("#traderParentDescription").val("");
+ 			   	$("#traderParentId").val(parentId);
+ 			   	$("#traderParentDescription").val(parentDescription);
         	}
         	
         	$("#modal-trader-container").css({"display":"block"});

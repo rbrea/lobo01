@@ -30,9 +30,11 @@
         <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
     </definition>
     
-    <definition name="user" extends="mainTemplate">
+    <definition name="user" extends="mainModalTemplate">
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Usuarios" />
         <put-attribute name="body" value="/WEB-INF/pages/user.jsp" />
+        <put-list-attribute name="modals">
+        </put-list-attribute>
     </definition>
     
     <definition name="client" extends="mainModalTemplate">

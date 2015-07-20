@@ -52,6 +52,10 @@
 							                <th>Entre Calles</th>
 							                <th>Localidad / Barrio</th>
 							                <th>Tipo Comercio</th>
+							                <th>Email</th>
+							                <th>Telefono Particular</th>
+							                <th>Domicilio Particular</th>
+							                <th>Ciudad Particular</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
