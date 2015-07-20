@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.transformer.PaymentDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -35,17 +37,26 @@ public class PaymentServiceImpl
 	@Override
 	public PaymentDto insert(PaymentDto d) {
 		Payment e = new Payment();
-		e.setAmount(NumberUtils.toBigDecimal(d.getAmount()));
 		
-		ErrorTypedConditions.checkArgument(d.getId() != null, ErrorType.BILL_REQUIRED);
+		ErrorTypedConditions.checkArgument(d.getAmount() != null, "importe es requerido", ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "id de cobrador/zona es requerido", ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(d.getDate() != null, "fecha de pago es requerida", ErrorType.VALIDATION_ERRORS);
 		
-		Bill bill = this.billDao.findById(d.getId());
+		BigDecimal amount = NumberUtils.toBigDecimal(d.getAmount());
+		e.setAmount(amount);
+		
+		ErrorTypedConditions.checkArgument(d.getBillId() != null, ErrorType.BILL_REQUIRED);
+		
+		Bill bill = this.billDao.findById(d.getBillId());
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
+		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalDailyInstallment()) >= 0, 
+				String.format("El monto a pagar no puede ser menor que la cuota diaria: $%s", 
+						NumberUtils.toString(bill.getTotalDailyInstallment())), ErrorType.VALIDATION_ERRORS);
 		e.setBill(bill);
 		e.setCollectorId(d.getCollectorId());
-		e.setDate(DateUtils.parseDate(d.getDate()));
+		e.setDate(DateUtils.parseDate(d.getDate(), "dd/MM/yyyy"));
 		this.getDao().saveOrUpdate(e);
 		
 		bill.addPayment(e);
@@ -53,9 +64,13 @@ public class PaymentServiceImpl
 		// tengo q restar el monto (calculando los dias de atraso)
 		
 		int overdueDays = e.getAmount().divide(
-				bill.getTotalDailyInstallment(), RoundingMode.CEILING).intValue();
+				bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
 		
 		bill.decrementOverdueDays(overdueDays);
+		
+		if(bill.getRemainingAmount().compareTo(BigDecimal.ZERO) <= 0){
+			bill.setStatus(Status.FINALIZED);
+		}
 		
 		this.billDao.saveOrUpdate(bill);
 		

@@ -102,7 +102,7 @@ Trader.initDataTable = function(imgCheckUrl){
 	return;
 }
 
-Trader.add = function(){
+Trader.add = function(dialog, btn){
 	
 	var id = $("#traderId").val();
 	var name = $("#name").val();
@@ -143,18 +143,29 @@ Trader.add = function(){
 			   var table = $('#tTraderResult').dataTable();
 			   	
 			   table.api().ajax.url(Constants.contextRoot + "/controller/html/trader").load();
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
 			   	
-			   $("#modalTrader").modal('hide');
-			   
-			   //window.location.reload();
-			   
 			   return;
 		   }else{
-			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+			   Message.showMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"), data.message);
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
 		   }
 	   },
 	   error:function(data){
-		   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+		   Message.showMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   dialog.close();
 		   
 		   return;
 	   }
@@ -166,45 +177,100 @@ Trader.add = function(){
 }
 
 Trader.showModal = function(id){
-	$.ajax({ 
-	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/trader?id=" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var elem = data.data[0];
-			   
-			   $("#traderId").val(elem.id);
-			   $("#name").val(elem.name).attr("readonly", "readonly");
-			   $("#documentNumber").val(elem.documentNumber).attr("readonly", "readonly");
-			   $("#email").val(elem.email);
-			   $("#phone").val(elem.phone);
-			   $("#address").val(elem.address);
-			   $("#city").val(elem.city);
-			   if(elem.supervisor == true){
-				   $("#supervisor").attr("checked", true);   
-			   } else {
-				   $("#supervisor").attr("checked", false);
-			   }
-			   $("#traderParentId").val(elem.parentId);
-			   $("#traderParentDescription").val(elem.parentDescription);
-			   
-			   $("#modalTrader").modal("show");
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
+	
+	var dialog = new BootstrapDialog({
+		onhidden:function(){
+			Trader.resetModal();
+			
+			return;
+		},
+		draggable: true,
+		type: BootstrapDialog.TYPE_PRIMARY,
+		title: 'Vendedor/Supervisor',
+		autodestroy: false,
+		cssClass: 'dialog-trader',
+        message: function(dialog) {
+        	
+        	if(id != null && id != ""){
+        		$("#traderId").val(id);
+        		
+        		var name = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+        				.parent().parent().find('td:eq(1)').html().trim();
+        		var documentNumber = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(2)').html().trim();
+        		var phone = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(3)').html().trim();
+        		
+        		var address = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(4)').html().trim();
+        		var city = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(5)').html().trim();
+        		var isSupervisor = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(6)').html().trim();
+        		
+ 			   	$("#name").val(name).attr("readonly", "readonly");
+ 			   	$("#documentNumber").val(documentNumber).attr("readonly", "readonly");
+ 			   	$("#email").val("");
+ 			   	$("#phone").val(phone);
+ 			   	$("#address").val(address);
+ 			   	$("#city").val(city);
+ 			   	if(isSupervisor == "SI"){
+ 				   $("#supervisor").attr("checked", true);   
+ 			   	} else {
+ 				   $("#supervisor").attr("checked", false);
+ 			   	}
+ 			   	$("#traderParentId").val("");
+ 			   	$("#traderParentDescription").val("");
+        	}
+        	
+        	$("#modal-trader-container").css({"display":"block"});
+        	
+        	return $("#modal-trader-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmTrader").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmTrader").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Trader.add(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	//dialog.setSize(BootstrapDialog.SIZE_WIDE);
+	dialog.open();
 	
 	return;
 }

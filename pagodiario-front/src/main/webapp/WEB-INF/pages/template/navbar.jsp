@@ -14,13 +14,15 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">SGPD - Sistema de Gesti&oacute;n de Pago Diario</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">
+				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario
+			</a>
 		</div>
 		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout"></form>
 		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" style="padding-top: 1.2%;">
 				<li class="dropdown">
-	              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Acciones <span class="caret"></span></a>
+	              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Cr&eacute;ditos <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 	                <li role="presentation">
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
@@ -29,12 +31,26 @@
 	                	</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index">Historial Factura</a>
+	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial Factura</a>
 	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">
 	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#" disabled>Generar cup&oacute;n de Cobro (ticket)</a>
 	               	</li>
+	              </ul>
+	            </li>
+	            <li class="dropdown">
+	              <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Liquidaciones <span class="caret"></span></a>
+	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+	                <li role="presentation">
+	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="#" class="disabled">
+	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Ejecutar Liquidaci&oacute;n
+	                	</a>
+	                </li>
+	                <li role="presentation">
+	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial</a>
+	                </li>
 	              </ul>
 	            </li>
 				<li class="dropdown">

@@ -65,6 +65,30 @@ Bill.init = function(){
 		return;
 	});
 	
+	$("#btnFirstCancel").on('click', function(){
+		Bill.resetFirst();
+		
+		return;
+	});
+	
+	$("#btnSecondCancel").on('click', function(){
+		Bill.resetSecond();
+		
+		return;
+	});
+	
+	$("#btnThirdCancel").on('click', function(){
+		Bill.resetThird();
+		
+		return;
+	});
+	
+	$("#btnFourCancel").on('click', function(){
+		Bill.resetFour();
+		
+		return;
+	});
+	
 	Bill.resetPage();
 	
 	$("#btnBillAddProduct").on("click", function(){
@@ -206,6 +230,10 @@ Bill.init = function(){
 				            $("#baddress").val(address + " / " + companyType);
 				            $("#lov-client-container").css({"display": "none"});
 
+							// si esta todo ok entonces doy de alta ...
+							Bill.doPanelEnabled("#pnlTrader");
+							$("#btraderid").focus();
+
 				            BootstrapDialog.closeAll();
 				        }
 				        
@@ -213,9 +241,10 @@ Bill.init = function(){
 				    });
 					
 					BootstrapDialog.show({
-						type:BootstrapDialog.TYPE_SUCCESS,
+						type:BootstrapDialog.TYPE_PRIMARY,
 						title: 'Clientes',
 						autodestroy: false,
+						draggable: true,
 				        message: function(dialog) {
 				        	
 				        	$("#lov-client-container").css({"display":"block"});
@@ -308,6 +337,9 @@ Bill.init = function(){
 				            $("#lov-container").css({"display": "none"});
 
 				            BootstrapDialog.closeAll();
+				            // si esta todo ok entonces doy de alta ...
+							Bill.doPanelEnabled("#pnlProduct");
+							$("#bcant_0").focus();
 				        }
 				        
 						return;
@@ -342,29 +374,92 @@ Bill.init = function(){
 	$("#billNumber").focus();
 	
 	$("#btnFirstNext").on('click', function(){
-		Bill.doPanelEnabled("#pnlClient");
-		$("#bname").focus();
+		
+		var c = 0;
+		
+		$("#frmBillFirst").on('invalid.bs.validator', 
+			function(e){
+			    c++;
+				
+				return;
+		});
+		
+		$("#frmBillFirst").validator('validate');
+		
+		if(c == 0){
+			// si esta todo ok entonces doy de alta ...
+			Bill.doPanelEnabled("#pnlClient");
+			$("#bname").focus();
+		}
 		
 		return;
 	});
 	
 	$("#btnSecondNext").on('click', function(){
-		Bill.doPanelEnabled("#pnlTrader");
-		$("#btraderid").focus();
+		
+		var c = 0;
+		
+		$("#frmBillSecond").on('invalid.bs.validator', 
+			function(e){
+			    c++;
+				
+				return;
+		});
+		
+		$("#frmBillSecond").validator('validate');
+		
+		if(c == 0){
+			// si esta todo ok entonces doy de alta ...
+			Bill.doPanelEnabled("#pnlTrader");
+			$("#btraderid").focus();
+		}
 		
 		return;
 	});
 	
 	$("#btnThirdNext").on('click', function(){
-		Bill.doPanelEnabled("#pnlProduct");
-		$("#bcant_0").focus();
+		
+		var c = 0;
+		
+		$("#frmBillThird").on('invalid.bs.validator', 
+			function(e){
+			    c++;
+				
+				return;
+		});
+		
+		$("#frmBillThird").validator('validate');
+		
+		if(c == 0){
+			// si esta todo ok entonces doy de alta ...
+			Bill.doPanelEnabled("#pnlProduct");
+			$("#bcant_0").focus();
+		}
 		
 		return;
 	});
 	
 	$("#btnFourNext").on('click', function(){
-		Bill.doPanelEnabled("#pnlFinalize");
-		$("#btnFinalize").focus();
+		
+		var c = 0;
+		
+		$("#frmBillFour").on('invalid.bs.validator', 
+			function(e){
+			    c++;
+				
+				return;
+		});
+		
+		$("#frmBillFour").validator('validate');
+		
+		if(c == 0){
+			Bill.calculateCuotaDiaria();
+			Bill.calculateImporteTotal();
+
+			// si esta todo ok entonces doy de alta ...
+			Bill.doPanelEnabled("#pnlFinalize");
+			$("#btnFinalize").focus();
+		}
 		
 		return;
 	});
@@ -426,26 +521,6 @@ Bill.init = function(){
 			
 			return;
 		});
-		/*
-		var billProductListLength = billProductList.length;
-		
-		for(var i=0;i<billProductListLength;i++){
-			var productCant = $("#bcant_" + i).val();
-			var productId = $("#billProductId_" + i).val();
-			var productPrice = $("#billProductPrice_" + i).val();
-			var dailyInstallment = $("#bcuotadiaria_" + i).val();
-			var amount = $("#bimp_" + i).val();
-			
-			var billProduct = new Object();
-			billProduct.count = productCant;
-			billProduct.productId = productId;
-			billProduct.price = productPrice;
-			billProduct.dailyInstallment = dailyInstallment;
-			billProduct.amount = amount;
-			
-			obj.billProducts.push(billProduct);
-		}
-		*/
 		obj.totalAmount = $("#bimpTotal").val();
 		obj.totalDailyInstallment = $("#bcuotaTotal").val();
 		obj.overdueDays = 0;
@@ -602,9 +677,14 @@ Bill.addClient = function(){
 				   $("#traderParentId").val(selectedId);
 				   $("#bname").val(selectedDescription);
 				   $("#baddress").val(address + " / " + companyType);
+				   
 			   }
 			   
 			   $("#modalBillClient").modal('hide');
+
+			   // si esta todo ok entonces doy de alta ...
+			   Bill.doPanelEnabled("#pnlTrader");
+			   $("#btraderid").focus();
 			   
 			   return;
 		   }else{
@@ -714,6 +794,9 @@ Bill.showLovProduct = function(elementId){
 			            $("#bimp_" + idValue).val(realPrice * cant);
 			            $("#billProductPrice_" + idValue).val(realPrice);
 			            $("#lov-client-container").css({"display": "none"});
+			            
+			    		Bill.calculateCuotaDiaria();
+			    		Bill.calculateImporteTotal();
 
 			            BootstrapDialog.closeAll();
 			        }
@@ -725,6 +808,7 @@ Bill.showLovProduct = function(elementId){
 					type:BootstrapDialog.TYPE_SUCCESS,
 					title: 'Productos',
 					autodestroy: false,
+					draggable: true,
 			        message: function(dialog) {
 			        	
 			        	$("#lov-product-container").css({"display":"block"});
@@ -783,18 +867,37 @@ Bill.calculateImp = function(element){
 	return;
 }
 
-Bill.resetPage = function(){
+Bill.resetFirst = function(){
 	$("#billDate").val("");
 	$("#billNumber").val("");
 	$("#bnroticket").val("");
 	$("#bcobrador").val("");
 	$("#batraso").val("");
+	
+	return;
+}
+
+Bill.resetSecond = function(){
 	$("#billClientIdSelected").val("");
 	$("#bname").val("");
 	$("#baddress").val("");
+	
+	Bill.doPanelDisabled("#pnlClient");
+	
+	return;
+}
+
+Bill.resetThird = function(){
 	$("#btraderid").val("");
 	$("#btradername").val("");
 	$("#bdni").val("");
+	
+	Bill.doPanelDisabled("#pnlTrader");
+	
+	return;
+}
+
+Bill.resetFour = function(){
 	$("#bcant_0").val("");
 	$("#bname_0").val("");
 	$("#bcuotadiaria_0").val("");
@@ -814,9 +917,17 @@ Bill.resetPage = function(){
 		}
 	}
 	
-	Bill.doPanelDisabled("#pnlClient");
-	Bill.doPanelDisabled("#pnlTrader");
 	Bill.doPanelDisabled("#pnlProduct");
+	
+	return;
+}
+
+Bill.resetPage = function(){
+	Bill.resetFirst();
+	Bill.resetSecond();
+	Bill.resetThird();
+	Bill.resetFour();
+	
 	Bill.doPanelDisabled("#pnlFinalize");
 	
 	return;

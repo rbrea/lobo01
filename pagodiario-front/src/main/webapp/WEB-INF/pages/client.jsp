@@ -79,7 +79,7 @@
 			Client.initDataTable(imgCheckUrl);
 		    
            	$("#btnNew").click(function(){
-           		$("#modalClient").modal("show");
+           		Client.showModal(null);
            		
            		return;
            	});

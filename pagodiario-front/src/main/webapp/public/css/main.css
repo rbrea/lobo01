@@ -236,3 +236,11 @@ body {
 	border-bottom-color: #d2322d !important;
 }
 */
+
+.bootstrap-dialog .modal-header.bootstrap-dialog-draggable {
+	cursor: move;	
+}
+
+.dialog-client .modal-dialog {
+	width: 70%;
+}

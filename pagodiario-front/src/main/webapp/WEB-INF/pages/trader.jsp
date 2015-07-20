@@ -100,7 +100,7 @@
 			Trader.initDataTable(imgCheckUrl);
 		    
            	$("#btnNew").click(function(){
-           		$("#modalTrader").modal("show");
+           		Trader.showModal();
            		
            		return;
            	});

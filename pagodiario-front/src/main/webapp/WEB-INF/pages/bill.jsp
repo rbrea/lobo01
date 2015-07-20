@@ -198,11 +198,12 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
+		  				<form id="frmBillFirst">
 		  				<div class="col-md-3">
 		  					<div class="form-group">
 		  						<label for="billDateValue">Fecha de Factura</label>
 				                <div class='input-group date' id='billDate'>
-				                    <input type='text' class="form-control input-sm not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..."/>
+				                    <input type='text' class="form-control input-sm not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..." required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -212,7 +213,7 @@
 		  				<div class="col-md-2">
 		  					<div class="form-group">
 		  						<label for="billNumber">N&uacute;mero de Cr&eacute;dito</label>
-				                <input type="number" class="form-control input-sm" id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura...">
+				                <input type="number" class="form-control input-sm" id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura..." min="1" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -226,7 +227,7 @@
 		  				<div class="col-md-2">
 							<div class="form-group">
 		  						<label for="bcobrador">Cobrador / Zona</label>
-				                <input type="number" class="form-control input-sm" id="bcobrador" name="bcobrador" placeholder="Cobrador">
+				                <input type="number" class="form-control input-sm" id="bcobrador" name="bcobrador" placeholder="Cobrador" min="1" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
@@ -242,6 +243,7 @@
 								&nbsp;
 				            </div>		  					
 		  				</div>
+					</form>
 		  			</div>
 		  			<div class="row">
 		  				<div class="col-md-6">
@@ -271,12 +273,13 @@
 		    		<h3 class="panel-title">Datos de Cliente</h3>
 		  		</div>
 		  		<div class="panel-body">
+		  			<form id="frmBillSecond">
 		  			<div class="row">
 		  				<div class="col-md-4">
 		  					<input type="hidden" id="billClientIdSelected" name="billClientIdSelected">
 		  					<div class="form-group">
 		  						<label for="bname">Nombre y Apellido</label>
-				                <input type="text" class="form-control input-sm not-writable" id="bname" name="bname" placeholder="Nombre y Apellido">
+				                <input type="text" class="form-control input-sm not-writable" id="bname" name="bname" placeholder="Nombre y Apellido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -284,7 +287,7 @@
 		  					<div class="form-group">
 		  						<label for="baddress">Domicilio / Comercio</label>
 		  						<div class="input-group">
-					                <input type="text" class="form-control input-sm not-writable" id="baddress" name="baddress" placeholder="Domicilio">
+					                <input type="text" class="form-control input-sm not-writable" id="baddress" name="baddress" placeholder="Domicilio" required>
 									<span id="btnSearchClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
@@ -351,6 +354,7 @@
 		  					<button id="btnSecondCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
 		  				</div>
 		  			</div>
+		  			</form>
 		  		</div>
 			</div>	
 		</div>
@@ -360,11 +364,12 @@
 		    		<h3 class="panel-title">Datos de Vendedor</h3>
 		  		</div>
 		  		<div class="panel-body">
+		  			<form id="frmBillThird">
 		  			<div class="row">
 		  				<div class="col-md-2">
 		  					<div class="form-group">
 		  						<label for="btraderid">C&oacute;digo</label>
-				                <input type="text" class="form-control input-sm not-writable" id="btraderid" name="btraderid" placeholder="C&oacute;digo">
+				                <input type="text" class="form-control input-sm not-writable" id="btraderid" name="btraderid" placeholder="C&oacute;digo" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -373,7 +378,7 @@
 		  						<label for="btradername">Nombre y Apellido</label>
 		  						<div class="input-group">
 				                	<input type="text" class="form-control input-sm not-writable" id="btradername" 
-				                			name="btradername" placeholder="Nombre y Apellido">
+				                			name="btradername" placeholder="Nombre y Apellido" required>
 				                	<span id="btnSearchTrader" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
 								</div>
 								<div class="help-block with-errors"></div>
@@ -382,7 +387,7 @@
 		  				<div class="col-md-4">
 		  					<div class="form-group">
 		  						<label for="bdni">DNI</label>
-				                <input type="text" class="form-control input-sm not-writable" id="bdni" name="bdni" placeholder="DNI">
+				                <input type="text" class="form-control input-sm not-writable" id="bdni" name="bdni" placeholder="DNI" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  					<!--  
@@ -411,6 +416,7 @@
 		  					<button id="btnThirdCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
 		  				</div>
 		  			</div>
+		  			</form>
 		  		</div>
 			</div>	
 		</div>
@@ -422,6 +428,7 @@
 		    		<h3 class="panel-title">Productos</h3>
 		  		</div>
 		  		<div class="panel-body">
+		  			<form id="frmBillFour">
 		  			<div class="row">
 		  				<div class="col-md-9">
 		  					&nbsp;
@@ -441,7 +448,7 @@
 	  				<div id="baseProductRow" class="row hide">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm" id="bcant_X" name="bcant_X" placeholder="Cant" min="0">
+				                <input type="number" class="form-control input-sm" id="bcant_X" name="bcant_X" placeholder="Cant" min="1">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -478,7 +485,7 @@
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bcant_0">Cantidad</label>
-				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant" min="0">
+				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant" min="1" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -488,7 +495,7 @@
 		  					<div class="form-group centered">
 		  						<label for="bname_0">Articulo/s</label>
 		  						<div class="input-group">
-					                <input type="text" class="form-control input-sm not-writable" id="bname_0" name="bname_0" placeholder="Art&iacute;culo">
+					                <input type="text" class="form-control input-sm not-writable" id="bname_0" name="bname_0" placeholder="Art&iacute;culo" required>
 									<span id="btnSearchProduct_0" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_0');"><i class="glyphicon glyphicon-search"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
@@ -497,14 +504,14 @@
 		  				<div class="col-md-2">
 							<div class="form-group centered">
 		  						<label for="bcuotadiaria_0">$ c/cta.</label>
-				                <input type="number" class="form-control input-sm" id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta.">
+				                <input type="number" class="form-control input-sm" id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta." required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
 		  						<label for="bimp_0">$ Importe</label>
-				                <input type="number" class="form-control input-sm" id="bimp_0" name="bimp_0" placeholder="$ Importe">
+				                <input type="number" class="form-control input-sm" id="bimp_0" name="bimp_0" placeholder="$ Importe" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -517,7 +524,7 @@
 		  			<div id="product_1" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm" id="bcant_1" name="bcant_1" placeholder="Cant" min="0">
+				                <input type="number" class="form-control input-sm" id="bcant_1" name="bcant_1" placeholder="Cant" min="1">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -559,13 +566,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta.">
+				                <input type="number" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta." required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total">
+				                <input type="number" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -582,6 +589,7 @@
 		  					<button id="btnFourCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
 		  				</div>
 	  				</div>
+	  				</form>
 		  		</div>
 			</div>	
 		</div>

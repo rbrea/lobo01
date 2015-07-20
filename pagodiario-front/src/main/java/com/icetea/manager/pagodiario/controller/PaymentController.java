@@ -65,16 +65,12 @@ public class PaymentController extends ExceptionHandlingController {
 	public @ResponseBody ListOutputDto<PaymentDto> addPayment(@RequestBody PaymentDto input){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
-		List<PaymentDto> Payments = Lists.newArrayList();
-		PaymentDto Payment = null;
-		if(input.getId() != null){
-			Payment = this.paymentService.update(input);
-			Payments.add(Payment);
-		} else {
-			Payment = this.paymentService.insert(input);
-			Payments.add(Payment);
+		List<PaymentDto> payments = Lists.newArrayList();
+		PaymentDto payment = this.paymentService.insert(input);
+		if(payment != null){
+			payments.add(payment);
 		}
-		r.setData(Payments);
+		r.setData(payments);
 		
 		return r;
 	}

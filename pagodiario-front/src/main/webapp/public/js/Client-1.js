@@ -82,7 +82,7 @@ Client.initDataTable = function(imgCheckUrl){
 	return;
 }
 
-Client.add = function(){
+Client.add = function(dialog, btn){
 	
 	var id = $("#clientId").val();
 	var name = $("#name").val();
@@ -124,15 +124,28 @@ Client.add = function(){
 			   
 			   table.api().ajax.url(Constants.contextRoot + "/controller/html/client").load();
 			   
-			   $("#modalClient").modal('hide');
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
 			   
 			   return;
 		   }else{
-			   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
+			   Message.showMessages($('#modalClientAlertMessages'), $("#modalClientMessages"), data.message);
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
 		   }
 	   },
 	   error:function(data){
-		   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
+		   Message.showMessages($('#modalClientAlertMessages'), $("#modalClientMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   dialog.close();
 		   
 		   return;
 	   }
@@ -144,43 +157,102 @@ Client.add = function(){
 }
 
 Client.showModal = function(id){
-	$.ajax({ 
-	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/client?id=" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var elem = data.data[0];
-			   
-			   $("#clientId").val(elem.id);
-			   $("#name").val(elem.name);
-			   $("#documentNumber").val(elem.documentNumber);
-			   $("#email").val(elem.email);
-			   $("#companyPhone").val(elem.companyPhone);
-			   $("#companyAddress").val(elem.companyAddress);
-			   $("#nearStreets").val(elem.nearStreets);
-			   $("#companyCity").val(elem.companyCity);
-			   $("#companyType").val(elem.companyType);
-			   $("#phone").val(elem.phone);
-			   $("#address").val(elem.address);
-			   $("#city").val(elem.city);
-			   
-			   $("#modalClient").modal("show");
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
+	
+	var dialog = new BootstrapDialog({
+		onhidden:function(){
+			Client.resetModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Clientes',
+		autodestroy: false,
+		cssClass: 'dialog-client',
+        message: function(dialog) {
+        	
+        	if(id != null && id != ""){
+        		$("#clientId").val(id);
+        		
+        		var name = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+        				.parent().parent().find('td:eq(1)').html().trim();
+        		var documentNumber = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(2)').html().trim();
+        		var companyPhone = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(3)').html().trim();
+        		
+        		var companyAddress = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(4)').html().trim();
+        		var nearStreets = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(5)').html().trim();
+        		var companyCity = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(6)').html().trim();
+        		var companyType = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(7)').html().trim();
+        		
+ 			    $("#name").val(name);
+ 			    $("#documentNumber").attr("readonly", true).val(documentNumber);
+ 			    $("#email").val("");
+ 			    $("#companyPhone").val(companyPhone);
+ 			    $("#companyAddress").val(companyAddress);
+ 			    $("#nearStreets").val(nearStreets);
+ 			    $("#companyCity").val(companyCity);
+ 			    $("#companyType").val(companyType);
+ 			    $("#phone").val("");
+ 			    $("#address").val("");
+ 			    $("#city").val("");
+        	}
+        	
+        	$("#modal-client-container").css({"display":"block"});
+        	
+        	return $("#modal-client-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmClient").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmClient").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Client.add(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	dialog.setSize(BootstrapDialog.SIZE_WIDE);
+	dialog.open();
+
+	//$("#modal-client-container").parent().parent().parent().parent().parent().css({'width':'800px'});
 	
 	return;
 }
@@ -221,7 +293,7 @@ Client.remove = function(id){
 Client.resetModal = function(){
 	$("clientId").val('');
 	$("#name").val('');
-	$("#documentNumber").val('');
+	$("#documentNumber").attr("readonly", false).val('');
 	$("#email").val('');
 	$("#companyPhone").val('');
 	$("#companyAddress").val('');

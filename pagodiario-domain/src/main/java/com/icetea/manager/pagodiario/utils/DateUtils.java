@@ -37,15 +37,19 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static String toDate(Date date){
 		return toDate(date, DEFAULT_PATTERN);
 	}
-	
-	public static Date parseDate(String value){
+
+	public static Date parseDate(String value, String pattern){
 		Preconditions.checkArgument(StringUtils.isNotBlank(value), "value is required");
 		
 		try {
-			return org.apache.commons.lang3.time.DateUtils.parseDate(value, DEFAULT_PATTERN);
+			return org.apache.commons.lang3.time.DateUtils.parseDate(value, pattern);
 		} catch (ParseException e) {
 			throw new RuntimeException("cannot parse to Date value: " + value, e);
 		}
+	}
+	
+	public static Date parseDate(String value){
+		return parseDate(value, DEFAULT_PATTERN);
 	}
 	
 	public static String convertDateToTimeZone(String value, String timezone){

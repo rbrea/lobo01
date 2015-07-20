@@ -16,121 +16,86 @@
 	</div>
 </div>
 
-<div class="modal fade" id="modalTrader" tabindex="-1" role="dialog" aria-labelledby="modalTraderLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalTraderLabel">Vendedores/Supervisores</h4>
-      </div>
-      <div class="modal-body">
-		<form id="frmTrader" 
-				method="POST" data-toggle="validator">
-			<input type="hidden" id="traderId" name="id" value="">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="panel panel-default">
-						  	<div class="panel-body">
-						    	<div class="form-group">
-									<label for="name">Nombre y Apellido</label>
-								    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="documentNumber">N&uacute;mero de Documento</label>
-								    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="email">e-mail</label>
-								    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderParentDescription">Supervisor</label>
-									<div class="inner-addon right-addon">
-										<input type="hidden" id="traderParentId" name="traderParentId" value="">
-									    <input type="text" class="form-control lov" id="traderParentDescription" name="traderParentDescription" placeholder="Asignar supervisor...">
-										<i class="glyphicon glyphicon-search"></i>
-										<div class="help-block with-errors"></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="checkbox">
-								    	<label>
-								      		<input type="checkbox" name="supervisor" id="supervisor"> Es Supervisor?
-								    	</label>
-								  	</div>
-								</div>
-						  	</div>
+<div id="modal-trader-container" class="container-fluid" style="display:none;">
+	<div id="modalTraderMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalTraderAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalTraderAlertMessages').children('span').eq(0).html('');$('#modalTraderMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+  		<form id="frmTrader">
+  			<input type="hidden" id="traderId" name="id" value="">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+			  	<div class="panel-body">
+			    	<div class="form-group">
+						<label for="name">Nombre y Apellido</label>
+					    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="documentNumber">N&uacute;mero de Documento</label>
+					    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="email">e-mail</label>
+					    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="traderParentDescription">Supervisor</label>
+						<div class="inner-addon right-addon">
+							<input type="hidden" id="traderParentId" name="traderParentId" value="">
+						    <input type="text" class="form-control lov" id="traderParentDescription" name="traderParentDescription" placeholder="Asignar supervisor...">
+							<i class="glyphicon glyphicon-search"></i>
+							<div class="help-block with-errors"></div>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="form-group">
-									<label for="phone">Tel&eacute;fono</label>
-								    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="address">Domicilio</label>
-								    <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese domicilio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="city">Localidad/Barrio</label>
-								    <input type="text" class="form-control" id="city" name="city" placeholder="Ingrese localidad/barrio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-						  	</div>
-						</div>
+					<div class="form-group">
+						<div class="checkbox">
+					    	<label>
+					      		<input type="checkbox" name="supervisor" id="supervisor"> Es Supervisor?
+					    	</label>
+					  	</div>
 					</div>
-				</div>
+			  	</div>
 			</div>
-	    	
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="phone">Tel&eacute;fono</label>
+					    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="address">Domicilio</label>
+					    <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese domicilio...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="city">Localidad/Barrio</label>
+					    <input type="text" class="form-control" id="city" name="city" placeholder="Ingrese localidad/barrio...">
+					    <div class="help-block with-errors"></div>
+					</div>
+			  	</div>
+			</div>
+		</div>
 		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button id="btnTrader" type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
+	</div>
 </div>
 
 <script>
 
 	$(document).ready(
 		function(){
-			$("#btnTrader").click(function(){
-				var c = 0;
-				
-				$("#frmTrader").on('invalid.bs.validator', 
-					function(e){
-					    c++;
-						
-						return;
-				});
-				
-				$("#frmTrader").validator('validate');
-				
-				if(c == 0){
-					// si esta todo ok entonces doy de alta ...
-					Trader.add();
-				}
-				
-		    	return;
-		    });
 		    
-			$('#modalTrader').on('hidden.bs.modal', function (e) {
-           		
-				Trader.resetModal();
-           		
-           		return;
-           	});
-			
 			$('#traderParentDescription').keypress(function(e) {
 		         e.preventDefault();
 		         
@@ -212,7 +177,16 @@
 						            $("#traderParentDescription").val(selectedDescription);
 						            $("#lov-container").css({"display": "none"});
 
-						            BootstrapDialog.closeAll();
+						            //BootstrapDialog.closeAll();
+						            $.each(BootstrapDialog.dialogs, function(id, dialog){
+						            	
+						            	if(dialog.getTitle() == 'Vendedores'){
+						            		
+						            		dialog.close();
+						            	}
+						            	
+						            	return;
+						            });
 						        }
 						        
 								return;
@@ -231,11 +205,11 @@
 						    });
 							
 						} else {
-							Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+							Message.showMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"), data.message);
 						}
 				   },
 				   error:function(data){
-					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+					   Message.showMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"), data.responseJSON.message);
 					   
 					   return;
 				   }
