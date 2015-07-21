@@ -18,6 +18,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/locales.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/bootstrap-datetimepicker.min.js"></script>
 	
+	<!-- Load d3.js and c3.js -->
+	<script src="${pageContext.request.contextPath}/public/c3/d3.v3.min.js" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/public/c3/c3.min.js"></script>
+	
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>

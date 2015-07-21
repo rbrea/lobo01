@@ -33,9 +33,15 @@
 	                <li role="presentation">
 	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial Factura</a>
 	                </li>
+	                <li role="presentation">
+	                	<a id="optDevoluciones" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-retweet"></i>&nbsp;Devoluciones</a>
+	                </li>
+	                <li role="presentation">
+	                	<a id="optBajas" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;Bajas</a>
+	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">
-	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#" disabled>Generar cup&oacute;n de Cobro (ticket)</a>
+	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#" disabled><i class="glyphicon glyphicon-usd"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)</a>
 	               	</li>
 	              </ul>
 	            </li>
@@ -49,7 +55,11 @@
 	                	</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial</a>
+	                	<a id="optHistorialLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial</a>
+	                </li>
+	                <li role="presentation" class="divider"></li>
+	                <li role="presentation">
+	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Imprimir Liquidaci&oacute;n</a>
 	                </li>
 	              </ul>
 	            </li>
