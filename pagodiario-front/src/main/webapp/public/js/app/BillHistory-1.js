@@ -102,9 +102,17 @@ BillHistory.init = function(){
                 		clazzDisabled = 'disabled';
                 	}
                 	
+                	return BillHistory.getActionSelectElement(row.id, {
+                		"totalDailyInstallment": row.totalDailyInstallment,
+                		"collectorId" : row.collectorId,
+                		"detailClazzDisabled": clazzDisabled
+                	});
+                	/*
                     return "<a id=\"btnShowPayments_" + row.id + "\" href=\"javascript:BillHistory.showPayments('" + row.id + "');\" class=\"btn btn-xs btn-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Mostrar pagos asociados a la factura\"><i class=\"glyphicon glyphicon-list\"></i></a>"
                     	+ "&nbsp;<a id=\"btnShowModalPayment_" + row.id + "\" href=\"javascript:BillHistory.showModalPayment('" + row.id + "', '" + row.totalDailyInstallment + "', '" + row.collectorId + "');\" class=\"btn btn-xs btn-danger " + clazzDisabled +"\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Mostrar formulario de pago\"><i class=\"glyphicon glyphicon-list-alt\"></i></a>"
-                    	+ "&nbsp;<a id=\"btnShowDetail_" + row.id + "\" href=\"javascript:BillHistory.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success disabled\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Factura\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
+                    	+ "&nbsp;<a id=\"btnShowDetail_" + row.id + "\" href=\"javascript:BillHistory.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success disabled\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Factura\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>"
+                    	+ "&nbsp;<a id=\"btnShowDiscount_" + row.id + "\" href=\"javascript:BillHistory.showDiscount('" + row.id + "');\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Descuentos\"><i class=\"glyphicon glyphicon-tasks\"></i></a>";
+                    	*/
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
         ],
@@ -124,6 +132,30 @@ BillHistory.init = function(){
     });
 	
 	return;
+}
+
+BillHistory.getActionSelectElement = function(id, map){
+	
+	var div = "<div class=\"btn-group\">" +
+	  "<button type=\"button\" class=\"btn btn-xs btn-danger dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+	    "Acciones <span class=\"caret\"></span>" +
+	  "</button>" +
+	  "<ul class=\"dropdown-menu dropdown-menu-left\">" +
+	  	"<li class=\"dropdown-header\">Consultas</li>" + 
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showPayments('" + id + "');\">Pagos</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Discount.show('" + id + "');\">Descuentos</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Bonus.show('" + id + "');\">Premios</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +
+	    "<li class=\"disabled\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDetail('" + id + "');\"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
+	    "<li role=\"separator\" class=\"divider\"></li>" +
+	    "<li class=\"dropdown-header\">Altas</li>" +
+	    "<li class=\"" + map.detailClazzDisabled + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "');\">Descuento</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showBonus('" + id + "');\">Premio</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
+	    "</ul></div>";
+	
+	return div;
 }
 
 BillHistory.showPayments = function(id){
@@ -189,7 +221,7 @@ BillHistory.showPayments = function(id){
 			   	});
 			   
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_INFO,
+					type:BootstrapDialog.TYPE_PRIMARY,
 					draggable: true,
 					title: 'Pagos',
 					autodestroy: false,
@@ -227,7 +259,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_DANGER,
+		type:BootstrapDialog.TYPE_PRIMARY,
 		title: 'Cargar Pago',
 		autodestroy: false,
         message: function(dialog) {
@@ -347,3 +379,229 @@ BillHistory.resetModal = function(){
 
 	return;
 }
+
+BillHistory.showDiscount = function(id){
+	
+	if($(this).hasClass('disabled')){
+		return false;
+	}
+	
+	BootstrapDialog.show({
+		onhidden:function(){
+			Discount.resetModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Descuentos',
+		autodestroy: false,
+        message: function(dialog) {
+        	$('#discountDate').datetimepicker({
+                locale: 'es',
+                showTodayButton: true,
+                format: 'DD/MM/YYYY'
+            });
+        	
+        	$("#discountBillId").val(id);
+        	
+        	$("#modal-discount-container").css({"display":"block"});
+        	
+        	return $("#modal-discount-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmDiscount").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmDiscount").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Discount.add(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	
+	return;
+}
+
+BillHistory.showBonus = function(id){
+	
+	if($(this).hasClass('disabled')){
+		return false;
+	}
+	
+	BootstrapDialog.show({
+		onhidden:function(){
+			Bonus.resetModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Alta de Premio',
+		autodestroy: false,
+        message: function(dialog) {
+        	$('#bonusDate').datetimepicker({
+                locale: 'es',
+                showTodayButton: true,
+                format: 'DD/MM/YYYY'
+            });
+        	
+        	$("#bonusBillId").val(id);
+        	
+        	$("#modal-bonus-container").css({"display":"block"});
+        	
+        	return $("#modal-bonus-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmBonus").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmBonus").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Bonus.add(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	
+	return;
+}
+
+BillHistory.showProductReduction = function(id){
+	
+	if($(this).hasClass('disabled')){
+		return false;
+	}
+	
+	BootstrapDialog.show({
+		onhidden:function(){
+			ProductReduction.resetModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Baja',
+		autodestroy: false,
+        message: function(dialog) {
+        	$('#productReductionDate').datetimepicker({
+                locale: 'es',
+                showTodayButton: true,
+                format: 'DD/MM/YYYY'
+            });
+        	
+        	$("#productReductionBillId").val(id);
+        	
+        	$("#modal-productReduction-container").css({"display":"block"});
+        	
+        	return $("#modal-productReduction-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmProductReduction").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmProductReduction").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+	        		ProductReduction.add(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	
+	return;
+}
+

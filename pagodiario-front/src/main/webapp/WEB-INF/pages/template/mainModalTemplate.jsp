@@ -21,9 +21,8 @@
 	<tiles:useAttribute id="list" name="modals" classname="java.util.List" />
 	<c:forEach var="modal" items="${list}">
 	  <tiles:insertAttribute value="${modal}" flush="true" />
-	  <br/>
 	</c:forEach>
-	<div id="main-container" class="container-fluid">
+	<div id="main-container" class="container-fluid" style="margin-top:2%;">
 		<div class="row">
 			<tiles:insertAttribute name="body" />
 		</div>

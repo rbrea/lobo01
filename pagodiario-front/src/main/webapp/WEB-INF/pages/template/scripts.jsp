@@ -35,3 +35,6 @@
     <script src="${pageContext.request.contextPath}/public/js/Trader-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bill-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Discount-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/ProductReduction-1.js"></script>

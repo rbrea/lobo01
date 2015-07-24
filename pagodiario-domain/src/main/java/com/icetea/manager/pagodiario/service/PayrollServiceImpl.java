@@ -8,6 +8,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -75,6 +77,17 @@ public class PayrollServiceImpl extends
 		
 		return this.getTransformer().transform(payroll);
 	}
-	
 
+
+	@Override
+	public PayrollDto insert(PayrollDto o) {
+		throw new NotImplementedException("not implemented");
+	}
+
+
+	@Override
+	public PayrollDto update(PayrollDto o) {
+		throw new NotImplementedException("not implemented");
+	}
+	
 }

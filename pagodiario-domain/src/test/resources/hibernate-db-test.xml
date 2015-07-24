@@ -17,7 +17,7 @@
 
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.fidias.database.modeler">
+	<context:component-scan base-package="com.icetea.manager.pagodiario">
 		<context:include-filter type="annotation"
 			expression="org.aspectj.lang.annotation.Aspect" />
 	</context:component-scan>
@@ -28,7 +28,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceTest" />
-		<property name="packagesToScan" value="com.fidias.database.modeler" />
+		<property name="packagesToScan" value="com.icetea.manager.pagodiario.model" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>

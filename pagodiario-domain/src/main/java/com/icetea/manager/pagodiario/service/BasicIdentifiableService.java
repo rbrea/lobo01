@@ -10,4 +10,7 @@ public interface BasicIdentifiableService<E extends Model, O extends BasicDto>
 	
 	boolean remove(Long id);
 	
+	O insert(O o);
+	
+	O update(O o);
 }

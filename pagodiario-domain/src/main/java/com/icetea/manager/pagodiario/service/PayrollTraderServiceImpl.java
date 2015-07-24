@@ -3,6 +3,8 @@ package com.icetea.manager.pagodiario.service;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import com.icetea.manager.pagodiario.api.dto.PayrollTraderDto;
 import com.icetea.manager.pagodiario.dao.PayrollTraderDao;
 import com.icetea.manager.pagodiario.model.PayrollTrader;
@@ -18,6 +20,15 @@ public class PayrollTraderServiceImpl
 			PayrollTraderDtoModelTransformer transformer) {
 		super(dao, transformer);
 	}
-
-
+	
+	@Override
+	public PayrollTraderDto insert(PayrollTraderDto o) {
+		throw new NotImplementedException("not implemented");
+	}
+	
+	@Override
+	public PayrollTraderDto update(PayrollTraderDto o) {
+		throw new NotImplementedException("not implemented");
+	}
+	
 }

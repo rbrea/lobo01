@@ -58,6 +58,12 @@ public class Bill extends Identifiable {
 	private Long creditNumber;
 	@Column(name = "REMAINING_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal remainingAmount = BigDecimal.ZERO; // DATO CALCULADO
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Discount> discounts = Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Bonus> bonusList = Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<ProductReduction> productReductionList = Lists.newArrayList();
 
 	public Bill() {
 		super();
@@ -229,5 +235,29 @@ public class Bill extends Identifiable {
 	public void decrementOverdueDays(int days){
 		this.overdueDays = this.overdueDays - days;
 	}
-	
+
+	public List<Discount> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<Discount> discounts) {
+		this.discounts = discounts;
+	}
+
+	public List<Bonus> getBonusList() {
+		return bonusList;
+	}
+
+	public void setBonusList(List<Bonus> bonusList) {
+		this.bonusList = bonusList;
+	}
+
+	public List<ProductReduction> getProductReductionList() {
+		return productReductionList;
+	}
+
+	public void setProductReductionList(List<ProductReduction> productReductionList) {
+		this.productReductionList = productReductionList;
+	}
+
 }

@@ -83,7 +83,13 @@
         <put-attribute name="body" value="/WEB-INF/pages/bill-history.jsp" />
         <put-list-attribute name="modals">
         	<add-attribute value="/WEB-INF/pages/lov/lov-payment.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-discount.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-bonus.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-reduction.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-payment.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-discount.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-bonus.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-productReduction.jsp" />
         </put-list-attribute>
     </definition>
         

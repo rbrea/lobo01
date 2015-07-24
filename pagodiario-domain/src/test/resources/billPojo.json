@@ -1,0 +1,106 @@
+{  
+   "bills":[  
+      {  
+         "ticketNumber":1112,
+         "trader":{  
+            "id":1,
+            "name":"Rodrigo Martinez",
+            "documentType":"DNI",
+            "documentNumber":29788987,
+            "phone":null,
+            "address":null,
+            "nearStreets":null,
+            "city":null,
+            "email":null,
+            "supervisor":true,
+            "parentId":null,
+            "parentDescription":null,
+            "listOfTraderIds":[  
+               2,
+               5,
+               7
+            ]
+         },
+         "client":{  
+            "id":1,
+            "name":"Eliana Delgado",
+            "documentType":"DNI",
+            "documentNumber":24777677,
+            "phone":"3243-4322",
+            "address":"francia 3444",
+            "nearStreets":null,
+            "city":"Castelar",
+            "email":"elianadel@fdsa.com",
+            "companyType":"Comercio",
+            "companyAddress":"saraza 1234",
+            "companyCity":"Castelar",
+            "companyPhone":"15-6789-5434"
+         },
+         "products":[  
+            {  
+               "name":"Toalla XL",
+               "count":2
+            }
+         ],
+         "totalAmount":"200.00",
+         "totalDailyInstallment":"10.00",
+         "overdueDays":0,
+         "startDate":"22/07/2015",
+         "endDate":"11/08/2015",
+         "status":"ACTIVE",
+         "creditNumber":"1234",
+         "collectorId":11,
+         "remainingAmount":"190.00"
+      },
+      {  
+         "ticketNumber":1123,
+         "trader":{  
+            "id":2,
+            "name":"Martin Rodriguez",
+            "documentType":"DNI",
+            "documentNumber":29788999,
+            "phone":null,
+            "address":null,
+            "nearStreets":null,
+            "city":"Direcc 9090",
+            "email":null,
+            "supervisor":false,
+            "parentId":1,
+            "parentDescription":"Rodrigo Martinez",
+            "listOfTraderIds":[  
+
+            ]
+         },
+         "client":{  
+            "id":2,
+            "name":"Francisco Delgado",
+            "documentType":"DNI",
+            "documentNumber":24777673,
+            "phone":"3246-4322",
+            "address":"francia 3445",
+            "nearStreets":"entre saraza y martin co.",
+            "city":"Moron",
+            "email":"fra234@fdsa.com",
+            "companyType":"Particular",
+            "companyAddress":"arriba 11234",
+            "companyCity":"Moron",
+            "companyPhone":"15-6783-5134"
+         },
+         "products":[  
+            {  
+               "name":"Producto 02",
+               "count":10
+            }
+         ],
+         "totalAmount":"2000.00",
+         "totalDailyInstallment":"10.00",
+         "overdueDays":0,
+         "startDate":"10/07/2015",
+         "endDate":"26/01/2016",
+         "status":"ACTIVE",
+         "creditNumber":"7878787878",
+         "collectorId":12,
+         "remainingAmount":"1990.00"
+      }
+   ]
+}
