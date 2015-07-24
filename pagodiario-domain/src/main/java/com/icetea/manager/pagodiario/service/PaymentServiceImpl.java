@@ -69,7 +69,7 @@ public class PaymentServiceImpl
 		bill.decrementOverdueDays(overdueDays);
 		
 		if(bill.getRemainingAmount().compareTo(BigDecimal.ZERO) <= 0){
-			bill.setStatus(Status.FINALIZED);
+			bill.setStatus(Status.COMPLETED);
 		}
 		
 		this.billDao.saveOrUpdate(bill);

@@ -28,7 +28,7 @@ public class Bill extends Identifiable {
 	private static final long serialVersionUID = 1L;
 
 	public static enum Status {
-		INITIALIZED, ACTIVE, FINALIZED, CANCELED
+		INITIALIZED, ACTIVE, COMPLETED, FINALIZED, CANCELED
 	}
 	
 	@ManyToOne

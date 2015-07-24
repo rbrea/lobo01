@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,11 +13,11 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Table(name = "PAYROLL_TRADER", 
+@Table(name = "PAYROLL_ITEM", 
 	uniqueConstraints = {@UniqueConstraint(name = "IDX_LIQ_VEND", 
 		columnNames = {"PAYROLL_ID", "TRADER_ID", "BILL_ID"})})
 @Audited
-public class PayrollTrader extends Identifiable {
+public class PayrollItem extends Identifiable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,15 +33,19 @@ public class PayrollTrader extends Identifiable {
 	@Column(name = "COMMISSION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
 	private BigDecimal commission = BigDecimal.ZERO; // 10%
 	@Column(name = "DISCOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-	private BigDecimal discount = BigDecimal.ZERO;
+	private BigDecimal discountAmount = BigDecimal.ZERO;
 	@Column(name = "BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-	private BigDecimal bonus = BigDecimal.ZERO;
+	private BigDecimal bonusAmount = BigDecimal.ZERO;
+	@Column(name = "PRODUCT_REDUCTION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal productReductionAmount = BigDecimal.ZERO;
+	@Column(name = "ITEM_DATE", columnDefinition = "DATETIME", nullable = false)
+	private Date itemDate;
 	
-	public PayrollTrader() {
+	public PayrollItem() {
 		super();
 	}
 
-	public PayrollTrader(String createdBy) {
+	public PayrollItem(String createdBy) {
 		super(createdBy);
 	}
 
@@ -76,20 +81,36 @@ public class PayrollTrader extends Identifiable {
 		this.commission = commission;
 	}
 
-	public BigDecimal getDiscount() {
-		return discount;
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
 	}
 
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
-	public BigDecimal getBonus() {
-		return bonus;
+	public BigDecimal getBonusAmount() {
+		return bonusAmount;
 	}
 
-	public void setBonus(BigDecimal bonus) {
-		this.bonus = bonus;
+	public void setBonusAmount(BigDecimal bonusAmount) {
+		this.bonusAmount = bonusAmount;
 	}
-	
+
+	public BigDecimal getProductReductionAmount() {
+		return productReductionAmount;
+	}
+
+	public void setProductReductionAmount(BigDecimal productReductionAmount) {
+		this.productReductionAmount = productReductionAmount;
+	}
+
+	public Date getItemDate() {
+		return itemDate;
+	}
+
+	public void setItemDate(Date itemDate) {
+		this.itemDate = itemDate;
+	}
+
 }

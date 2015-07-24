@@ -35,13 +35,11 @@ public class Payroll extends Identifiable {
 	private BigDecimal totalAmount = BigDecimal.ZERO;
 	@Column(name = "TOTAL_DISCOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
 	private BigDecimal totalDiscount = BigDecimal.ZERO;
-	@Column(name = "TOTAL_BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-	private BigDecimal totalBonus = BigDecimal.ZERO;
 	@Column(name = "STATUS", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<PayrollTrader> payrollTraderList = Lists.newArrayList();
+	private List<PayrollItem> payrollItemList = Lists.newArrayList();
 
 	public Date getDateFrom() {
 		return dateFrom;
@@ -73,24 +71,18 @@ public class Payroll extends Identifiable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public List<PayrollTrader> getPayrollTraderList() {
-		return payrollTraderList;
+	public List<PayrollItem> getPayrollItemList() {
+		return payrollItemList;
 	}
-	public void setPayrollTraderList(List<PayrollTrader> payrollTraderList) {
-		this.payrollTraderList = payrollTraderList;
+	public void setPayrollItemList(List<PayrollItem> payrollItemList) {
+		this.payrollItemList = payrollItemList;
 	}
 
-	public boolean addPayrollTrader(PayrollTrader payrollTrader){
-		if(payrollTrader == null){
+	public boolean addPayrollItem(PayrollItem payrollItem){
+		if(payrollItem == null){
 			return false;
 		}
-		return this.payrollTraderList.add(payrollTrader);
-	}
-	public BigDecimal getTotalBonus() {
-		return totalBonus;
-	}
-	public void setTotalBonus(BigDecimal totalBonus) {
-		this.totalBonus = totalBonus;
+		return this.payrollItemList.add(payrollItem);
 	}
 	
 }
