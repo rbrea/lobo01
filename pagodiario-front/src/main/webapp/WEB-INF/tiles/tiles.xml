@@ -86,10 +86,12 @@
         	<add-attribute value="/WEB-INF/pages/lov/lov-discount.jsp" />
         	<add-attribute value="/WEB-INF/pages/lov/lov-bonus.jsp" />
         	<add-attribute value="/WEB-INF/pages/lov/lov-reduction.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-dev.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-payment.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-discount.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-bonus.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-productReduction.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-dev.jsp" />
         </put-list-attribute>
     </definition>
         

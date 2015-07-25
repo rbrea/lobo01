@@ -2,10 +2,26 @@
 	.table-hover tbody tr:hover > td {
 	  cursor: pointer;
 	}
+	
+	.navbar-grad {
+		background: -webkit-linear-gradient(left top, #113555, #1E5281); /* For Safari 5.1 to 6.0 */
+  		background: -o-linear-gradient(bottom right, #113555, #1E5281); /* For Opera 11.1 to 12.0 */
+  		background: -moz-linear-gradient(bottom right, #113555, #1E5281); /* For Firefox 3.6 to 15 */
+  		background: linear-gradient(to bottom right, #113555, #1E5281); /* Standard syntax */
+	}
+	
+	.navbar-inverse .navbar-nav>li>a {
+		color: #ccc;
+	}
+	
+	.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+		color: #fff;
+		background-color: #1E5281;
+	}
 </style>
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-grad" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -34,10 +50,7 @@
 	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial Factura</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optDevoluciones" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-retweet"></i>&nbsp;Devoluciones</a>
-	                </li>
-	                <li role="presentation">
-	                	<a id="optBajas" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;Bajas</a>
+	                	<a id="optPremio" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;Alta de Premio</a>
 	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">

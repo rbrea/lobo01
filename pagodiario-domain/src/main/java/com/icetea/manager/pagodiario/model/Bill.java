@@ -64,6 +64,8 @@ public class Bill extends Identifiable {
 	private List<Bonus> bonusList = Lists.newArrayList();
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ProductReduction> productReductionList = Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Dev> devList = Lists.newArrayList();
 
 	public Bill() {
 		super();
@@ -258,6 +260,14 @@ public class Bill extends Identifiable {
 
 	public void setProductReductionList(List<ProductReduction> productReductionList) {
 		this.productReductionList = productReductionList;
+	}
+
+	public List<Dev> getDevList() {
+		return devList;
+	}
+
+	public void setDevList(List<Dev> devList) {
+		this.devList = devList;
 	}
 
 }

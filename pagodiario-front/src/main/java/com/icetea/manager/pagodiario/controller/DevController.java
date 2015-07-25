@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
-import com.icetea.manager.pagodiario.api.dto.BonusDto;
+import com.icetea.manager.pagodiario.api.dto.DevDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
-import com.icetea.manager.pagodiario.service.BonusService;
+import com.icetea.manager.pagodiario.service.DevService;
 
 @Controller
-@RequestMapping(value = "/html/bonus")
-public class BonusController extends ExceptionHandlingController {
-
-	private static final Logger LOGGER = getLogger(BonusController.class);
+@RequestMapping(value = "/html/dev")
+public class DevController extends ExceptionHandlingController {
+	
+	private static final Logger LOGGER = getLogger(DevController.class);
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -33,27 +33,27 @@ public class BonusController extends ExceptionHandlingController {
 	}
 	
 	@Inject
-	private BonusService bonusService;
+	private DevService devService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(){
 		
-		return "bonus";
+		return "dev";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<BonusDto> get(@RequestParam(required = false) Long id,
+	public @ResponseBody ListOutputDto<DevDto> get(@RequestParam(required = false) Long id,
 			@RequestParam(required = false) Long billId){
-		ListOutputDto<BonusDto> r = new ListOutputDto<BonusDto>();
+		ListOutputDto<DevDto> r = new ListOutputDto<DevDto>();
 
-		List<BonusDto> list = Lists.newArrayList();
+		List<DevDto> list = Lists.newArrayList();
 		
 		if(billId != null){
-			list = this.bonusService.search(billId);
+			list = this.devService.search(billId);
 		} else if(id != null){
-			list.add(this.bonusService.searchById(id));
+			list.add(this.devService.searchById(id));
 		} else {
-			list = this.bonusService.searchAll();
+			list = this.devService.searchAll();
 		}
 		
 		r.setData(list);
@@ -62,16 +62,16 @@ public class BonusController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public @ResponseBody ListOutputDto<BonusDto> add(@RequestBody BonusDto input){
-		ListOutputDto<BonusDto> r = new ListOutputDto<BonusDto>();
+	public @ResponseBody ListOutputDto<DevDto> add(@RequestBody DevDto input){
+		ListOutputDto<DevDto> r = new ListOutputDto<DevDto>();
 
-		List<BonusDto> list = Lists.newArrayList();
-		BonusDto client = null;
+		List<DevDto> list = Lists.newArrayList();
+		DevDto client = null;
 		if(input.getId() != null){
-			client = this.bonusService.update(input);
+			client = this.devService.update(input);
 			list.add(client);
 		} else {
-			client = this.bonusService.insert(input);
+			client = this.devService.insert(input);
 			list.add(client);
 		}
 		r.setData(list);
@@ -83,9 +83,9 @@ public class BonusController extends ExceptionHandlingController {
 	public @ResponseBody BasicOutputDto delete(@PathVariable Long id){
 		BasicOutputDto r = new BasicOutputDto();
 
-		this.bonusService.remove(id);
+		this.devService.remove(id);
 		
 		return r;
 	}
-
+	
 }

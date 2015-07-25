@@ -20,11 +20,14 @@ import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.ProductReductionDao;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bonus;
+import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payroll;
+import com.icetea.manager.pagodiario.model.Payroll.Status;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.model.ProductReduction;
 import com.icetea.manager.pagodiario.transformer.PayrollDtoModelTransformer;
+import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
@@ -64,12 +67,19 @@ public class PayrollServiceImpl extends
 		if(bills != null){
 			for(Bill bill : bills){
 				PayrollItem payrollItem = new PayrollItem();
-				payrollItem.setBill(bill);
 				
 				BigDecimal commission = bill.getTotalAmount().multiply(BigDecimal.TEN).divide(
 						NumberUtils._100, MathContext.DECIMAL128); 
 				
-				payrollItem.setCommission(commission);
+				ConciliationItem conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
+				conciliationItem.setCollectAmount(commission);
+				conciliationItem.setDescription("'CREDITO' " 
+						+ bill.getCreditNumber() + " FECHA " + DateUtils.toDate(bill.getStartDate(), "dd/MM/yyyy"));
+				
+				conciliationItem.setPayrollItem(payrollItem);
+				conciliationItem.setBill(bill);
+				payrollItem.addItem(conciliationItem);
+				
 				payrollItem.setPayroll(payroll);
 				payrollItem.setTrader(bill.getTrader());
 				
@@ -85,24 +95,45 @@ public class PayrollServiceImpl extends
 		if(discounts != null){
 			for(final Discount e : discounts){
 				
-				PayrollItem item = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
-					@Override
-					public boolean evaluate(PayrollItem o) {
-						return o.getBill().getId().equals(e.getBill().getId());
-					}
-				});
-				if(item == null){
+				PayrollItem item = null;
+				ConciliationItem conciliationItem = null;
+				
+				List<PayrollItem> payrollItemList = payroll.getPayrollItemList();
+				
+				for(PayrollItem p : payrollItemList){
+					conciliationItem = CollectionUtils.find(p.getItems(), new Predicate<ConciliationItem>() {
+						@Override
+						public boolean evaluate(ConciliationItem o) {
+							return o.getBill().getId().equals(e.getBill().getId());
+						}
+					});
+				}
+				if(conciliationItem == null){
 					item = new PayrollItem();
 					item.setItemDate(e.getDate());
-					
-					item.setBill(e.getBill());
 					
 					item.setTrader(e.getBill().getTrader());
 					
 					item.setPayroll(payroll);
 					payroll.addPayrollItem(item);
+				} else {
+					item = conciliationItem.getPayrollItem();
 				}
-				item.setDiscountAmount(e.getAmount());
+				
+				if(item.getItems() != null && !item.getItems().isEmpty()){
+					// pongo el 0 pq a este punto solo voy a tener 1 siempre porque solo tengo el de la factura ...
+					conciliationItem = item.getItems().get(0);
+				} else {
+					conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
+					conciliationItem.setPayrollItem(item);
+					conciliationItem.setDate(e.getBill().getStartDate());
+					conciliationItem.setBill(e.getBill());
+					conciliationItem.setDescription("'CREDITO' " 
+							+ conciliationItem.getBill().getCreditNumber() + " FECHA " 
+							+ DateUtils.toDate(conciliationItem.getBill().getStartDate(), "dd/MM/yyyy"));
+					item.addItem(conciliationItem);
+				}
+				conciliationItem.setDiscountAmount(NumberUtils.add(conciliationItem.getDiscountAmount(), e.getAmount()));
 				
 				totalDiscount = NumberUtils.add(totalDiscount, e.getAmount());
 			}
@@ -110,25 +141,7 @@ public class PayrollServiceImpl extends
 		List<Bonus> bonusList = this.bonusDao.find(dateFrom, dateTo);
 		if(bonusList != null){
 			for(final Bonus e : bonusList){
-				
-				PayrollItem item = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
-					@Override
-					public boolean evaluate(PayrollItem o) {
-						return o.getBill().getId().equals(e.getBill().getId());
-					}
-				});
-				if(item == null){
-					item = new PayrollItem();
-					item.setItemDate(e.getDate());
-					
-					item.setBill(e.getBill());
-					
-					item.setTrader(e.getBill().getTrader());
-					
-					item.setPayroll(payroll);
-					payroll.addPayrollItem(item);
-				}
-				item.setCommission(e.getAmount());
+				// TODO: completar logica de premios
 				
 				totalAmount = NumberUtils.add(totalAmount, e.getAmount());
 			}
@@ -137,36 +150,59 @@ public class PayrollServiceImpl extends
 		if(productReductionList != null){
 			for(final ProductReduction e : productReductionList){
 				
-				PayrollItem item = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
-					@Override
-					public boolean evaluate(PayrollItem o) {
-						return o.getBill().getId().equals(e.getBill().getId());
-					}
-				});
-				if(item == null){
+				PayrollItem item = null;
+				ConciliationItem conciliationItem = null;
+				
+				List<PayrollItem> payrollItemList = payroll.getPayrollItemList();
+				
+				for(PayrollItem p : payrollItemList){
+					conciliationItem = CollectionUtils.find(p.getItems(), new Predicate<ConciliationItem>() {
+						@Override
+						public boolean evaluate(ConciliationItem o) {
+							return o.getBill().getId().equals(e.getBill().getId()) 
+									&& o.getType() == ConciliationItem.Type.REDUCTION;
+						}
+					});
+				}
+				if(conciliationItem == null){
 					item = new PayrollItem();
 					item.setItemDate(e.getDate());
-					
-					item.setBill(e.getBill());
 					
 					item.setTrader(e.getBill().getTrader());
 					
 					item.setPayroll(payroll);
 					payroll.addPayrollItem(item);
+					
+					conciliationItem = new ConciliationItem(ConciliationItem.Type.REDUCTION);
+					conciliationItem.setBill(e.getBill());
+					conciliationItem.setPayrollItem(item);
+					
+					conciliationItem.setDescription("'1/2 BAJA CRED' " 
+							+ conciliationItem.getBill().getCreditNumber() + " FEC " 
+							+ DateUtils.toDate(conciliationItem.getBill().getStartDate(), "dd/MM/yyyy"));
+					
+					item.addItem(conciliationItem);
+					
+				} else {
+					item = conciliationItem.getPayrollItem();
 				}
-				item.setCommission(e.getAmount());
 				
-				totalAmount = NumberUtils.add(totalAmount, e.getAmount());
+				BigDecimal amount = e.getAmount().negate();
+				
+				conciliationItem.setCollectAmount(NumberUtils.add(conciliationItem.getCollectAmount(), amount));
+				
+				totalAmount = NumberUtils.add(totalAmount, amount);
 			}
 		}
 		// finalmente seteo el total de la liquidacion (comisiones + premios - bajas)
 		payroll.setTotalAmount(totalAmount);
 		// finalmente seteo el total de descuentos de la liquidacion
 		payroll.setTotalDiscount(totalDiscount);
+		payroll.setStatus(Status.FINISHED);
+		this.getDao().saveOrUpdate(payroll);
 		
 		return this.getTransformer().transform(payroll);
 	}
-
 
 	@Override
 	public PayrollDto insert(PayrollDto o) {
