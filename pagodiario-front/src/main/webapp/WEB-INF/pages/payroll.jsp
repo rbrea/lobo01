@@ -48,8 +48,7 @@
 							&nbsp;
 						</div>
 						<div class="col-md-4">
-							<button id="btnAccept" class="btn btn-primary">Aceptar</button>&nbsp;
-							<button id="btnReset" class="btn btn-danger">Limpiar</button>
+							<button id="btnAccept" class="btn btn-primary">Procesar</button>&nbsp;
 						</div>
 					</div>
 		  		</div>

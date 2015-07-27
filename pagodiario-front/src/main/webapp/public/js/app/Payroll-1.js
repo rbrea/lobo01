@@ -15,13 +15,6 @@ Payroll.init = function(){
     });
 	*/
 	
-	$("#btnReset").on('click', function(){
-		$("#fromDateValue").val("");
-		$("#toDateValue").val("");
-		
-		return;
-	});
-	
 	$("#btnAccept").on('click', function(){
 		Payroll.processPeriod();
 		
