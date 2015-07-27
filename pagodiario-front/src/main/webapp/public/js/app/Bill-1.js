@@ -40,6 +40,10 @@ Bill.initModalClient = function(){
 }
 
 Bill.init = function(){
+	
+	// asigno el dia de hoy
+	$("#billDateValue").val(moment().format('DD/MM/YYYY'));
+	
 	$('.not-writable').keypress(function(e) {
         e.preventDefault();
         
@@ -51,7 +55,7 @@ Bill.init = function(){
 	$('#billDate').datetimepicker({
         locale: 'es',
         showTodayButton: true,
-        format: 'DD/MM/YYYY HH:mm:ss'
+        format: 'DD/MM/YYYY'
     });
 	
 	Bill.initModalClient();

@@ -13,11 +13,13 @@ import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.NotImplementedException;
 
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
+import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.BonusDao;
 import com.icetea.manager.pagodiario.dao.DiscountDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.ProductReductionDao;
+import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bonus;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
@@ -58,6 +60,14 @@ public class PayrollServiceImpl extends
 	public PayrollDto processPeriod(Date dateFrom, Date dateTo){
 		List<Bill> bills = this.billDao.find(dateFrom, dateTo);
 		
+		Payroll found = this.getDao().find(dateFrom, dateTo);
+		
+		ErrorTypedConditions.checkArgument(found == null, 
+				String.format("Ya se hizo la liquidacion para el periodo: %s a %s", 
+						DateUtils.toDate(dateFrom), 
+						DateUtils.toDate(dateTo)), 
+				ErrorType.VALIDATION_ERRORS);
+		
 		Payroll payroll = new Payroll();
 		payroll.setDateFrom(dateFrom);
 		payroll.setDateTo(dateTo);
@@ -75,7 +85,7 @@ public class PayrollServiceImpl extends
 				conciliationItem.setCollectAmount(commission);
 				conciliationItem.setDescription("'CREDITO' " 
 						+ bill.getCreditNumber() + " FECHA " + DateUtils.toDate(bill.getStartDate(), "dd/MM/yyyy"));
-				
+				conciliationItem.setDate(bill.getStartDate());
 				conciliationItem.setPayrollItem(payrollItem);
 				conciliationItem.setBill(bill);
 				payrollItem.addItem(conciliationItem);
@@ -199,6 +209,7 @@ public class PayrollServiceImpl extends
 		// finalmente seteo el total de descuentos de la liquidacion
 		payroll.setTotalDiscount(totalDiscount);
 		payroll.setStatus(Status.FINISHED);
+		payroll.setTotal(NumberUtils.subtract(totalAmount, totalDiscount));
 		this.getDao().saveOrUpdate(payroll);
 		
 		return this.getTransformer().transform(payroll);

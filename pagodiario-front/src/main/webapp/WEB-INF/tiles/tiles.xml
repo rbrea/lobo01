@@ -94,5 +94,12 @@
         	<add-attribute value="/WEB-INF/pages/modal/modal-dev.jsp" />
         </put-list-attribute>
     </definition>
-        
+
+	<definition name="payroll" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones" />
+        <put-attribute name="body" value="/WEB-INF/pages/payroll.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+            
 </tiles-definitions>

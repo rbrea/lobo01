@@ -63,7 +63,7 @@
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 	                <li role="presentation">
 	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="#" class="disabled">
+	                			href="${pageContext.request.contextPath}/controller/html/payroll/index" class="disabled">
 	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Ejecutar Liquidaci&oacute;n
 	                	</a>
 	                </li>

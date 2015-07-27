@@ -39,3 +39,4 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ProductReduction-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Dev-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>

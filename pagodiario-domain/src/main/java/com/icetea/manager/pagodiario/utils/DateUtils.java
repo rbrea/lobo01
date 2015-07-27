@@ -11,7 +11,7 @@ import com.google.common.base.Preconditions;
 
 public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
-	public static final String DEFAULT_PATTERN = "dd/MM/yyyy HH:mm:ss";
+	public static final String DEFAULT_PATTERN = "dd/MM/yyyy";
 	
 	public static String toDate(Date date, String pattern, String timezone){
 		if(date == null){

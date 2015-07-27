@@ -63,6 +63,11 @@ public class BillServiceImpl
 		ErrorTypedConditions.checkArgument(trader != null, String.format("Vendedor no encontrado con id: %s", d.getTraderId()), 
 				ErrorType.TRADER_NOT_FOUND);
 		
+		Bill found = this.getDao().findByCreditNumber(d.getCreditNumber());
+		
+		ErrorTypedConditions.checkArgument(found == null, 
+				String.format("Ya existe factura con nro. de credito %s", d.getCreditNumber()), ErrorType.VALIDATION_ERRORS);
+		
 		Bill e = new Bill();
 		
 		for(BillProductDto p : billProducts){

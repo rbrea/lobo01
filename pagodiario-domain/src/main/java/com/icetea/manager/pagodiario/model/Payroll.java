@@ -40,6 +40,8 @@ public class Payroll extends Identifiable {
 	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PayrollItem> payrollItemList = Lists.newArrayList();
+	@Column(name = "TOTAL", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal total = BigDecimal.ZERO;
 
 	public Date getDateFrom() {
 		return dateFrom;
@@ -83,6 +85,12 @@ public class Payroll extends Identifiable {
 			return false;
 		}
 		return this.payrollItemList.add(payrollItem);
+	}
+	public BigDecimal getTotal() {
+		return total;
+	}
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 	
 }
