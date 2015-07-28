@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,8 +36,14 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
+		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());
+
+		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
+				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
+						o.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
+		
 		Dev e = new Dev();
-		e.setAmount(NumberUtils.toBigDecimal(o.getAmount()));
+		e.setAmount(amount);
 		e.setDate(DateUtils.parseDate(o.getDate(), "dd/MM/yyyy"));
 		e.setObservations(o.getObservations());
 		e.setBill(bill);

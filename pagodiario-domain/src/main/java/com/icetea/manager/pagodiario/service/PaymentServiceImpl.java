@@ -42,6 +42,7 @@ public class PaymentServiceImpl
 		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "id de cobrador/zona es requerido", ErrorType.VALIDATION_ERRORS);
 		ErrorTypedConditions.checkArgument(d.getDate() != null, "fecha de pago es requerida", ErrorType.VALIDATION_ERRORS);
 		
+
 		BigDecimal amount = NumberUtils.toBigDecimal(d.getAmount());
 		e.setAmount(amount);
 		
@@ -54,6 +55,11 @@ public class PaymentServiceImpl
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalDailyInstallment()) >= 0, 
 				String.format("El monto a pagar no puede ser menor que la cuota diaria: $%s", 
 						NumberUtils.toString(bill.getTotalDailyInstallment())), ErrorType.VALIDATION_ERRORS);
+		
+		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
+				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
+						d.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
+		
 		e.setBill(bill);
 		e.setCollectorId(d.getCollectorId());
 		e.setDate(DateUtils.parseDate(d.getDate(), "dd/MM/yyyy"));

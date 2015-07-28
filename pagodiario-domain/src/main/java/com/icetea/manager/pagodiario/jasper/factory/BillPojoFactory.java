@@ -56,7 +56,7 @@ public class BillPojoFactory {
 		}
 		pojo.setClient(this.clientService.searchById(billDto.getClientId()));
 		pojo.setCollectorId(billDto.getCollectorId());
-		pojo.setCreditNumber(billDto.getCreditNumber());
+		pojo.setCreditNumber(String.valueOf(billDto.getCreditNumber()));
 		pojo.setEndDate(billDto.getEndDate());
 		pojo.setOverdueDays(billDto.getOverdueDays());
 		pojo.setRemainingAmount(billDto.getRemainingAmount());

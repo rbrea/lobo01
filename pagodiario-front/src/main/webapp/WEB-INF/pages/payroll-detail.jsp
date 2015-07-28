@@ -23,6 +23,9 @@
 				<input type="hidden" id="payrollId" name="payrollId" value="${payrollId}">
 				<input type="hidden" id="payrollItemId" name="payrollItemId">
 				<input type="hidden" id="traderName" name="traderName">
+				<input type="hidden" id="totalCollect" name="totalCollect">
+				<input type="hidden" id="totalDiscount" name="totalDiscount">
+				<input type="hidden" id="totalTrader" name="totalTrader">
 			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">

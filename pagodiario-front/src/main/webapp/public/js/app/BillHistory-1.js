@@ -263,6 +263,10 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 		title: 'Cargar Pago',
 		autodestroy: false,
         message: function(dialog) {
+        	
+        	// asigno el dia de hoy
+        	$("#paymentDateValue").val(moment().format('DD/MM/YYYY'));
+        	
         	$('#paymentDate').datetimepicker({
                 locale: 'es',
                 showTodayButton: true,
@@ -397,6 +401,10 @@ BillHistory.showDiscount = function(id){
 		title: 'Descuentos',
 		autodestroy: false,
         message: function(dialog) {
+        	
+        	// asigno el dia de hoy
+        	$("#discountDateValue").val(moment().format('DD/MM/YYYY'));
+        	
         	$('#discountDate').datetimepicker({
                 locale: 'es',
                 showTodayButton: true,
@@ -547,6 +555,10 @@ BillHistory.showProductReduction = function(id){
 		title: 'Baja',
 		autodestroy: false,
         message: function(dialog) {
+        	
+        	// asigno el dia de hoy
+        	$("#productReductionDateValue").val(moment().format('DD/MM/YYYY'));
+        	
         	$('#productReductionDate').datetimepicker({
                 locale: 'es',
                 showTodayButton: true,
@@ -622,6 +634,9 @@ BillHistory.showDev = function(id){
 		title: 'Alta de Devoluci&oacute;n',
 		autodestroy: false,
         message: function(dialog) {
+        	// asigno el dia de hoy
+        	$("#devDateValue").val(moment().format('DD/MM/YYYY'));
+        	
         	$('#devDate').datetimepicker({
                 locale: 'es',
                 showTodayButton: true,

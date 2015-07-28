@@ -12,6 +12,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> find(Date dateFrom, Date dateTo);
 
-	Bill findByCreditNumber(String creditNumber);
+	Bill findByCreditNumber(Long creditNumber);
 
 }

@@ -57,7 +57,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<form class="form-control" id="frmPayroll" method="get">
+			<form id="frmPayroll" method="get">
 				<input type="hidden" id="payrollId" name="payrollId">
 			</form>
 			<div class="panel panel-default">

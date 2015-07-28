@@ -41,10 +41,10 @@
 		  					<div class="table-responsive">
 								<table id="tTraderConcialiationItem" class="table table-bordered">
 						            <tr>
-						            	<td class="centered title-td">${traderName}</td>
+						            	<td colspan="3" class="centered title-td">${traderName}</td>
 						            </tr>
 						            <tr>
-						            	<td class="centered title-td">DESDE ${fromDate} HASTA ${toDate}</td>
+						            	<td colspan="3" class="centered title-td">DESDE ${fromDate} HASTA ${toDate}</td>
 						            </tr>
 								</table>							
 							</div>
@@ -68,6 +68,17 @@
 							                <th>Descuentos</th>
 							            </tr>
 							        </thead>
+							        <tfoot>
+							            <tr>
+							                <th colspan="2" style="text-align:left">SUBTOTAL</th>
+							                <th style="background-color:#fcf8e3;">${totalCollect}</th>
+							                <th style="background-color:#fcf8e3;">${totalDiscount}</th>
+							            </tr>
+							            <tr class="odd">
+							                <th colspan="3" style="text-align:left">TOTAL</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalTrader}</th>
+							            </tr>
+							        </tfoot>
 								</table>							
 							</div>
 						</div>

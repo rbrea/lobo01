@@ -41,6 +41,9 @@ public class ConciliationItemController extends ExceptionHandlingController {
 	public String showForm(@RequestParam(required = false) Long payrollId, 
 			@RequestParam(required = false) Long payrollItemId,
 			@RequestParam(required = false) String traderName,
+			@RequestParam(required = false) String totalCollect,
+			@RequestParam(required = false) String totalDiscount,
+			@RequestParam(required = false) String totalTrader,
 			ModelMap modelMap){
 		modelMap.addAttribute("payrollId", payrollId);
 		modelMap.addAttribute("payrollItemId", payrollItemId);
@@ -50,6 +53,10 @@ public class ConciliationItemController extends ExceptionHandlingController {
 		modelMap.addAttribute("fromDate", payroll.getFromDate());
 		modelMap.addAttribute("toDate", payroll.getToDate());
 		modelMap.addAttribute("traderName", traderName);
+		
+		modelMap.addAttribute("totalCollect", totalCollect);
+		modelMap.addAttribute("totalDiscount", totalDiscount);
+		modelMap.addAttribute("totalTrader", totalTrader);
 		
 		return "conciliationItem";
 	}

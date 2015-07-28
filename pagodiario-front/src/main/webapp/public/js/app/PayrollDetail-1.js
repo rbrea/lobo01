@@ -4,6 +4,8 @@ PayrollDetail.initDataTable = function(imgCheckUrl, payrollId){
 	
 	var table = $("#tPayrollDetailResult").dataTable( {
 		"bDestroy" : true,
+		"searching": false,
+		"info" : false,
         "ajax": Constants.contextRoot + "/controller/html/payrollDetail?payrollId=" + payrollId,
         "createdRow": function ( row, data, index ) {
     		
@@ -40,7 +42,9 @@ PayrollDetail.initDataTable = function(imgCheckUrl, payrollId){
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:PayrollDetail.showDetail('" + row.id + "', '" + row.name + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
+                    return "<a href=\"javascript:PayrollDetail.showDetail('" + row.id + "', '" + row.name + "', '" + row.totalAmount + "', '" 
+                    	+ row.totalDiscount + "', '" + row.total 
+                    	+ "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
                 }
          	}
         ],
@@ -62,11 +66,14 @@ PayrollDetail.initDataTable = function(imgCheckUrl, payrollId){
 	return;
 }
 
-PayrollDetail.showDetail = function(payrollItemId, traderName){
+PayrollDetail.showDetail = function(payrollItemId, traderName, totalCollect, totalDiscount, totalTrader){
 	
 	$("#frmPayrollDetail")[0].action = Constants.contextRoot + "/controller/html/conciliationItem/index";
 	$("#payrollItemId").val(payrollItemId);
 	$("#traderName").val(traderName);
+	$("#totalCollect").val(totalCollect);
+	$("#totalDiscount").val(totalDiscount);
+	$("#totalTrader").val(totalTrader);
 	$("#frmPayrollDetail").submit();
 	
 	return;

@@ -97,7 +97,7 @@ public class BillFactoryTest {
 		b.getBillProducts().add(bp);
 		b.setClientId(2L);
 		b.setCollectorId(12);
-		b.setCreditNumber("7878787878");
+		b.setCreditNumber(7878787878L);
 		b.setStartDate("10/07/2015 00:00:00");
 		b.setTotalAmount("2000.00");
 		b.setTotalDailyInstallment("10.00");

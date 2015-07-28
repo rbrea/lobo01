@@ -45,7 +45,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	}
 
 	@Override
-	public Bill findByCreditNumber(String creditNumber){
+	public Bill findByCreditNumber(Long creditNumber){
 		Criteria criteria = super.createCriteria();
 		criteria.add(Restrictions.eq("creditNumber", creditNumber));
 		
