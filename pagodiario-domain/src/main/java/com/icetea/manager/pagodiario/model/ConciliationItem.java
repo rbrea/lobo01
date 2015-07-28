@@ -11,7 +11,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Table(name = "CONCILIATION_ITEM", 
 	uniqueConstraints = {@UniqueConstraint(name = "IDX_CONCILIATION_ITEM", 
-		columnNames = {"PAYROLL_ITEM_ID", "BILL_ID"})})
+		columnNames = {"PAYROLL_ITEM_ID", "BILL_ID", "TYPE"})})
 @Audited
 public class ConciliationItem extends AbstractConciliationItem {
 

@@ -17,7 +17,6 @@ ConciliationItem.initDataTable = function(imgCheckUrl, id){
 				"data": "id" 
 			},        
             { 	
-            	"className": 'centered',
             	"data": "description" 
             },
             { 	

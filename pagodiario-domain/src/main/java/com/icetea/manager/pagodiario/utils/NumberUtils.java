@@ -156,4 +156,13 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
         }
         return s.toString();
     }
+    
+    public static BigDecimal calculatePercentage(BigDecimal amount, BigDecimal percentage){
+    	if(amount == null || percentage == null){
+    		return BigDecimal.ZERO;
+    	}
+    	
+    	return amount.multiply(percentage).divide(_100);
+    }
+    
 }
