@@ -26,5 +26,5 @@ public class PayrollDaoImpl extends BasicIdentificableDaoImpl<Payroll>
 		
 		return (Payroll) criteria.uniqueResult();
 	}
-	
+
 }

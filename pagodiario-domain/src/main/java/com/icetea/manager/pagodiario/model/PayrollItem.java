@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -37,14 +38,12 @@ public class PayrollItem extends Identifiable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private BonusConciliationItem bonusItem;
 	
-//	@Column(name = "COMMISSION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-//	private BigDecimal commission = BigDecimal.ZERO; // 10%
-//	@Column(name = "DISCOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-//	private BigDecimal discountAmount = BigDecimal.ZERO;
-//	@Column(name = "BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-//	private BigDecimal bonusAmount = BigDecimal.ZERO;
-//	@Column(name = "PRODUCT_REDUCTION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
-//	private BigDecimal productReductionAmount = BigDecimal.ZERO;
+	@Column(name = "SUBTOTAL_COLLECT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal subtotalCollect = BigDecimal.ZERO;
+	@Column(name = "SUBTOTAL_DISCOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal subtotalDiscount = BigDecimal.ZERO;
+	@Column(name = "TOTAL_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal totalAmount = BigDecimal.ZERO;
 	@Column(name = "ITEM_DATE", columnDefinition = "DATETIME", nullable = false)
 	private Date itemDate;
 	
@@ -100,6 +99,30 @@ public class PayrollItem extends Identifiable {
 
 	public void setBonusItem(BonusConciliationItem bonusItem) {
 		this.bonusItem = bonusItem;
+	}
+
+	public BigDecimal getSubtotalCollect() {
+		return subtotalCollect;
+	}
+
+	public void setSubtotalCollect(BigDecimal subtotalCollect) {
+		this.subtotalCollect = subtotalCollect;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public BigDecimal getSubtotalDiscount() {
+		return subtotalDiscount;
+	}
+
+	public void setSubtotalDiscount(BigDecimal subtotalDiscount) {
+		this.subtotalDiscount = subtotalDiscount;
 	}
 
 }

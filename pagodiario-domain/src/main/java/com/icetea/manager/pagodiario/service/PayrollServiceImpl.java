@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +13,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.NotImplementedException;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.icetea.manager.pagodiario.api.dto.PayrollDetailDto;
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -68,15 +72,25 @@ public class PayrollServiceImpl extends
 						DateUtils.toDate(dateTo)), 
 				ErrorType.VALIDATION_ERRORS);
 		
-		Payroll payroll = new Payroll();
+		final Payroll payroll = new Payroll();
 		payroll.setDateFrom(dateFrom);
 		payroll.setDateTo(dateTo);
 		
 		BigDecimal totalAmount = BigDecimal.ZERO;
 		
 		if(bills != null){
-			for(Bill bill : bills){
-				PayrollItem payrollItem = new PayrollItem();
+			for(final Bill bill : bills){
+				PayrollItem payrollItem = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
+					@Override
+					public boolean evaluate(PayrollItem item) {
+						return item.getTrader().getId().equals(bill.getTrader().getId())
+								&& item.getPayroll().getId().equals(payroll.getId());
+					}
+				});
+				
+				if(payrollItem == null){
+					payrollItem = new PayrollItem();
+				}
 				
 				BigDecimal commission = bill.getTotalAmount().multiply(BigDecimal.TEN).divide(
 						NumberUtils._100, MathContext.DECIMAL128); 
@@ -96,6 +110,8 @@ public class PayrollServiceImpl extends
 				totalAmount = NumberUtils.add(totalAmount, commission);
 				
 				payrollItem.setItemDate(bill.getStartDate());
+				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), commission));
+				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), payrollItem.getSubtotalCollect()));
 				
 				payroll.addPayrollItem(payrollItem);
 			}
@@ -144,7 +160,8 @@ public class PayrollServiceImpl extends
 					item.addItem(conciliationItem);
 				}
 				conciliationItem.setDiscountAmount(NumberUtils.add(conciliationItem.getDiscountAmount(), e.getAmount()));
-				
+				item.setSubtotalDiscount(NumberUtils.add(item.getSubtotalDiscount(), e.getAmount()));
+				item.setTotalAmount(NumberUtils.subtract(item.getTotalAmount(), item.getSubtotalDiscount()));
 				totalDiscount = NumberUtils.add(totalDiscount, e.getAmount());
 			}
 		}
@@ -200,6 +217,8 @@ public class PayrollServiceImpl extends
 				BigDecimal amount = e.getAmount().negate();
 				
 				conciliationItem.setCollectAmount(NumberUtils.add(conciliationItem.getCollectAmount(), amount));
+				item.setSubtotalCollect(NumberUtils.add(item.getSubtotalCollect(), amount));
+				item.setTotalAmount(NumberUtils.add(item.getTotalAmount(), item.getSubtotalCollect()));
 				
 				totalAmount = NumberUtils.add(totalAmount, amount);
 			}
@@ -225,5 +244,34 @@ public class PayrollServiceImpl extends
 	public PayrollDto update(PayrollDto o) {
 		throw new NotImplementedException("not implemented");
 	}
-	
+
+	@Override
+	public List<PayrollDetailDto> searchDetail(Long payrollId){
+		List<PayrollDetailDto> list = Lists.newArrayList();
+		
+		Payroll payroll = this.getDao().findById(payrollId);
+		
+		Map<Long, PayrollDetailDto> map = Maps.newHashMap();
+		
+		for(PayrollItem i : payroll.getPayrollItemList()){
+			PayrollDetailDto d = map.get(i.getTrader().getId());
+			
+			if(d == null){
+				d = new PayrollDetailDto();
+				d.setId(i.getId());
+				d.setName(i.getTrader().getName());
+				d.setPhone(i.getTrader().getPhone());
+				d.setTraderId(i.getTrader().getId());
+			}
+			d.setTotalAmount(NumberUtils.toString(i.getSubtotalCollect()));
+			d.setTotalDiscount(NumberUtils.toString(i.getSubtotalDiscount()));
+			d.setTotal(NumberUtils.toString(i.getTotalAmount()));
+			
+			map.put(i.getTrader().getId(), d);
+		}
+		list.addAll(map.values());
+
+		return list;
+	}
+
 }

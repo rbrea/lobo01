@@ -20,6 +20,11 @@ public class ConciliationItem extends AbstractConciliationItem {
 	@ManyToOne
 	@JoinColumn(name = "BILL_ID")
 	private Bill bill;
+	
+	@SuppressWarnings("unused")
+	private ConciliationItem(){
+		this(Type.CREDIT);
+	}
 
 	public ConciliationItem(Type type) {
 		super(type);

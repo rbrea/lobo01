@@ -48,7 +48,7 @@
 							&nbsp;
 						</div>
 						<div class="col-md-4">
-							<button id="btnAccept" class="btn btn-primary">Procesar</button>&nbsp;
+							<button id="btnAccept" class="btn btn-danger"><i class="glyphicon glyphicon-cog"></i>&nbsp;Procesar</button>&nbsp;
 						</div>
 					</div>
 		  		</div>
@@ -57,6 +57,9 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
+			<form class="form-control" id="frmPayroll" method="get">
+				<input type="hidden" id="payrollId" name="payrollId">
+			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title">Liquidaciones</h3>

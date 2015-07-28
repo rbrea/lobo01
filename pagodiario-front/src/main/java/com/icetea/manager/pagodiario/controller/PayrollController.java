@@ -29,7 +29,7 @@ import com.icetea.manager.pagodiario.utils.DateUtils;
 @RequestMapping(value = "/html/payroll")
 public class PayrollController extends ExceptionHandlingController {
 
-private static final Logger LOGGER = getLogger(PayrollController.class);
+	private static final Logger LOGGER = getLogger(PayrollController.class);
 	
 	@Override
 	protected Logger getOwnLogger() {

@@ -244,3 +244,8 @@ body {
 .dialog-client .modal-dialog {
 	width: 70%;
 }
+
+.title-td {
+	font-weight: bold;
+	font-size: 1.5em;
+}

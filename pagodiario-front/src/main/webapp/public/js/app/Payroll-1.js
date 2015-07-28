@@ -121,10 +121,7 @@ Payroll.initDataTable = function(imgCheckUrl){
                 		parentDescription = row.parentDescription;
                 	}
                 	
-                    //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:Trader.showModal('" + row.id + "', '" + email + "', '" + parentId + "', '" + parentDescription + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>"
-                    	+ "&nbsp;<a href=\"javascript:Trader.addTrader('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-th-list\"></i></a>"
-                        + "&nbsp;<a href=\"javascript:Trader.remove('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
+                    return "<a href=\"javascript:Payroll.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
                 }
          	}
         ],
@@ -179,3 +176,11 @@ Payroll.processPeriod = function(){
 	return;
 }
 
+Payroll.showDetail = function(id){
+	
+	$("#frmPayroll")[0].action = Constants.contextRoot + "/controller/html/payrollDetail/index";
+	$("#payrollId").val(id);
+	$("#frmPayroll").submit();
+	
+	return;
+}
