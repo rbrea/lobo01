@@ -57,4 +57,8 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	    
         return toDate(d, DateUtils.DEFAULT_PATTERN, timezone);
 	}
+	
+	public static String currentDate(){
+		return toDate(new Date());
+	}
 }

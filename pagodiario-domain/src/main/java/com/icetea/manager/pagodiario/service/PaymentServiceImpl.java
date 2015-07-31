@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.google.common.collect.Lists;
+import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -96,6 +98,26 @@ public class PaymentServiceImpl
 		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
 		
 		return this.getTransformer().transformAllTo(this.getDao().findByBillId(billId));
+	}
+
+	@Override
+	public List<PaymentDto> transform(List<BillDto> bills){
+		List<PaymentDto> list = Lists.newArrayList();
+
+		if(bills == null){
+			return list;
+		}
+		
+		for(BillDto b : bills){
+			PaymentDto p = new PaymentDto();
+			p.setDate(DateUtils.currentDate());
+			p.setAmount(b.getTotalDailyInstallment());
+			p.setBillId(b.getId());
+			p.setCollectorId(b.getCollectorId());
+			list.add(p);
+		}
+		
+		return list;
 	}
 	
 }

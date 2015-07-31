@@ -51,5 +51,15 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return (Bill) criteria.uniqueResult();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findByCollectorId(Long collectorId){
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.eq("collectorId", collectorId));
+		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
+		
+		return criteria.list();
+	}
 	
 }

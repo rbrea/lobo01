@@ -22,6 +22,8 @@ $.fn.serializeObject = function()
 Commons = function(){}
 
 Commons.init = function(){
+	$("input").focus(function() { $(this).select(); } ).end().click(function () {$(this).select();});
+	
 	return;
 }
 
@@ -67,4 +69,43 @@ Commons.setTooltip = function(id){
 	$("a[id*='" + id + "']").tooltip();
 	
 	return true;
+}
+
+
+Commons.addNewClonedRow = function(rowGridId, toClone, map){
+	
+	var i = $("div[id*='" + rowGridId + "']").length;
+	
+	var newRow = toClone.clone();
+	
+	newRow.contents().each(function () {
+	    if (this.nodeType === 3) this.nodeValue = $.trim($(this).text()).replace(/_X/g, "_" + i)
+	    if (this.nodeType === 1) $(this).html( $(this).html().replace(/_X/g, "_" + i) )
+	});
+	newRow.attr("id", rowGridId + i);
+	
+	if(map.changeLabel){
+		var lbl = newRow.find('label');
+		lbl.html("Pago #" + (parseInt(i) + 1));
+	}
+	if(map.execute != undefined){
+		map.execute(newRow);
+	}
+	
+	newRow.removeClass("hide");
+	
+	newRow.insertAfter($("div[id*='" + rowGridId + "']:last"));
+	
+	return;
+}
+
+Commons.removeClonedRow = function(rowGridId){
+	
+	var i = $("div[id*='" + rowGridId + "']").length;
+	if(i == 1){
+		return false;
+	}
+	$("div[id*='" + rowGridId + "']:last").remove();
+	
+	return;
 }

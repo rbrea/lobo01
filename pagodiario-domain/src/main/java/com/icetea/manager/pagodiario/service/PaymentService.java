@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.service;
 
 import java.util.List;
 
+import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
 import com.icetea.manager.pagodiario.model.Payment;
 
@@ -12,5 +13,7 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 	PaymentDto insert(PaymentDto input);
 
 	List<PaymentDto> search(Long billId);
+
+	List<PaymentDto> transform(List<BillDto> bills);
 
 }

@@ -15,4 +15,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	boolean updateOverdueDays(Long billId);
 
+	List<BillDto> searchByCollectorId(Long collectorId);
+
 }

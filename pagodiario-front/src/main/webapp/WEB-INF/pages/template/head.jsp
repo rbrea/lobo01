@@ -6,6 +6,7 @@
 <link href="${pageContext.request.contextPath}/public/css/dashboard.css" rel="stylesheet">
 
 <link href="${pageContext.request.contextPath}/public/css/main.css" rel="stylesheet">
+
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
@@ -23,6 +24,8 @@
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="${pageContext.request.contextPath}/public/js/ie-emulation-modes-warning.js"></script>
+
+<link href="${pageContext.request.contextPath}/public/css/jquery.auto-complete.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

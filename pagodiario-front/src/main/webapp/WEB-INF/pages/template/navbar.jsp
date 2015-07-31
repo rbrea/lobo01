@@ -43,14 +43,17 @@
 	                <li role="presentation">
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
-	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura
+	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura (Cr&eacute;dito)
 	                	</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial Factura</a>
+	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Consultar Cr&eacute;ditos</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optPremio" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;Alta de Premio</a>
+	                	<a id="optPremio" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                		href="${pageContext.request.contextPath}/controller/html/payment/index">
+	                			<i class="glyphicon glyphicon-tag"></i>&nbsp;Cargar Pagos
+	                	</a>
 	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">
@@ -144,6 +147,8 @@
     	        		return;
     	        	}		
     	        );
+
+    	        Commons.init();
     			
     			return;
     		}

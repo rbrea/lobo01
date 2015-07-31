@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
+import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
+import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.service.PaymentService;
 
 @Controller
@@ -34,6 +36,8 @@ public class PaymentController extends ExceptionHandlingController {
 	
 	@Inject
 	private PaymentService paymentService;
+	@Inject
+	private BillService billService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(){
@@ -43,12 +47,19 @@ public class PaymentController extends ExceptionHandlingController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public @ResponseBody ListOutputDto<PaymentDto> getPayments(
-			@RequestParam(required = false) Long id, @RequestParam(required = false) Long billId){
+			@RequestParam(required = false) Long id, 
+			@RequestParam(required = false) Long billId,
+			@RequestParam(required = false) Long collectorId){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
 		List<PaymentDto> payments = Lists.newArrayList();
 		
-		if(billId != null){
+		if(collectorId != null){
+			List<BillDto> bills = this.billService.searchByCollectorId(collectorId);
+
+			payments = this.paymentService.transform(bills);
+			
+		} else if(billId != null){
 			payments = this.paymentService.search(billId);
 		} else if(id != null){
 			payments.add(this.paymentService.searchById(id));
@@ -85,7 +96,7 @@ public class PaymentController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "/payments", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<PaymentDto> getPAyments(@RequestParam(required = false) Long billId){
+	public @ResponseBody ListOutputDto<PaymentDto> getPayments(@RequestParam(required = false) Long billId){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
 		List<PaymentDto> list = Lists.newArrayList();
@@ -96,5 +107,5 @@ public class PaymentController extends ExceptionHandlingController {
 		
 		return r;
 	}
-
+	
 }

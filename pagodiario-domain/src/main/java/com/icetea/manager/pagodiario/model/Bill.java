@@ -54,7 +54,7 @@ public class Bill extends Identifiable {
 	private List<Payment> payments = Lists.newArrayList();
 	@Column(name = "COLLECTOR_ID", nullable = false)
 	private Integer collectorId;
-	@Column(name = "CREDIT_NUMBER", nullable = false)
+	@Column(name = "CREDIT_NUMBER", nullable = false, unique = true)
 	private Long creditNumber;
 	@Column(name = "REMAINING_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal remainingAmount = BigDecimal.ZERO; // DATO CALCULADO

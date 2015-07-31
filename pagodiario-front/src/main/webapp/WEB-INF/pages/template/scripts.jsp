@@ -22,6 +22,8 @@
 	<script src="${pageContext.request.contextPath}/public/c3/d3.v3.min.js" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/public/c3/c3.min.js"></script>
 	
+	<script src="${pageContext.request.contextPath}/public/js/jquery.auto-complete.min.js"></script>
+	
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>
@@ -42,3 +44,4 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollDetail-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ConciliationItem-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Payment-1.js"></script>

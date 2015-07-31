@@ -14,4 +14,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	Bill findByCreditNumber(Long creditNumber);
 
+	List<Bill> findByCollectorId(Long collectorId);
+
 }

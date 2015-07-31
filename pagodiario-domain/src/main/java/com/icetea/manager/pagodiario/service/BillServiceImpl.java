@@ -154,5 +154,10 @@ public class BillServiceImpl
 		
 		return this.getDao().saveOrUpdate(bill);
 	}
+
+	@Override
+	public List<BillDto> searchByCollectorId(Long collectorId){
+		return this.getTransformer().transformAllTo(this.getDao().findByCollectorId(collectorId));
+	}
 	
 }
