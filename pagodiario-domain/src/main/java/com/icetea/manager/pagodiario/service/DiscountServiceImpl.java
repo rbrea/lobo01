@@ -53,6 +53,10 @@ public class DiscountServiceImpl extends
 		this.getDao().saveOrUpdate(e);
 		
 		bill.getDiscounts().add(e);
+		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
+		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
+
+		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
 		
 		this.billDao.saveOrUpdate(bill);
 		

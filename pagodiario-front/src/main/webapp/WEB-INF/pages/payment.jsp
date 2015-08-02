@@ -43,7 +43,7 @@
 		    		<h3 class="panel-title">Ingresar Pagos</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			<form id="frmPaymentAdd" data-toggle="validator">
+		  			<form id="frmPaymentAdd">
 		  			<div class="row">
 						<div class="form-group col-md-2">
 							<label for="zone">Zona / Cobrador</label>

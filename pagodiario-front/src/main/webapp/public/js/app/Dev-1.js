@@ -33,7 +33,7 @@ Dev.add = function(dialog, btn){
        		   btn.stopSpin();
 			   dialog.close();
 
-			   //BillHistory.init();
+			   BillHistory.init();
 			   
 			   return;
 		   }else{
