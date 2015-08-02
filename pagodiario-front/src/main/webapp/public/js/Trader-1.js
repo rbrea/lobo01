@@ -22,7 +22,7 @@ Trader.initDataTable = function(imgCheckUrl){
 			    "orderable": false,
 			    "render": function ( data, type, row ) {
 			        //return data +' ('+ row[3]+')';
-			        return "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
+			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
 			    }
 			},
             /*{

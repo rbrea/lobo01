@@ -50,7 +50,10 @@ public class ClientController extends ExceptionHandlingController {
 		if(id == null){
 			clients = this.clientService.searchAll();
 		} else {
-			clients.add(this.clientService.searchById(id));
+			ClientDto client = this.clientService.searchById(id);
+			if(client != null){
+				clients.add(client);
+			}
 		}
 		
 		r.setData(clients);

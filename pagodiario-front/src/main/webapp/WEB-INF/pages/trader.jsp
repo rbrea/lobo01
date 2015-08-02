@@ -65,7 +65,7 @@
 								<table id="tTraderResult" class="table table-condensed display">
 									<thead>
 							            <tr>
-							            	<th></th>
+							            	<th>C&oacute;digo</th>
 							                <th>Nombre y apellido</th>
 							                <th>DNI</th>
 							                <th>Tel&eacute;fono</th>

@@ -65,7 +65,10 @@ public class TraderController extends ExceptionHandlingController {
 				}
 			}
 		} else {
-			list.add(this.traderService.searchById(id));
+			TraderDto trader = this.traderService.searchById(id);
+			if(trader != null){
+				list.add(trader);
+			}
 		}
 		
 		r.setData(list);

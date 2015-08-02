@@ -17,7 +17,7 @@ public class Product extends Identifiable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "CODE", length = 40)
+	@Column(name = "CODE", length = 40, unique = true)
 	private String code;
 	@Column(name = "DESCRIPTION", length = 140)
 	private String description;

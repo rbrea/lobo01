@@ -2,6 +2,8 @@ Bill = function(){}
 
 Bill.initModalClient = function(){
 	
+	Bill.initControls();
+	
 	$("#btnBillClient").click(function(){
 		var c = 0;
 		
@@ -149,17 +151,24 @@ Bill.init = function(){
 		
 		return;
 	});
-	
+	/*
 	$("#pnlTrader div[class='panel-body'] div[class='row']").find('input').attr("disabled", true).end()
 		.find('button').attr("disabled", true).end().find('.lov').attr("disabled", true);
-	
+	*/
 	//Bill.doPanelDisabled("#pnlBill");
-	Bill.doPanelDisabled("#pnlClient");
-	Bill.doPanelDisabled("#pnlTrader");
-	Bill.doPanelDisabled("#pnlProduct");
-	Bill.doPanelDisabled("#pnlFinalize");
+	//Bill.doPanelDisabled("#pnlClient");
+	//Bill.doPanelDisabled("#pnlTrader");
+	//Bill.doPanelDisabled("#pnlProduct");
+	//Bill.doPanelDisabled("#pnlFinalize");
+	
+	//Bill.doPanelEnabled("#pnlTrader");
 	
 	$("#btnSearchClient").on("click", function(){
+		
+		var value = $("#bClientId").val();
+		if(value != null && value != ""){
+			return Bill.getClientById(value);
+		}
 		
     	$.ajax({ 
 		   type    : "GET",
@@ -230,8 +239,8 @@ Bill.init = function(){
 				            var companyType = $(this).children('td').eq(3).html().trim();
 				            
 				            $("#billClientIdSelected").val(selectedId);
-				            $("#bname").val(selectedDescription);
-				            $("#baddress").val(address + " / " + companyType);
+				            $("#bClientId").val(selectedId);
+				            $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				            $("#lov-client-container").css({"display": "none"});
 
 							// si esta todo ok entonces doy de alta ...
@@ -272,6 +281,11 @@ Bill.init = function(){
 	});
 	
 	$("#btnSearchTrader").on("click", function(){
+		
+		var value = $("#btraderid").val();
+		if(value != null && value != ""){
+			return Bill.getTraderById(value);
+		}
 		
     	$.ajax({ 
 		   type    : "GET",
@@ -336,8 +350,7 @@ Bill.init = function(){
 				            var selectedDni = $(this).children('td').eq(1).html().trim();
 				            var selectedDescription = $(this).children('td').eq(2).html().trim();
 				            $("#btraderid").val(selectedId);
-				            $("#bdni").val(selectedDni);
-				            $("#btradername").val(selectedDescription);
+				            $("#btradername").val(selectedDescription + " / " + selectedDni);
 				            $("#lov-container").css({"display": "none"});
 
 				            BootstrapDialog.closeAll();
@@ -563,7 +576,7 @@ Bill.initModalTrader = function(){
 	
 	return;
 }
-
+/*
 Bill.doPanelDisabled = function(panelId){
 	$(panelId + " div[class='panel-body'] div[class='row']").find('input').attr("disabled", true).end()
 		.find('button').attr("disabled", true).end().find('.lov').attr("disabled", true);
@@ -571,7 +584,7 @@ Bill.doPanelDisabled = function(panelId){
 	
 	return;
 }
-
+*/
 Bill.calculateCuotaDiaria = function(){
 	var elements = $("input[id*='bcuotadiaria_']");
 	var sum = 0;
@@ -679,8 +692,8 @@ Bill.addClient = function(){
 				   var companyType = r.companyType;
 				   
 				   $("#traderParentId").val(selectedId);
-				   $("#bname").val(selectedDescription);
-				   $("#baddress").val(address + " / " + companyType);
+				   $("#bClientId").val(selectedId);
+				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				   
 			   }
 			   
@@ -889,10 +902,10 @@ Bill.resetFirst = function(){
 
 Bill.resetSecond = function(){
 	$("#billClientIdSelected").val("");
-	$("#bname").val("");
+	$("#bClientId").val("");
 	$("#baddress").val("");
 	
-	Bill.doPanelDisabled("#pnlClient");
+	//Bill.doPanelDisabled("#pnlClient");
 	
 	return;
 }
@@ -900,9 +913,8 @@ Bill.resetSecond = function(){
 Bill.resetThird = function(){
 	$("#btraderid").val("");
 	$("#btradername").val("");
-	$("#bdni").val("");
 	
-	Bill.doPanelDisabled("#pnlTrader");
+	//Bill.doPanelDisabled("#pnlTrader");
 	
 	return;
 }
@@ -927,7 +939,7 @@ Bill.resetFour = function(){
 		}
 	}
 	
-	Bill.doPanelDisabled("#pnlProduct");
+	//Bill.doPanelDisabled("#pnlProduct");
 	
 	return;
 }
@@ -938,7 +950,174 @@ Bill.resetPage = function(){
 	Bill.resetThird();
 	Bill.resetFour();
 	
-	Bill.doPanelDisabled("#pnlFinalize");
+	return;
+}
+
+
+Bill.initControls = function(){
+	$("#billNumber").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#bcobrador").focus();
+		}
+	    
+	    return;
+	});
+	
+	$("#bcobrador").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#bClientId").focus();
+		}
+	    
+	    return;
+	});
+	/*
+	$("#bClientId").autoComplete({
+	    source: function(term, response){
+	        $.getJSON('/some/ajax/url/', { q: term }, function(data){ response(data); });
+	    }
+	});
+	*/
+	$("#bClientId").keyup(function(e){
+		if(e.keyCode == 13) {
+			var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getClientById(value);
+			}
+		}
+	    
+	    return;
+	});
+	
+	$('#bClientId').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getClientById(value);
+			}
+	    }
+	    
+	    return;
+	});
+	
+	$("#btraderid").keyup(function(e){
+		if(e.keyCode == 13) {
+			var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getTraderById(value);
+			}
+		}
+		
+		return;
+	});
+	
+	$('#btraderid').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getTraderById(value);
+			}
+	    }
+	    
+	    return;
+	});
+	
+	return;
+}
+
+Bill.getClientById = function(id){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/client?id=" + id,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#baddress").parent().next().html("");
+		   $("#baddress").val("");
+		   $("#baddress").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var client = list[0];
+				   
+				   $("#billClientIdSelected").val(client.id);
+		           $("#baddress").val(client.name + " / " + client.companyAddress + " / " + client.companyType);				   
+			
+		           $("#btraderid").focus();
+			   } else {
+				   $("#bClientId").focus();
+				   $("#baddress").parent().next().append("Cliente no encontrado");
+				   $("#baddress").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
+	
+	return;
+}
+
+Bill.getTraderById = function(id){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/trader?id=" + id,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#btradername").parent().next().html("");
+		   $("#btradername").val("");
+		   $("#btradername").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var trader = list[0];
+				   
+				   $("#btraderid").val(trader.id);
+		           $("#btradername").val(trader.name + " / " + trader.documentNumber);
+				   
+		           $("#bcant_0").focus();
+			   } else {
+				   $("#btraderid").focus();
+				   $("#btradername").parent().next().append("Vendedor no encontrado");
+				   $("#btradername").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
 	
 	return;
 }
