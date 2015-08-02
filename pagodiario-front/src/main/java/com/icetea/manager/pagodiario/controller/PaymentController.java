@@ -107,5 +107,22 @@ public class PaymentController extends ExceptionHandlingController {
 		
 		return r;
 	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public @ResponseBody ListOutputDto<PaymentDto> addListOfPayment(@RequestBody List<PaymentDto> input){
+		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
+
+		List<PaymentDto> payments = Lists.newArrayList();
+		
+		for(PaymentDto p : input){
+			PaymentDto payment = this.paymentService.insert(p);
+			if(payment != null){
+				payments.add(payment);
+			}
+		}
+		r.setData(payments);
+		
+		return r;
+	}
 	
 }

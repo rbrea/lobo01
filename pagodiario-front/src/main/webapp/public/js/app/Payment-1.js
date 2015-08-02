@@ -139,7 +139,7 @@ Payment.init = function(){
 	
 	$("#btnAccept").on('click', function(){
 		
-		
+		Payment.showConfirmModal();
 		
 		return;
 	});
@@ -165,6 +165,182 @@ Payment.addInputs = function(){
 	    
 	    return;
 	});
+	
+	return;
+}
+
+Payment.add = function(dialog){
+	
+	var c = 0;
+	
+	$("#frmPaymentAdd").on('invalid.bs.validator', 
+		function(e){
+		    c++;
+			
+			return;
+	});
+	
+	$("#frmPaymentAdd").validator('validate');
+	
+	if(c > 0){
+		
+		return false;
+	}
+	
+	var size = $("div[id*='paymentRow_']").length;
+	
+	var list = [];
+	
+	for(var i=0;i<size;i++){
+		var obj = new Object();
+		
+		obj.creditNumber = $("#creditNumber_" + i).val();
+		obj.amount = $("#paymentAmount_" + i).val();
+		obj.collectorId = $("#zone").val();
+		obj.date = moment().format('DD/MM/YYYY');
+		
+		list.push(obj);
+	}
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/payment/list",
+	   dataType: 'json',
+	   data: JSON.stringify(list),
+	   contentType: "application/json;",
+	   success:function(data) {
+		   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+		   if(data != null && data.status == 0){
+			   $("#btnReset").trigger('click');
+
+		   }else{
+			   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	dialog.close();
+
+	return;
+}
+
+Payment.showConfirmModal = function(){
+
+	$("#frmPaymentAdd").validator('destroy');
+	
+	var c = 0;
+	
+	$("#frmPaymentAdd").on('invalid.bs.validator', 
+		function(e){
+		    c++;
+			
+			return;
+	});
+	
+	$("#frmPaymentAdd").validator('validate');
+	
+	if(c > 0){
+		
+		return false;
+	}
+	
+	BootstrapDialog.show({
+		onhidden:function(){
+			$("#tPaymentDetailResult > tbody > tr").remove();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Confirmar Pagos?',
+		autodestroy: false,
+        message: function(dialog) {
+        	
+        	var size = $("div[id*='paymentRow_']").length;
+        	var list = [];
+        	
+        	for(var i=0;i<size;i++){
+        		var obj = new Object();
+        		
+        		obj.creditNumber = $("#creditNumber_" + i).val();
+        		obj.amount = $("#paymentAmount_" + i).val();
+        		obj.collectorId = $("#zone").val();
+        		obj.date = moment().format('DD/MM/YYYY');
+        		
+        		list.push(obj);
+        	}
+        	
+        	var table = $("#tPaymentDetailResult").dataTable( {
+		   		"data" : list,
+		   		"bDestroy" : true,
+		   		responsive: true,
+		        "columns": [
+					{ 
+						"className": 'centered',
+						"data": "collectorId" 
+					},
+					{ 
+						"className": 'centered',
+						"data": "date" 
+					},
+		            { 	
+		            	"className": 'centered',
+		            	"data": "creditNumber" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"data": "amount" 
+		            }
+		        ],
+		        "order": [[0, 'desc']],
+		        "language": {
+		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+		            "zeroRecords": "No se ha encontrado ningun elemento",
+		            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+		            "infoEmpty": "No hay registros disponibles",
+		            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+		            "search": "Buscar: ",
+		            "paginate": {
+		            	"previous": "Anterior",
+						"next": "Siguiente"
+					}
+		        } 
+		   	});
+        	
+        	$("#payment-detail-container").css({"display":"block"});
+        	
+        	return $("#payment-detail-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Aceptar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		
+        		Payment.add(dialog);
+        		
+        		return;
+        	}
+        }]
+    });
+	
 	
 	return;
 }

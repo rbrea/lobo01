@@ -48,9 +48,14 @@ public class PaymentServiceImpl
 		BigDecimal amount = NumberUtils.toBigDecimal(d.getAmount());
 		e.setAmount(amount);
 		
-		ErrorTypedConditions.checkArgument(d.getBillId() != null, ErrorType.BILL_REQUIRED);
+		ErrorTypedConditions.checkArgument(d.getBillId() != null || d.getCreditNumber() != null, ErrorType.BILL_REQUIRED);
 		
-		Bill bill = this.billDao.findById(d.getBillId());
+		Bill bill = null;
+		if(d.getBillId() != null){
+			bill = this.billDao.findById(d.getBillId());
+		} else if(d.getCreditNumber() != null){
+			bill = this.billDao.findByCreditNumber(d.getCreditNumber());
+		}
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		

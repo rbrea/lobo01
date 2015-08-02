@@ -1,3 +1,22 @@
+<div id="payment-detail-container" class="container-fluid" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="table-responsive">
+				<table id="tPaymentDetailResult" class="table table-condensed display">
+					<thead>
+			            <tr>
+			            	<th>Id Cobrador</th>
+			                <th>Fecha</th>
+			                <th>Nro. Cr&eacute;dito</th>
+			                <th>Importe</th>
+			            </tr>
+			        </thead>
+				</table>							
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="col-md-1">
 	&nbsp;
 </div>
@@ -32,7 +51,7 @@
 						<div class="form-group col-md-3">
 							<div class="input-group">
 					    		<div class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></div>
-					    		<input type="number" class="form-control input-sm" id="zone" placeholder="Ingresar zona/cobrador ..." required>
+					    		<input type="number" class="form-control input-sm" id="zone" placeholder="Ingresar zona/cobrador ..." data-required-error="Requerido" required>
 							</div>
 							<div class="help-block with-errors"></div>
 						</div>
