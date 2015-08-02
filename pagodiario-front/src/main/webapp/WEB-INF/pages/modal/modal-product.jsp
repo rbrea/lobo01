@@ -29,7 +29,18 @@
 						</div>
 						<div class="form-group">
 							<label for="productPrice">Precio Unitario</label>
-						    <input type="number" class="form-control" id="productPrice" name="productPrice" placeholder="Ingrese Precio unitario...">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+							    <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="Ingrese Precio unitario...">
+							</div>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="dailyInstallment">Cuota Diaria</label>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+							    <input type="text" class="form-control" id="dailyInstallment" name="dailyInstallment" placeholder="Ingrese Cuota Diaria...">
+							</div>
 						    <div class="help-block with-errors"></div>
 						</div>
 					</form>

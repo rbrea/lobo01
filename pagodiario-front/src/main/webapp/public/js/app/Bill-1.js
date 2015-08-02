@@ -747,6 +747,10 @@ Bill.showLovProduct = function(elementId){
 			            { 	
 			            	"className": 'centered',
 			            	"data": "price" 
+			            },
+			            { 	
+			            	"className": 'centered',
+			            	"data": "dailyInstallment" 
 			            }
 			        ],
 			        "order": [[0, 'asc']],
@@ -781,6 +785,7 @@ Bill.showLovProduct = function(elementId){
 			            var selectedCode = $(this).children('td').eq(1).html().trim();
 			            var selectedDescription = $(this).children('td').eq(2).html().trim();
 			            var price = $(this).children('td').eq(3).html().trim();
+			            var dailyInstallment = $(this).children('td').eq(4).html().trim();
 			            
 			            var idValue = $("#elementSelectedId").val();
 			            
@@ -795,6 +800,7 @@ Bill.showLovProduct = function(elementId){
 			            if(cant == null || cant == ""){
 			            	cant = 0;
 			            }
+			            $("#bcuotadiaria_" + idValue).val(dailyInstallment);
 			            $("#bimp_" + idValue).val(realPrice * cant);
 			            $("#billProductPrice_" + idValue).val(realPrice);
 			            $("#lov-client-container").css({"display": "none"});

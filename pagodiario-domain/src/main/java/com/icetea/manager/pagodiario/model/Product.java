@@ -23,6 +23,8 @@ public class Product extends Identifiable {
 	private String description;
 	@Column(name = "PRICE", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal price;
+	@Column(name = "DAILY_INSTALLMENT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
+	private BigDecimal dailyInstallment;
 
 	public String getCode() {
 		return code;
@@ -41,6 +43,12 @@ public class Product extends Identifiable {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public BigDecimal getDailyInstallment() {
+		return dailyInstallment;
+	}
+	public void setDailyInstallment(BigDecimal dailyInstallment) {
+		this.dailyInstallment = dailyInstallment;
 	}
 
 }

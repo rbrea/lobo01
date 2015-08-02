@@ -48,6 +48,7 @@
 							                <th>C&oacute;digo de Producto</th>
 							                <th>Descripci&oacute;n</th>
 							                <th>Precio Unitario</th>
+							                <th>Cuota Diaria</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

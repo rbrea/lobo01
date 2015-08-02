@@ -28,6 +28,7 @@ public class ProductServiceImpl extends
 		e.setCode(input.getCode());
 		e.setDescription(input.getDescription());
 		e.setPrice(NumberUtils.toBigDecimal(input.getPrice()));
+		e.setDailyInstallment(NumberUtils.toBigDecimal(input.getDailyInstallment()));
 		
 		this.getDao().saveOrUpdate(e);
 		
@@ -42,6 +43,7 @@ public class ProductServiceImpl extends
 		Product e = this.getDao().findById(d.getId());
 		e.setDescription(d.getDescription());
 		e.setPrice(NumberUtils.toBigDecimal(d.getPrice()));
+		e.setDailyInstallment(NumberUtils.toBigDecimal(d.getDailyInstallment()));
 		
 		this.getDao().saveOrUpdate(e);
 		

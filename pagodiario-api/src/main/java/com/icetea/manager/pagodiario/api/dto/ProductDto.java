@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.api.dto;
 
+
 public class ProductDto extends BasicDto {
 
 	private static final long serialVersionUID = 1L;
@@ -8,6 +9,7 @@ public class ProductDto extends BasicDto {
 	private String code;
 	private String description;
 	private String price;
+	private String dailyInstallment;
 
 	public Long getId() {
 		return id;
@@ -32,6 +34,12 @@ public class ProductDto extends BasicDto {
 	}
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	public String getDailyInstallment() {
+		return dailyInstallment;
+	}
+	public void setDailyInstallment(String dailyInstallment) {
+		this.dailyInstallment = dailyInstallment;
 	}
 	
 }

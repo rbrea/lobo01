@@ -35,6 +35,10 @@ Product.initDataTable = function(imgCheckUrl){
             	"className": 'centered',
             	"data": "price" 
             },
+            { 	
+            	"className": 'centered',
+            	"data": "dailyInstallment" 
+            },
             {
             	"className":      'centered',
 	         	// The `data` parameter refers to the data for the cell (defined by the
@@ -72,12 +76,14 @@ Product.add = function(dialog, btn){
 	var productCode = $("#productCode").val();
 	var productDescription = $("#productDescription").val();
 	var productPrice = $("#productPrice").val();
+	var dailyInstallment = $("#dailyInstallment").val();
 	
 	var obj = new Object();
 	obj.id = id;
 	obj.code = productCode;
 	obj.description = productDescription;
 	obj.price = productPrice;
+	obj.dailyInstallment = dailyInstallment;
 	
 	$.ajax({ 
 	   type    : "POST",
@@ -145,12 +151,14 @@ Product.showModal = function(id){
 					.parent().parent().find('td:eq(2)').html().trim();
         		var price = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(3)').html().trim();
+        		var dailyInstallment = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(4)').html().trim();
         		
         		$("#productCode").attr("readonly", true).val(code);
         		$("#productDescription").val(description);
         		$("#productPrice").val(price);
+        		$("#dailyInstallment").val(dailyInstallment);
         	}
-        	
         	
         	$("#modal-product-container").css({"display":"block"});
         	
@@ -242,6 +250,7 @@ Product.resetModal = function(){
 	$("#productCode").attr("readonly", false).val('');
 	$("#productDescription").val('');
 	$("#productPrice").val('');
+	$("#dailyInstallment").val('');
 	
 	return;
 }

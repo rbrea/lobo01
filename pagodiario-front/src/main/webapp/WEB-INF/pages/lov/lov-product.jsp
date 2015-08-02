@@ -10,6 +10,7 @@
 			            	<th>C&oacute;digo</th>
 			                <th>Descripci&oacute;n</th>
 			                <th>Precio Unitario</th>
+			                <th>Cuota Diaria</th>
 			            </tr>
 			        </thead>
 				</table>							
