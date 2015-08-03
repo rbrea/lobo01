@@ -9,5 +9,7 @@ public interface ProductService extends
 	ProductDto insert(ProductDto input);
 
 	ProductDto update(ProductDto d);
+
+	ProductDto searchByCode(String code);
 	
 }

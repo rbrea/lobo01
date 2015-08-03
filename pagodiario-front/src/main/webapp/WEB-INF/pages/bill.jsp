@@ -259,7 +259,7 @@
 		  					<input type="hidden" id="billClientIdSelected" name="billClientIdSelected">
 		  					<div class="form-group">
 		  						<label for="bname">C&oacute;digo</label>
-				                <input type="text" class="form-control input-sm" id="bClientId" name="bClientId" placeholder="ID" required>
+				                <input type="text" class="form-control input-sm" id="bClientId" name="bClientId" placeholder="C&oacute;digo" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -380,7 +380,13 @@
 		  				</div>
 		  				<input type="hidden" id="billProductId_X" name="billProductId_X">
 		  				<input type="hidden" id="billProductPrice_X" name="billProductPrice_X">
-		  				<div class="col-md-6">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+					            <input type="text" class="form-control input-sm" id="bProductCode_X" name="bProductCode_X" placeholder="C&oacute;digo" required>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
 		  					<div class="form-group centered">
 		  						<div class="input-group">
 					                <input type="text" class="form-control input-sm not-writable" id="bname_X" name="bname_X" placeholder="Art&iacute;culo">
@@ -417,7 +423,14 @@
 		  				</div>
 		  				<input type="hidden" id="billProductId_0" name="billProductId_0">
 		  				<input type="hidden" id="billProductPrice_0" name="billProductPrice_0">
-		  				<div class="col-md-6">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+		  						<label for="bProductCode_0">C&oacute;digo</label>
+					            <input type="text" class="form-control input-sm" id="bProductCode_0" name="bProductCode_0" placeholder="C&oacute;digo" required>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
 		  					<div class="form-group centered">
 		  						<label for="bname_0">Articulo/s</label>
 		  						<div class="input-group">
@@ -456,7 +469,13 @@
 		  				</div>
 		  				<input type="hidden" id="billProductId_1" name="billProductId_1">
 		  				<input type="hidden" id="billProductPrice_1" name="billProductPrice_1">
-		  				<div class="col-md-6">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+					            <input type="text" class="form-control input-sm" id="bProductCode_1" name="bProductCode_1" placeholder="C&oacute;digo" required>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
 		  					<div class="form-group centered">
 			  					<div class="input-group">
 					                <input type="text" class="form-control input-sm not-writable" id="bname_1" name="bname_1"  placeholder="Art&iacute;culo">

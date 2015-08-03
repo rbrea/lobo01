@@ -3,6 +3,11 @@ Bill = function(){}
 Bill.initModalClient = function(){
 	
 	Bill.initControls();
+	Bill.initProductControls(
+			$("input[id*='bcant_']"), 
+			$("input[id*='bProductCode_']"), 
+			$("input[id*='bcuotadiaria_']"), 
+			$("input[id*='bimp_']"));
 	
 	$("#btnBillClient").click(function(){
 		var c = 0;
@@ -123,6 +128,15 @@ Bill.init = function(){
 			
 			return;
 		});
+		
+		var bcant = newRow.find("input[id*='bcant_']");
+		var bproductcode = newRow.find("input[id*='bProductCode_']");
+		var bcuotadiaria = newRow.find("input[id*='bcuotadiaria_']");
+		var bimp = newRow.find("input[id*='bimp_']");
+		
+		Bill.initProductControls(bcant, bproductcode, bcuotadiaria, bimp);
+		
+		$("input").focus(function() { $(this).select(); } ).end().click(function () {$(this).select();});
 		
 		return;
 	});
@@ -483,88 +497,25 @@ Bill.init = function(){
 	
 	$("#btnFinalize").on('click', function(){
 		
-		// TODO
-		var startDate = $("#billDateValue").val();
-		var billNumber = $("#billNumber").val();
-		var collectorId = $("#bcobrador").val();
-		var clientId = $("#billClientIdSelected").val();
-		var traderId = $("#btraderid").val();
+		BootstrapDialog.confirm({
+            title: 'Aviso!',
+            message: 'CUIDADO! Esta seguro de que la factura es correcta?',
+            type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            btnCancelLabel: '<i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar', // <-- Default value is 'Cancel',
+            btnOKLabel: '<i class="glyphicon glyphicon-ok"></i>&nbsp;Aceptar', // <-- Default value is 'OK',
+            btnOKClass: 'btn-success', // <-- If you didn't specify it, dialog type will be used,
+            callback: function(result) {
+                // result will be true if button was click, while it will be false if users close the dialog directly.
+                if(result) {
+                	Bill.doFinalize();
+                } else {
+                    // do nothing ...
+                }
+            }
+        });
 		
-		var obj = new Object();
-
-		obj.startDate = startDate;
-		obj.creditNumber = billNumber;
-		obj.collectorId = collectorId;
-		
-		obj.clientId = clientId;
-		
-		obj.traderId = traderId;
-
-		obj.billProducts = [];
-
-		var billProductList = $("div[id*='product_']");
-		
-		var i = 0;
-		
-		$.each(billProductList, function(){
-			
-			var productCant = $(this).find("#bcant_" + i).val();
-			var productId = $(this).find("#billProductId_" + i).val();
-			var productPrice = $(this).find("#billProductPrice_" + i).val();
-			var dailyInstallment = $(this).find("#bcuotadiaria_" + i).val();
-			var amount = $(this).find("#bimp_" + i).val();
-			
-			if(productCant != null && productCant != ""){
-				if(productId != null && productId != ""){
-					if(productPrice != null && productPrice != ""){
-						if(dailyInstallment != null && dailyInstallment != ""){
-							if(amount != null && amount != ""){
-								var billProduct = new Object();
-
-								billProduct.count = productCant;
-								billProduct.productId = productId;
-								billProduct.price = productPrice;
-								billProduct.dailyInstallment = dailyInstallment;
-								billProduct.amount = amount;
-								
-								obj.billProducts.push(billProduct);
-							}
-						}
-					}
-				}	
-			}
-			
-			i++;
-			
-			return;
-		});
-		obj.totalAmount = $("#bimpTotal").val();
-		obj.totalDailyInstallment = $("#bcuotaTotal").val();
-		obj.overdueDays = 0;
-		
-		$.ajax({ 
-		   type    : "POST",
-		   url     : Constants.contextRoot + "/controller/html/bill",
-		   dataType: 'json',
-		   data: JSON.stringify(obj),
-		   contentType: "application/json;",
-		   success:function(data) {
-			   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
-			   if(data != null && data.status == 0){
-
-				   Bill.resetPage();
-				   
-				   return;
-			   }else{
-				   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
-			   }
-		   },
-		   error:function(data){
-			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
-			   
-			   return;
-		   }
-		});
 	
 		return;
 	});
@@ -576,6 +527,95 @@ Bill.initModalTrader = function(){
 	
 	return;
 }
+
+Bill.doFinalize = function(){
+	
+	// TODO
+	var startDate = $("#billDateValue").val();
+	var billNumber = $("#billNumber").val();
+	var collectorId = $("#bcobrador").val();
+	var clientId = $("#billClientIdSelected").val();
+	var traderId = $("#btraderid").val();
+	
+	var obj = new Object();
+
+	obj.startDate = startDate;
+	obj.creditNumber = billNumber;
+	obj.collectorId = collectorId;
+	
+	obj.clientId = clientId;
+	
+	obj.traderId = traderId;
+
+	obj.billProducts = [];
+
+	var billProductList = $("div[id*='product_']");
+	
+	var i = 0;
+	
+	$.each(billProductList, function(){
+		
+		var productCant = $(this).find("#bcant_" + i).val();
+		var productId = $(this).find("#billProductId_" + i).val();
+		var productPrice = $(this).find("#billProductPrice_" + i).val();
+		var dailyInstallment = $(this).find("#bcuotadiaria_" + i).val();
+		var amount = $(this).find("#bimp_" + i).val();
+		
+		if(productCant != null && productCant != ""){
+			if(productId != null && productId != ""){
+				if(productPrice != null && productPrice != ""){
+					if(dailyInstallment != null && dailyInstallment != ""){
+						if(amount != null && amount != ""){
+							var billProduct = new Object();
+
+							billProduct.count = productCant;
+							billProduct.productId = productId;
+							billProduct.price = productPrice;
+							billProduct.dailyInstallment = dailyInstallment;
+							billProduct.amount = amount;
+							
+							obj.billProducts.push(billProduct);
+						}
+					}
+				}
+			}	
+		}
+		
+		i++;
+		
+		return;
+	});
+	obj.totalAmount = $("#bimpTotal").val();
+	obj.totalDailyInstallment = $("#bcuotaTotal").val();
+	obj.overdueDays = 0;
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/bill",
+	   dataType: 'json',
+	   data: JSON.stringify(obj),
+	   contentType: "application/json;",
+	   success:function(data) {
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   if(data != null && data.status == 0){
+
+			   Bill.resetPage();
+			   
+			   return;
+		   }else{
+			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
+
 /*
 Bill.doPanelDisabled = function(panelId){
 	$(panelId + " div[class='panel-body'] div[class='row']").find('input').attr("disabled", true).end()
@@ -723,7 +763,13 @@ Bill.addClient = function(){
 
 Bill.showLovProduct = function(elementId){
 	
+	
 	var idValue = elementId.substring(elementId.indexOf("_") + 1);
+
+	var value = $("#bProductCode_" + idValue).val();
+	if(value != null && value != ""){
+		return Bill.getProductByCode(idValue, value);
+	}
 	
 	$("#elementSelectedId").val(idValue);
 	
@@ -809,6 +855,8 @@ Bill.showLovProduct = function(elementId){
 			            
 			            $("#billProductId_" + idValue).val(selectedId);
 			            $("#bname_" + idValue).val(selectedCode + " - " + selectedDescription + " - $" + realPrice);
+			            $("#bProductCode_" + idValue).val(selectedCode);
+			            
 			            var cant = $("#bcant_" + idValue).val();
 			            if(cant == null || cant == ""){
 			            	cant = 0;
@@ -982,6 +1030,8 @@ Bill.initControls = function(){
 			var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getClientById(value);
+			} else {
+				$("#btraderid").focus();			
 			}
 		}
 	    
@@ -996,6 +1046,8 @@ Bill.initControls = function(){
 	    	var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getClientById(value);
+			} else {
+				$("#btraderid").focus();			
 			}
 	    }
 	    
@@ -1007,6 +1059,8 @@ Bill.initControls = function(){
 			var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getTraderById(value);
+			} else {
+				$("#bcant_0").focus();
 			}
 		}
 		
@@ -1021,6 +1075,129 @@ Bill.initControls = function(){
 	    	var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getTraderById(value);
+			} else {
+				$("#bcant_0").focus();
+			}
+	    }
+	    
+	    return;
+	});
+	
+	return;
+}
+
+Bill.initProductControls = function(bcantElements, productCodeElements, bcuotadiariaElements, bimpElements){
+	
+	bcantElements.keyup(function(e){
+		if(e.keyCode == 13) {
+			var id = $(this).attr('id');
+			var index = id.substring(id.indexOf('_') + 1);
+			
+			$("#bProductCode_" + index).focus();
+		}
+		
+		return;
+	});
+	
+	bcantElements.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var id = $(this).attr('id');
+	    	var index = id.substring(id.indexOf('_') + 1);
+			$("#bProductCode_" + index).focus();
+	    }
+	    
+	    return;
+	});
+	
+	productCodeElements.keyup(function(e){
+		if(e.keyCode == 13) {
+			var value = $(this).val();
+			var id = $(this).attr('id');
+			var index = id.substring(13);
+			if(value != null && value != ""){
+				Bill.getProductByCode(index, value);
+			} else {
+				$("#bcuotadiaria_" + index).focus();
+			}
+		}
+		
+		return;
+	});
+	
+	productCodeElements.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var value = $(this).val();
+	    	var id = $(this).attr('id');
+			var index = id.substring(13);
+			if(value != null && value != ""){
+				Bill.getProductByCode(index, value);
+			} else {
+				$("#bcuotadiaria_" + index).focus();
+			}
+	    }
+	    
+	    return;
+	});
+	
+	bcuotadiariaElements.keyup(function(e){
+		if(e.keyCode == 13) {
+			var id = $(this).attr('id');
+			var index = id.substring(id.indexOf('_') + 1);
+			
+			$("#bimp_" + index).focus();
+		}
+		
+		return;
+	});
+	
+	bcuotadiariaElements.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var id = $(this).attr('id');
+	    	var index = id.substring(id.indexOf('_') + 1);
+			$("#bimp_" + index).focus();
+	    }
+	    
+	    return;
+	});
+	
+	bimpElements.keyup(function(e){
+		if(e.keyCode == 13) {
+			var id = $(this).attr('id');
+			var index = id.substring(id.indexOf('_') + 1);
+			
+			var nextElement = $("#bcant_" + (parseInt(index) + 1));
+			if(nextElement.length > 0){
+				nextElement.focus();
+			} else {
+				$("#btnFinalize").focus();
+			}
+		}
+		
+		return;
+	});
+	
+	bimpElements.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var id = $(this).attr('id');
+	    	var index = id.substring(id.indexOf('_') + 1);
+	    	
+	    	var nextElement = $("#bcant_" + (parseInt(index) + 1));
+			if(nextElement.length > 0){
+				nextElement.focus();
+			} else {
+				$("#btnFinalize").focus();
 			}
 	    }
 	    
@@ -1106,6 +1283,75 @@ Bill.getTraderById = function(id){
 				   $("#btraderid").focus();
 				   $("#btradername").parent().next().append("Vendedor no encontrado");
 				   $("#btradername").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
+	
+	return;
+}
+
+Bill.getProductByCode = function(index, code){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/product?code=" + code,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#bname_" + index).parent().next().html("");
+		   $("#bname_" + index).val("");
+		   $("#bname_" + index).parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var e = list[0];
+				   
+				   var selectedId = e.id;
+		           var selectedCode = e.code;
+		           var selectedDescription = e.description;
+		           var price = e.price;
+		           var dailyInstallment = e.dailyInstallment;
+		            
+		           var realPrice = 0;
+		           if(price != ""){
+		        	   realPrice = parseFloat(Math.floor(price * 100) / 100);
+		           }
+		            
+		           $("#billProductId_" + index).val(selectedId);
+		           var cant = $("#bcant_" + index).val();
+		           if(cant == null || cant == ""){
+		        	   cant = 0;
+		           }
+		           $("#bcuotadiaria_" + index).val(e.dailyInstallment);
+		           $("#bimp_" + index).val(realPrice * cant);
+		           $("#billProductPrice_" + index).val(realPrice);
+		           
+		           Bill.calculateCuotaDiaria();
+		           Bill.calculateImporteTotal();
+				   
+				   $("#bProductCode_" + index).val(e.code);
+		           $("#bname_" + index).val(e.code + " / " + e.description + " / " + e.price);
+				   
+		           $("#bcuotadiaria_" + index).focus();
+			   } else {
+				   $("#bProductCode_" + index).focus();
+				   $("#bname_" + index).parent().next().append("Producto no encontrado");
+				   $("#bname_" + index).parent().parent().addClass("has-error");
 			   }
 			   
 		   } else {

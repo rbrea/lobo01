@@ -49,5 +49,11 @@ public class ProductServiceImpl extends
 		
 		return this.getTransformer().transform(e);
 	}
+	
+	@Override
+	public ProductDto searchByCode(String code){
+		
+		return this.getTransformer().transform(this.getDao().findByCode(code));
+	}
 
 }

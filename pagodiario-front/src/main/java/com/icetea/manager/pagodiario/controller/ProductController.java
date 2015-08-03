@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,15 +43,24 @@ public class ProductController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<ProductDto> getClients(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<ProductDto> getClients(@RequestParam(required = false) Long id,
+			@RequestParam(required = false) String code){
 		ListOutputDto<ProductDto> r = new ListOutputDto<ProductDto>();
 
 		List<ProductDto> list = Lists.newArrayList();
 		
-		if(id == null){
-			list = this.productService.searchAll();
+		if(id != null){
+			ProductDto p = this.productService.searchById(id);
+			if(p != null){
+				list.add(p);
+			}
+		} else if(StringUtils.isNotBlank(code)){
+			ProductDto d = this.productService.searchByCode(code);
+			if(d != null){
+				list.add(d);
+			}
 		} else {
-			list.add(this.productService.searchById(id));
+			list = this.productService.searchAll();			
 		}
 		
 		r.setData(list);
