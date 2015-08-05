@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
+import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.service.BillService;
 
 @Controller
@@ -80,4 +83,14 @@ public class BillController extends ExceptionHandlingController {
 		return r;
 	}
 
+	@RequestMapping(value = "/detail/index", method = RequestMethod.GET)
+	public String showDetail(@RequestParam(required = false) Long billId, ModelMap model){
+		
+		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
+		
+		model.addAttribute("billId", billId);
+		
+		return "bill-detail";
+	}
+	
 }

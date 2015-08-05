@@ -1367,3 +1367,33 @@ Bill.getProductByCode = function(index, code){
 	
 	return;
 }
+
+Bill.initDetail = function(billId){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/bill",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   $("#tBillDevolution tbody").children('tr').remove();
+		   $("#tBillPayment tbody").children('tr').remove();
+		   
+		   Message.hideMessages($('#billDetailAlertMessages'), $("#billDetailMessages"));
+		   if(data != null && data.status == 0){
+
+				
+			} else {
+				Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+			}
+	   },
+	   error:function(data){
+		   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
