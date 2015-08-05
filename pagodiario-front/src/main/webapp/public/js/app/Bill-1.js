@@ -1372,21 +1372,72 @@ Bill.initDetail = function(billId){
 	
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/bill",
+	   url     : Constants.contextRoot + "/controller/html/bill/detail?billId=" + billId,
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
 			
-		   $("#tBillDevolution tbody").children('tr').remove();
-		   $("#tBillPayment tbody").children('tr').remove();
-		   
 		   Message.hideMessages($('#billDetailAlertMessages'), $("#billDetailMessages"));
 		   if(data != null && data.status == 0){
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   
+				   var d = list[0];
+				   
+				   $("#clientName").append(d.clientName);
+				   $("#clientAddress").append(d.clientAddress);
+				   $("#traderName").append(d.traderName);
+				   $("#creditDate").append(d.creditDate);
+				   $("#creditAmount").append(d.creditAmount);
+				   $("#installment").append(d.installmentAmount);
+				   $("#firstInstallment").append(d.firstInstallmentAmount);
+				   $("#remainingAmount").append(d.remainingAmount);
+				   
+				   var devolutions = d.devolutions;
+				   
+				   var dBody = $("#tBillDevolution > tbody");
 
-				
-			} else {
-				Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
-			}
+				   if(devolutions.length > 0){
+					   dBody.children('tr').remove();
+				   }
+				   
+				   for(var i=0;i<devolutions.length;i++){
+					   var tr = $("<tr></tr>");
+					   
+					   var td0 = $("<td class=\"centered\"></td>").append(devolutions[i].date);
+					   var td1 = $("<td class=\"centered\"></td>").append(devolutions[i].productDescription);
+					   var td2 = $("<td class=\"centered\"></td>").append(devolutions[i].amount);
+					   var td3 = $("<td class=\"centered\"></td>").append(devolutions[i].installmentAmount);
+					   
+					   tr.append(td0).append(td1).append(td2).append(td3);
+					   
+					   dBody.append(tr);
+				   }
+				   
+				   var payments = d.payments;
+				   var pBody = $("#tBillPayment > tbody");
+				   
+				   if(payments.length > 0){
+					   pBody.children('tr').remove();
+				   }
+				   
+				   for(var i=0;i<payments.length;i++){
+					   var tr = $("<tr></tr>");
+					   
+					   var td0 = $("<td class=\"centered\"></td>").append(payments[i].date);
+					   var td1 = $("<td class=\"centered\"></td>").append(payments[i].collector);
+					   var td2 = $("<td class=\"centered\"></td>").append(payments[i].amount);
+					   
+					   tr.append(td0).append(td1).append(td2);
+					   
+					   pBody.append(tr);
+				   }
+			   }
+			   
+		   } else {
+			   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+		   }
 	   },
 	   error:function(data){
 		   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);

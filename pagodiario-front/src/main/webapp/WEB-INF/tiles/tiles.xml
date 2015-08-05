@@ -124,7 +124,7 @@
     </definition>
 
 	<definition name="bill-detail" extends="mainModalTemplate">
-    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Cr&eacute;dito" />
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Credito" />
         <put-attribute name="body" value="/WEB-INF/pages/billDetail.jsp" />
         <put-list-attribute name="modals">
     	</put-list-attribute>

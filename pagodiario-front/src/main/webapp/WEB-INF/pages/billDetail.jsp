@@ -18,39 +18,50 @@
 	    </div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
+		<div clasS="col-md-12">
+			<ol class="breadcrumb">
+			  <li><a href="${pageContext.request.contextPath}/controller/html/bill/history/index">Consultar Cr&eacute;ditos</a></li>
+			  <li class="active">Detalle de Cr&eacute;dito</li>
+			</ol>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+	        &nbsp;
+	    </div>
+		<div class="col-md-8">
+			<div class="panel panel-primary">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title centered">DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span></h3>
+		    		<h3 class="panel-title centered" style="font-weight:bold;">DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span></h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<table id="tCreditDetail" class="table table-bordered table-striped">
 		  				<tr>
-		  					<td>Cliente</td>
+		  					<td style="font-weight:bold;">Cliente</td>
 		  					<td id="clientName"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Direcci&oacute;n</td>
+		  					<td style="font-weight:bold;">Direcci&oacute;n</td>
 		  					<td id="clientAddress"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Vendedor</td>
+		  					<td style="font-weight:bold;">Vendedor</td>
 		  					<td id="traderName"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Fecha Cr&eacute;dito</td>
+		  					<td style="font-weight:bold;">Fecha Cr&eacute;dito</td>
 		  					<td id="creditDate"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Importe Cr&eacute;dito</td>
+		  					<td style="font-weight:bold;">Importe Cr&eacute;dito</td>
 		  					<td id="creditAmount"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Cuota</td>
+		  					<td style="font-weight:bold;">Cuota</td>
 		  					<td id="installment"></td>
 		  				</tr>
 		  				<tr>
-		  					<td>Pago Primer Cuota</td>
+		  					<td style="font-weight:bold;">Pago Primer Cuota</td>
 		  					<td id="firstInstallment"></td>
 		  				</tr>
 		  			</table>
@@ -67,13 +78,15 @@
 			  				</tr>
 		  				</thead>
 		  				<tbody>
-		  				
+		  					<tr>
+		  						<td colspan="4" class="centered">No se han encontrado resultados</td>
+		  					</tr>
 		  				</tbody>
 		  			</table>
 		  			<table id="tBillPayment" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="4" class="centered">PAGOS</th>
+			  					<th colspan="3" class="centered">PAGOS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
@@ -82,18 +95,23 @@
 			  				</tr>
 		  				</thead>
 		  				<tbody>
-		  				
+		  					<tr>
+		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
+		  					</tr>
 		  				</tbody>
 		  			</table>
 		  			<table id="billRemainingAmount" class="table table-bordered table-striped">
 		  				<tr>
-		  					<td>SALDO</td>
-		  					<td id="remainingAmount"></td>
+		  					<td style="font-weight:bold;">SALDO</td>
+		  					<td id="remainingAmount" style="font-weight:bold;"></td>
 		  				</tr>
 		  			</table>
 		  		</div>
 			</div>	
 		</div>
+		<div class="col-md-2">
+	        &nbsp;
+	    </div>
 	</div>
 </div>
 <div class="col-md-1">
@@ -107,10 +125,16 @@
 			
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
-			Bill.initDetail('${billId}');
+			var input = null;
+			var billId = '${billId}';
+			if(billId != ''){
+				input = billId;
+			}
+			
+			Bill.initDetail(input);
 		    
 			return;
-		}	
+		}
 		
 	);
 </script>

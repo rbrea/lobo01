@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.base.Preconditions;
+import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
+import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
+import com.icetea.manager.pagodiario.api.dto.BillDetailPaymentDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
@@ -19,6 +22,7 @@ import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.model.Trader;
@@ -158,6 +162,46 @@ public class BillServiceImpl
 	@Override
 	public List<BillDto> searchByCollectorId(Long collectorId){
 		return this.getTransformer().transformAllTo(this.getDao().findByCollectorId(collectorId));
+	}
+
+	@Override
+	public BillDetailDto searchDetail(Long billId){
+		BillDetailDto d = new BillDetailDto();
+		
+		Bill bill = this.getDao().findById(billId);
+		
+		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
+		
+		d.setClientAddress(bill.getClient().getCompanyAddress());
+		d.setClientName(bill.getClient().getName());
+		d.setCreditAmount(NumberUtils.toString(bill.getTotalAmount()));
+		d.setCreditDate(DateUtils.toDate(bill.getStartDate()));
+		d.setFirstInstallmentAmount(
+				NumberUtils.toString(bill.getPayments().get(0).getAmount()));
+		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
+		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
+		d.setTraderName(bill.getTrader().getName());
+		
+		for(Payment p : bill.getPayments()){
+			BillDetailPaymentDto r = new BillDetailPaymentDto();
+			r.setAmount(NumberUtils.toString(p.getAmount()));
+			r.setCollector(String.valueOf(p.getCollectorId()));
+			r.setDate(DateUtils.toDate(p.getDate()));
+			
+			d.getPayments().add(r);
+		}
+		
+		for (Dev p : bill.getDevList()) {
+			BillDetailDevolutionDto r = new BillDetailDevolutionDto();
+			r.setAmount(NumberUtils.toString(p.getAmount()));
+			r.setDate(DateUtils.toDate(p.getDate()));
+			r.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
+			r.setProductDescription("NO DISPONIBLE");
+			
+			d.getDevolutions().add(r);
+		}
+		
+		return d;
 	}
 	
 }

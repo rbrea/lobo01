@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
@@ -91,6 +92,23 @@ public class BillController extends ExceptionHandlingController {
 		model.addAttribute("billId", billId);
 		
 		return "bill-detail";
+	}
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<BillDetailDto> getDetails(@RequestParam(required = false) Long billId, 
+			ModelMap model){
+		
+		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
+		
+		
+		ListOutputDto<BillDetailDto> r = new ListOutputDto<BillDetailDto>();
+
+		BillDetailDto d = this.billService.searchDetail(billId);
+		if(d != null){
+			r.getData().add(d);
+		}
+		
+		return r;
 	}
 	
 }

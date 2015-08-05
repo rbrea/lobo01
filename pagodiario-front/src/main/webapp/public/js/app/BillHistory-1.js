@@ -146,7 +146,7 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Discount.show('" + id + "');\">Descuentos</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Dev.show('" + id + "');\">Devoluciones</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +
-	    "<li class=\"disabled\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDetail('" + id + "');\"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
+	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Altas</li>" +
 	    "<li class=\"" + map.detailClazzDisabled + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
