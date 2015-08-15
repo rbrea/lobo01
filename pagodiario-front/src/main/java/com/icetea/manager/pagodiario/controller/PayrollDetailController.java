@@ -53,4 +53,24 @@ public class PayrollDetailController extends ExceptionHandlingController {
 		return r;
 	}
 
+	@RequestMapping(value = "/supervisor/index", method = RequestMethod.GET)
+	public String showSupervisorForm(@RequestParam(required = false) Long payrollId, ModelMap modelMap){
+		modelMap.addAttribute("payrollId", payrollId);
+		
+		return "payrollSupervisorDetail";
+	}
+	
+	@RequestMapping(value = "/supervisor", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<PayrollDetailDto> getSupervisors(@RequestParam(required = false) Long payrollId){
+		ListOutputDto<PayrollDetailDto> r = new ListOutputDto<PayrollDetailDto>();
+
+		List<PayrollDetailDto> list = Lists.newArrayList();
+
+		list = this.payrollService.searchSupervisorDetail(payrollId);
+		
+		r.setData(list);
+		
+		return r;
+	}
+	
 }

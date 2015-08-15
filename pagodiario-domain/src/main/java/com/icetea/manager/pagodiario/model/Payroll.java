@@ -42,6 +42,11 @@ public class Payroll extends Identifiable {
 	private List<PayrollItem> payrollItemList = Lists.newArrayList();
 	@Column(name = "TOTAL", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
 	private BigDecimal total = BigDecimal.ZERO;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<SupervisorPayrollItem> supervisorPayrollItemList = Lists.newArrayList();
+	@Column(name = "TOTAL_SUPERVISOR", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal totalSupervisor = BigDecimal.ZERO;
 
 	public Date getDateFrom() {
 		return dateFrom;
@@ -91,6 +96,25 @@ public class Payroll extends Identifiable {
 	}
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	public List<SupervisorPayrollItem> getSupervisorPayrollItemList() {
+		return supervisorPayrollItemList;
+	}
+	public void setSupervisorPayrollItemList(
+			List<SupervisorPayrollItem> supervisorPayrollItemList) {
+		this.supervisorPayrollItemList = supervisorPayrollItemList;
+	}
+
+	public void addSupervisorPayrollItem(SupervisorPayrollItem supervisorPayrollItem){
+		if(supervisorPayrollItem == null){
+			this.supervisorPayrollItemList.add(supervisorPayrollItem);
+		}
+	}
+	public BigDecimal getTotalSupervisor() {
+		return totalSupervisor;
+	}
+	public void setTotalSupervisor(BigDecimal totalSupervisor) {
+		this.totalSupervisor = totalSupervisor;
 	}
 	
 }

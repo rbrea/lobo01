@@ -18,11 +18,6 @@
 		    		<h3 class="panel-title">Procesar Per&iacute;odo</h3>
 		  		</div>
 		  		<div class="panel-body">
-		    		<div class="row" >
-		  				<div class="col-md-12">
-		  					&nbsp;
-		  				</div>
-		  			</div>
 		    		<div class="row">
 		    			<div class="col-md-2">
 							&nbsp;
@@ -37,18 +32,11 @@
 					        </div>
 						</div>
 						<div class="col-md-4">
-							&nbsp;
+							<label for="">&nbsp;</label><br>
+							<button id="btnAccept" class="btn btn-danger"><i class="glyphicon glyphicon-cog"></i>&nbsp;Procesar</button>&nbsp;
 						</div>
 						<div class="col-md-2">
 							&nbsp;
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							&nbsp;
-						</div>
-						<div class="col-md-4">
-							<button id="btnAccept" class="btn btn-danger"><i class="glyphicon glyphicon-cog"></i>&nbsp;Procesar</button>&nbsp;
 						</div>
 					</div>
 		  		</div>
@@ -65,11 +53,6 @@
 		    		<h3 class="panel-title">Liquidaciones</h3>
 		  		</div>
 		  		<div class="panel-body">
-		    		<div class="row" >
-		  				<div class="col-md-12">
-		  					&nbsp;
-		  				</div>
-		  			</div>
 		    		<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">

@@ -25,6 +25,7 @@ import com.icetea.manager.pagodiario.dao.DiscountDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.ProductReductionDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
+import com.icetea.manager.pagodiario.model.AbstractConciliationItem;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bonus;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
@@ -34,6 +35,9 @@ import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.Payroll.Status;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.model.ProductReduction;
+import com.icetea.manager.pagodiario.model.SupervisorConciliationItem;
+import com.icetea.manager.pagodiario.model.SupervisorPayrollItem;
+import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.PayrollDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
@@ -307,9 +311,14 @@ public class PayrollServiceImpl extends
 		payroll.setTotalDiscount(totalDiscount);
 		payroll.setStatus(Status.FINISHED);
 		payroll.setTotal(NumberUtils.subtract(totalAmount, totalDiscount));
-		this.getDao().saveOrUpdate(payroll);
 		
-		return this.getTransformer().transform(payroll);
+		this.processPeriodSupervisor(payroll);
+
+		this.getDao().saveOrUpdate(payroll);
+
+		PayrollDto payrollDto = this.getTransformer().transform(payroll);
+		
+		return payrollDto;
 	}
 
 	@Override
@@ -351,5 +360,111 @@ public class PayrollServiceImpl extends
 
 		return list;
 	}
+	
+	public boolean processPeriodSupervisor(Payroll payroll){
+		List<PayrollItem> payrollItemList = payroll.getPayrollItemList();
+		
+		for (PayrollItem p : payrollItemList) {
+			final Trader trader = p.getTrader();
+			
+			final Trader supervisor = trader.getParent();
+			if(supervisor != null){
+				SupervisorPayrollItem item = CollectionUtils.find(payroll.getSupervisorPayrollItemList(), new Predicate<SupervisorPayrollItem>() {
+					@Override
+					public boolean evaluate(SupervisorPayrollItem s) {
+						
+						return s.getId().equals(supervisor.getId());
+					}
+				});
+				if(item == null){
+					item = new SupervisorPayrollItem();
+					item.setPayroll(payroll);
+					item.setSupervisor(supervisor);
+					item.setItemDate(new Date());
+					payroll.getSupervisorPayrollItemList().add(item);
+				}
+				// tengo que busc si en la lista de items tngo el vendedor q estoy procesando ...
+				List<SupervisorConciliationItem> supervisorConciliationItems = item.getSupervisorConciliationItems();
+				
+				SupervisorConciliationItem supervisorConciliationItem = CollectionUtils.find(supervisorConciliationItems, new Predicate<SupervisorConciliationItem>() {
+					@Override
+					public boolean evaluate(SupervisorConciliationItem o) {
+						return o.getTrader().getId().equals(trader.getId());
+					}
+				});
+				if(supervisorConciliationItem == null){
+					supervisorConciliationItem = new SupervisorConciliationItem(trader);
+					supervisorConciliationItem.setSupervisorPayrollItem(item);
+					item.addItem(supervisorConciliationItem);
+				}
+				for (ConciliationItem conciliationItem : p.getItems()) {
+					if(conciliationItem.getType() == AbstractConciliationItem.Type.CREDIT){
+						BigDecimal creditAmount = NumberUtils.subtract(conciliationItem.getCollectAmount(), conciliationItem.getDiscountAmount());
+						creditAmount = NumberUtils.calculatePercentage(creditAmount, new BigDecimal(50));
+						supervisorConciliationItem.setCreditAmount(NumberUtils.add(supervisorConciliationItem.getCreditAmount(), creditAmount));
+						supervisorConciliationItem.setTotalTrader(
+								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), creditAmount));
+					}
+					if(conciliationItem.getType() == AbstractConciliationItem.Type.BONUS){
+						BigDecimal bonusAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+						supervisorConciliationItem.setBonusAmount(
+								NumberUtils.add(
+										supervisorConciliationItem.getBonusAmount(), bonusAmount));
+						supervisorConciliationItem.setTotalTrader(
+								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
+					}
+					if(conciliationItem.getType() == AbstractConciliationItem.Type.DEVOLUTION){
+						BigDecimal devAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+						supervisorConciliationItem.setDevAmount(
+								NumberUtils.add(
+										supervisorConciliationItem.getDevAmount(), devAmount));
+						supervisorConciliationItem.setTotalTrader(
+								NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), devAmount));
+					}
+					if(conciliationItem.getType() == AbstractConciliationItem.Type.REDUCTION){
+						BigDecimal reductionAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+						supervisorConciliationItem.setReductionAmount(
+								NumberUtils.add(
+										supervisorConciliationItem.getReductionAmount(), reductionAmount));
+						supervisorConciliationItem.setTotalTrader(
+								NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), reductionAmount));
+					}
+					payroll.setTotalSupervisor(NumberUtils.add(
+							payroll.getTotalSupervisor(), supervisorConciliationItem.getTotalTrader()));
+					item.setTotalAmount(NumberUtils.add(item.getTotalAmount(), supervisorConciliationItem.getTotalTrader()));
+				}
+			}
+			
+		}
+		
+		return true;
+	}
 
+	@Override
+	public List<PayrollDetailDto> searchSupervisorDetail(Long payrollId){
+		List<PayrollDetailDto> list = Lists.newArrayList();
+		
+		Payroll payroll = this.getDao().findById(payrollId);
+		
+		Map<Long, PayrollDetailDto> map = Maps.newHashMap();
+		
+		for(SupervisorPayrollItem i : payroll.getSupervisorPayrollItemList()){
+			PayrollDetailDto d = map.get(i.getSupervisor().getId());
+			
+			if(d == null){
+				d = new PayrollDetailDto();
+				d.setId(i.getId());
+				d.setName(i.getSupervisor().getName());
+				d.setPhone(i.getSupervisor().getPhone());
+				d.setTraderId(i.getSupervisor().getId());
+			}
+			d.setTotal(NumberUtils.toString(i.getTotalAmount()));
+			
+			map.put(i.getSupervisor().getId(), d);
+		}
+		list.addAll(map.values());
+
+		return list;
+	}
+	
 }

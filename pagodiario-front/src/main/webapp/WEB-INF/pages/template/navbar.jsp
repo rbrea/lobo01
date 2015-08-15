@@ -118,7 +118,7 @@
 </nav>
 
 <div id="loading-message-div">
-	<img src="${pageContext.request.contextPath}/public/images/spiffygif_32x32.gif">&nbsp;&nbsp;Espere por favor ...
+	<img src="${pageContext.request.contextPath}/public/images/loader.gif" width="32px">&nbsp;&nbsp;Espere por favor ...
 </div>
 
 <script>

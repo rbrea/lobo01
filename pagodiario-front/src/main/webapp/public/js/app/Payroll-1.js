@@ -121,7 +121,8 @@ Payroll.initDataTable = function(imgCheckUrl){
                 		parentDescription = row.parentDescription;
                 	}
                 	
-                    return "<a href=\"javascript:Payroll.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
+                    return "<a href=\"javascript:Payroll.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Liquidaci&oacute;n de Vendedor\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>"
+                    + "&nbsp;<a href=\"javascript:Payroll.showSupervisorDetail('" + row.id + "');\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Liquidaci&oacute;n de Supervisor\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>";
                 }
          	}
         ],
@@ -179,6 +180,14 @@ Payroll.processPeriod = function(){
 Payroll.showDetail = function(id){
 	
 	$("#frmPayroll")[0].action = Constants.contextRoot + "/controller/html/payrollDetail/index";
+	$("#payrollId").val(id);
+	$("#frmPayroll").submit();
+	
+	return;
+}
+
+Payroll.showSupervisorDetail = function(id){
+	$("#frmPayroll")[0].action = Constants.contextRoot + "/controller/html/payrollDetail/supervisor/index";
 	$("#payrollId").val(id);
 	$("#frmPayroll").submit();
 	

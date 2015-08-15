@@ -15,9 +15,11 @@
 			&nbsp;
 		</div>
 		<div class="col-md-4">
+			<!--  
 			<span>
 				<img class="img-responsive img-rounded" src="${pageContext.request.contextPath}/public/images/monedas.jpg">
 			</span>
+			-->
 		</div>
 		<div class="col-md-4">
 			&nbsp;

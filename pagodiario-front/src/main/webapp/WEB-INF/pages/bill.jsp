@@ -525,60 +525,21 @@
 		  					&nbsp;
 		  				</div>
 		  			</div>
-		  			<!-- 
-		  			<div class="row" >
-		  				<div class="col-md-9">
-		  					&nbsp;
-		  				</div>
-		  				<div class="col-md-3">
-		  					<button id="btnFourNext" type="button" data-loading-text="Espere..." class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-ok"></i>&nbsp;Siguiente</button>&nbsp;
-		  					<button id="btnFourCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
-		  				</div>
-	  				</div>
-	  				 -->
 	  				</form>
 		  		</div>
 			</div>	
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<div id="pnlFinalize" class="panel panel-default">
-		  		<div class="panel-body">
-		  			<div class="row" >
-		  				<div class="col-md-2">
-		  					<!--  
-							<div class="form-group">
-		  						<label for="bnroticket">N&uacute;mero de ticket</label>
-				                <input type="number" class="form-control input-sm not-writable" id="bnroticket" name="bnroticket" placeholder="Nro.Ticket">
-								<div class="help-block with-errors"></div>
-				            </div>
-				            -->
-				            &nbsp;		  					
-		  				</div>
-		  				<div class="col-md-2">
-		  					<!--
-							<div class="form-group">
-		  						<label for="bcobrador">Cobrador</label>
-				                <input type="number" class="form-control input-sm" id="bcobrador" name="bcobrador" placeholder="Cobrador">
-								<div class="help-block with-errors"></div>
-				            </div>
-				            -->
-				            &nbsp;	  					
-		  				</div>
-		  				<div class="col-md-5">
-		  					&nbsp;
-		  				</div>
-		  				<div class="col-md-3">
-		  					<div class="form-group">
-		  						<label for="bcobrador">&nbsp;</label><br>
-		  						<button id="btnFinalize" type="button" data-loading-text="Espere..." class="btn btn-success"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Finalizar</button>&nbsp;
-		  						<button id="btnCancel" type="button" data-loading-text="Espere..." class="btn btn-danger"><i class="glyphicon glyphicon-off"></i>&nbsp;Borrar</button>
-		  					</div>
-		  				</div>
-		  			</div>
-		  		</div>
-			</div>	
+		<div class="col-md-9">
+          &nbsp;	  					
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="bcobrador">&nbsp;</label><br>
+				<button id="btnFinalize" type="button" data-loading-text="Espere..." class="btn btn-success"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Finalizar</button>&nbsp;
+				<button id="btnCancel" type="button" data-loading-text="Espere..." class="btn btn-danger"><i class="glyphicon glyphicon-off"></i>&nbsp;Borrar</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -109,6 +109,13 @@
     	</put-list-attribute>
     </definition>
     
+    <definition name="payrollSupervisorDetail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones Supervisor - detalle" />
+        <put-attribute name="body" value="/WEB-INF/pages/payroll-supervisor-detail.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
     <definition name="conciliationItem" extends="mainModalTemplate">
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones - detalle por Vendedor" />
         <put-attribute name="body" value="/WEB-INF/pages/conciliationItem.jsp" />
