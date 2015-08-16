@@ -35,6 +35,7 @@
 
 <script src="${pageContext.request.contextPath}/public/js/jquery-1.11.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/public/js/Constants.js"></script>
+<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 <script>
 	Constants.contextRoot = "${pageContext.request.contextPath}";
 </script>

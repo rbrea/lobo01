@@ -122,6 +122,13 @@
         <put-list-attribute name="modals">
     	</put-list-attribute>
     </definition>
+    
+    <definition name="supervisorConciliationItem" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones - detalle por Vendedor" />
+        <put-attribute name="body" value="/WEB-INF/pages/supervisorConciliationItem.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
 
 	<definition name="payment" extends="mainModalTemplate">
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Pagos" />

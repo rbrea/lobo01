@@ -134,3 +134,17 @@ PayrollDetail.initDataTableSupervisor = function(imgCheckUrl, payrollId){
 	
 	return;
 }
+
+PayrollDetail.showDetailSupervisor = function(payrollItemId, traderName, totalCollect, totalDiscount, totalTrader){
+	
+	$("#frmPayrollDetailSupervisor")[0].action = Constants.contextRoot + "/controller/html/conciliationItem/supervisor/index";
+	$("#payrollItemId").val(payrollItemId);
+	$("#traderName").val(traderName);
+	$("#totalCollect").val(totalCollect);
+	$("#totalDiscount").val(totalDiscount);
+	$("#totalTrader").val(totalTrader);
+	$("#frmPayrollDetailSupervisor").submit();
+	
+	return;
+}
+

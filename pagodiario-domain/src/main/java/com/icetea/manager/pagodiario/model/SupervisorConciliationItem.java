@@ -33,6 +33,10 @@ public class SupervisorConciliationItem extends Identifiable {
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_PAYROLL_ITEM_ID")
 	private SupervisorPayrollItem supervisorPayrollItem;
+	
+	private SupervisorConciliationItem() {
+		super();
+	}
 
 	public SupervisorConciliationItem(Trader trader) {
 		super();

@@ -16,6 +16,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 	
 	public static final BigDecimal MINUS_1 = new BigDecimal(-1);
 	public static final BigDecimal _100 = new BigDecimal(100);
+	public static final String _ZERO = toString(BigDecimal.ZERO);
 
 	public static BigDecimal toBigDecimal(String value) {
 		if (StringUtils.isBlank(value)) {

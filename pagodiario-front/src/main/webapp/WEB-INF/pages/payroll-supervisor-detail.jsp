@@ -51,7 +51,7 @@
 								<table id="tPayrollDetailSupervisorResult" class="table table-condensed display">
 									<thead>
 							            <tr>
-							            	<th>Id Vendedor</th>
+							            	<th>Id Supervisor</th>
 							                <th>Nombre y apellido</th>
 							                <th>Total</th>
 							                <th>Acciones</th>
