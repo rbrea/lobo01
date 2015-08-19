@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-08-19T01:13:59 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sgpd_ticket" columnCount="4" pageWidth="626" pageHeight="986" columnWidth="156" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8152241-3996-49af-9f8c-f8848f0cabb6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BillTicketDs"/>
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<field name="overdueDays" class="java.lang.String">
+		<fieldDescription><![CDATA[overdueDays]]></fieldDescription>
+	</field>
+	<field name="totalAmount2" class="java.lang.String">
+		<fieldDescription><![CDATA[totalAmount2]]></fieldDescription>
+	</field>
+	<field name="clientCity" class="java.lang.String">
+		<fieldDescription><![CDATA[clientCity]]></fieldDescription>
+	</field>
+	<field name="productList" class="java.lang.String">
+		<fieldDescription><![CDATA[productList]]></fieldDescription>
+	</field>
+	<field name="clientPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[clientPhone]]></fieldDescription>
+	</field>
+	<field name="ticketNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[ticketNumber]]></fieldDescription>
+	</field>
+	<field name="clientCompanyAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[clientCompanyAddress]]></fieldDescription>
+	</field>
+	<field name="traderPhone2" class="java.lang.String">
+		<fieldDescription><![CDATA[traderPhone2]]></fieldDescription>
+	</field>
+	<field name="clientAddress2" class="java.lang.String">
+		<fieldDescription><![CDATA[clientAddress2]]></fieldDescription>
+	</field>
+	<field name="clientName2" class="java.lang.String">
+		<fieldDescription><![CDATA[clientName2]]></fieldDescription>
+	</field>
+	<field name="productList2" class="java.lang.String">
+		<fieldDescription><![CDATA[productList2]]></fieldDescription>
+	</field>
+	<field name="ticketNumber2" class="java.lang.String">
+		<fieldDescription><![CDATA[ticketNumber2]]></fieldDescription>
+	</field>
+	<field name="clientName" class="java.lang.String">
+		<fieldDescription><![CDATA[clientName]]></fieldDescription>
+	</field>
+	<field name="totalAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[totalAmount]]></fieldDescription>
+	</field>
+	<field name="installmentAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[installmentAmount]]></fieldDescription>
+	</field>
+	<field name="clientCity2" class="java.lang.String">
+		<fieldDescription><![CDATA[clientCity2]]></fieldDescription>
+	</field>
+	<field name="purchaseDate2" class="java.lang.String">
+		<fieldDescription><![CDATA[purchaseDate2]]></fieldDescription>
+	</field>
+	<field name="companyType2" class="java.lang.String">
+		<fieldDescription><![CDATA[companyType2]]></fieldDescription>
+	</field>
+	<field name="remainingAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[remainingAmount]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="traderName" class="java.lang.String">
+		<fieldDescription><![CDATA[traderName]]></fieldDescription>
+	</field>
+	<field name="clientAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[clientAddress]]></fieldDescription>
+	</field>
+	<field name="clientCompanyAddress2" class="java.lang.String">
+		<fieldDescription><![CDATA[clientCompanyAddress2]]></fieldDescription>
+	</field>
+	<field name="clientPhone2" class="java.lang.String">
+		<fieldDescription><![CDATA[clientPhone2]]></fieldDescription>
+	</field>
+	<field name="overdueDays2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[overdueDays2]]></fieldDescription>
+	</field>
+	<field name="creditNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[creditNumber]]></fieldDescription>
+	</field>
+	<field name="creditNumber2" class="java.lang.String">
+		<fieldDescription><![CDATA[creditNumber2]]></fieldDescription>
+	</field>
+	<field name="purchaseDate" class="java.lang.String">
+		<fieldDescription><![CDATA[purchaseDate]]></fieldDescription>
+	</field>
+	<field name="traderName2" class="java.lang.String">
+		<fieldDescription><![CDATA[traderName2]]></fieldDescription>
+	</field>
+	<field name="traderPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[traderPhone]]></fieldDescription>
+	</field>
+	<field name="companyType" class="java.lang.String">
+		<fieldDescription><![CDATA[companyType]]></fieldDescription>
+	</field>
+	<field name="installmentAmount2" class="java.lang.String">
+		<fieldDescription><![CDATA[installmentAmount2]]></fieldDescription>
+	</field>
+	<field name="remainingAmount2" class="java.lang.String">
+		<fieldDescription><![CDATA[remainingAmount2]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="254" splitType="Stretch">
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="156" height="254" uuid="75bcf85e-0b29-4f01-b63d-3d73b91c8ac2">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textField>
+					<reportElement positionType="FixRelativeToBottom" x="10" y="9" width="110" height="20" uuid="09e81610-dd03-4e52-be42-c6ba942638c1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="30" width="110" height="10" uuid="f1b0dc2c-f0e0-4f9e-948f-cd1f3a6d4c14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{traderName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="40" width="130" height="20" uuid="71e5c8cd-3717-41fa-8a57-7f283beeca9e"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="60" width="130" height="20" uuid="292d5e5c-6f8c-4058-abaf-b2b8eeb84594"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{clientCompanyAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="80" width="130" height="14" uuid="f7c7d007-b630-4ccf-b41f-cb01cd460552"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{clientAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="94" width="130" height="16" uuid="e77fc4e2-5e4e-4c81-92b2-22cfc6329974"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{clientPhone}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="110" width="130" height="20" uuid="2535be17-6ee7-4343-bc21-1629e97daa8f"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{overdueDays}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="130" width="130" height="30" uuid="515e7c34-6d94-4df3-bc6b-befa556dbad6"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{productList}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="160" width="130" height="16" uuid="aefdfbc9-4476-40fd-8dbc-65560a28dcce"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="176" width="130" height="16" uuid="dfa82d5b-6186-4f03-99e0-b6191793a539"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="192" width="130" height="13" uuid="7cba6e45-4081-4e66-9470-99b9161f5157"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{installmentAmount}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" x="157" y="0" width="152" height="254" uuid="bddcc1c9-47bc-49b9-8e02-cc6c4e9803c8">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textField>
+					<reportElement x="10" y="9" width="110" height="20" uuid="d414669e-d296-43c4-b8ba-aa11dfb6ebc5"/>
+					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="30" width="110" height="18" uuid="b9cce272-34de-40ed-b611-b8fd7f20585e"/>
+					<textFieldExpression><![CDATA[$F{traderName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="60" width="130" height="20" uuid="836ab75f-3eda-4ce9-b62d-d1b238beef1a"/>
+					<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="80" width="130" height="20" uuid="a9817b3a-29ae-445d-bc5f-6b887834d576"/>
+					<textFieldExpression><![CDATA[$F{clientCompanyAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="100" width="130" height="14" uuid="0cf992f1-9ce5-4b7e-ae5d-bc36a40969ec"/>
+					<textFieldExpression><![CDATA[$F{clientAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="114" width="130" height="16" uuid="71f374ea-8469-4a30-aafd-35b914745a46"/>
+					<textFieldExpression><![CDATA[$F{clientPhone}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="130" width="130" height="20" uuid="2039ff30-94b7-47c0-a401-df82b2a7a642"/>
+					<textFieldExpression><![CDATA[$F{overdueDays}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="150" width="130" height="30" uuid="a74629aa-8af4-4abd-9fe6-6c5ccd157e04"/>
+					<textFieldExpression><![CDATA[$F{productList}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="180" width="130" height="16" uuid="69e550db-4d83-4088-b5a5-a57dc45eab1e"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="197" width="130" height="16" uuid="962a4c3a-fa54-4e23-ab64-a2928b516d85"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="213" width="130" height="16" uuid="cd52016c-cae3-4911-a720-ed7e76e147dc"/>
+					<box bottomPadding="0">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{installmentAmount}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>
