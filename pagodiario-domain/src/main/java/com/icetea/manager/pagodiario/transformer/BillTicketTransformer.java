@@ -11,6 +11,7 @@ import com.icetea.manager.pagodiario.api.pojo.jasper.ProductPojo;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Named
 public class BillTicketTransformer {
@@ -26,26 +27,61 @@ public class BillTicketTransformer {
 	public BillTicketPojo transform(Bill d){
 		BillTicketPojo p = new BillTicketPojo();
 		if(d.getClient() != null){
-			p.setClientAddress(d.getClient().getAddress());
+			String address = "";
+			if(StringUtils.isNotBlank(d.getClient().getAddress())){
+				address += d.getClient().getAddress();
+				if(StringUtils.isNotBlank(d.getClient().getCity())){
+					address += " / " + d.getClient().getCity();
+				}
+			}
+			p.setClientAddress(address);
 			p.setClientCity(d.getClient().getCity());
-			p.setClientCompanyAddress(d.getClient().getCompanyAddress());
+			String companyAddress = "";
+			if(StringUtils.isNotBlank(d.getClient().getCompanyAddress())){
+				companyAddress = d.getClient().getCompanyAddress();
+				if(StringUtils.isNotBlank(d.getClient().getCompanyType())){
+					companyAddress += " / " + d.getClient().getCompanyType(); 
+				}
+			}
+			p.setClientCompanyAddress(companyAddress);
 			p.setClientName(d.getClient().getName());
 			p.setClientPhone(d.getClient().getPhone());
 			p.setCompanyType(d.getClient().getCompanyType());
 		}
 		p.setCreditNumber(String.valueOf(d.getCreditNumber()));
-		p.setInstallmentAmount(NumberUtils.toString(d.getTotalDailyInstallment()));
+		String installment = "";
+		if(d.getTotalDailyInstallment() != null){
+			installment = "Cuota Imp   $" + NumberUtils.toString(d.getTotalDailyInstallment());
+		}
+		p.setInstallmentAmount(installment);
 		p.setOverdueDays(String.valueOf(d.getOverdueDays()));
 		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
 		if(list != null){
 			p.setProducts(list);
 		}
-		p.setPurchaseDate(DateUtils.toDate(d.getStartDate()));
-		p.setRemainingAmount(NumberUtils.toString(d.getRemainingAmount()));
+		String purchaseDate = "";
+		if(d.getStartDate() != null){
+			purchaseDate = "Fec Compra   " + DateUtils.toDate(d.getStartDate());
+		}
+		p.setPurchaseDate(purchaseDate);
+		String remainingAmount = "";
+		if(d.getRemainingAmount() != null){
+			remainingAmount = "Saldo Actual   $" + NumberUtils.toString(d.getRemainingAmount());
+		}
+		p.setRemainingAmount(remainingAmount);
 		p.setTicketNumber(String.valueOf(d.getId()));
-		p.setTotalAmount(NumberUtils.toString(d.getTotalAmount()));
+		String totalAmount = "";
+		if(d.getTotalAmount() != null){
+			totalAmount = "Total Compra   $" + NumberUtils.toString(d.getTotalAmount());
+		}
+		p.setTotalAmount(totalAmount);
 		if(d.getTrader() != null){
-			p.setTraderName(d.getTrader().getName());
+			String traderName = StringUtils.emptyWhenNull(d.getTrader().getName());
+			if(StringUtils.isNotBlank(traderName) 
+					&& StringUtils.isNotBlank(d.getTrader().getPhone())){
+				traderName += "(" + d.getTrader().getPhone() + ")";
+			}
+			p.setTraderName(traderName);
 			p.setTraderPhone(d.getTrader().getPhone());
 		}
 		
