@@ -57,7 +57,9 @@
 	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">
-	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#" disabled><i class="glyphicon glyphicon-usd"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)</a>
+	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/ticket/index">
+	               			<i class="glyphicon glyphicon-usd"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
+	               		</a>
 	               	</li>
 	              </ul>
 	            </li>
@@ -149,6 +151,14 @@
     	        );
 
     	        Commons.init();
+    	        
+    	        $('.not-writable').keypress(function(e) {
+    	            e.preventDefault();
+    	            
+    	            return;
+    	    	}).css({
+    	    		"cursor": "not-allowed"
+    	    	});
     			
     			return;
     		}

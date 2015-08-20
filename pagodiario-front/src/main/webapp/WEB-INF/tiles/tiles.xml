@@ -143,5 +143,12 @@
         <put-list-attribute name="modals">
     	</put-list-attribute>
     </definition>
-                    
+
+	<definition name="ticket" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Generar tickets de cobro" />
+        <put-attribute name="body" value="/WEB-INF/pages/ticket.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+                        
 </tiles-definitions>

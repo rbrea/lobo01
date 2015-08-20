@@ -1,10 +1,13 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Preconditions;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
@@ -13,6 +16,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDetailPaymentDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.ClientDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
@@ -27,6 +31,7 @@ import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.BillDtoModelTransformer;
+import com.icetea.manager.pagodiario.transformer.BillTicketTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
@@ -38,14 +43,17 @@ public class BillServiceImpl
 	private final ClientDao clientDao;
 	private final TraderDao traderDao;
 	private final ProductDao productDao;
+	private final BillTicketTransformer billTicketTransformer;
 	
 	@Inject
 	public BillServiceImpl(BillDao dao, BillDtoModelTransformer transformer,
-			ClientDao clientDao, TraderDao traderDao, ProductDao productDao) {
+			ClientDao clientDao, TraderDao traderDao, ProductDao productDao,
+			BillTicketTransformer billTicketTransformer) {
 		super(dao, transformer);
 		this.clientDao = clientDao;
 		this.traderDao = traderDao;
 		this.productDao = productDao;
+		this.billTicketTransformer = billTicketTransformer;
 	}
 
 	@Override
@@ -202,6 +210,23 @@ public class BillServiceImpl
 		}
 		
 		return d;
+	}
+	
+	@Override
+	public List<BillTicketPojo> searchBillsByCollectorId(Integer collectorId, String fromDate, String toDate){
+		
+		Date dateFrom = null;
+		if(StringUtils.isNotBlank(fromDate)){
+			dateFrom = DateUtils.parseDate(fromDate);
+		}
+		Date dateTo = null;
+		if(StringUtils.isNotBlank(toDate)){
+			dateTo = DateUtils.parseDate(toDate);
+		}
+	
+		List<Bill> bills = this.getDao().find(collectorId, dateFrom, dateTo);
+		
+		return this.billTicketTransformer.transform(bills);
 	}
 	
 }
