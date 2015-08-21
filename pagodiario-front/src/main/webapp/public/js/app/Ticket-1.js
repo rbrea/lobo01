@@ -33,11 +33,18 @@ Ticket.init = function(){
 		return;
 	});
 	
+	$("#btnReset").on('click', function(){
+		$("#zone").val("");
+		$("#fecDesdeValue").val("");
+		$("#fecHastaValue").val("");
+		
+		return;
+	});
+	
 	return;
 }
 
 Ticket.generate = function(){
-	
 	$("#frmTicket").submit();
 	
 	return;

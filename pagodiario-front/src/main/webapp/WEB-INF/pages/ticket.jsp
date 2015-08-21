@@ -1,22 +1,3 @@
-<div id="ticket-detail-container" class="container-fluid" style="display:none;">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="table-responsive">
-				<table id="tPaymentDetailResult" class="table table-condensed display">
-					<thead>
-			            <tr>
-			            	<th>Id Cobrador</th>
-			                <th>Fecha</th>
-			                <th>Nro. Cr&eacute;dito</th>
-			                <th>Importe</th>
-			            </tr>
-			        </thead>
-				</table>							
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="col-md-1">
 	&nbsp;
 </div>

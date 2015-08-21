@@ -48,10 +48,14 @@ public class BillTicketTransformer {
 			p.setClientPhone(d.getClient().getPhone());
 			p.setCompanyType(d.getClient().getCompanyType());
 		}
-		p.setCreditNumber(String.valueOf(d.getCreditNumber()));
+		String creditNumber = "";
+		if(d.getCreditNumber() != null){
+			creditNumber = "*" + String.valueOf(d.getCreditNumber()) + "*";
+			p.setCreditNumber(creditNumber);
+		}
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
-			installment = "Cuota Imp   $" + NumberUtils.toString(d.getTotalDailyInstallment());
+			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount(installment);
 		p.setOverdueDays(String.valueOf(d.getOverdueDays()));
@@ -61,18 +65,22 @@ public class BillTicketTransformer {
 		}
 		String purchaseDate = "";
 		if(d.getStartDate() != null){
-			purchaseDate = "Fec Compra   " + DateUtils.toDate(d.getStartDate());
+			purchaseDate = "Fec Compra\t" + DateUtils.toDate(d.getStartDate());
 		}
 		p.setPurchaseDate(purchaseDate);
 		String remainingAmount = "";
 		if(d.getRemainingAmount() != null){
-			remainingAmount = "Saldo Actual   $" + NumberUtils.toString(d.getRemainingAmount());
+			remainingAmount = "Saldo Actual\t$" + NumberUtils.toString(d.getRemainingAmount());
 		}
 		p.setRemainingAmount(remainingAmount);
-		p.setTicketNumber(String.valueOf(d.getId()));
+		String ticketNumber = "";
+		if(d.getId() != null){
+			ticketNumber = "NRO TCK: " + String.valueOf(d.getId());
+		}
+		p.setTicketNumber(ticketNumber);
 		String totalAmount = "";
 		if(d.getTotalAmount() != null){
-			totalAmount = "Total Compra   $" + NumberUtils.toString(d.getTotalAmount());
+			totalAmount = "Total Compra\t$" + NumberUtils.toString(d.getTotalAmount());
 		}
 		p.setTotalAmount(totalAmount);
 		if(d.getTrader() != null){
@@ -90,26 +98,68 @@ public class BillTicketTransformer {
 	
 	public BillTicketPojo transform(BillTicketPojo p, Bill d){
 		if(d.getClient() != null){
-			p.setClientAddress2(d.getClient().getAddress());
+			String address = "";
+			if(StringUtils.isNotBlank(d.getClient().getAddress())){
+				address += d.getClient().getAddress();
+				if(StringUtils.isNotBlank(d.getClient().getCity())){
+					address += " / " + d.getClient().getCity();
+				}
+			}
+			p.setClientAddress2(address);
 			p.setClientCity2(d.getClient().getCity());
-			p.setClientCompanyAddress2(d.getClient().getCompanyAddress());
+			String companyAddress = "";
+			if(StringUtils.isNotBlank(d.getClient().getCompanyAddress())){
+				companyAddress = d.getClient().getCompanyAddress();
+				if(StringUtils.isNotBlank(d.getClient().getCompanyType())){
+					companyAddress += " / " + d.getClient().getCompanyType(); 
+				}
+			}
+			p.setClientCompanyAddress2(companyAddress);
 			p.setClientName2(d.getClient().getName());
 			p.setClientPhone2(d.getClient().getPhone());
 			p.setCompanyType2(d.getClient().getCompanyType());
 		}
-		p.setCreditNumber2(String.valueOf(d.getCreditNumber()));
-		p.setInstallmentAmount2(NumberUtils.toString(d.getTotalDailyInstallment()));
+		if(d.getCreditNumber() != null){
+			String creditNumber = "*" + String.valueOf(d.getCreditNumber()) + "*";
+			p.setCreditNumber2(creditNumber);
+		}
+		String installment = "";
+		if(d.getTotalDailyInstallment() != null){
+			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
+		}
+		p.setInstallmentAmount2(installment);
 		p.setOverdueDays2(String.valueOf(d.getOverdueDays()));
 		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
 		if(list != null){
 			p.setProducts2(list);
 		}
-		p.setPurchaseDate2(DateUtils.toDate(d.getStartDate()));
-		p.setRemainingAmount2(NumberUtils.toString(d.getRemainingAmount()));
-		p.setTicketNumber2(String.valueOf(d.getId()));
-		p.setTotalAmount2(NumberUtils.toString(d.getTotalAmount()));
+		String purchaseDate = "";
+		if(d.getStartDate() != null){
+			purchaseDate = "Fec Compra\t" + DateUtils.toDate(d.getStartDate());
+		}
+		p.setPurchaseDate2(purchaseDate);
+		String remainingAmount = "";
+		if(d.getRemainingAmount() != null){
+			remainingAmount = "Saldo Actual\t$" + NumberUtils.toString(d.getRemainingAmount());
+		}
+		p.setRemainingAmount2(remainingAmount);
+		
+		if(d.getId() != null){
+			String ticketNumber = "NRO TCK: " + String.valueOf(d.getId());
+			p.setTicketNumber2(ticketNumber);
+		}
+		String totalAmount = "";
+		if(d.getTotalAmount() != null){
+			totalAmount = "Total Compra\t$" + NumberUtils.toString(d.getTotalAmount());
+		}
+		p.setTotalAmount2(totalAmount);
 		if(d.getTrader() != null){
-			p.setTraderName2(d.getTrader().getName());
+			String traderName = StringUtils.emptyWhenNull(d.getTrader().getName());
+			if(StringUtils.isNotBlank(traderName) 
+					&& StringUtils.isNotBlank(d.getTrader().getPhone())){
+				traderName += "(" + d.getTrader().getPhone() + ")";
+			}
+			p.setTraderName2(traderName);
 			p.setTraderPhone2(d.getTrader().getPhone());
 		}
 		

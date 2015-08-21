@@ -59,6 +59,9 @@ public class BillServiceImpl
 	@Override
 	public BillDto insert(BillDto d) {
 		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(d.getStartDate()), 
+				"La fecha es requerida", ErrorType.VALIDATION_ERRORS);
+		
 		List<BillProductDto> billProducts = d.getBillProducts();
 		
 		ErrorTypedConditions.checkArgument(billProducts != null && !billProducts.isEmpty(), 

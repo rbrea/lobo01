@@ -969,10 +969,12 @@ Bill.resetThird = function(){
 
 Bill.resetFour = function(){
 	$("#bcant_0").val("");
+	$("#bProductCode_0").val("");
 	$("#bname_0").val("");
 	$("#bcuotadiaria_0").val("");
 	$("#bimp_0").val("");
 	$("#bcant_1").val("");
+	$("#bProductCode_1").val("");
 	$("#bname_1").val("");
 	$("#bcuotadiaria_1").val("");
 	$("#bimp_1").val("");

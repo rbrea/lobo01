@@ -80,6 +80,7 @@ public class TicketController extends ExceptionHandlingController {
 			throw new ErrorTypedException("Ha ocurrido un error al tratar generar los tickets de cobro", 
 					ErrorType.UNKNOWN_ERROR);
 		}
+		
 	}
 
 }

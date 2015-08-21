@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-08-19T18:21:20 -->
+<!-- 2015-08-20T22:21:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sgpd_ticket" columnCount="4" pageWidth="626" pageHeight="986" columnWidth="156" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8152241-3996-49af-9f8c-f8848f0cabb6">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BillTicketDs"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -275,7 +275,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{creditNumber}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -437,7 +437,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{creditNumber}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -599,7 +599,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{creditNumber2}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -761,7 +761,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{creditNumber2}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

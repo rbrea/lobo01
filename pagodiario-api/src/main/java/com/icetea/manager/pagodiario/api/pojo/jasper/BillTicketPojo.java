@@ -9,39 +9,39 @@ public class BillTicketPojo extends BasicDto {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String ticketNumber;
-	private String traderName;
-	private String traderPhone;
-	private String clientName;
-	private String clientCompanyAddress;
-	private String companyType;
-	private String clientAddress;
-	private String clientCity;
-	private String clientPhone;
-	private String overdueDays;
+	private String ticketNumber = "";
+	private String traderName = "";
+	private String traderPhone = "";
+	private String clientName = "";
+	private String clientCompanyAddress = "";
+	private String companyType = "";
+	private String clientAddress = "";
+	private String clientCity = "";
+	private String clientPhone = "";
+	private String overdueDays = "";
 	private List<ProductPojo> products = Lists.newArrayList();
-	private String purchaseDate;
-	private String totalAmount;
-	private String installmentAmount;
-	private String remainingAmount;
-	private String creditNumber;
+	private String purchaseDate = "";
+	private String totalAmount = "";
+	private String installmentAmount = "";
+	private String remainingAmount = "";
+	private String creditNumber = "";
 	
-	private String ticketNumber2;
-	private String traderName2;
-	private String traderPhone2;
-	private String clientName2;
-	private String clientCompanyAddress2;
-	private String companyType2;
-	private String clientAddress2;
-	private String clientCity2;
-	private String clientPhone2;
-	private String overdueDays2;
+	private String ticketNumber2 = "";
+	private String traderName2 = "";
+	private String traderPhone2 = "";
+	private String clientName2 = "";
+	private String clientCompanyAddress2 = "";
+	private String companyType2 = "";
+	private String clientAddress2 = "";
+	private String clientCity2 = "";
+	private String clientPhone2 = "";
+	private String overdueDays2 = "";
 	private List<ProductPojo> products2 = Lists.newArrayList();
-	private String purchaseDate2;
-	private String totalAmount2;
-	private String installmentAmount2;
-	private String remainingAmount2;
-	private String creditNumber2;
+	private String purchaseDate2 = "";
+	private String totalAmount2 = "";
+	private String installmentAmount2 = "";
+	private String remainingAmount2 = "";
+	private String creditNumber2 = "";
 
 	public String getTicketNumber() {
 		return ticketNumber;
@@ -239,7 +239,7 @@ public class BillTicketPojo extends BasicDto {
 	public String getProductList(){
 		String r = "";
 		for (ProductPojo productPojo : this.products) {
-			r += productPojo.getName() + "\n";
+			r += "-" + productPojo.getName() + " x " + productPojo.getCount() + "\n";
 		}
 		
 		return r;
@@ -248,7 +248,7 @@ public class BillTicketPojo extends BasicDto {
 	public String getProductList2(){
 		String r = "";
 		for (ProductPojo productPojo : this.products2) {
-			r += productPojo.getName() + "\n";
+			r += "-" + productPojo.getName() + " x " + productPojo.getCount() + "\n";
 		}
 		
 		return r;
