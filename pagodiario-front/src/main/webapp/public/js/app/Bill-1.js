@@ -112,6 +112,10 @@ Bill.init = function(){
 		    if (this.nodeType === 3) this.nodeValue = $.trim($(this).text()).replace(/_X/g, "_" + i)
 		    if (this.nodeType === 1) $(this).html( $(this).html().replace(/_X/g, "_" + i) )
 		});
+		
+		newRow.find("input[id*='billProductId_']").attr("id", "billProductId_" + i).attr("name", "billProductId_" + i);
+		newRow.find("input[id*='billProductPrice_']").attr("id", "billProductPrice_" + i).attr("name", "billProductPrice_" + i);
+		
 		newRow.attr("id", "product_" + i);
 		newRow.removeClass("hide");
 		
@@ -497,26 +501,55 @@ Bill.init = function(){
 	
 	$("#btnFinalize").on('click', function(){
 		
-		BootstrapDialog.confirm({
+		BootstrapDialog.show({
             title: 'Aviso!',
             message: 'CUIDADO! Esta seguro de que la factura es correcta?',
             type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
             closable: true, // <-- Default value is false
             draggable: true, // <-- Default value is false
-            btnCancelLabel: '<i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar', // <-- Default value is 'Cancel',
-            btnOKLabel: '<i class="glyphicon glyphicon-ok"></i>&nbsp;Aceptar', // <-- Default value is 'OK',
-            btnOKClass: 'btn-success', // <-- If you didn't specify it, dialog type will be used,
-            callback: function(result) {
-                // result will be true if button was click, while it will be false if users close the dialog directly.
-                if(result) {
-                	Bill.doFinalize();
-                } else {
-                    // do nothing ...
+            onshow: function(dialog) {
+            	
+            	return;
+            },
+            buttons: [{
+                label: '<i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar',
+                hotkey: 65, // Keycode of keyup event of key 'A' is 65.
+                action: function(dialog) {
+                	
+                	dialog.close();
+                	
+                	return;
                 }
-            }
+            }, {
+                label: '<i class="glyphicon glyphicon-ok"></i>&nbsp;Aceptar',
+                hotkey: 13,
+                cssClass: 'btn-success',
+                action: function(dialog) {
+                	$("#frmBillAdd").validator('destroy');
+                	
+                	var c = 0;
+            		
+            		$("#frmBillAdd").on('invalid.bs.validator', 
+            			function(e){
+            			    c++;
+            				
+            				return;
+            		});
+            		
+            		$("#frmBillAdd").validator('validate');
+            		
+            		if(c == 0){
+            			Bill.doFinalize();
+            			dialog.close();
+            		} else {
+            			dialog.close();
+            		}
+            		
+            		return;
+                }
+            }]
         });
 		
-	
 		return;
 	});
 	
@@ -999,6 +1032,7 @@ Bill.resetPage = function(){
 	Bill.resetSecond();
 	Bill.resetThird();
 	Bill.resetFour();
+	$("#billNumber").focus();
 	
 	return;
 }

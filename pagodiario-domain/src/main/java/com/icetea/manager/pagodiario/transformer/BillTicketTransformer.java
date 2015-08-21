@@ -26,6 +26,9 @@ public class BillTicketTransformer {
 
 	public BillTicketPojo transform(Bill d){
 		BillTicketPojo p = new BillTicketPojo();
+		
+		p.setCurrentDate(DateUtils.currentDate());
+		
 		if(d.getClient() != null){
 			String address = "";
 			if(StringUtils.isNotBlank(d.getClient().getAddress())){

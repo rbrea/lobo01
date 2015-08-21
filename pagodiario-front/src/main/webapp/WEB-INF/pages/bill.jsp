@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="modalBillClientLabel">Clientes</h4>
       </div>
       <div class="modal-body">
-		<form id="frmBillClient" 
+		<form id="frmBillClient" role="form"
 				method="POST" data-toggle="validator">
 			<input type="hidden" id="billClientId" name="id" value="">
 			<div class="container-fluid">
@@ -190,6 +190,7 @@
 	        </div>
 	    </div>
 	</div>
+	<form id="frmBillAdd" role="form" data-toggle="validator">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="pnlBill" class="panel panel-default">
@@ -198,12 +199,11 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
-		  				<form id="frmBillFirst">
 		  				<div class="col-md-3">
 		  					<div class="form-group">
 		  						<label for="billDateValue">Fecha de Factura</label>
 				                <div class='input-group date' id='billDate'>
-				                    <input type='text' class="form-control input-sm not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..." required/>
+				                    <input type='text' class="form-control input-sm not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..." data-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -213,14 +213,14 @@
 		  				<div class="col-md-4">
 		  					<div class="form-group">
 		  						<label for="billNumber">N&uacute;mero de Cr&eacute;dito</label>
-				                <input type="number" class="form-control input-sm" id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura..." min="1" required>
+				                <input type="number" class="form-control input-sm" id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura..." min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group">
 		  						<label for="bcobrador">Cobrador / Zona</label>
-				                <input type="number" class="form-control input-sm" id="bcobrador" name="bcobrador" placeholder="Cobrador" min="1" required>
+				                <input type="number" class="form-control input-sm" id="bcobrador" name="bcobrador" placeholder="Cobrador" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
@@ -232,7 +232,6 @@
 								&nbsp;
 				            </div>		  					
 		  				</div>
-					</form>
 		  			</div>
 		  			<div class="row">
 		  				<div class="col-md-6">
@@ -253,13 +252,12 @@
 		    		<h3 class="panel-title">Datos de Cliente</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			<form id="frmBillSecond">
 		  			<div class="row">
 		  				<div class="col-md-2">
 		  					<input type="hidden" id="billClientIdSelected" name="billClientIdSelected">
 		  					<div class="form-group">
 		  						<label for="bname">C&oacute;digo</label>
-				                <input type="text" class="form-control input-sm" id="bClientId" name="bClientId" placeholder="C&oacute;digo" required>
+				                <input type="text" class="form-control input-sm" id="bClientId" name="bClientId" placeholder="C&oacute;digo" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -267,7 +265,7 @@
 		  					<div class="form-group">
 		  						<label for="baddress">Nombre / Domicilio / Comercio</label>
 		  						<div class="input-group">
-					                <input type="text" class="form-control input-sm not-writable" id="baddress" name="baddress" placeholder="Nombre / Domicilio / Comercio" required>
+					                <input type="text" class="form-control input-sm not-writable" id="baddress" name="baddress" placeholder="Nombre / Domicilio / Comercio" data-error="Requerido" required>
 									<span id="btnSearchClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
@@ -292,7 +290,6 @@
 		  				</div>
 		  			</div>
 		  			 -->
-		  			</form>
 		  		</div>
 			</div>	
 		</div>
@@ -302,12 +299,11 @@
 		    		<h3 class="panel-title">Datos de Vendedor</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			<form id="frmBillThird">
 		  			<div class="row">
 		  				<div class="col-md-2">
 		  					<div class="form-group">
 		  						<label for="btraderid">C&oacute;digo</label>
-				                <input type="text" class="form-control input-sm" id="btraderid" name="btraderid" placeholder="C&oacute;digo" required>
+				                <input type="text" class="form-control input-sm" id="btraderid" name="btraderid" placeholder="C&oacute;digo" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -316,7 +312,7 @@
 		  						<label for="btradername">Nombre / DNI</label>
 		  						<div class="input-group">
 				                	<input type="text" class="form-control input-sm not-writable" id="btradername" 
-				                			name="btradername" placeholder="Nombre / DNI" required>
+				                			name="btradername" placeholder="Nombre / DNI" data-error="Requerido" required>
 				                	<span id="btnSearchTrader" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
 								</div>
 								<div class="help-block with-errors"></div>
@@ -342,7 +338,6 @@
 		  				</div>
 		  			</div>
 		  			 -->
-		  			</form>
 		  		</div>
 			</div>	
 		</div>
@@ -354,7 +349,6 @@
 		    		<h3 class="panel-title">Productos</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			<form id="frmBillFour">
 		  			<div class="row">
 		  				<div class="col-md-9">
 		  					&nbsp;
@@ -382,7 +376,7 @@
 		  				<input type="hidden" id="billProductPrice_X" name="billProductPrice_X">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-					            <input type="text" class="form-control input-sm" id="bProductCode_X" name="bProductCode_X" placeholder="C&oacute;digo" required>
+					            <input type="text" class="form-control input-sm" id="bProductCode_X" name="bProductCode_X" placeholder="C&oacute;digo">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -417,7 +411,7 @@
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bcant_0">Cantidad</label>
-				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant" min="1" required>
+				                <input type="number" class="form-control input-sm" id="bcant_0" name="bcant_0" placeholder="Cant" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -426,7 +420,7 @@
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bProductCode_0">C&oacute;digo</label>
-					            <input type="text" class="form-control input-sm" id="bProductCode_0" name="bProductCode_0" placeholder="C&oacute;digo" required>
+					            <input type="text" class="form-control input-sm" id="bProductCode_0" name="bProductCode_0" placeholder="C&oacute;digo" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -434,7 +428,7 @@
 		  					<div class="form-group centered">
 		  						<label for="bname_0">Articulo/s</label>
 		  						<div class="input-group">
-					                <input type="text" class="form-control input-sm not-writable" id="bname_0" name="bname_0" placeholder="Art&iacute;culo" required>
+					                <input type="text" class="form-control input-sm not-writable" id="bname_0" name="bname_0" placeholder="Art&iacute;culo" data-error="Requerido" required>
 									<span id="btnSearchProduct_0" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_0');"><i class="glyphicon glyphicon-search"></i></span>		  						
 		  						</div>
 								<div class="help-block with-errors"></div>
@@ -443,14 +437,14 @@
 		  				<div class="col-md-2">
 							<div class="form-group centered">
 		  						<label for="bcuotadiaria_0">$ c/cta.</label>
-				                <input type="number" class="form-control input-sm" id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta." required>
+				                <input type="number" class="form-control input-sm" id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta." data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
 		  						<label for="bimp_0">$ Importe</label>
-				                <input type="number" class="form-control input-sm" id="bimp_0" name="bimp_0" placeholder="$ Importe" required>
+				                <input type="number" class="form-control input-sm" id="bimp_0" name="bimp_0" placeholder="$ Importe" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -471,7 +465,7 @@
 		  				<input type="hidden" id="billProductPrice_1" name="billProductPrice_1">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-					            <input type="text" class="form-control input-sm" id="bProductCode_1" name="bProductCode_1" placeholder="C&oacute;digo" required>
+					            <input type="text" class="form-control input-sm" id="bProductCode_1" name="bProductCode_1" placeholder="C&oacute;digo">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -511,13 +505,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta." required>
+				                <input type="number" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total" required>
+				                <input type="number" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -525,11 +519,11 @@
 		  					&nbsp;
 		  				</div>
 		  			</div>
-	  				</form>
 		  		</div>
 			</div>	
 		</div>
 	</div>
+	</form>
 	<div class="row">
 		<div class="col-md-9">
           &nbsp;	  					

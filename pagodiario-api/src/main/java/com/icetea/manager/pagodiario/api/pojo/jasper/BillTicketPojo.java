@@ -25,6 +25,7 @@ public class BillTicketPojo extends BasicDto {
 	private String installmentAmount = "";
 	private String remainingAmount = "";
 	private String creditNumber = "";
+	private String currentDate = "";
 	
 	private String ticketNumber2 = "";
 	private String traderName2 = "";
@@ -252,6 +253,14 @@ public class BillTicketPojo extends BasicDto {
 		}
 		
 		return r;
+	}
+	
+	public String getCurrentDate() {
+		return currentDate;
+	}
+	
+	public void setCurrentDate(String currentDate) {
+		this.currentDate = currentDate;
 	}
 	
 }

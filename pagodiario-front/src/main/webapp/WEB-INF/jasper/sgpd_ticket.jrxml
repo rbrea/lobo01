@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-08-20T22:21:04 -->
+<!-- 2015-08-21T15:16:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sgpd_ticket" columnCount="4" pageWidth="626" pageHeight="986" columnWidth="156" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8152241-3996-49af-9f8c-f8848f0cabb6">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BillTicketDs"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -12,6 +12,9 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
 	<field name="overdueDays" class="java.lang.String">
 		<fieldDescription><![CDATA[overdueDays]]></fieldDescription>
 	</field>
@@ -110,6 +113,9 @@
 	</field>
 	<field name="remainingAmount2" class="java.lang.String">
 		<fieldDescription><![CDATA[remainingAmount2]]></fieldDescription>
+	</field>
+	<field name="currentDate" class="java.lang.String">
+		<fieldDescription><![CDATA[currentDate]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -251,10 +257,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="10" y="170" width="80" height="16" uuid="f7b9875e-e6b5-4942-a15a-cf7cb438d473"/>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{currentDate}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="11" y="189" width="140" height="24" uuid="0ed97553-f7c1-4bb1-9af7-d3611d53c55a"/>
@@ -413,10 +419,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="10" y="170" width="80" height="16" uuid="abf48e0f-0576-42b6-bbd9-0e247d1a7b83"/>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{currentDate}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="11" y="189" width="140" height="24" uuid="d843b58d-ffb2-402e-870a-238d53de7637"/>
@@ -575,10 +581,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="10" y="170" width="80" height="16" uuid="1679f363-15e4-45ad-adda-85f04f10858c"/>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{purchaseDate2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{currentDate}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="11" y="189" width="140" height="24" uuid="9f2518af-25ce-4c00-8edd-e99318f0d373"/>
@@ -737,10 +743,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="10" y="170" width="80" height="16" uuid="b8e4775f-942a-4dc9-957f-23510f1971ce"/>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{purchaseDate2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{currentDate}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="11" y="189" width="140" height="24" uuid="88c882a6-05fe-46ab-ae3c-e16ba366a5bd"/>

@@ -1,6 +1,8 @@
 package com.icetea.manager.pagodiario.jasper.factory.sample;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -58,6 +60,8 @@ public class BillTicketFactory {
 		p.setTotalAmount("Total Compra: 2500.00");
 		p.setTotalAmount("Total Compra: 1000.00");
 		
+		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+		
 		list.add(p);
 		
 		p = new BillTicketPojo();
@@ -105,6 +109,8 @@ public class BillTicketFactory {
 		p.setTraderPhone2("21165778890");
 		p.setTotalAmount("Total Compra: 22500.00");
 		p.setTotalAmount("Total Compra: 21000.00");
+		
+		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
 		list.add(p);
 		
