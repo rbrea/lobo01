@@ -25,19 +25,19 @@ Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
   lucene-sandbox-4.5.1.jar jakarta-regexp-1.4.jar olap4j-0.9.7.309-JS-
  3.jar core-2.3.0.jar itext-2.1.7.jar bcmail-jdk14-138.jar bcprov-jdk1
  4-138.jar bctsp-jdk14-1.38.jar bcprov-jdk14-1.38.jar bcmail-jdk14-1.3
- 8.jar spring-context-support-4.0.6.RELEASE.jar freemarker-2.3.15.jar 
- tiles-jsp-2.2.2.jar tiles-servlet-2.2.2.jar tiles-core-2.2.2.jar tile
- s-api-2.2.2.jar tiles-template-2.2.2.jar spring-webmvc-4.0.6.RELEASE.
- jar spring-web-4.0.6.RELEASE.jar jstl-1.2.jar jackson-mapper-asl-1.9.
- 13.jar commons-io-1.3.2.jar commons-fileupload-1.2.1.jar swagger-spri
- ngmvc-0.8.5.jar swagger-core_2.10-1.3.5.jar jackson-module-scala_2.10
- -2.1.5.jar scala-library-2.10.0.jar paranamer-2.3.jar scala-reflect-2
- .10.0.jar jackson-module-jsonSchema-2.1.0.jar jackson-jaxrs-json-prov
- ider-2.0.0.jar jackson-module-jaxb-annotations-2.0.0.jar jsr311-api-1
- .1.1.jar swagger-annotations-1.3.5.jar json4s-ext_2.10-3.2.5.jar joda
- -time-2.1.jar joda-convert-1.2.jar json4s-native_2.10-3.2.5.jar json4
- s-core_2.10-3.2.5.jar json4s-ast_2.10-3.2.5.jar scalap-2.10.0.jar sca
- la-compiler-2.10.0.jar json4s-jackson_2.10-3.2.5.jar cglib-2.2.jar as
- m-3.1.jar swagger-models-0.8.5.jar classmate-1.0.0.jar poi-3.10.1.jar
-  commons-codec-1.5.jar
+ 8.jar HikariCP-2.4.1.jar spring-context-support-4.0.6.RELEASE.jar fre
+ emarker-2.3.15.jar tiles-jsp-2.2.2.jar tiles-servlet-2.2.2.jar tiles-
+ core-2.2.2.jar tiles-api-2.2.2.jar tiles-template-2.2.2.jar spring-we
+ bmvc-4.0.6.RELEASE.jar spring-web-4.0.6.RELEASE.jar jstl-1.2.jar jack
+ son-mapper-asl-1.9.13.jar commons-io-1.3.2.jar commons-fileupload-1.2
+ .1.jar swagger-springmvc-0.8.5.jar swagger-core_2.10-1.3.5.jar jackso
+ n-module-scala_2.10-2.1.5.jar scala-library-2.10.0.jar paranamer-2.3.
+ jar scala-reflect-2.10.0.jar jackson-module-jsonSchema-2.1.0.jar jack
+ son-jaxrs-json-provider-2.0.0.jar jackson-module-jaxb-annotations-2.0
+ .0.jar jsr311-api-1.1.1.jar swagger-annotations-1.3.5.jar json4s-ext_
+ 2.10-3.2.5.jar joda-time-2.1.jar joda-convert-1.2.jar json4s-native_2
+ .10-3.2.5.jar json4s-core_2.10-3.2.5.jar json4s-ast_2.10-3.2.5.jar sc
+ alap-2.10.0.jar scala-compiler-2.10.0.jar json4s-jackson_2.10-3.2.5.j
+ ar cglib-2.2.jar asm-3.1.jar swagger-models-0.8.5.jar classmate-1.0.0
+ .jar poi-3.10.1.jar commons-codec-1.5.jar
 

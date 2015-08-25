@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="rodrigo.hernandez.brea@gmail.com">
-<!--<link rel="icon" href="../../favicon.ico">-->
+<link rel="icon" href="${pageContext.request.contextPath}/public/favicon.ico">
 
 <title><tiles:insertAttribute name="title" /></title>
 

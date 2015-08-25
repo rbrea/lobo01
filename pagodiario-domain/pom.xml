@@ -122,5 +122,9 @@
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
 	</dependencies>
 </project>
