@@ -100,6 +100,25 @@
 		  					</tr>
 		  				</tbody>
 		  			</table>
+		  			<table id="tBillProducts" class="table table-bordered table-striped">
+		  				<thead>
+			  				<tr>
+			  					<th colspan="5" class="centered">PRODUCTOS</th>
+			  				</tr>
+			  				<tr>
+			  					<th class="centered">CANTIDAD</th>
+			  					<th class="centered">C&Oacute;DIGO</th>
+			  					<th class="centered">DESCRIPCI&Oacute;N</th>
+			  					<th class="centered">CUOTA DIARIA</th>
+			  					<th class="centered">TOTAL</th>
+			  				</tr>
+		  				</thead>
+		  				<tbody>
+		  					<tr>
+		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
 		  			<table id="billRemainingAmount" class="table table-bordered table-striped">
 		  				<tr>
 		  					<td style="font-weight:bold;">SALDO</td>

@@ -61,7 +61,7 @@ public class BillTicketTransformer {
 			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount(installment);
-		p.setOverdueDays(String.valueOf(d.getOverdueDays()));
+		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
 		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
 		if(list != null){
 			p.setProducts(list);
@@ -95,6 +95,7 @@ public class BillTicketTransformer {
 			p.setTraderName(traderName);
 			p.setTraderPhone(d.getTrader().getPhone());
 		}
+		p.setRemainingDays(String.valueOf(d.remainingDays()));
 		
 		return p;
 	}
@@ -131,7 +132,7 @@ public class BillTicketTransformer {
 			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount2(installment);
-		p.setOverdueDays2(String.valueOf(d.getOverdueDays()));
+		p.setOverdueDays2("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
 		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
 		if(list != null){
 			p.setProducts2(list);
@@ -165,6 +166,7 @@ public class BillTicketTransformer {
 			p.setTraderName2(traderName);
 			p.setTraderPhone2(d.getTrader().getPhone());
 		}
+		p.setRemainingDays2(String.valueOf(d.remainingDays()));
 		
 		return p;
 	}

@@ -381,7 +381,7 @@ Bill.init = function(){
 				    });
 					
 					BootstrapDialog.show({
-						type:BootstrapDialog.TYPE_SUCCESS,
+						type:BootstrapDialog.TYPE_PRIMARY,
 						title: 'Vendedores',
 						autodestroy: false,
 				        message: function(dialog) {
@@ -1466,6 +1466,27 @@ Bill.initDetail = function(billId){
 					   var td2 = $("<td class=\"centered\"></td>").append(payments[i].amount);
 					   
 					   tr.append(td0).append(td1).append(td2);
+					   
+					   pBody.append(tr);
+				   }
+				   
+				   var products = d.products;
+				   var pBody = $("#tBillProducts > tbody");
+				   
+				   if(products.length > 0){
+					   pBody.children('tr').remove();
+				   }
+				   
+				   for(var i=0;i<products.length;i++){
+					   var tr = $("<tr></tr>");
+					   
+					   var td0 = $("<td class=\"centered\"></td>").append(products[i].count);
+					   var td1 = $("<td class=\"centered\"></td>").append(products[i].codProducto);
+					   var td2 = $("<td class=\"centered\"></td>").append(products[i].description);
+					   var td3 = $("<td class=\"centered\"></td>").append(products[i].installmentAmount);
+					   var td4 = $("<td class=\"centered\"></td>").append(products[i].totalAmount);
+					   
+					   tr.append(td0).append(td1).append(td2).append(td3).append(td4);
 					   
 					   pBody.append(tr);
 				   }

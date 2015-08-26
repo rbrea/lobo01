@@ -40,6 +40,7 @@
 <script>
 	Constants.contextRoot = "${pageContext.request.contextPath}";
 </script>
+
 </head>
 <body>
 	<tiles:insertAttribute name="navbar" />

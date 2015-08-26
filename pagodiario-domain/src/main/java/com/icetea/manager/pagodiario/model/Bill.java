@@ -270,4 +270,12 @@ public class Bill extends Identifiable {
 		this.devList = devList;
 	}
 
+	public int remainingDays(){
+		if(this.remainingAmount == null || this.totalDailyInstallment == null){
+			return 0;
+		}
+		
+		return this.remainingAmount.divide(this.totalDailyInstallment, RoundingMode.CEILING).intValue();
+	}
+	
 }

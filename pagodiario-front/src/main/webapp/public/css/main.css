@@ -250,3 +250,27 @@ body {
 	font-weight: bold;
 	font-size: 1.5em;
 }
+
+.table-hover tbody tr:hover > td {
+  cursor: pointer;
+}
+
+.navbar-grad {
+	background: -webkit-linear-gradient(left top, #DF0101, #B40404); /* For Safari 5.1 to 6.0 */
+ 		background: -o-linear-gradient(bottom right, #DF0101, #B40404); /* For Opera 11.1 to 12.0 */
+ 		background: -moz-linear-gradient(bottom right, #DF0101, #B40404); /* For Firefox 3.6 to 15 */
+ 		background: linear-gradient(to bottom right, #DF0101, #B40404); /* Standard syntax */
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+	color: #fff;
+	background-color: #DF0101;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #fff;
+}

@@ -14,6 +14,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailPaymentDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
+import com.icetea.manager.pagodiario.api.dto.BillProductDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
@@ -210,6 +211,16 @@ public class BillServiceImpl
 			r.setProductDescription("NO DISPONIBLE");
 			
 			d.getDevolutions().add(r);
+		}
+		for (BillProduct p : bill.getBillProducts()) {
+			BillProductDetailDto r = new BillProductDetailDto();
+			r.setCount((p.getCount() != null) ? String.valueOf(p.getCount()) : "0");
+			r.setCodProducto(p.getProduct().getCode());
+			r.setDescription(p.getProduct().getDescription() + " / " + NumberUtils.toString(p.getProduct().getPrice()));
+			r.setInstallmentAmount(NumberUtils.toString(p.getDailyInstallment()));
+			r.setTotalAmount(NumberUtils.toString(p.getAmount()));
+			
+			d.getProducts().add(r);
 		}
 		
 		return d;

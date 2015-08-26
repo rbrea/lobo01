@@ -33,6 +33,8 @@ public class BillTicketFactory {
 		p.setInstallmentAmount2("Cuota Imp.: 22.00");
 		p.setOverdueDays("DIAS DE ATRASO: 26");
 		p.setOverdueDays2("DIAS DE ATRASO: 9");
+		p.setRemainingDays("28");
+		p.setRemainingDays2("34");
 		ProductPojo pr = new ProductPojo();
 		pr.setCount(3);
 		pr.setName("-almohadas x 3");
@@ -58,7 +60,7 @@ public class BillTicketFactory {
 		p.setTraderPhone("1133631310");
 		p.setTraderPhone2("1165778890");
 		p.setTotalAmount("Total Compra: 2500.00");
-		p.setTotalAmount("Total Compra: 1000.00");
+		p.setTotalAmount2("Total Compra: 1000.00");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
@@ -101,6 +103,8 @@ public class BillTicketFactory {
 		p.setPurchaseDate2("Fec Compra: 230/04/2015");
 		p.setRemainingAmount("Saldo Actual: 21999.00");
 		p.setRemainingAmount2("Saldo Actual: 2600.00");
+		p.setRemainingDays("228");
+		p.setRemainingDays2("234");
 		p.setTicketNumber("NRO TCK: 2254352");
 		p.setTicketNumber2("NRO TCK: 2445679");
 		p.setTraderName("2Flor (1133631310)");

@@ -1,24 +1,3 @@
-<style>
-	.table-hover tbody tr:hover > td {
-	  cursor: pointer;
-	}
-	
-	.navbar-grad {
-		background: -webkit-linear-gradient(left top, #113555, #1E5281); /* For Safari 5.1 to 6.0 */
-  		background: -o-linear-gradient(bottom right, #113555, #1E5281); /* For Opera 11.1 to 12.0 */
-  		background: -moz-linear-gradient(bottom right, #113555, #1E5281); /* For Firefox 3.6 to 15 */
-  		background: linear-gradient(to bottom right, #113555, #1E5281); /* Standard syntax */
-	}
-	
-	.navbar-inverse .navbar-nav>li>a {
-		color: #ccc;
-	}
-	
-	.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
-		color: #fff;
-		background-color: #1E5281;
-	}
-</style>
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-grad" role="navigation">
