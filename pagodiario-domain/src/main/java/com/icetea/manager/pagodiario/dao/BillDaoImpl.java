@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
+import com.icetea.manager.pagodiario.utils.DateUtils;
 
 @Named
 public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill> 
@@ -71,6 +72,16 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		}
 		criteria.add(Restrictions.eq("collectorId", collectorId));
 		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
+		
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findExpires(){
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
+		criteria.add(Restrictions.lt("overdueDaysFlag", DateUtils.parseDate(DateUtils.currentDate())));
 		
 		return criteria.list();
 	}

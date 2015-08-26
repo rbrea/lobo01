@@ -27,7 +27,9 @@ import com.icetea.manager.pagodiario.dao.ProductReductionDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.AbstractConciliationItem;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Bonus;
+import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
@@ -312,6 +314,8 @@ public class PayrollServiceImpl extends
 		payroll.setStatus(Status.FINISHED);
 		payroll.setTotal(NumberUtils.subtract(totalAmount, totalDiscount));
 		
+		this.processBonusOfTraders(payroll);
+		
 		this.processPeriodSupervisor(payroll);
 
 		this.getDao().saveOrUpdate(payroll);
@@ -465,6 +469,43 @@ public class PayrollServiceImpl extends
 		list.addAll(map.values());
 
 		return list;
+	}
+
+	protected boolean processBonusOfTraders(Payroll payroll){
+		Map<Long, Integer> map = Maps.newHashMap();
+
+		for (PayrollItem payrollItem : payroll.getPayrollItemList()) {
+			Trader trader = payrollItem.getTrader();
+			map.put(trader.getId(), Integer.valueOf(0));
+			for (ConciliationItem conciliationItem : payrollItem.getItems()) {
+				Bill bill = conciliationItem.getBill();
+				for (BillProduct billProduct : bill.getBillProducts()) {
+					int count = map.get(trader.getId());
+					count += billProduct.getCount();
+					map.put(trader.getId(), count);
+				}
+			}
+			
+			BonusConciliationItem bonusItem = payrollItem.getBonusItem();
+			if(bonusItem == null){
+				bonusItem = new BonusConciliationItem();
+				bonusItem.setPayrollItem(payrollItem);
+				bonusItem.setType(AbstractConciliationItem.Type.BONUS);
+				bonusItem.setDate(new Date());
+				payrollItem.setBonusItem(bonusItem);
+			}
+
+			BigDecimal collectAmount = BigDecimal.ZERO;
+			
+			int count = map.get(trader.getId());
+			if(count > 300){
+				collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
+			}
+			bonusItem.setCollectAmount(collectAmount);
+			bonusItem.setDescription("");
+		}
+		
+		return true;
 	}
 	
 }

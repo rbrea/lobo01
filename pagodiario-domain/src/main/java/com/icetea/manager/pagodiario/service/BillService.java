@@ -24,4 +24,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 	List<BillTicketPojo> searchBillsByCollectorId(Integer collectorId,
 			String fromDate, String toDate);
 
+	List<BillDto> searchExpires();
+
 }

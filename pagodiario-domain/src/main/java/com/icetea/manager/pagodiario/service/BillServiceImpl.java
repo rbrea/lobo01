@@ -242,5 +242,10 @@ public class BillServiceImpl
 		
 		return this.billTicketTransformer.transform(bills);
 	}
+
+	@Override
+	public List<BillDto> searchExpires(){
+		return this.getTransformer().transformAllTo(this.getDao().findExpires());
+	}
 	
 }

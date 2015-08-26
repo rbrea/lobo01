@@ -66,6 +66,8 @@ public class Bill extends Identifiable {
 	private List<ProductReduction> productReductionList = Lists.newArrayList();
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Dev> devList = Lists.newArrayList();
+	@Column(name = "OVERDUE_DAYS_FLAG", columnDefinition = "DATETIME")
+	private Date overdueDaysFlag = new Date();
 
 	public Bill() {
 		super();
@@ -228,6 +230,7 @@ public class Bill extends Identifiable {
 
 	public void incrementOverdueDays(){
 		this.overdueDays++;
+		this.overdueDaysFlag = new Date();
 	}
 	
 	public void decrementOverdueDays(){
@@ -276,6 +279,14 @@ public class Bill extends Identifiable {
 		}
 		
 		return this.remainingAmount.divide(this.totalDailyInstallment, RoundingMode.CEILING).intValue();
+	}
+
+	public Date getOverdueDaysFlag() {
+		return overdueDaysFlag;
+	}
+
+	public void setOverdueDaysFlag(Date overdueDaysFlag) {
+		this.overdueDaysFlag = overdueDaysFlag;
 	}
 	
 }

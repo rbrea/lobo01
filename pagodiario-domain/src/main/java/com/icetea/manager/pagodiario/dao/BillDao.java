@@ -18,4 +18,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> find(Integer collectorId, Date dateFrom, Date dateTo);
 
+	List<Bill> findExpires();
+
 }

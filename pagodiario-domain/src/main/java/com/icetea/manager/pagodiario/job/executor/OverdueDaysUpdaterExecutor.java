@@ -31,9 +31,11 @@ public class OverdueDaysUpdaterExecutor {
 		
 		LOGGER.info("empieza - actualizando dias de atraso");
 		
-		List<BillDto> actives = this.billService.searchActives();
-		if(actives != null && !actives.isEmpty()){
-			for(BillDto d : actives){
+		List<BillDto> expires = this.billService.searchExpires();
+		if(expires != null && !expires.isEmpty()){
+			LOGGER.info("OverdueDaysUpdaterExecutor - cantidad de facturas expiradas: " + expires.size());
+			
+			for(BillDto d : expires){
 				boolean r = this.billService.updateOverdueDays(d.getId());
 				if(r){
 					counter++;

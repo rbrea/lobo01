@@ -12,26 +12,29 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.icetea.manager.pagodiario.job.executor.OverdueDaysUpdaterExecutor;
 
 @Named
-public class CreditJob {
+public class OverdueDaysUpdaterJob {
 
-	private static final Logger LOGGER = getLogger(CreditJob.class);
+	private static final Logger LOGGER = getLogger(OverdueDaysUpdaterJob.class);
 	
 	private final OverdueDaysUpdaterExecutor overdueDaysUpdaterExecutor;
 	private final boolean enabled;
 	
 	@Inject
-	public CreditJob(OverdueDaysUpdaterExecutor overdueDaysUpdaterExecutor,
+	public OverdueDaysUpdaterJob(OverdueDaysUpdaterExecutor overdueDaysUpdaterExecutor,
 			@Value("${overdueDays.service.job.enabled:true}") boolean enabled) {
 		super();
 		this.overdueDaysUpdaterExecutor = overdueDaysUpdaterExecutor;
 		this.enabled = enabled;
 	}
 
-	@Scheduled(cron = "${quartz.job.updater.cron.expression.overdueDays}")// va a correr una vez por dia a la madrugada ...
+	@Scheduled(initialDelayString = "${job.updater.overdueDays.delay}",
+			fixedRateString = "${job.updater.overdueDays.rate}")
 	public void doJob(){
 		
+		LOGGER.debug("OverdueDaysUpdaterJob - Iniciando!");
+		
 		if(!this.enabled){
-			LOGGER.debug("CreditJob - disabled. Finished!");
+			LOGGER.debug("OverdueDaysUpdaterJob - disabled. Finished!");
 			
 			return;
 		} else {
@@ -45,7 +48,7 @@ public class CreditJob {
 		
 		this.overdueDaysUpdaterExecutor.execute();
 		
-		LOGGER.debug("CreditJob - Finished!");
+		LOGGER.debug("OverdueDaysUpdaterJob - Terminado!");
 	}
 	
 }
