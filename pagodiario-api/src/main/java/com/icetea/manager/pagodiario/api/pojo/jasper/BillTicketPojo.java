@@ -2,6 +2,8 @@ package com.icetea.manager.pagodiario.api.pojo.jasper;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicDto;
 
@@ -241,8 +243,13 @@ public class BillTicketPojo extends BasicDto {
 
 	public String getProductList(){
 		String r = "";
+		int i=0;
 		for (ProductPojo productPojo : this.products) {
-			r += "-" + productPojo.getName() + " x " + productPojo.getCount() + "\n";
+			if(i==4){
+				break;
+			}
+			r += "-" + StringUtils.abbreviate(productPojo.getName(), 30) + " x " + productPojo.getCount() + ((i==3)?" ... " : "") + "\n";
+			i++;
 		}
 		
 		return r;
@@ -250,8 +257,13 @@ public class BillTicketPojo extends BasicDto {
 	
 	public String getProductList2(){
 		String r = "";
+		int i=0;
 		for (ProductPojo productPojo : this.products2) {
-			r += "-" + productPojo.getName() + " x " + productPojo.getCount() + "\n";
+			if(i==4){
+				break;
+			}
+			r += "-" + StringUtils.abbreviate(productPojo.getName(), 30) + " x " + productPojo.getCount() +  ((i==3)?" ... " : "") + "\n";
+			i++;
 		}
 		
 		return r;

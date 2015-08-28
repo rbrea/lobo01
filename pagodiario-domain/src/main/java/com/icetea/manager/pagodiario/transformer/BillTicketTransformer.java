@@ -58,7 +58,7 @@ public class BillTicketTransformer {
 		}
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
-			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
+			installment = "Cuota Imp \t$" + NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount(installment);
 		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -95,7 +95,7 @@ public class BillTicketTransformer {
 			p.setTraderName(traderName);
 			p.setTraderPhone(d.getTrader().getPhone());
 		}
-		p.setRemainingDays(String.valueOf(d.remainingDays()));
+		p.setRemainingDays("DR: " + String.valueOf(d.remainingDays()));
 		
 		return p;
 	}
@@ -129,7 +129,7 @@ public class BillTicketTransformer {
 		}
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
-			installment = "Cuota Imp\t$" + NumberUtils.toString(d.getTotalDailyInstallment());
+			installment = "Cuota Imp \t\t $" + NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount2(installment);
 		p.setOverdueDays2("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -166,7 +166,7 @@ public class BillTicketTransformer {
 			p.setTraderName2(traderName);
 			p.setTraderPhone2(d.getTrader().getPhone());
 		}
-		p.setRemainingDays2(String.valueOf(d.remainingDays()));
+		p.setRemainingDays2("DR: " + String.valueOf(d.remainingDays()));
 		
 		return p;
 	}

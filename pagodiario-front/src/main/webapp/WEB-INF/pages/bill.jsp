@@ -505,13 +505,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta.">
+				                <input type="text" class="form-control input-sm not-writable" id="bcuotaTotal" name="bcuotaTotal" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total">
+				                <input type="text" class="form-control input-sm not-writable" id="bimpTotal" name="bimpTotal" placeholder="$ Importe Total">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
