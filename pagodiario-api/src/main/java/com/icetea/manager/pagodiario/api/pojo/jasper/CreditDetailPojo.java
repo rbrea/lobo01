@@ -9,7 +9,7 @@ public class CreditDetailPojo extends BasicDto {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String detailNumber = "";
+	private String creditNumber = "";
 	private String clientName = "";
 	private String clientAddress = "";
 	private String traderName = "";
@@ -21,12 +21,6 @@ public class CreditDetailPojo extends BasicDto {
 	private List<PaymentDetailPojo> payments = Lists.newArrayList();
 	private String totalAmount = "";
 	
-	public String getDetailNumber() {
-		return detailNumber;
-	}
-	public void setDetailNumber(String detailNumber) {
-		this.detailNumber = detailNumber;
-	}
 	public String getClientName() {
 		return clientName;
 	}
@@ -86,6 +80,12 @@ public class CreditDetailPojo extends BasicDto {
 	}
 	public void setTotalAmount(String totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+	public String getCreditNumber() {
+		return creditNumber;
+	}
+	public void setCreditNumber(String creditNumber) {
+		this.creditNumber = creditNumber;
 	}
 	
 }

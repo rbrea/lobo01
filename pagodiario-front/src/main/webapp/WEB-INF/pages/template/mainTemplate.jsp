@@ -63,5 +63,6 @@
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
 </body>
 </html>
