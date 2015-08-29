@@ -1,11 +1,17 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.base.Preconditions;
 import com.icetea.manager.pagodiario.api.dto.TraderDto;
+import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
+import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.TraderDtoModelTransformer;
 
@@ -14,10 +20,14 @@ public class TraderServiceImpl
 	extends BasicIdentifiableServiceImpl<Trader, TraderDao, TraderDto, TraderDtoModelTransformer>
 		implements TraderService {
 
+	private final BillDao billDao;
+	
 	@Inject
 	public TraderServiceImpl(TraderDao dao,
-			TraderDtoModelTransformer transformer) {
+			TraderDtoModelTransformer transformer,
+			BillDao billDao) {
 		super(dao, transformer);
+		this.billDao = billDao;
 	}
 
 	@Override
@@ -71,6 +81,12 @@ public class TraderServiceImpl
 	@Override
 	public boolean deleteChild(Long parentId, Long childId){
 	
+		List<Bill> bills = this.billDao.findByTraderId(childId);
+		if(bills != null && !bills.isEmpty()){
+			throw new ErrorTypedException("No se puede borrar este vendedor debido a que esta asociado a facturas", 
+					ErrorType.VALIDATION_ERRORS);
+		}
+		
 		Trader parent = this.getDao().findById(parentId);
 		if(parent != null){
 			parent.removeTrader(childId);
@@ -101,6 +117,23 @@ public class TraderServiceImpl
 		}
 		
 		return true;
+	}
+
+	@Override
+	public boolean remove(Long id) {
+		Trader e = this.getDao().findById(id);
+		if(e == null){
+			throw new RuntimeException(String.format("La entidad con id %s no existe en la bd", id));
+		}
+
+		List<Bill> bills = this.billDao.findByTraderId(id);
+		
+		if(bills != null && !bills.isEmpty()){
+			throw new ErrorTypedException("No se puede borrar el vendedor seleccionado debido a que esta asociado a facturas", 
+					ErrorType.VALIDATION_ERRORS);
+		}
+		
+		return this.getDao().delete(e);
 	}
 	
 }

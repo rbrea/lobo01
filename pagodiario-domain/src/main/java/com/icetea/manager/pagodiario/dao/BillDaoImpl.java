@@ -85,5 +85,25 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return criteria.list();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findByTraderId(Long traderId){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("trader", "trader");
+		criteria.add(Restrictions.eq("trader.id", traderId));
+		
+		return criteria.list();
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findByClientId(Long clientId){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("client", "client");
+		criteria.add(Restrictions.eq("client.id", clientId));
+		
+		return criteria.list();
+	}
 	
 }

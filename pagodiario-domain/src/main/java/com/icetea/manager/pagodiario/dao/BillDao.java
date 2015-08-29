@@ -20,4 +20,8 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findExpires();
 
+	List<Bill> findByTraderId(Long traderId);
+
+	List<Bill> findByClientId(Long clientId);
+
 }
