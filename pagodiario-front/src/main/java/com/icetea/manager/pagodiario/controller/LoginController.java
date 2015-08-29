@@ -110,7 +110,7 @@ public class LoginController extends ExceptionHandlingController {
 		return "redirect:login";
 	}
 
-	@RequestMapping(value = "/service/userData", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/html/userData", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody UserDto getUserData(HttpServletRequest request,
 			HttpServletResponse response) {
 

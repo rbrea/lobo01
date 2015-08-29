@@ -138,7 +138,7 @@ BillHistory.getActionSelectElement = function(id, map){
 	
 	var div = "<div class=\"btn-group\">" +
 	  "<button type=\"button\" class=\"btn btn-xs btn-danger dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
-	    "Acciones <span class=\"caret\"></span>" +
+	    "Acciones&nbsp;<span class=\"caret\"></span>" +
 	  "</button>" +
 	  "<ul class=\"dropdown-menu dropdown-menu-left\">" +
 	  	"<li class=\"dropdown-header\">Consultas</li>" + 

@@ -4,7 +4,7 @@ User.printUsername = function(){
 	
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/service/userData",
+	   url     : Constants.contextRoot + "/controller/html/userData",
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
