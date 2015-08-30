@@ -151,5 +151,21 @@ public class TraderController extends ExceptionHandlingController {
 		
 		return r;
 	}
+
+	@RequestMapping(value = "/supervisor", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<TraderDto> getSupervisors(){
+		ListOutputDto<TraderDto> r = new ListOutputDto<TraderDto>();
+
+		List<TraderDto> list = Lists.newArrayList();
+		
+		List<TraderDto> sups = this.traderService.searchSupervisors();
+		if(sups != null){
+			list.addAll(sups);
+		}
+		
+		r.setData(list);
+		
+		return r;
+	}
 	
 }

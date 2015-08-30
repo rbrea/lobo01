@@ -5,11 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.common.base.Preconditions;
 import com.icetea.manager.pagodiario.api.dto.TraderDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
+import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Trader;
@@ -32,7 +32,13 @@ public class TraderServiceImpl
 
 	@Override
 	public TraderDto insert(TraderDto input) {
-		Trader e = new Trader();
+		
+		Trader e = this.getDao().find(input.getDocumentNumber());
+
+		ErrorTypedConditions.checkArgument(e == null, "Vendedor ya existe con dni: " + input.getDocumentNumber(),
+				ErrorType.VALIDATION_ERRORS);
+		
+		e = new Trader();
 		e.setAddress(input.getAddress());
 		e.setCity(input.getCity());
 		e.setDocumentNumber(input.getDocumentNumber());
@@ -46,6 +52,8 @@ public class TraderServiceImpl
 		if(input.getParentId() != null){
 			Trader parent = this.getDao().findById(input.getParentId());
 			e.setParent(parent);
+			parent.addTrader(e);
+			this.getDao().saveOrUpdate(parent);
 		}
 		
 		this.getDao().saveOrUpdate(e);
@@ -55,9 +63,13 @@ public class TraderServiceImpl
 
 	@Override
 	public TraderDto update(TraderDto d) {
-		Preconditions.checkArgument(d.getId() != null, "id required");
+		ErrorTypedConditions.checkArgument(d.getId() != null, "Id de vendedor requerido", ErrorType.VALIDATION_ERRORS);
 		
 		Trader e = this.getDao().findById(d.getId());
+		
+		ErrorTypedConditions.checkArgument(e != null, "Vendedor no encontrado con id: " + d.getId(), 
+				ErrorType.VALIDATION_ERRORS);
+		
 		e.setAddress(d.getAddress());
 		e.setCity(d.getCity());
 		e.setDocumentNumber(d.getDocumentNumber());
@@ -69,8 +81,13 @@ public class TraderServiceImpl
 		e.setSupervisor(d.isSupervisor());
 		
 		if(d.getParentId() != null){
+			ErrorTypedConditions.checkArgument(!d.getId().equals(d.getParentId()), "El vendedor no puede ser supervisor de si mismo", 
+					ErrorType.VALIDATION_ERRORS);
+			
 			Trader parent = this.getDao().findById(d.getParentId());
 			e.setParent(parent);
+			parent.addTrader(e);
+			this.getDao().saveOrUpdate(parent);
 		}
 		
 		this.getDao().saveOrUpdate(e);
@@ -134,6 +151,11 @@ public class TraderServiceImpl
 		}
 		
 		return this.getDao().delete(e);
+	}
+
+	@Override
+	public List<TraderDto> searchSupervisors(){
+		return this.getTransformer().transformAllTo(this.getDao().findSupervisors());
 	}
 	
 }

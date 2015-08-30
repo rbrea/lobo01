@@ -105,7 +105,7 @@ Product.add = function(dialog, btn){
 			   
 			   return;
 		   }else{
-			   Message.showMessages($('#modalProductAlertMessages'), $("#modalProductAlertMessages"), data.message);
+			   Message.showMessages($('#modalProductAlertMessages'), $("#modalProductMessages"), data.message);
 			   
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);
@@ -113,7 +113,7 @@ Product.add = function(dialog, btn){
 		   }
 	   },
 	   error:function(data){
-		   Message.showMessages($('#modalProductAlertMessages'), $("#modalProductAlertMessages"), data.responseJSON.message);
+		   Message.showMessages($('#modalProductAlertMessages'), $("#modalProductMessages"), data.responseJSON.message);
 		   
 		   dialog.enableButtons(true);
 		   dialog.setClosable(true);
@@ -131,6 +131,11 @@ Product.add = function(dialog, btn){
 Product.showModal = function(id){
 	
 	BootstrapDialog.show({
+		onshown: function(){
+			$("#productCode").focus();
+			
+			return;
+		},
 		onhidden:function(){
 			Product.resetModal();
 			
@@ -170,6 +175,7 @@ Product.showModal = function(id){
         	icon: 'glyphicon glyphicon-remove-sign',
         	action: function(dialog){
         		var btn = this;
+        		Message.hideMessages($('#modalProductAlertMessages'), $("#modalProductMessages"));
         		dialog.close();
         		
         		return;
@@ -251,6 +257,88 @@ Product.resetModal = function(){
 	$("#productDescription").val('');
 	$("#productPrice").val('');
 	$("#dailyInstallment").val('');
+	$("#frmProduct").validator('destroy');
+	
+	return;
+}
+
+Product.initControls = function(){
+	
+	$("#productCode").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#productDescription").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#productCode').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#productDescription").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#productDescription").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#productPrice").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#productDescription').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#productPrice").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#productPrice").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#dailyInstallment").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#productPrice').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#dailyInstallment").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#dailyInstallment").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#dailyInstallment').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
+	    }
+	    
+	    return;
+	});
 	
 	return;
 }

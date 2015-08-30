@@ -1,177 +1,90 @@
-<div class="modal fade" id="modalBillClient" tabindex="-1" role="dialog" aria-labelledby="modalBillClientLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalBillClientLabel">Clientes</h4>
-      </div>
-      <div class="modal-body">
-		<form id="frmBillClient" role="form"
-				method="POST" data-toggle="validator">
-			<input type="hidden" id="billClientId" name="id" value="">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="panel panel-default">
-						  	<div class="panel-body">
-						    	<div class="form-group">
-									<label for="clientName">Nombre y Apellido</label>
-								    <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Ingrese Nombre y Apellido..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientDocumentNumber">N&uacute;mero de Documento</label>
-								    <input type="number" class="form-control" id="clientDocumentNumber" name="clientDocumentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientEmail">e-mail</label>
-								    <input type="email" class="form-control" id="clientEmail" name="clientEmail" placeholder="Ingrese e-mail...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientCompanyPhone">Tel&eacute;fono</label>
-								    <input type="text" class="form-control" id="clientCompanyPhone" name="clientCompanyPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientCompanyAddress">Domicilio</label>
-								    <input type="text" class="form-control" id="clientCompanyAddress" name="clientCompanyAddress" placeholder="Ingrese domicilio..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientNearStreets">Entre Calles</label>
-								    <input type="text" class="form-control" id="clientNearStreets" name="clientNearStreets" placeholder="Ingrese entre calles...">
-								    <div class="help-block with-errors"></div>
-								</div>
-						  	</div>
-						</div>
+<div id="modal-bill-client-container" class="container-fluid" style="display:none;">
+	<div id="modalClientMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalClientAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalClientAlertMessages').children('span').eq(0).html('');$('#modalClientMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+  		<form id="frmBillAddClient">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+			  	<div class="panel-body">
+			    	<div class="form-group">
+						<label for="billClientName">Nombre y Apellido</label>
+					    <input type="text" class="form-control" id="billClientName" name="name" placeholder="Ingrese Nombre y Apellido..." required><!-- &nbsp;<span style="color:RED;font-weight:bold;">*</span> -->
+					    <div class="help-block with-errors"></div>
 					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-body">
-						    	<div class="form-group">
-									<label for="clientCompanyCity">Localidad/Barrio</label>
-								    <input type="text" class="form-control" id="clientCompanyCity" name="clientCompanyCity" placeholder="Ingrese localidad/barrio..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientCompanyType">Tipo de Comercio</label>
-								    <input type="text" class="form-control" id="clientCompanyType" name="clientCompanyType" placeholder="Ingrese tipo de comercio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientPhone">Tel&eacute;fono Particular</label>
-								    <input type="text" class="form-control" id="clientPhone" name="clientPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientAddress">Domicilio Particular</label>
-								    <input type="text" class="form-control" id="clientAddress" name="clientAddress" placeholder="Ingrese domicilio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="clientCity">Localidad/Barrio Particular</label>
-								    <input type="text" class="form-control" id="clientCity" name="clientCity" placeholder="Ingrese localidad/barrio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-						  	</div>
-						</div>
+					<div class="form-group">
+						<label for="billClientDocumentNumber">N&uacute;mero de Documento</label>
+					    <input type="number" class="form-control" id="billClientDocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
+					    <div class="help-block with-errors"></div>
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="billClientEmail">e-mail</label>
+					    <input type="email" class="form-control" id="billClientEmail" name="email" placeholder="Ingrese e-mail...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="billClientCompanyPhone">Tel&eacute;fono</label>
+					    <input type="text" class="form-control" id="billClientCompanyPhone" name="companyPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+					    <div class="help-block with-errors"></div>
+					</div>
+			  	</div>
 			</div>
-	    	
-		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button id="btnBillClient" type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modalBillTrader" tabindex="-1" role="dialog" aria-labelledby="modalBillTraderLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalBillTraderLabel">Vendedores/Supervisores</h4>
-      </div>
-      <div class="modal-body">
-		<form id="frmTrader" 
-				method="POST" data-toggle="validator">
-			<input type="hidden" id="billTraderId" name="id" value="">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="panel panel-default">
-						  	<div class="panel-body">
-						    	<div class="form-group">
-									<label for="traderName">Nombre y Apellido</label>
-								    <input type="text" class="form-control" id="traderName" name="traderName" placeholder="Ingrese Nombre y Apellido..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderDocumentNumber">N&uacute;mero de Documento</label>
-								    <input type="number" class="form-control" id="traderDocumentNumber" name="traderDocumentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderEmail">e-mail</label>
-								    <input type="email" class="form-control" id="traderEmail" name="traderEmail" placeholder="Ingrese e-mail...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderBillParentDescription">Supervisor</label>
-									<div class="inner-addon right-addon">
-										<input type="hidden" id="traderBillParentId" name="traderBillParentId" value="">
-									    <input type="text" class="form-control lov" id="traderBillParentDescription" name="traderBillParentDescription" placeholder="Asignar supervisor...">
-										<i class="glyphicon glyphicon-search"></i>
-										<div class="help-block with-errors"></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="checkbox">
-								    	<label>
-								      		<input type="checkbox" name="traderSupervisor" id="traderSupervisor"> Es Supervisor?
-								    	</label>
-								  	</div>
-								</div>
-						  	</div>
-						</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+			  	<div class="panel-body">
+					<div class="form-group">
+						<label for="billClientCompanyAddress">Domicilio</label>
+					    <input type="text" class="form-control" id="billClientCompanyAddress" name="companyAddress" placeholder="Ingrese domicilio..." required>
+					    <div class="help-block with-errors"></div>
 					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="form-group">
-									<label for="traderPhone">Tel&eacute;fono</label>
-								    <input type="text" class="form-control" id="traderPhone" name="traderPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderAddress">Domicilio</label>
-								    <input type="text" class="form-control" id="traderAddress" name="traderAddress" placeholder="Ingrese domicilio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-								<div class="form-group">
-									<label for="traderCity">Localidad/Barrio</label>
-								    <input type="text" class="form-control" id="traderCity" name="traderCity" placeholder="Ingrese localidad/barrio...">
-								    <div class="help-block with-errors"></div>
-								</div>
-						  	</div>
-						</div>
+					<div class="form-group">
+						<label for="billClientNearStreets">Entre Calles</label>
+					    <input type="text" class="form-control" id="billClientNearStreets" name="nearStreets" placeholder="Ingrese entre calles...">
+					    <div class="help-block with-errors"></div>
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="billClientCompanyCity">Localidad/Barrio</label>
+					    <input type="text" class="form-control" id="billClientCompanyCity" name="companyCity" placeholder="Ingrese localidad/barrio..." required>
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="billClientCompanyType">Tipo de Comercio</label>
+					    <input type="text" class="form-control" id="billClientCompanyType" name="companyType" placeholder="Ingrese tipo de comercio...">
+					    <div class="help-block with-errors"></div>
+					</div>
+			  	</div>
 			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="billClientPhone">Tel&eacute;fono Particular</label>
+					    <input type="text" class="form-control" id="billClientPhone" name="phone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="billClientAddress">Domicilio Particular</label>
+					    <input type="text" class="form-control" id="billClientAddress" name="address" placeholder="Ingrese domicilio...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="billClientCity">Localidad/Barrio Particular</label>
+					    <input type="text" class="form-control" id="billClientCity" name="city" placeholder="Ingrese localidad/barrio...">
+					    <div class="help-block with-errors"></div>
+					</div>
+			  	</div>
+			</div>
+		</div>
 		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button id="btnTrader" type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
+	</div>
 </div>
 
 <div class="col-md-1">
@@ -532,7 +445,7 @@
 			<div class="form-group">
 				<label for="bcobrador">&nbsp;</label><br>
 				<button id="btnFinalize" type="button" data-loading-text="Espere..." class="btn btn-success"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Finalizar</button>&nbsp;
-				<button id="btnCancel" type="button" data-loading-text="Espere..." class="btn btn-danger"><i class="glyphicon glyphicon-off"></i>&nbsp;Borrar</button>
+				<button id="btnCancel" type="button" data-loading-text="Espere..." class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i>&nbsp;Limpiar</button>
 			</div>
 		</div>
 	</div>

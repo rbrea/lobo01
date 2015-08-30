@@ -2,6 +2,8 @@ Ticket = function(){}
 
 Ticket.init = function(){
 	
+	$("#zone").focus();
+	
 	$('#fecDesde').datetimepicker({
         locale: 'es',
         showTodayButton: true,
@@ -39,6 +41,25 @@ Ticket.init = function(){
 		$("#fecHastaValue").val("");
 		
 		return;
+	});
+	
+	$("#zone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#zone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
+	    }
+	    
+	    return;
 	});
 	
 	return;

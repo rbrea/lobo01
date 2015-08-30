@@ -80,6 +80,8 @@
            		
            		return;
            	});
+           	
+           	Product.initControls();
 			
 			return;
 		}	

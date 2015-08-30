@@ -9,6 +9,7 @@ Bill.initModalClient = function(){
 			$("input[id*='bcuotadiaria_']"), 
 			$("input[id*='bimp_']"));
 	
+	/*
 	$("#btnBillClient").click(function(){
 		var c = 0;
 		
@@ -28,17 +29,11 @@ Bill.initModalClient = function(){
 		
     	return;
     });
-    
-	$('#modalBillClient').on('hidden.bs.modal', function (e) {
-   		
-		Bill.resetModalClient();
-   		
-   		return;
-   	});
-	
+    */
 	$("#btnBillNewClient").on("click", function(){
 
-		$("#modalBillClient").modal("show");
+		//$("#modalBillClient").modal("show");
+		Bill.showClientModal();
 		
 		return;
 	});
@@ -697,24 +692,7 @@ Bill.doPanelEnabled = function(panelId){
 	
 	return;
 }
-
-Bill.resetModalClient = function(){
-	$("billClientId").val('');
-	$("#clientName").val('');
-	$("#clientDocumentNumber").val('');
-	$("#clientEmail").val('');
-	$("#clientCompanyPhone").val('');
-	$("#clientCompanyAddress").val('');
-	$("#clientNearStreets").val('');
-	$("#clientCompanyCity").val('');
-	$("#clientCompanyType").val('');
-	$("#clientPhone").val('');
-	$("#clientAddress").val('');
-	$("#clientCity").val('');
-	
-	return;
-}
-
+/*
 Bill.addClient = function(){
 	
 	var id = $("#billClientId").val();
@@ -788,11 +766,9 @@ Bill.addClient = function(){
 	   }
 	});
 	
-	
-	
 	return;
 }
-
+*/
 
 Bill.showLovProduct = function(elementId){
 	
@@ -1032,6 +1008,7 @@ Bill.resetPage = function(){
 	Bill.resetSecond();
 	Bill.resetThird();
 	Bill.resetFour();
+	$("#frmBillAdd").validator('destroy');
 	$("#billNumber").focus();
 	
 	return;
@@ -1114,6 +1091,217 @@ Bill.initControls = function(){
 			} else {
 				$("#bcant_0").focus();
 			}
+	    }
+	    
+	    return;
+	});
+	
+	///////////////////////////////////////////////////
+	
+	$("#billClientName").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientDocumentNumber").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientName').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientDocumentNumber").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientDocumentNumber").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientEmail").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientDocumentNumber').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientEmail").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientEmail").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientCompanyPhone").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientEmail').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientCompanyPhone").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientCompanyPhone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientCompanyAddress").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientCompanyPhone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientCompanyAddress").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientCompanyAddress").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientNearStreets").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientCompanyAddress').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientNearStreets").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientNearStreets").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientCompanyCity").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientNearStreets').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientCompanyCity").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientCompanyCity").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientCompanyType").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientCompanyCity').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientCompanyType").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientCompanyType").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientPhone").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientCompanyType').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientPhone").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientPhone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientAddress").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientPhone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientAddress").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientAddress").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billClientCity").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientAddress').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billClientCity").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billClientCity").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billClientCity').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
 	    }
 	    
 	    return;
@@ -1498,6 +1686,184 @@ Bill.initDetail = function(billId){
 	   },
 	   error:function(data){
 		   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
+
+Bill.showClientModal = function(){
+	
+	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#billClientName").focus();
+			
+			return;
+		},
+		onhidden:function(){
+			Bill.resetBillModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_PRIMARY,
+		title: 'Clientes',
+		autodestroy: false,
+		cssClass: 'dialog-client',
+        message: function(dialog) {
+        	
+        	$("#modal-bill-client-container").css({"display":"block"});
+        	
+        	return $("#modal-bill-client-container");
+        },
+        buttons: [{
+        	id: 'btnCancel',
+        	label: 'Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		Message.hideMessages($('#modalClientAlertMessages'), $("#modalClientMessages"));
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAccept',
+        	label: 'Guardar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-primary',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmBillAddClient").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmBillAddClient").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+	        		Bill.addClient(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	dialog.setSize(BootstrapDialog.SIZE_WIDE);
+	dialog.open();
+
+	//$("#modal-client-container").parent().parent().parent().parent().parent().css({'width':'800px'});
+	
+	return;
+}
+
+Bill.resetBillModal = function(){
+	$("#billClientName").val('');
+	$("#billClientDocumentNumber").attr("readonly", false).val('');
+	$("#billClientEmail").val('');
+	$("#billClientCompanyPhone").val('');
+	$("#billClientCompanyAddress").val('');
+	$("#billClientNearStreets").val('');
+	$("#billClientCompanyCity").val('');
+	$("#billClientCompanyType").val('');
+	$("#billClientPhone").val('');
+	$("#billClientAddress").val('');
+	$("#billClientCity").val('');
+	
+	return;
+}
+
+Bill.addClient = function(dialog, btn){
+	
+	var name = $("#billClientName").val();
+	var documentNumber = $("#billClientDocumentNumber").val();
+	var email = $("#billClientEmail").val();
+	var companyPhone = $("#billClientCompanyPhone").val();
+	var companyAddress = $("#billClientCompanyAddress").val();
+	var nearStreets = $("#billClientNearStreets").val();
+	var companyCity = $("#billClientCompanyCity").val();
+	var companyType = $("#billClientCompanyType").val();
+	var phone = $("#billClientPhone").val();
+	var address = $("#billClientAddress").val();
+	var city = $("#billClientCity").val();
+	
+	var obj = new Object();
+	obj.name = name;
+	obj.documentNumber = documentNumber;
+	obj.email = email;
+	obj.companyPhone = companyPhone;
+	obj.companyAddress = companyAddress;
+	obj.nearStreets = nearStreets;
+	obj.companyCity = companyCity;
+	obj.companyType = companyType;
+	obj.phone = phone;
+	obj.address = address;
+	obj.city = city;
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/client",
+	   dataType: 'json',
+	   data: JSON.stringify(obj),
+	   contentType: "application/json;",
+	   success:function(data) {
+		   Message.hideMessages($('#modalClientAlertMessages'), $("#modalClientMessages"));
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+
+			   if(list.length > 0){
+				   
+				   var r = list[0];
+				   
+				   var selectedId = r.id;
+				   var selectedDescription = r.name;
+				   var address = r.companyAddress;
+				   var companyType = r.companyType;
+				   
+				   $("#traderParentId").val(selectedId);
+				   $("#bClientId").val(selectedId);
+				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
+				   
+			   }
+			   $("#modalBillClient").modal('hide');
+
+			   // si esta todo ok entonces doy de alta ...
+			   //Bill.doPanelEnabled("#pnlTrader");
+			   $("#btraderid").focus();
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
+			   
+			   return;
+		   }else{
+			   Message.showMessages($('#modalClientAlertMessages'), $("#modalClientMessages"), data.message);
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#modalClientAlertMessages'), $("#modalClientMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
 		   
 		   return;
 	   }

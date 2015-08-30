@@ -72,7 +72,7 @@
 							                <th>Domicilio</th>
 							                <th>Localidad / Barrio</th>
 							                <th>Es supervisor?</th>
-							                <th>Vendedores</th>
+							                <th>Vendedores a cargo</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
@@ -104,6 +104,8 @@
            		
            		return;
            	});
+           	
+           	Trader.initControls();
 			
 			return;
 		}	

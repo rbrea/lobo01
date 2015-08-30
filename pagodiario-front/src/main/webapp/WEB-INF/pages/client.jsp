@@ -87,6 +87,8 @@
            		
            		return;
            	});
+           	
+           	Client.initControls();
 			
 			return;
 		}	

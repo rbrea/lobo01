@@ -17,7 +17,7 @@ Client.initDataTable = function(imgCheckUrl){
 			 	// The `data` parameter refers to the data for the cell (defined by the
 			    // `data` option, which defaults to the column being worked with, in
 			    // this case `data: 0`.
-			    "orderable": false,
+			    "orderable": true,
 			    "render": function ( data, type, row ) {
 			        //return data +' ('+ row[3]+')';
 			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
@@ -90,7 +90,7 @@ Client.initDataTable = function(imgCheckUrl){
                 }
          	}
         ],
-        "order": [[1, 'asc']],
+        "order": [[0, 'asc']],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",
@@ -144,7 +144,7 @@ Client.add = function(dialog, btn){
 	   data: JSON.stringify(obj),
 	   contentType: "application/json;",
 	   success:function(data) {
-		   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
+		   Message.hideMessages($('#modalClientAlertMessages'), $("#modalClientMessages"));
 		   if(data != null && data.status == 0){
 			   var table = $('#tClientResult').dataTable();
 			   
@@ -162,7 +162,6 @@ Client.add = function(dialog, btn){
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);
        		   btn.stopSpin();
-			   dialog.close();
 		   }
 	   },
 	   error:function(data){
@@ -171,7 +170,6 @@ Client.add = function(dialog, btn){
 		   dialog.enableButtons(true);
 		   dialog.setClosable(true);
    		   btn.stopSpin();
-		   dialog.close();
 		   
 		   return;
 	   }
@@ -185,6 +183,11 @@ Client.add = function(dialog, btn){
 Client.showModal = function(id){
 	
 	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#name").focus();
+			
+			return;
+		},
 		onhidden:function(){
 			Client.resetModal();
 			
@@ -248,6 +251,7 @@ Client.showModal = function(id){
         	icon: 'glyphicon glyphicon-remove-sign',
         	action: function(dialog){
         		var btn = this;
+        		Message.hideMessages($('#modalClientAlertMessages'), $("#modalClientMessages"));
         		dialog.close();
         		
         		return;
@@ -338,7 +342,221 @@ Client.resetModal = function(){
 	$("#phone").val('');
 	$("#address").val('');
 	$("#city").val('');
+	$("#frmClient").validator('destroy');
 	
 	return;
 }
 
+Client.initControls = function(){
+	
+	$("#name").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#documentNumber").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#name').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#documentNumber").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#documentNumber").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#email").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#documentNumber').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#email").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#email").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#companyPhone").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#email').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#companyPhone").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#companyPhone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#companyAddress").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#companyPhone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#companyAddress").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#companyAddress").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#nearStreets").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#companyAddress').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#nearStreets").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#nearStreets").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#companyCity").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#nearStreets').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#companyCity").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#companyCity").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#companyType").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#companyCity').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#companyType").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#companyType").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#phone").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#companyType').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#phone").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#phone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#address").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#phone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#address").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#address").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#city").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#address').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#city").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#city").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#city').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	return;
+}

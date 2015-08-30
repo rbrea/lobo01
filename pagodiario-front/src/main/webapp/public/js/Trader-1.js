@@ -19,7 +19,7 @@ Trader.initDataTable = function(imgCheckUrl){
 			 	// The `data` parameter refers to the data for the cell (defined by the
 			    // `data` option, which defaults to the column being worked with, in
 			    // this case `data: 0`.
-			    "orderable": false,
+			    "orderable": true,
 			    "render": function ( data, type, row ) {
 			        //return data +' ('+ row[3]+')';
 			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
@@ -100,12 +100,12 @@ Trader.initDataTable = function(imgCheckUrl){
                 	
                     //return data +' ('+ row[3]+')';
                     return "<a href=\"javascript:Trader.showModal('" + row.id + "', '" + email + "', '" + parentId + "', '" + parentDescription + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>"
-                    	+ "&nbsp;<a href=\"javascript:Trader.addTrader('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-th-list\"></i></a>"
+                    	/*+ "&nbsp;<a href=\"javascript:Trader.addTrader('" + row.id + "');\" class=\"btn btn-xs btn-success\"><i class=\"glyphicon glyphicon-th-list\"></i></a>"*/
                         + "&nbsp;<a href=\"javascript:Trader.remove('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
          	}
         ],
-        "order": [[1, 'asc']],
+        "order": [[0, 'asc']],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",
@@ -158,7 +158,7 @@ Trader.add = function(dialog, btn){
 	   data: JSON.stringify(obj),
 	   contentType: "application/json;",
 	   success:function(data) {
-		   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+		   Message.hideMessages($('#modalTraderMessages'), $("#modalTraderMessages"));
 		   if(data != null && data.status == 0){
 
 			   var table = $('#tTraderResult').dataTable();
@@ -177,7 +177,6 @@ Trader.add = function(dialog, btn){
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);
        		   btn.stopSpin();
-			   dialog.close();
 		   }
 	   },
 	   error:function(data){
@@ -186,7 +185,6 @@ Trader.add = function(dialog, btn){
 		   dialog.enableButtons(true);
 		   dialog.setClosable(true);
    		   btn.stopSpin();
-		   dialog.close();
 		   
 		   return;
 	   }
@@ -200,6 +198,11 @@ Trader.add = function(dialog, btn){
 Trader.showModal = function(id, email, parentId, parentDescription){
 	
 	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#name").focus();
+			
+			return;
+		},
 		onhidden:function(){
 			Trader.resetModal();
 			
@@ -247,8 +250,43 @@ Trader.showModal = function(id, email, parentId, parentDescription){
  			   	} else {
  				   $("#supervisor").attr("checked", false);
  			   	}
- 			   	$("#traderParentId").val(parentId);
- 			   	$("#traderParentDescription").val(parentDescription);
+ 			   	
+ 			   	$("#btnCleanSupervisor").addClass("disabled");
+ 			   
+ 			   	$.ajax({ 
+ 				   type    : "GET",
+ 				   url     : Constants.contextRoot + "/controller/html/trader?id=" + id,
+ 				   dataType: 'json',
+ 				   async:false,
+ 				   contentType: "application/json;",
+ 				   success:function(data) {
+ 					   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+ 					   if(data != null && data.status == 0){
+ 						   
+ 						   list = data.data;
+ 						   
+ 						   if(list != null && list.length > 0){
+ 							   var trader = list[0];
+ 							   
+ 							  $("#traderParentId").val(trader.parentId);
+ 							  $("#traderParentDescription").val(trader.parentDescription);
+ 							  if(trader.parentId != undefined && trader.parentId != null && trader.parentId != ""){
+ 								  $("#btnCleanSupervisor").removeClass("disabled");
+ 							  }
+ 						   }
+ 						   
+ 						   return;
+ 					   }else{
+ 						   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+ 					   }
+ 				   },
+ 				   error:function(data){
+ 					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
+ 					   
+ 					   return;
+ 				   }
+ 				});
+ 			   	
         	}
         	
         	$("#modal-trader-container").css({"display":"block"});
@@ -261,6 +299,7 @@ Trader.showModal = function(id, email, parentId, parentDescription){
         	icon: 'glyphicon glyphicon-remove-sign',
         	action: function(dialog){
         		var btn = this;
+        		Message.hideMessages($('#modalTraderMessages'), $("#modalTraderMessages"));
         		dialog.close();
         		
         		return;
@@ -354,6 +393,7 @@ Trader.resetModal = function(){
 	$("#supervisor").attr("checked", false);
 	$("#traderParentId").val('');
 	$("#traderParentDescription").val('');
+	$("#frmTrader").validator('destroy');
 	
 	return;
 }
@@ -619,6 +659,144 @@ Trader.addTrader = function(parentId){
 		   
 		   return;
 	   }
+	});
+	
+	return;
+}
+
+Trader.initControls = function(){
+	
+	$("#name").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#documentNumber").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#name').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#documentNumber").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#documentNumber").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#email").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#documentNumber').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#email").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#email").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#supervisor").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#email').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#supervisor").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#supervisor").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#phone").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#supervisor').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#phone").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#phone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#address").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#phone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#address").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#address").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#city").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#address').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#city").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#city").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#city').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
+	    }
+	    
+	    return;
 	});
 	
 	return;

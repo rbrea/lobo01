@@ -9,6 +9,7 @@ import com.icetea.manager.pagodiario.api.dto.ClientDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.ClientDao;
+import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Client;
@@ -30,10 +31,13 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 
 	@Override
 	public ClientDto insert(ClientDto input) {
+
+		Client e = this.getDao().find(input.getDocumentNumber());
+
+		ErrorTypedConditions.checkArgument(e == null, "Cliente ya existe dni: " + input.getDocumentNumber(),
+				ErrorType.VALIDATION_ERRORS);
 		
-		// TODO: [roher] buscar que no exista previamente cliente,, con las claves unicas
-		
-		Client e = new Client();
+		e = new Client();
 		e.setAddress(input.getAddress());
 		e.setCity(input.getCity());
 		e.setCompanyAddress(input.getCompanyAddress());

@@ -9,7 +9,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">
-				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario - versi&oacute;n 0.1-BETA
+				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario - versi&oacute;n 0.5
 			</a>
 		</div>
 		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout"></form>
@@ -50,7 +50,7 @@
 	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Ejecutar Liquidaci&oacute;n
 	                	</a>
 	                </li>
-	                <li role="presentation">
+	                <li role="presentation" class="hide">
 	                	<a id="optHistorialLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>

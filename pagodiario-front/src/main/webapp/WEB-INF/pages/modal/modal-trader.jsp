@@ -55,6 +55,7 @@
 							<i class="glyphicon glyphicon-search"></i>
 							<div class="help-block with-errors"></div>
 						</div>
+						<a id="btnCleanSupervisor" class="btn btn-xs btn-primary">Limpiar Supervisor</a>
 					</div>
 					<div class="form-group">
 						<div class="checkbox">
@@ -114,7 +115,7 @@
 				
 	        	$.ajax({ 
 				   type    : "GET",
-				   url     : Constants.contextRoot + "/controller/html/trader" + c,
+				   url     : Constants.contextRoot + "/controller/html/trader/supervisor" + c,
 				   dataType: 'json',
 				   contentType: "application/json;",
 				   success:function(data) {
@@ -175,6 +176,9 @@
 						            var selectedDescription = $(this).children('td').eq(2).html().trim();
 						            $("#traderParentId").val(selectedId);
 						            $("#traderParentDescription").val(selectedDescription);
+						            
+						            $("#btnCleanSupervisor").removeClass("disabled");
+						            
 						            $("#lov-container").css({"display": "none"});
 
 						            //BootstrapDialog.closeAll();
@@ -218,6 +222,13 @@
 				return;
 			});
 			
+			$("#btnCleanSupervisor").on('click', function(){
+				$("#traderParentId").val("");
+				$("#traderParentDescription").val("");		
+				$(this).addClass("disabled");
+			});
+			
+			return;
 		});
 			
 </script>

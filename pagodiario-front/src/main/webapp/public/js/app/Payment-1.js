@@ -2,6 +2,8 @@ Payment = function(){}
 
 Payment.init = function(){
 	
+	$("#zone").focus();
+	
 	$("#btnSearch").on('click', function(){
 		
 		var c = 0;
