@@ -10,10 +10,10 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
 			 	// The `data` parameter refers to the data for the cell (defined by the
 			    // `data` option, which defaults to the column being worked with, in
 			    // this case `data: 0`.
-			    "orderable": false,
+			    "orderable": true,
 			    "render": function ( data, type, row ) {
 			        //return data +' ('+ row[3]+')';
-			        return "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
+			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
 			    }
 			},
             /*{
@@ -56,12 +56,12 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
-                    return "<a href=\"javascript:Login.showEditModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
+                    return "<a href=\"javascript:User.showEditModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
                         + "&nbsp;<a href=\"javascript:Login.removeUser('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
          	}
         ],
-        "order": [[2, 'asc']],
+        "order": [[0, 'asc']],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",
@@ -152,47 +152,7 @@ Login.registrationReset = function(){
 	$("#documentNumber").val("");
 	$("#-username").val("");
 	$("#-password").val("");
-	
-	return;
-}
-
-Login.showEditModal = function(id){
-
-	$.ajax({ 
-	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/service/registration?id=" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#loginAlertMessages'), $("#loginMessages"));
-		   if(data != null && data.status == 0){
-			   
-			   var elem = data.data[0];
-			   
-			   $("#userId").val(elem.id);
-			   $("#name").val(elem.name);
-			   $("#email").val(elem.email);
-			   $("#documentNumber").val(elem.documentNumber);
-			   $("#nusername").val(elem.username);
-			   if(elem.admin == true){
-				   $("#admin").attr("checked", true);   
-			   } else {
-				   $("#admin").attr("checked", false);
-			   }
-			   
-			   $("#modalEditUser").modal("show");
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#loginAlertMessages'), $("#loginMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
+	$("#frmRegistration").validator('destroy');
 	
 	return;
 }
@@ -240,6 +200,7 @@ Login.editUserReset = function(){
 	$("#documentNumber").val("");
 	$("#admin").attr("checked", false);
 	$("#nusername").val("");
+	$("#frmEditUser").validator('destroy');
 	
 	return;
 }

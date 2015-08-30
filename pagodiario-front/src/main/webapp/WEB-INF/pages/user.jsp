@@ -1,98 +1,113 @@
-<div class="modal fade" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="modalEditUserLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalEditUserLabel">Editar Usuario</h4>
-      </div>
-      <div class="modal-body">
-		<form id="frmEditUser" action="${pageContext.request.contextPath}/controller/html/user/registration/edit" 
+
+<div id="modal-edit-user-container" class="container-fluid" style="display:none;">
+	<div id="modalEditUserMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalEditUserAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalEditUserAlertMessages').children('span').eq(0).html('');$('#modalEditUserMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+  		<form id="frmEditUser" action="${pageContext.request.contextPath}/controller/html/user/registration/edit" 
 				method="POST" data-toggle="validator">
 			<input type="hidden" id="userId" name="id" value="">
-			<div class="form-group">
-				<label for="nusername">Nombre de Usuario</label>
-			    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
-			    <div class="help-block with-errors"></div>
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			  	<div class="panel-body">
+			    	<div class="form-group">
+						<label for="enusername">Nombre de Usuario</label>
+					    <input type="text" class="form-control" id="enusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="checkbox">
+				    	<label>
+				      		<input type="checkbox" name="admin" id="admin"> Es Administrador?
+				    	</label>
+				  	</div>
+			    	<div class="form-group">
+						<label for="ename">Nombre y Apellido</label>
+					    <input type="text" class="form-control" id="ename" name="name" placeholder="Ingrese Nombre y Apellido...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="eemail">e-mail</label>
+					    <input type="email" class="form-control" id="eemail" name="email" placeholder="Ingrese e-mail...">
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="edocumentNumber">N&uacute;mero de Documento</label>
+					    <input type="number" class="form-control" id="edocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+					    <div class="help-block with-errors"></div>
+					</div>
+			  	</div>
 			</div>
-			<div class="checkbox">
-		    	<label>
-		      		<input type="checkbox" name="admin" id="admin"> Es Administrador?
-		    	</label>
-		  	</div>
-	    	<div class="form-group">
-				<label for="name">Nombre y Apellido</label>
-			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="email">e-mail</label>
-			    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="documentNumber">N&uacute;mero de Documento</label>
-			    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
+		</div>
 		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button id="btnEditUser" type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
+	</div>
 </div>
-<div class="modal fade" id="modalRegistration" tabindex="-1" role="dialog" aria-labelledby="modalRegistrationLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalRegistrationLabel">Registraci&oacute;n</h4>
-      </div>
-      <div class="modal-body">
-		<form id="frmRegistration" action="${pageContext.request.contextPath}/controller/html/user/registration" 
+
+<div id="modal-user-container" class="container-fluid" style="display:none;">
+	<div id="modalUserMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalUserAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalUserAlertMessages').children('span').eq(0).html('');$('#modalUserMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+  		<form id="frmRegistration" action="${pageContext.request.contextPath}/controller/html/user/registration" 
 				method="POST" data-toggle="validator">
 			<input type="hidden" id="pageFrom" name="pageFrom" value="user">
-	    	<div class="form-group">
-				<label for="name">Nombre y Apellido</label>
-			    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido..." required>
-			    <div class="help-block with-errors"></div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="nusername">Nombre de Usuario</label>
+						    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." required>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="npassword">Contrase&ntilde;a</label>
+						    <input type="password" class="form-control" id="npassword" name="password" placeholder="Ingrese Contrase&ntilde;a..." data-minlength="6" required>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="rpassword">Re-Ingrese Contrase&ntilde;a</label>
+						    <input type="password" class="form-control" id="rpassword" name="rpassword" placeholder="Re-Ingrese Contrase&ntilde;a..." data-minlength="6" data-match="#npassword" required>
+						    <div class="help-block with-errors"></div>
+						</div>
+				  	</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="email">e-mail</label>
-			    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="documentNumber">DNI</label>
-			    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="nusername">Nombre de Usuario</label>
-			    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="npassword">Contrase&ntilde;a</label>
-			    <input type="password" class="form-control" id="npassword" name="password" placeholder="Ingrese Contrase&ntilde;a..." data-minlength="6" required>
-			    <div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label for="rpassword">Re-Ingrese Contrase&ntilde;a</label>
-			    <input type="password" class="form-control" id="rpassword" name="rpassword" placeholder="Re-Ingrese Contrase&ntilde;a..." data-minlength="6" data-match="#npassword" required>
-			    <div class="help-block with-errors"></div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+				  	<div class="panel-body">
+				    	<div class="form-group">
+							<label for="name">Nombre y Apellido</label>
+						    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido...">
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="email">e-mail</label>
+						    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="documentNumber">DNI</label>
+						    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+						    <div class="help-block with-errors"></div>
+						</div>
+				  	</div>
+				</div>
 			</div>
 		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button id="btnRegistration" type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
+	</div>
 </div>
+
 <div class="col-md-1">
 	&nbsp;
 </div>
@@ -176,7 +191,7 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			Login.initDataTable(urlDataTable, imgCheckUrl);
-		    
+			/*
 		    $("#btnEditUser").click(function(){
 		 	
 		    	$("#frmEditUser").submit();
@@ -190,28 +205,15 @@
            		
            		return;
            	});
-		    
-		    $("#btnRegistration").click(
-           		function(){
-           			
-           			$("#frmRegistration").submit();
-           			
-           			return;
-           		}		
-           	);
-		    
-           	$('#modalRegistration').on('hidden.bs.modal', function (e) {
-           		
-           		Login.registrationReset();
+			*/
+
+			$("#btnNew").click(function(){
+           		User.showModal();
            		
            		return;
            	});
-           	
-           	$("#btnNew").click(function(){
-           		$("#modalRegistration").modal("show");
-           		
-           		return;
-           	});
+			
+			User.initControls();
 			
 			return;
 		}	

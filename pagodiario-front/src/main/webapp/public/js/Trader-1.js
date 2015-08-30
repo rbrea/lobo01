@@ -158,7 +158,7 @@ Trader.add = function(dialog, btn){
 	   data: JSON.stringify(obj),
 	   contentType: "application/json;",
 	   success:function(data) {
-		   Message.hideMessages($('#modalTraderMessages'), $("#modalTraderMessages"));
+		   Message.hideMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"));
 		   if(data != null && data.status == 0){
 
 			   var table = $('#tTraderResult').dataTable();
@@ -299,7 +299,7 @@ Trader.showModal = function(id, email, parentId, parentDescription){
         	icon: 'glyphicon glyphicon-remove-sign',
         	action: function(dialog){
         		var btn = this;
-        		Message.hideMessages($('#modalTraderMessages'), $("#modalTraderMessages"));
+        		Message.hideMessages($('#modalTraderAlertMessages'), $("#modalTraderMessages"));
         		dialog.close();
         		
         		return;
