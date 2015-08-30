@@ -67,6 +67,7 @@ Bill.init = function(){
 	
 	$("#btnCancel").on('click', function(){
 		Bill.resetPage();
+		$("html, body").animate({"scrollTop":"-590"}, "slow");
 		
 		return;
 	});
@@ -628,6 +629,7 @@ Bill.doFinalize = function(){
 		   if(data != null && data.status == 0){
 
 			   Bill.resetPage();
+			   $("html, body").animate({"scrollTop":"-590"}, "slow");
 			   
 			   return;
 		   }else{

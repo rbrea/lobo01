@@ -34,6 +34,7 @@ public class SupervisorConciliationItem extends Identifiable {
 	@JoinColumn(name = "SUPERVISOR_PAYROLL_ITEM_ID")
 	private SupervisorPayrollItem supervisorPayrollItem;
 	
+	@SuppressWarnings("unused")
 	private SupervisorConciliationItem() {
 		super();
 	}
