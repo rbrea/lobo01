@@ -330,7 +330,7 @@ Client.remove = function(id){
 }
 
 Client.resetModal = function(){
-	$("clientId").val('');
+	$("#clientId").val('');
 	$("#name").val('');
 	$("#documentNumber").attr("readonly", false).val('');
 	$("#email").val('');

@@ -378,7 +378,7 @@ Trader.remove = function(id){
 }
 
 Trader.resetModal = function(){
-	$("clientId").val('');
+	$("#clientId").val('');
 	$("#name").val('').attr("readonly", false);
 	$("#documentNumber").val('').attr("readonly", false);
 	$("#email").val('');

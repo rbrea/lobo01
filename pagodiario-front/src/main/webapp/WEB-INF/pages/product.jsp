@@ -76,7 +76,7 @@
 			Product.initDataTable(imgCheckUrl);
 		    
            	$("#btnNew").click(function(){
-           		Product.showModal();
+           		Product.showModal(null);
            		
            		return;
            	});

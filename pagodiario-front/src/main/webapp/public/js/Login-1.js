@@ -194,7 +194,7 @@ Login.removeUser = function(id){
 }
 
 Login.editUserReset = function(){
-	
+	$("#userId").val("");
 	$("#name").val("");
 	$("#email").val("");
 	$("#documentNumber").val("");

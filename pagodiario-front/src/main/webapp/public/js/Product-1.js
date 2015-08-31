@@ -163,6 +163,8 @@ Product.showModal = function(id){
         		$("#productDescription").val(description);
         		$("#productPrice").val(price);
         		$("#dailyInstallment").val(dailyInstallment);
+        	} else {
+        		$("#productId").val("");
         	}
         	
         	$("#modal-product-container").css({"display":"block"});
@@ -252,7 +254,7 @@ Product.remove = function(id){
 }
 
 Product.resetModal = function(){
-	$("productId").val('');
+	$("#productId").val("");
 	$("#productCode").attr("readonly", false).val('');
 	$("#productDescription").val('');
 	$("#productPrice").val('');
