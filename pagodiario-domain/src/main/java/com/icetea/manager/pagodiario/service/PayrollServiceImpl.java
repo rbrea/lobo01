@@ -1,7 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.AbstractConciliationItem;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.BillProduct;
-import com.icetea.manager.pagodiario.model.Bonus;
 import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Dev;
@@ -73,7 +71,6 @@ public class PayrollServiceImpl extends
 	
 	@Override
 	public PayrollDto processPeriod(Date dateFrom, Date dateTo){
-		List<Bill> bills = this.billDao.find(dateFrom, dateTo);
 		
 		Payroll found = this.getDao().find(dateFrom, dateTo);
 		
@@ -82,6 +79,8 @@ public class PayrollServiceImpl extends
 						DateUtils.toDate(dateFrom), 
 						DateUtils.toDate(dateTo)), 
 				ErrorType.VALIDATION_ERRORS);
+
+		List<Bill> bills = this.billDao.find(dateFrom, dateTo);
 		
 		final Payroll payroll = new Payroll();
 		payroll.setDateFrom(dateFrom);
@@ -91,20 +90,22 @@ public class PayrollServiceImpl extends
 		
 		if(bills != null){
 			for(final Bill bill : bills){
+				// aca busco si ya existe liq de comision para el vendedor, si ya existe no lo vuelvo a crear ... uso el q ya tnia ...
 				PayrollItem payrollItem = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
 					@Override
 					public boolean evaluate(PayrollItem item) {
-						return item.getTrader().getId().equals(bill.getTrader().getId())
-								&& item.getPayroll().getId().equals(payroll.getId());
+						return item.getTrader().getId().equals(bill.getTrader().getId());
 					}
 				});
 				
 				if(payrollItem == null){
 					payrollItem = new PayrollItem();
+					payrollItem.setPayroll(payroll);
+					payroll.addPayrollItem(payrollItem);
+					payrollItem.setTrader(bill.getTrader());
 				}
 				
-				BigDecimal commission = bill.getTotalAmount().multiply(BigDecimal.TEN).divide(
-						NumberUtils._100, MathContext.DECIMAL128); 
+				BigDecimal commission = NumberUtils.calculatePercentage(bill.getTotalAmount(), BigDecimal.TEN);
 				
 				ConciliationItem conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
 				conciliationItem.setCollectAmount(commission);
@@ -115,16 +116,13 @@ public class PayrollServiceImpl extends
 				conciliationItem.setBill(bill);
 				payrollItem.addItem(conciliationItem);
 				
-				payrollItem.setPayroll(payroll);
-				payrollItem.setTrader(bill.getTrader());
 				
 				totalAmount = NumberUtils.add(totalAmount, commission);
 				
 				payrollItem.setItemDate(bill.getStartDate());
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), commission));
-				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), payrollItem.getSubtotalCollect()));
+				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), commission));
 				
-				payroll.addPayrollItem(payrollItem);
 			}
 		}
 		List<Discount> discounts = this.discountDao.find(dateFrom, dateTo);
@@ -178,14 +176,6 @@ public class PayrollServiceImpl extends
 				payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), realAmount));
 				payrollItem.setTotalAmount(NumberUtils.subtract(payrollItem.getTotalAmount(), payrollItem.getSubtotalDiscount()));
 				totalDiscount = NumberUtils.add(totalDiscount, realAmount);
-			}
-		}
-		List<Bonus> bonusList = this.bonusDao.find(dateFrom, dateTo);
-		if(bonusList != null){
-			for(final Bonus e : bonusList){
-				// TODO: completar logica de premios
-				
-				totalAmount = NumberUtils.add(totalAmount, e.getAmount());
 			}
 		}
 		

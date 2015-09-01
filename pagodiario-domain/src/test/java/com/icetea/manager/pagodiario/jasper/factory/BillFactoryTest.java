@@ -30,6 +30,7 @@ import com.icetea.manager.pagodiario.utils.StringUtils;
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class BillFactoryTest {
+	@SuppressWarnings("unused")
 	private BillPojoFactory instance;
 	@Inject
 	private BillListPojoFactory billListPojoFactory;

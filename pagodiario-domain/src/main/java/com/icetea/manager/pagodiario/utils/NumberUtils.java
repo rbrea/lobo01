@@ -163,7 +163,26 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
     		return BigDecimal.ZERO;
     	}
     	
-    	return amount.multiply(percentage).divide(_100);
+    	return divide(multiply(amount, percentage), _100);
+    }
+
+    public static BigDecimal multiply(BigDecimal amount, BigDecimal multiplicitor){
+    	if(amount == null || multiplicitor == null){
+    		return BigDecimal.ZERO;
+    	}
+    	
+    	return amount.multiply(multiplicitor);
+    }
+    
+    public static BigDecimal divide(BigDecimal amount, BigDecimal divisor){
+    	if(amount == null || divisor == null){
+    		return BigDecimal.ZERO;
+    	}
+    	if(divisor.compareTo(BigDecimal.ZERO) == 0){
+    		return BigDecimal.ZERO;
+    	}
+    	
+    	return amount.divide(divisor, MathContext.DECIMAL128);
     }
     
 }
