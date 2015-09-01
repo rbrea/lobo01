@@ -101,7 +101,8 @@ public class BillServiceImpl
 			e.addBillProduct(bp);
 		}
 		e.setClient(client);
-		e.setStartDate(DateUtils.parseDate(d.getStartDate()));
+		Date startDate = DateUtils.parseDate(d.getStartDate());
+		e.setStartDate(startDate);
 		BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
 //		if(calculatedTotalAmount.compareTo(NumberUtils.toBigDecimal(d.getTotalAmount())) != 0){
 //			throw new ErrorTypedException("Error de validacion de importe total", ErrorType.UNKNOWN_ERROR);
@@ -112,7 +113,12 @@ public class BillServiceImpl
 //			throw new ErrorTypedException("Error de validacion de total de valor de cuota diaria", ErrorType.UNKNOWN_ERROR);
 //		}
 		e.setTotalDailyInstallment(calculatedTotalDailyInstallment);
-		e.setOverdueDays(0);
+		
+		Date now = new Date();
+		
+		int days = DateUtils.daysBetween(startDate, now);
+		
+		e.setOverdueDays(days);
 		e.setRemainingAmount(calculatedTotalAmount);
 		e.setTrader(trader);
 		e.setEndDate(e.calculateEndDate());
@@ -125,7 +131,7 @@ public class BillServiceImpl
 		
 		payment.setBill(e);
 		payment.setCollectorId(d.getCollectorId());
-		payment.setDate(DateUtils.parseDate(d.getStartDate()));
+		payment.setDate(startDate);
 		
 		e.addPayment(payment);
 		// le resto el 1er pago ...

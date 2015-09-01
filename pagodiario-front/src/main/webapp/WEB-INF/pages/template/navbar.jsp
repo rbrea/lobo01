@@ -9,7 +9,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">
-				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario - versi&oacute;n 0.5
+				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario - versi&oacute;n 0.7
 			</a>
 		</div>
 		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout"></form>

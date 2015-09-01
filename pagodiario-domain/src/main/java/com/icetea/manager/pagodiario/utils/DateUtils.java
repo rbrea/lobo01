@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -61,4 +62,38 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static String currentDate(){
 		return toDate(new Date());
 	}
+	
+	public static int daysBetween(Date startDate, Date endDate){
+		if(startDate == null || endDate == null){
+			return -1;
+		}
+		if(DateUtils.truncate(startDate, Calendar.MONTH).after(
+				DateUtils.truncate(endDate, Calendar.MONTH))){
+			return -1;
+		}
+		
+		long startTime = startDate.getTime();
+		long endTime = endDate.getTime();
+		long diffTime = endTime - startTime;
+		long diffDays = diffTime / (1000 * 60 * 60 * 24);
+		
+		Calendar start = Calendar.getInstance();
+		start.setTime(startDate);
+		
+		Calendar end = Calendar.getInstance();
+		end.setTime(endDate);
+		
+		start.add(Calendar.DAY_OF_MONTH, (int)diffDays);
+		while (start.before(end)) {
+		    start.add(Calendar.DAY_OF_MONTH, 1);
+		    diffDays++;
+		}
+		while (start.after(end)) {
+		    start.add(Calendar.DAY_OF_MONTH, -1);
+		    diffDays--;
+		}
+		
+		return Integer.valueOf(String.valueOf(diffDays));
+	}
+	
 }

@@ -2,15 +2,12 @@ package com.icetea.manager.pagodiario.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
 @Entity
-@Table(name = "CLIENT", 
-	indexes = {@Index(name = "IDX_ADDRESS", columnList = "ADDRESS,CITY", unique = true),
-		@Index(name = "IDX_COMPANY_ADDRESS", columnList = "COMPANY_ADDRESS,COMPANY_CITY", unique = true)})
+@Table(name = "CLIENT")
 @Audited
 public class Client extends Person {
 
