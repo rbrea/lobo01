@@ -24,7 +24,7 @@ public class Payroll extends Identifiable {
 	private static final long serialVersionUID = 1L;
 	
 	public static enum Status {
-		INITIALIZED, FINISHED
+		INITIALIZED, FINISHED, COMMITED
 	}
 	
 	@Column(name = "DATE_FROM", columnDefinition = "DATETIME", nullable = false)

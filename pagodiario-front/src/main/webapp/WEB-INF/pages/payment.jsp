@@ -66,20 +66,27 @@
 		  				</div>
 					</div>
 		  			<div class="row">
-		  				<div class="col-md-8">
+		  				<div class="col-md-12">
 	  						<div id="basePaymentRow" class="row hide">
 		  						<div class="form-group col-md-2">
 		  							<label id="lblPaymentRow_X" for="creditNumber_X">Pago #X</label>
 		  						</div>
-		  						<div class="form-group col-md-4">
-									<input type="number" class="form-control input-sm" id="creditNumber_X" placeholder="Nro. de cr&eacute;dito" required>
+		  						<div class="form-group col-md-3">
+		  							<div class="input-group">
+		  								<div class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></div>
+										<input type="number" class="form-control input-sm" id="creditNumber_X" placeholder="Nro. de cr&eacute;dito" required>
+									</div>
 									<div class="help-block with-errors"></div>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control input-sm" id="paymentAmount_X" placeholder="$ Importe" required>
 									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group col-md-5">
+									<span id="paymentMessageError_X" class="hide" style="color:RED;">&nbsp;</span>
 									<div class="help-block with-errors"></div>
 								</div>
 	  						</div>
@@ -87,21 +94,25 @@
 		  						<div class="form-group col-md-2" >
 		  							<label id="lblPaymentRow_0" for="creditNumber_0">Pago #1</label>
 		  						</div>
-		  						<div class="form-group col-md-4">
-									<input type="number" class="form-control input-sm" id="creditNumber_0" placeholder="Nro. de cr&eacute;dito" required>
+		  						<div class="form-group col-md-3">
+		  							<div class="input-group">
+		  								<div class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></div>
+										<input type="number" class="form-control input-sm" id="creditNumber_0" placeholder="Nro. de cr&eacute;dito" required>
+									</div>
 									<div class="help-block with-errors"></div>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control input-sm" id="paymentAmount_0" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
+								<div class="form-group col-md-5">
+									<span id="paymentMessageError_0" class="hide" style="color:RED;">&nbsp;</span>
+									<div class="help-block with-errors"></div>
+								</div>
 	  						</div>
-		  				</div>
-		  				<div class="col-md-2">
-		  					&nbsp;
 		  				</div>
 		  			</div>
 		    		<div class="row">

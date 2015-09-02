@@ -153,4 +153,26 @@ public class PayrollController extends ExceptionHandlingController {
 		
 		return list;
 	}
+	
+	@RequestMapping(value = "/undoliq/{id}", method = RequestMethod.POST)
+	public @ResponseBody BasicOutputDto undoPayroll(@PathVariable Long id){
+		BasicOutputDto r = new BasicOutputDto();
+		
+		this.payrollService.remove(id);
+		
+		return r;
+	}
+	
+	@RequestMapping(value = "/commitliq/{id}", method = RequestMethod.POST)
+	public @ResponseBody ListOutputDto<PayrollDto> commitPayroll(@PathVariable Long id){
+		ListOutputDto<PayrollDto> r = new ListOutputDto<PayrollDto>();
+		
+		PayrollDto p = this.payrollService.commitPayroll(id);
+		if(p != null){
+			r.add(p);
+		}
+		
+		return r;
+	}
+	
 }

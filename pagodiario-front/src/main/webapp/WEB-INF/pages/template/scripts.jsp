@@ -44,6 +44,6 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollDetail-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ConciliationItem-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Payment-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Payment-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Ticket-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>

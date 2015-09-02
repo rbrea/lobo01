@@ -15,4 +15,6 @@ public interface PayrollService extends BasicIdentifiableService<Payroll, Payrol
 
 	List<PayrollDetailDto> searchSupervisorDetail(Long payrollId);
 
+	PayrollDto commitPayroll(Long id);
+
 }

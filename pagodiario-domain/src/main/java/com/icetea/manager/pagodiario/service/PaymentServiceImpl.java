@@ -57,15 +57,15 @@ public class PaymentServiceImpl
 			bill = this.billDao.findByCreditNumber(d.getCreditNumber());
 		}
 		
-		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
+		ErrorTypedConditions.checkArgument(bill != null, "Factura con nro de crédito no encontrada.", ErrorType.BILL_NOT_FOUND);
 		
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalDailyInstallment()) >= 0, 
 				String.format("El monto a pagar no puede ser menor que la cuota diaria: $%s", 
 						NumberUtils.toString(bill.getTotalDailyInstallment())), ErrorType.VALIDATION_ERRORS);
 		
-		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
-				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
-						d.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getRemainingAmount()) <= 0, 
+				String.format("El monto ingresado: $%s no puede ser mayor al monto restante a pagar de la factura: $%s", 
+						d.getAmount(), NumberUtils.toString(bill.getRemainingAmount())), ErrorType.VALIDATION_ERRORS);
 		
 		e.setBill(bill);
 		e.setCollectorId(d.getCollectorId());

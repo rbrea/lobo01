@@ -124,17 +124,31 @@ Payment.init = function(){
 	
 	$("#btnReset").on('click', function(){
 		
-		var list = $("div[id*='paymentRow_']");
-		var size = list.length;
-		if(size > 1){
-			for(var i=size-1;i>=1;i--){
-				$("div[id*='paymentRow_" + i + "']").remove();
+		var idxList = [];
+		var paymentRows = $("div[id*='paymentRow_']");
+		
+		$.each(paymentRows, function(){
+			
+			var id = $(this).attr('id');
+			var idValue = id.substring(id.indexOf("_") + 1);
+			idxList.push(idValue);
+			
+			return;
+		});
+		
+		for(var i=0;i<idxList.length;i++){
+			if(idxList[i] != 0){
+				$("div[id*='paymentRow_" + idxList[i] + "']").remove();
 			}
 		}
+		
 		$("#zone").val("").focus();
 		$("#creditNumber_0").val("");
 		$("#paymentAmount_0").val("");
-
+		var errorSpan = $("#paymentMessageError_0");
+		errorSpan.html("");
+		errorSpan.addClass("hide");
+		$("#paymentRow_0").children("div[class*='form-group']").removeClass("has-error");
 		
 		return;
 	});
@@ -189,15 +203,28 @@ Payment.add = function(dialog){
 		return false;
 	}
 	
-	var size = $("div[id*='paymentRow_']").length;
+	var idxList = [];
+	var paymentRows = $("div[id*='paymentRow_']");
 	
+	$.each(paymentRows, function(){
+		
+		var id = $(this).attr('id');
+		var idValue = id.substring(id.indexOf("_") + 1);
+		idxList.push(idValue);
+		
+		return;
+	});
+	
+	
+	//var size = $("div[id*='paymentRow_']").length;
 	var list = [];
 	
-	for(var i=0;i<size;i++){
+	for(var i=0;i<idxList.length;i++){
 		var obj = new Object();
 		
-		obj.creditNumber = $("#creditNumber_" + i).val();
-		obj.amount = $("#paymentAmount_" + i).val();
+		obj.idx = idxList[i];
+		obj.creditNumber = $("#creditNumber_" + idxList[i]).val();
+		obj.amount = $("#paymentAmount_" + idxList[i]).val();
 		obj.collectorId = $("#zone").val();
 		obj.date = moment().format('DD/MM/YYYY');
 		
@@ -212,8 +239,31 @@ Payment.add = function(dialog){
 	   contentType: "application/json;",
 	   success:function(data) {
 		   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+		   $("div[id*='paymentRow_']").children("div[class*='form-group']").removeClass("has-error");
 		   if(data != null && data.status == 0){
-			   $("#btnReset").trigger('click');
+			   
+			   var list = data.data;
+			   if(list != null && list.length > 0){
+				   for(var i=0;i<list.length;i++){
+					   var p = list[i];
+					   var errorMessage = p.errorMessage;
+					   if(errorMessage != null && errorMessage != ""){
+						   var errorSpan = $("#paymentMessageError_" + p.idx);
+						   errorSpan.html("<i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;" + errorMessage);
+						   errorSpan.removeClass("hide");
+						   $("#paymentRow_" + p.idx).children("div[class*='form-group']").addClass("has-error");
+					   } else {
+						   // si no tuvimos errores entonces reseteamos ...
+						   //$("#btnReset").trigger('click');
+						   if(p.idx == 0){
+							   $("#creditNumber_0").val("");
+							   $("#paymentAmount_0").val("");
+						   } else {
+							   $("#paymentRow_" + p.idx).remove();
+						   }
+					   }
+				   }
+			   }
 
 		   }else{
 			   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.message);
@@ -262,14 +312,28 @@ Payment.showConfirmModal = function(){
 		autodestroy: false,
         message: function(dialog) {
         	
-        	var size = $("div[id*='paymentRow_']").length;
+        	var idxList = [];
+        	var paymentRows = $("div[id*='paymentRow_']");
+        	
+        	$.each(paymentRows, function(){
+        		
+        		var id = $(this).attr('id');
+        		var idValue = id.substring(id.indexOf("_") + 1);
+        		idxList.push(idValue);
+        		
+        		return;
+        	});
+        	
+        	
+        	//var size = $("div[id*='paymentRow_']").length;
         	var list = [];
         	
-        	for(var i=0;i<size;i++){
+        	for(var i=0;i<idxList.length;i++){
         		var obj = new Object();
         		
-        		obj.creditNumber = $("#creditNumber_" + i).val();
-        		obj.amount = $("#paymentAmount_" + i).val();
+        		obj.idx = idxList[i];
+        		obj.creditNumber = $("#creditNumber_" + idxList[i]).val();
+        		obj.amount = $("#paymentAmount_" + idxList[i]).val();
         		obj.collectorId = $("#zone").val();
         		obj.date = moment().format('DD/MM/YYYY');
         		

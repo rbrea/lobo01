@@ -4,6 +4,7 @@ public class PaymentDto extends BasicIdentifiableDto {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Integer idx;
 	private String amount;
 	private String date;
 	private Integer collectorId;
@@ -48,6 +49,14 @@ public class PaymentDto extends BasicIdentifiableDto {
 
 	public void setCreditNumber(Long creditNumber) {
 		this.creditNumber = creditNumber;
+	}
+
+	public Integer getIdx() {
+		return idx;
+	}
+
+	public void setIdx(Integer idx) {
+		this.idx = idx;
 	}
 	
 }

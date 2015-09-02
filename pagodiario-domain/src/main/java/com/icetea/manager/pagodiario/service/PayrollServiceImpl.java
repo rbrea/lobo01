@@ -535,5 +535,19 @@ public class PayrollServiceImpl extends
 		
 		return true;
 	}
+
+	@Override
+	public PayrollDto commitPayroll(Long id){
+		Payroll payroll = this.getDao().findById(id);
+		
+		ErrorTypedConditions.checkArgument(payroll != null, "Liquidacion seleccionada para confirmar no existe.", 
+				ErrorType.VALIDATION_ERRORS);
+		
+		payroll.setStatus(Status.COMMITED);
+		
+		this.getDao().saveOrUpdate(payroll);
+		
+		return this.getTransformer().transform(payroll);
+	}
 	
 }

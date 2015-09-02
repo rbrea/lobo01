@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,8 @@ import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
+import com.icetea.manager.pagodiario.api.dto.PaymentResponseDto;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.service.PaymentService;
 
@@ -109,18 +112,30 @@ public class PaymentController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public @ResponseBody ListOutputDto<PaymentDto> addListOfPayment(@RequestBody List<PaymentDto> input){
-		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
+	public @ResponseBody ListOutputDto<PaymentResponseDto> addListOfPayment(@RequestBody List<PaymentDto> input){
+		ListOutputDto<PaymentResponseDto> r = new ListOutputDto<PaymentResponseDto>();
 
-		List<PaymentDto> payments = Lists.newArrayList();
-		
+		List<PaymentResponseDto> list = Lists.newArrayList();
 		for(PaymentDto p : input){
-			PaymentDto payment = this.paymentService.insert(p);
-			if(payment != null){
-				payments.add(payment);
+			PaymentResponseDto d = new PaymentResponseDto();
+			d.setIdx(p.getIdx());
+			try {
+				PaymentDto payment = this.paymentService.insert(p);
+				if(payment != null){
+					d.setPayment(payment);
+				}
+			} catch (ErrorTypedException e) {
+				String errorMessage = StringUtils.EMPTY;
+				if(StringUtils.isNotBlank(e.getMessage())){
+					errorMessage = e.getMessage();
+				} else {
+					errorMessage = e.getErrorType().getText();
+				}
+				d.setErrorMessage(errorMessage);
 			}
+			list.add(d);
 		}
-		r.setData(payments);
+		r.setData(list);
 		
 		return r;
 	}
