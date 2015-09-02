@@ -27,6 +27,7 @@ import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
@@ -110,6 +111,10 @@ public class PayrollServiceTest {
 		
 		this.traderDao.saveOrUpdate(t);
 		
+		Trader t2 = this.createTrader(2);
+		
+		this.traderDao.saveOrUpdate(t2);
+		
 		Client c = this.createClient(1);
 		
 		this.clientDao.saveOrUpdate(c);
@@ -137,6 +142,13 @@ public class PayrollServiceTest {
 		Payment payment = this.createPayment(bill);
 		bill.addPayment(payment);
 		
+		Discount d1 = new Discount();
+		d1.setAmount(new BigDecimal(1000));
+		d1.setBill(bill);
+		d1.setDate(DateUtils.addDays(new Date(), -2));
+		d1.setObservations("Descuento de test 1");
+		bill.addDiscount(d1);
+
 		this.billDao.saveOrUpdate(bill);
 		
 		bill = new Bill();
@@ -162,30 +174,66 @@ public class PayrollServiceTest {
 		
 		this.billDao.saveOrUpdate(bill);
 		
+		bill = new Bill();
+		
+		bp1 = this.createBillProduct(bill, 1, p1);
+		bp2 = this.createBillProduct(bill, 2, p2);
+		
+		bill.addBillProduct(bp1);
+		bill.addBillProduct(bp2);
+		bill.setClient(c);
+		bill.setCollectorId(8);
+		bill.setCreditNumber(113L);
+		bill.setStartDate(new Date());
+		bill.setEndDate(DateUtils.addDays(new Date(), 30));
+		bill.setOverdueDays(0);
+		bill.setRemainingAmount(new BigDecimal(2958));
+		bill.setStatus(Status.ACTIVE);
+		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalDailyInstallment(new BigDecimal(42));
+		bill.setTrader(t2);
+		payment = this.createPayment(bill);
+		bill.addPayment(payment);
+		
+		Discount d2 = new Discount();
+		d2.setAmount(new BigDecimal(100));
+		d2.setBill(bill);
+		d2.setDate(DateUtils.addDays(new Date(), -3));
+		d2.setObservations("Descuento de test 2");
+		bill.addDiscount(d2);
+		
+		this.billDao.saveOrUpdate(bill);
+
 		PayrollDto payrollDto = this.instance.processPeriod(
 				DateUtils.addDays(new Date(), -15), DateUtils.addDays(new Date(), 1));
-		
 		
 		assertThat("error payroll dto null", payrollDto != null, is(true));
 		
 		Payroll payroll = this.payrollDao.findById(payrollDto.getId());
 		
-		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(600)));
-		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(600)));
-		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(0)));
+		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(790)));
+		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(900)));
+		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(110)));
 		// FIXME: la liq supervisor es 0 pq no asocie ningun supervisor ...
 		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(0))); 
 		
 		assertThat("error payroll null", payroll != null, is(true));
-		// la lista tiene 1 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
-		assertThat("error lista de payroll size != 1", payroll.getPayrollItemList().size(), is(1));
+		// la lista tiene 2 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
+		assertThat("error lista de payrollitems size != 2", payroll.getPayrollItemList().size(), is(2));
 		
 		PayrollItem payrollItem = payroll.getPayrollItemList().get(0);
 		assertThat("total Liq Item collect error no 600", payrollItem.getSubtotalCollect(), is(new BigDecimal(600)));
-		assertThat("total Liq Item discount error no 0", payrollItem.getSubtotalDiscount(), is(new BigDecimal(0)));
-		assertThat("total Liq Item total error no 600", payrollItem.getTotalAmount(), is(new BigDecimal(600)));
+		assertThat("total Liq Item discount error no 100", payrollItem.getSubtotalDiscount(), is(new BigDecimal(100)));
+		assertThat("total Liq Item total error no 500", payrollItem.getTotalAmount(), is(new BigDecimal(500)));
 		
 		assertThat("error payroll items != 2", payrollItem.getItems().size(), is(2));
 		
+		payrollItem = payroll.getPayrollItemList().get(1);
+		assertThat("total Liq Item 2 collect error no 300", payrollItem.getSubtotalCollect(), is(new BigDecimal(300)));
+		assertThat("total Liq Item 2 discount error no 10", payrollItem.getSubtotalDiscount(), is(new BigDecimal(10)));
+		assertThat("total Liq Item 2 total error no 290", payrollItem.getTotalAmount(), is(new BigDecimal(290)));
+		
+		assertThat("error payroll 2 items != 2", payrollItem.getItems().size(), is(1));
 	}
+	
 }

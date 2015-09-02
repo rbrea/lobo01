@@ -248,6 +248,12 @@ public class Bill extends Identifiable {
 	public void setDiscounts(List<Discount> discounts) {
 		this.discounts = discounts;
 	}
+	
+	public void addDiscount(Discount discount){
+		if(discount != null){
+			this.discounts.add(discount);
+		}
+	}
 
 	public List<Bonus> getBonusList() {
 		return bonusList;
