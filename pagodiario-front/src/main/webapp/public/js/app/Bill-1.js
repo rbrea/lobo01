@@ -268,7 +268,7 @@ Bill.init = function(){
 				    });
 					
 					BootstrapDialog.show({
-						type:BootstrapDialog.TYPE_PRIMARY,
+						type:BootstrapDialog.TYPE_DANGER,
 						title: 'Clientes',
 						autodestroy: false,
 						draggable: true,
@@ -377,7 +377,7 @@ Bill.init = function(){
 				    });
 					
 					BootstrapDialog.show({
-						type:BootstrapDialog.TYPE_PRIMARY,
+						type:BootstrapDialog.TYPE_DANGER,
 						title: 'Vendedores',
 						autodestroy: false,
 				        message: function(dialog) {
@@ -887,7 +887,7 @@ Bill.showLovProduct = function(elementId){
 			    });
 				
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_SUCCESS,
+					type:BootstrapDialog.TYPE_DANGER,
 					title: 'Productos',
 					autodestroy: false,
 					draggable: true,
@@ -1710,7 +1710,7 @@ Bill.showClientModal = function(){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Clientes',
 		autodestroy: false,
 		cssClass: 'dialog-client',
@@ -1736,7 +1736,7 @@ Bill.showClientModal = function(){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;

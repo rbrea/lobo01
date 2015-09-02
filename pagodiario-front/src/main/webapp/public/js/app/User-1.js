@@ -39,7 +39,7 @@ User.showModal = function(){
 			return;
 		},
 		draggable: true,
-		type: BootstrapDialog.TYPE_PRIMARY,
+		type: BootstrapDialog.TYPE_DANGER,
 		title: 'Alta de Usuarios',
 		autodestroy: false,
 		cssClass: 'dialog-trader',
@@ -66,7 +66,7 @@ User.showModal = function(){
         	id: 'btnAcceptNew',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		
@@ -134,7 +134,7 @@ User.showEditModal = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Editar Usuario',
 		autodestroy: false,
         message: function(dialog) {
@@ -158,7 +158,7 @@ User.showEditModal = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		$("#frmEditUser").submit();

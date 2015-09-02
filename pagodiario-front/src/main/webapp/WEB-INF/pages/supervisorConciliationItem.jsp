@@ -40,7 +40,7 @@
 		  				<div class="col-md-8">
 		  					<div class="table-responsive">
 								<table id="tTraderConcialiationItem" class="table table-bordered">
-						            <tr>
+						            <tr style="background-color: #f9f9f9;">
 						            	<td colspan="3" class="centered title-td">${supervisorName}</td>
 						            </tr>
 						            <tr>

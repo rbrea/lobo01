@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -358,10 +359,44 @@ public class PayrollServiceImpl extends
 	public boolean processPeriodSupervisor(Payroll payroll){
 		List<PayrollItem> payrollItemList = payroll.getPayrollItemList();
 		
-		for (PayrollItem p : payrollItemList) {
+		List<Trader> supervisores = Lists.newArrayList();
+		
+		Map<Long, List<PayrollItem>> map = Maps.newHashMap(); 
+
+		for(PayrollItem p : payrollItemList) {
 			final Trader trader = p.getTrader();
 			
 			final Trader supervisor = trader.getParent();
+			if(supervisor != null && supervisor.isSupervisor()){
+				supervisores.add(supervisor);
+			}
+		}
+
+		for(Trader supervisor : supervisores){
+			final Long supervisorId = supervisor.getId(); 
+			List<PayrollItem> foundList = ListUtils.select(payrollItemList, new Predicate<PayrollItem>() {
+				@Override
+				public boolean evaluate(PayrollItem p) {
+					return p.getTrader().getParent() != null 
+							&& p.getTrader().getParent().getId().equals(supervisorId);
+				}
+			});
+			if(map.containsKey(supervisorId)){
+				List<PayrollItem> list = map.get(supervisorId);
+				list.addAll(foundList);
+			} else {
+				map.put(supervisorId, foundList);
+			}
+		}
+		
+		for (final Long supervisorId : map.keySet()) {
+			final Trader supervisor = CollectionUtils.find(supervisores, new Predicate<Trader>() {
+				@Override
+				public boolean evaluate(Trader t) {
+					return t.getId().equals(supervisorId);
+				}
+			});
+					
 			if(supervisor != null){
 				SupervisorPayrollItem item = CollectionUtils.find(payroll.getSupervisorPayrollItemList(), new Predicate<SupervisorPayrollItem>() {
 					@Override
@@ -380,55 +415,58 @@ public class PayrollServiceImpl extends
 				// tengo que busc si en la lista de items tngo el vendedor q estoy procesando ...
 				List<SupervisorConciliationItem> supervisorConciliationItems = item.getSupervisorConciliationItems();
 				
-				SupervisorConciliationItem supervisorConciliationItem = CollectionUtils.find(supervisorConciliationItems, new Predicate<SupervisorConciliationItem>() {
-					@Override
-					public boolean evaluate(SupervisorConciliationItem o) {
-						return o.getTrader().getId().equals(trader.getId());
+				for(PayrollItem pi : map.get(supervisorId)){
+					final Trader trader = pi.getTrader();
+					
+					SupervisorConciliationItem supervisorConciliationItem = CollectionUtils.find(supervisorConciliationItems, new Predicate<SupervisorConciliationItem>() {
+						@Override
+						public boolean evaluate(SupervisorConciliationItem o) {
+							return o.getTrader().getId().equals(trader.getId());
+						}
+					});
+					if(supervisorConciliationItem == null){
+						supervisorConciliationItem = new SupervisorConciliationItem(trader);
+						supervisorConciliationItem.setSupervisorPayrollItem(item);
+						item.addItem(supervisorConciliationItem);
 					}
-				});
-				if(supervisorConciliationItem == null){
-					supervisorConciliationItem = new SupervisorConciliationItem(trader);
-					supervisorConciliationItem.setSupervisorPayrollItem(item);
-					item.addItem(supervisorConciliationItem);
-				}
-				for (ConciliationItem conciliationItem : p.getItems()) {
-					if(conciliationItem.getType() == AbstractConciliationItem.Type.CREDIT){
-						BigDecimal creditAmount = NumberUtils.subtract(conciliationItem.getCollectAmount(), conciliationItem.getDiscountAmount());
-						creditAmount = NumberUtils.calculatePercentage(creditAmount, new BigDecimal(50));
-						supervisorConciliationItem.setCreditAmount(NumberUtils.add(supervisorConciliationItem.getCreditAmount(), creditAmount));
-						supervisorConciliationItem.setTotalTrader(
-								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), creditAmount));
-					}
-					if(conciliationItem.getType() == AbstractConciliationItem.Type.BONUS){
-						BigDecimal bonusAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
-						supervisorConciliationItem.setBonusAmount(
-								NumberUtils.add(
-										supervisorConciliationItem.getBonusAmount(), bonusAmount));
-						supervisorConciliationItem.setTotalTrader(
-								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
-					}
-					if(conciliationItem.getType() == AbstractConciliationItem.Type.DEVOLUTION){
-						BigDecimal devAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
-						supervisorConciliationItem.setDevAmount(
-								NumberUtils.add(
-										supervisorConciliationItem.getDevAmount(), devAmount));
-						supervisorConciliationItem.setTotalTrader(
-								NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), devAmount));
-					}
-					if(conciliationItem.getType() == AbstractConciliationItem.Type.REDUCTION){
-						BigDecimal reductionAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
-						supervisorConciliationItem.setReductionAmount(
-								NumberUtils.add(
-										supervisorConciliationItem.getReductionAmount(), reductionAmount));
-						supervisorConciliationItem.setTotalTrader(
-								NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), reductionAmount));
+					for (ConciliationItem conciliationItem : pi.getItems()) {
+						if(conciliationItem.getType() == AbstractConciliationItem.Type.CREDIT){
+							BigDecimal creditAmount = NumberUtils.subtract(conciliationItem.getCollectAmount(), conciliationItem.getDiscountAmount());
+							creditAmount = NumberUtils.calculatePercentage(creditAmount, new BigDecimal(50));
+							supervisorConciliationItem.setCreditAmount(NumberUtils.add(supervisorConciliationItem.getCreditAmount(), creditAmount));
+							supervisorConciliationItem.setTotalTrader(
+									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), creditAmount));
+						}
+						if(conciliationItem.getType() == AbstractConciliationItem.Type.BONUS){
+							BigDecimal bonusAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+							supervisorConciliationItem.setBonusAmount(
+									NumberUtils.add(
+											supervisorConciliationItem.getBonusAmount(), bonusAmount));
+							supervisorConciliationItem.setTotalTrader(
+									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
+						}
+						if(conciliationItem.getType() == AbstractConciliationItem.Type.DEVOLUTION){
+							BigDecimal devAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+							supervisorConciliationItem.setDevAmount(
+									NumberUtils.add(
+											supervisorConciliationItem.getDevAmount(), devAmount));
+							supervisorConciliationItem.setTotalTrader(
+									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), devAmount));
+						}
+						if(conciliationItem.getType() == AbstractConciliationItem.Type.REDUCTION){
+							BigDecimal reductionAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
+							supervisorConciliationItem.setReductionAmount(
+									NumberUtils.add(
+											supervisorConciliationItem.getReductionAmount(), reductionAmount));
+							supervisorConciliationItem.setTotalTrader(
+									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), reductionAmount));
+						}
 					}
 					payroll.setTotalSupervisor(NumberUtils.add(
 							payroll.getTotalSupervisor(), supervisorConciliationItem.getTotalTrader()));
 					item.setTotalAmount(NumberUtils.add(item.getTotalAmount(), supervisorConciliationItem.getTotalTrader()));
 				}
 			}
-			
 		}
 		
 		return true;

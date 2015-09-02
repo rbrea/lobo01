@@ -116,7 +116,7 @@ Discount.show = function(id){
 			   	});
 			   
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_PRIMARY,
+					type:BootstrapDialog.TYPE_DANGER,
 					draggable: true,
 					title: 'Descuentos',
 					autodestroy: false,

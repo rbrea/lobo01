@@ -209,7 +209,7 @@ Trader.showModal = function(id, email, parentId, parentDescription){
 			return;
 		},
 		draggable: true,
-		type: BootstrapDialog.TYPE_PRIMARY,
+		type: BootstrapDialog.TYPE_DANGER,
 		title: 'Vendedor/Supervisor',
 		autodestroy: false,
 		cssClass: 'dialog-trader',
@@ -310,7 +310,7 @@ Trader.showModal = function(id, email, parentId, parentDescription){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -344,35 +344,44 @@ Trader.showModal = function(id, email, parentId, parentDescription){
 }
 
 Trader.remove = function(id){
-	BootstrapDialog.confirm("Esta seguro de eliminar el registro seleccionado?", function(result){
-		if(result) {
-			$.ajax({ 
-			   type    : "DELETE",
-			   url     : Constants.contextRoot + "/controller/html/trader/" + id,
-			   dataType: 'json',
-			   contentType: "application/json;",
-			   success:function(data) {
-				   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
-				   if(data != null && data.status == 0){
-					   
-					   var table = $('#tTraderResult').dataTable();
-
-					   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar el registro seleccionado?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				$.ajax({ 
+				   type    : "DELETE",
+				   url     : Constants.contextRoot + "/controller/html/trader/" + id,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
+					   Message.hideMessages($('#traderAlertMessages'), $("#traderMessages"));
+					   if(data != null && data.status == 0){
+						   
+						   var table = $('#tTraderResult').dataTable();
+	
+						   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+						   
+						   return;
+					   }else{
+						   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
+					   }
+				   },
+				   error:function(data){
+					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
 					   
 					   return;
-				   }else{
-					   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.message);
 				   }
-			   },
-			   error:function(data){
-				   Message.showMessages($('#traderAlertMessages'), $("#traderMessages"), data.responseJSON.message);
-				   
-				   return;
-			   }
-			});
+				});
+			}
+			
+			return;
 		}
-		
-		return;
 	});
 	
 	return;

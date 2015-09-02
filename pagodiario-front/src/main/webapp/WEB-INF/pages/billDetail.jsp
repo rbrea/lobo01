@@ -30,7 +30,7 @@
 	        &nbsp;
 	    </div>
 		<div class="col-md-8">
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title centered" style="font-weight:bold;">DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span></h3>
 		  		</div>
@@ -66,7 +66,7 @@
 		  				</tr>
 		  			</table>
 		  			<table id="tBillProducts" class="table table-bordered table-striped">
-		  				<thead>
+		  				<thead style="background-color: #EB3F39;">
 			  				<tr>
 			  					<th colspan="5" class="centered">PRODUCTOS</th>
 			  				</tr>
@@ -85,7 +85,7 @@
 		  				</tbody>
 		  			</table>
 		  			<table id="tBillDevolution" class="table table-bordered table-striped">
-		  				<thead>
+		  				<thead style="background-color: #EB3F39;">
 			  				<tr>
 			  					<th colspan="4" class="centered">DEVOLUCIONES</th>
 			  				</tr>
@@ -103,7 +103,7 @@
 		  				</tbody>
 		  			</table>
 		  			<table id="tBillPayment" class="table table-bordered table-striped">
-		  				<thead>
+		  				<thead style="background-color: #EB3F39;">
 			  				<tr>
 			  					<th colspan="3" class="centered">PAGOS</th>
 			  				</tr>

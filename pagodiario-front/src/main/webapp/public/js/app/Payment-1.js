@@ -257,7 +257,7 @@ Payment.showConfirmModal = function(){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Confirmar Pagos?',
 		autodestroy: false,
         message: function(dialog) {
@@ -332,7 +332,7 @@ Payment.showConfirmModal = function(){
         	id: 'btnAccept',
         	label: 'Aceptar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		

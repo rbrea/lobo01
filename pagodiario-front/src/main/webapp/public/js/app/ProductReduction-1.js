@@ -116,9 +116,9 @@ ProductReduction.show = function(id){
 			   	});
 			   
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_PRIMARY,
+					type:BootstrapDialog.TYPE_DANGER,
 					draggable: true,
-					title: 'Baja',
+					title: 'Bajas',
 					autodestroy: false,
 			        message: function(dialog) {
 			        	

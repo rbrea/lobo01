@@ -194,7 +194,7 @@ Client.showModal = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Clientes',
 		autodestroy: false,
 		cssClass: 'dialog-client',
@@ -261,7 +261,7 @@ Client.showModal = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -297,32 +297,43 @@ Client.showModal = function(id){
 }
 
 Client.remove = function(id){
-	BootstrapDialog.confirm("Esta seguro de eliminar el registro seleccionado?", function(result){
-		if(result) {
-			$.ajax({ 
-			   type    : "DELETE",
-			   url     : Constants.contextRoot + "/controller/html/client/" + id,
-			   dataType: 'json',
-			   contentType: "application/json;",
-			   success:function(data) {
-				   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
-				   if(data != null && data.status == 0){
-					   
-					   var table = $('#tClientResult').dataTable();
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar el registro seleccionado?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				$.ajax({ 
+				   type    : "DELETE",
+				   url     : Constants.contextRoot + "/controller/html/client/" + id,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
+					   Message.hideMessages($('#clientAlertMessages'), $("#clientMessages"));
+					   if(data != null && data.status == 0){
+						   
+						   var table = $('#tClientResult').dataTable();
 
-					   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+						   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
+						   
+						   return;
+					   }else{
+						   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
+					   }
+				   },
+				   error:function(data){
+					   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
 					   
 					   return;
-				   }else{
-					   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.message);
 				   }
-			   },
-			   error:function(data){
-				   Message.showMessages($('#clientAlertMessages'), $("#clientMessages"), data.responseJSON.message);
-				   
-				   return;
-			   }
-			});
+				});
+			}
+			
+			return;
 		}
 	});
 	

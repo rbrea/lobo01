@@ -137,7 +137,7 @@ BillHistory.init = function(){
 BillHistory.getActionSelectElement = function(id, map){
 	
 	var div = "<div class=\"btn-group\">" +
-	  "<button type=\"button\" class=\"btn btn-xs btn-danger dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+	  "<button type=\"button\" class=\"btn btn-xs btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
 	    "Acciones&nbsp;<span class=\"caret\"></span>" +
 	  "</button>" +
 	  "<ul class=\"dropdown-menu dropdown-menu-left\">" +
@@ -221,7 +221,7 @@ BillHistory.showPayments = function(id){
 			   	});
 			   
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_PRIMARY,
+					type:BootstrapDialog.TYPE_DANGER,
 					draggable: true,
 					title: 'Pagos',
 					autodestroy: false,
@@ -259,7 +259,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Cargar Pago',
 		autodestroy: false,
         message: function(dialog) {
@@ -296,7 +296,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -397,7 +397,7 @@ BillHistory.showDiscount = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Descuentos',
 		autodestroy: false,
         message: function(dialog) {
@@ -432,7 +432,7 @@ BillHistory.showDiscount = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -476,7 +476,7 @@ BillHistory.showBonus = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Alta de Premio',
 		autodestroy: false,
         message: function(dialog) {
@@ -507,7 +507,7 @@ BillHistory.showBonus = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -551,7 +551,7 @@ BillHistory.showProductReduction = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Baja',
 		autodestroy: false,
         message: function(dialog) {
@@ -586,7 +586,7 @@ BillHistory.showProductReduction = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;
@@ -630,7 +630,7 @@ BillHistory.showDev = function(id){
 			return;
 		},
 		draggable: true,
-		type:BootstrapDialog.TYPE_PRIMARY,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Alta de Devoluci&oacute;n',
 		autodestroy: false,
         message: function(dialog) {
@@ -664,7 +664,7 @@ BillHistory.showDev = function(id){
         	id: 'btnAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
-        	cssClass: 'btn-primary',
+        	cssClass: 'btn-success',
         	action: function(dialog){
         		var btn = this;
         		var c = 0;

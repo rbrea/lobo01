@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -32,6 +33,7 @@ import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.model.Product;
+import com.icetea.manager.pagodiario.model.SupervisorPayrollItem;
 import com.icetea.manager.pagodiario.model.Trader;
 
 @ContextConfiguration(locations = {"classpath:hibernate-db-test.xml"})
@@ -106,13 +108,19 @@ public class PayrollServiceTest {
 	public void processPeriod_ok(){
 
 		Bill bill = new Bill();
+
+		Trader supervisor = this.createTrader(3);
+		supervisor.setSupervisor(true);
 		
 		Trader t = this.createTrader(1);
 		
+		t.setParent(supervisor);
+		supervisor.addTrader(t);
+		
+		this.traderDao.saveOrUpdate(supervisor);
 		this.traderDao.saveOrUpdate(t);
-		
+
 		Trader t2 = this.createTrader(2);
-		
 		this.traderDao.saveOrUpdate(t2);
 		
 		Client c = this.createClient(1);
@@ -215,7 +223,13 @@ public class PayrollServiceTest {
 		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(900)));
 		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(110)));
 		// FIXME: la liq supervisor es 0 pq no asocie ningun supervisor ...
-		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(0))); 
+		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(250)));
+		
+		List<SupervisorPayrollItem> supervisorPayrollItemList = payroll.getSupervisorPayrollItemList();
+		
+		assertThat("error supervisorPayrollItemList.size() != 1", supervisorPayrollItemList.size(), is(1));
+		SupervisorPayrollItem supervisorPayrollItem = supervisorPayrollItemList.get(0);
+		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal(250)));
 		
 		assertThat("error payroll null", payroll != null, is(true));
 		// la lista tiene 2 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
