@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.common.collect.Maps;
+import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
@@ -83,4 +84,23 @@ public class TicketController extends ExceptionHandlingController {
 		
 	}
 
+	@RequestMapping(value = "/validate", method = RequestMethod.GET)
+	public BasicOutputDto validate(@RequestParam(required = false) Integer collectorId,
+			@RequestParam(required = false) String fecDesdeValue,
+			@RequestParam(required = false) String fecHastaValue){
+		
+		BasicOutputDto d = new BasicOutputDto();
+		d.setStatus(0);
+		
+		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(
+				collectorId, fecDesdeValue, fecHastaValue);
+		
+		if(list == null || list.isEmpty()){
+			throw new ErrorTypedException(
+					"No existen tickets de cobro disponibles.", ErrorType.VALIDATION_ERRORS);
+		}
+		
+		return d;
+	}
+	
 }
