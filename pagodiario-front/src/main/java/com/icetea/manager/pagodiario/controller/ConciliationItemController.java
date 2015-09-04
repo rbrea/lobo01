@@ -2,9 +2,20 @@ package com.icetea.manager.pagodiario.controller;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,12 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.icetea.manager.pagodiario.api.dto.ConciliationItemDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
+import com.icetea.manager.pagodiario.api.dto.PayrollItemDto;
 import com.icetea.manager.pagodiario.api.dto.SupervisorConciliationItemDto;
 import com.icetea.manager.pagodiario.api.dto.SupervisorPayrollItemDto;
+import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.ConciliationItemService;
+import com.icetea.manager.pagodiario.service.PayrollItemService;
 import com.icetea.manager.pagodiario.service.PayrollService;
 import com.icetea.manager.pagodiario.service.SupervisorPayrollItemService;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
@@ -43,6 +59,10 @@ public class ConciliationItemController extends ExceptionHandlingController {
 	private PayrollService payrollService;
 	@Inject
 	private SupervisorPayrollItemService supervisorPayrollItemService;
+	@Inject
+	private ServletContext servletContext;
+	@Inject
+	private PayrollItemService payrollItemService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(@RequestParam(required = false) Long payrollId, 
@@ -127,6 +147,45 @@ public class ConciliationItemController extends ExceptionHandlingController {
 		r.setData(list);
 		
 		return r;
+	}
+	
+	@RequestMapping(value = "/export/trader", method = RequestMethod.POST)
+	public void exportTraderPayroll(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(required = false) Long payrollItemId){
+		Map<String, Object> params = Maps.newHashMap();
+		
+		PayrollItemDto payrollItemDto = this.payrollItemService.searchById(payrollItemId);
+		
+		params.put("TRADER_NAME", payrollItemDto.getTraderName());
+		params.put("LIQ_DATE", "DESDE " + payrollItemDto.getPayrollDateFrom() 
+				+ " HASTA " + payrollItemDto.getPayrollDateFrom());
+		params.put("SUBTOTAL_COLLECT", payrollItemDto.getSubtotalCollect());
+		params.put("SUBTOTAL_DISCOUNT", payrollItemDto.getSubtotalDiscount());
+		params.put("TOTAL_AMOUNT", payrollItemDto.getTotalAmount());
+		
+		List<ConciliationItemDto> list = this.conciliationItemService.searchByPayrollItemId(payrollItemId); 
+		
+		try {
+			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/liq-vend.jasper");
+			// [roher] otra forma de hacerlo ... x ahora uso directamente el jasper, parece que es mas rapido ...
+//			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
+//			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			InputStream is = new FileInputStream(fullpath);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
+					new JRBeanCollectionDataSource(list));
+			response.setContentType("application/pdf");
+			String filename = "liq-vendedor-" + System.currentTimeMillis() + ".pdf";
+			response.addHeader("Content-disposition", "attachment; filename=" + filename); 
+			
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("Error inesperado al tratar de generar el pdf de tickets de cobro", e);
+			throw new ErrorTypedException("Ha ocurrido un error al tratar generar los tickets de cobro", 
+					ErrorType.UNKNOWN_ERROR);
+		}
+		
 	}
 
 }

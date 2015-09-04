@@ -17,6 +17,9 @@
 	        &nbsp;
 	    </div>
 	</div>
+	<form id="frmConciliationItem" action="${pageContext.request.contextPath}/controller/html/conciliationItem/export/trader" method="post">
+		<input type="hidden" id="payrollItemId" name="payrollItemId" value="${payrollItemId}">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -31,6 +34,20 @@
 							  <li><a href="${pageContext.request.contextPath}/controller/html/payrollDetail/index?payrollId=${payrollId}">Detalle de liquidaci&oacute;n</a></li>
 							  <li class="active">Detalle de liquidaci&oacute;n por Vendedor</li>
 							</ol>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							&nbsp;
+						</div>
+						<div class="col-md-2">
+							<button id="btnExportLiqVend" type="button" data-loading-text="Espere..." 
+								class="btn btn-sm btn-success"><i class="glyphicon glyphicon-print"></i>&nbsp;Imprimir</button>&nbsp;
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							&nbsp;
 						</div>
 					</div>
 		    		<div class="row">
@@ -104,6 +121,8 @@
 			
 			ConciliationItem.initDataTable(imgCheckUrl, "${payrollItemId}");
 		    
+			ConciliationItem.init();
+
 			return;
 		}	
 		

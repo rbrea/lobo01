@@ -128,7 +128,7 @@ Payroll.initDataTable = function(imgCheckUrl){
                 	
                 	if(row.status == 'FINISHED'){
                 		commitButtonHtml = "&nbsp;<a id=\"btnCommit_" + row.id + "\" href=\"javascript:Payroll.commit('" + row.id + "');\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Confirmar Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-ok\"></i></a>";
-                		undoButtonHtml = "&nbsp;<a id=\"btnUndo_" + row.id + "\" href=\"javascript:Payroll.undo('" + row.id + "');\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Confirmar Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-remove\"></i></a>";
+                		undoButtonHtml = "&nbsp;<a id=\"btnUndo_" + row.id + "\" href=\"javascript:Payroll.undo('" + row.id + "');\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Deshacer Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-remove\"></i></a>";
                 	}
                 	
                     return "<a href=\"javascript:Payroll.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Liquidaci&oacute;n de Vendedor\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>"

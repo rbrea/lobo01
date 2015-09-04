@@ -294,5 +294,23 @@ public class Bill extends Identifiable {
 	public void setOverdueDaysFlag(Date overdueDaysFlag) {
 		this.overdueDaysFlag = overdueDaysFlag;
 	}
+
+	public void addDev(Dev dev){
+		if(dev != null){
+			this.devList.add(dev);
+		}
+	}
+	
+	public void addProductReduction(ProductReduction productReduction){
+		if(productReduction != null){
+			this.productReductionList.add(productReduction);
+		}
+	}
+
+	public void addBonus(Bonus bonus){
+		if(bonus != null){
+			this.bonusList.add(bonus);
+		}
+	}
 	
 }

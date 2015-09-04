@@ -57,7 +57,7 @@ public class PaymentServiceImpl
 			bill = this.billDao.findByCreditNumber(d.getCreditNumber());
 		}
 		
-		ErrorTypedConditions.checkArgument(bill != null, "Factura con nro de crédito no encontrada.", ErrorType.BILL_NOT_FOUND);
+		ErrorTypedConditions.checkArgument(bill != null, "Número de crédito inexistente.", ErrorType.BILL_NOT_FOUND);
 		
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalDailyInstallment()) >= 0, 
 				String.format("El monto a pagar no puede ser menor que la cuota diaria: $%s", 

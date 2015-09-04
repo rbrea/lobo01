@@ -99,7 +99,7 @@ Payment.init = function(){
 				
 				creditNumberInput.keyup(function(e){
 				    if(e.keyCode == 13){
-				    	$(this).parent().parent().find('input:last').focus();
+				    	$(this).parent().parent().parent().find('input:last').focus();
 				    }
 				    
 				    return;
@@ -150,6 +150,8 @@ Payment.init = function(){
 		errorSpan.addClass("hide");
 		$("#paymentRow_0").children("div[class*='form-group']").removeClass("has-error");
 		
+		Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+		
 		return;
 	});
 	
@@ -176,7 +178,7 @@ Payment.addInputs = function(){
 	
 	$("input[id*='creditNumber_']").keyup(function(e){
 	    if(e.keyCode == 13){
-	    	$(this).parent().parent().find('input:last').focus();
+	    	$(this).parent().parent().parent().find('input:last').focus();
 	    }
 	    
 	    return;

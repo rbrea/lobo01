@@ -1,5 +1,14 @@
 ConciliationItem = function(){}
 
+ConciliationItem.init = function(){
+	
+	$("#btnExportLiqVend").on('click', function(){
+		$("#frmConciliationItem").submit();
+		
+		return;
+	});
+}
+
 ConciliationItem.initDataTable = function(imgCheckUrl, id){
 	
 	var table = $("#tConciliationItemResult").dataTable( {

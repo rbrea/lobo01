@@ -67,7 +67,7 @@
 		</div>
 		<div class="col-md-4">
 			<button id="btnValidation" type="button" data-loading-text="Espere..." class="btn btn-primary"><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;Validar</button>&nbsp;
-			<button id="btnAccept" type="button" data-loading-text="Espere..." class="btn btn-success disabled"><i class="glyphicon glyphicon-play-circle"></i>&nbsp;Generar</button>&nbsp;
+			<button id="btnAccept" type="button" data-loading-text="Espere..." class="btn btn-success disabled"><i class="glyphicon glyphicon-print"></i>&nbsp;Generar</button>&nbsp;
 			<button id="btnReset" type="button" data-loading-text="Espere..." class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i>&nbsp;Limpiar</button>
 		</div>
 	</div>

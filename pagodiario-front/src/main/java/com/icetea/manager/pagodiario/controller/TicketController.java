@@ -97,7 +97,7 @@ public class TicketController extends ExceptionHandlingController {
 		
 		if(list == null || list.isEmpty()){
 			throw new ErrorTypedException(
-					"No existen tickets de cobro disponibles.", ErrorType.VALIDATION_ERRORS);
+					"No se registran tickets para la zona: " + collectorId, ErrorType.VALIDATION_ERRORS);
 		}
 		
 		return d;

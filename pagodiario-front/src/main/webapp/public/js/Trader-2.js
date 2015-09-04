@@ -410,7 +410,7 @@ Trader.resetModal = function(){
 
 Trader.showTraders = function(parentId){
 	BootstrapDialog.show({
-		type:BootstrapDialog.TYPE_INFO,
+		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Vendedores a Cargo',
 		autodestroy: false,
         message: function(dialog) {
@@ -649,7 +649,7 @@ Trader.addTrader = function(parentId){
 			    });
 				
 				BootstrapDialog.show({
-					type:BootstrapDialog.TYPE_SUCCESS,
+					type:BootstrapDialog.TYPE_DANGER,
 					title: 'Vendedores',
 					autodestroy: false,
 			        message: function(dialog) {
