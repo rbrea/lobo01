@@ -436,6 +436,7 @@ public class PayrollServiceImpl extends
 							supervisorConciliationItem.setCreditAmount(NumberUtils.add(supervisorConciliationItem.getCreditAmount(), creditAmount));
 							supervisorConciliationItem.setTotalTrader(
 									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), creditAmount));
+							item.setSubtotalCollect(NumberUtils.add(item.getSubtotalCollect(), creditAmount));
 						}
 						if(conciliationItem.getType() == AbstractConciliationItem.Type.BONUS){
 							BigDecimal bonusAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
@@ -444,6 +445,7 @@ public class PayrollServiceImpl extends
 											supervisorConciliationItem.getBonusAmount(), bonusAmount));
 							supervisorConciliationItem.setTotalTrader(
 									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
+							item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
 						}
 						if(conciliationItem.getType() == AbstractConciliationItem.Type.DEVOLUTION){
 							BigDecimal devAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
@@ -452,6 +454,7 @@ public class PayrollServiceImpl extends
 											supervisorConciliationItem.getDevAmount(), devAmount));
 							supervisorConciliationItem.setTotalTrader(
 									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), devAmount));
+							item.setSubtotalDev(NumberUtils.add(item.getSubtotalCollect(), devAmount));
 						}
 						if(conciliationItem.getType() == AbstractConciliationItem.Type.REDUCTION){
 							BigDecimal reductionAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
@@ -460,6 +463,7 @@ public class PayrollServiceImpl extends
 											supervisorConciliationItem.getReductionAmount(), reductionAmount));
 							supervisorConciliationItem.setTotalTrader(
 									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), reductionAmount));
+							item.setSubtotalReduction(NumberUtils.add(item.getSubtotalCollect(), reductionAmount));
 						}
 					}
 					payroll.setTotalSupervisor(NumberUtils.add(

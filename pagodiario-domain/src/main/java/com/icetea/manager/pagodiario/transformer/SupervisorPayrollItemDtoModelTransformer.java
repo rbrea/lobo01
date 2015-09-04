@@ -1,11 +1,14 @@
 package com.icetea.manager.pagodiario.transformer;
 
+import java.math.BigDecimal;
+
 import javax.inject.Named;
 
 import com.icetea.manager.pagodiario.api.dto.SupervisorConciliationItemDto;
 import com.icetea.manager.pagodiario.api.dto.SupervisorPayrollItemDto;
 import com.icetea.manager.pagodiario.model.SupervisorConciliationItem;
 import com.icetea.manager.pagodiario.model.SupervisorPayrollItem;
+import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
@@ -33,10 +36,15 @@ public class SupervisorPayrollItemDtoModelTransformer
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));
 		if(e.getBonusItem() != null){
 			d.setTotalBonusAmount(NumberUtils.toString(e.getBonusItem().getCollectAmount()));
+		} else {
+			d.setTotalBonusAmount(NumberUtils.toString(BigDecimal.ZERO));
 		}
-		d.setTotalCreditAmount(
-				NumberUtils.toString(
-						NumberUtils.subtract(e.getSubtotalCollect(), e.getSubtotalDiscount())));
+		d.setTotalCreditAmount(NumberUtils.toString(e.getSubtotalCollect()));
+		d.setTotalBonusAmount(NumberUtils.toString(e.getSubtotalBonus()));
+		d.setTotalDevAmount(NumberUtils.toString(e.getSubtotalDev()));
+		d.setTotalReductionAmount(NumberUtils.toString(e.getSubtotalReduction()));
+		d.setDateFrom(DateUtils.toDate(e.getPayroll().getDateFrom()));
+		d.setDateTo(DateUtils.toDate(e.getPayroll().getDateTo()));
 		
 		return d;
 	}

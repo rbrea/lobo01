@@ -9,6 +9,15 @@ ConciliationItem.init = function(){
 	});
 }
 
+ConciliationItem.initSupervisor = function(){
+	
+	$("#btnExportLiqSup").on('click', function(){
+		$("#frmConciliationItemSup").submit();
+		
+		return;
+	});
+}
+
 ConciliationItem.initDataTable = function(imgCheckUrl, id){
 	
 	var table = $("#tConciliationItemResult").dataTable( {

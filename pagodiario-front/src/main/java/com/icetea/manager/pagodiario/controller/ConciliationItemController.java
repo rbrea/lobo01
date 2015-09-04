@@ -187,5 +187,51 @@ public class ConciliationItemController extends ExceptionHandlingController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "/export/supervisor", method = RequestMethod.POST)
+	public void exportSupervisorPayroll(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(required = false) Long payrollItemId){
+		Map<String, Object> params = Maps.newHashMap();
+		
+		SupervisorPayrollItemDto supervisorPayrollItemDto = this.supervisorPayrollItemService.searchDetail(payrollItemId);
+		
+		params.put("SUP_NAME", supervisorPayrollItemDto.getSupervisorName());
+		params.put("LIQ_DATE", "DESDE " + supervisorPayrollItemDto.getDateFrom() 
+				+ " HASTA " + supervisorPayrollItemDto.getDateTo());
+		params.put("TOTAL_CREDIT", (StringUtils.isNotBlank(supervisorPayrollItemDto.getTotalCreditAmount())) 
+				? supervisorPayrollItemDto.getTotalCreditAmount() : NumberUtils._ZERO);
+		params.put("TOTAL_DEV", (StringUtils.isNotBlank(supervisorPayrollItemDto.getTotalDevAmount())) 
+				? supervisorPayrollItemDto.getTotalDevAmount() : NumberUtils._ZERO);
+		params.put("TOTAL_BONUS", (StringUtils.isNotBlank(supervisorPayrollItemDto.getTotalBonusAmount())) 
+				? supervisorPayrollItemDto.getTotalBonusAmount() : NumberUtils._ZERO);
+		params.put("TOTAL_REDUCTION", (StringUtils.isNotBlank(supervisorPayrollItemDto.getTotalReductionAmount())) 
+				? supervisorPayrollItemDto.getTotalReductionAmount() : NumberUtils._ZERO);
+		params.put("TOTAL_TOTAL", (StringUtils.isNotBlank(supervisorPayrollItemDto.getTotalAmount())) 
+				? supervisorPayrollItemDto.getTotalAmount() : NumberUtils._ZERO);
+		
+		List<SupervisorConciliationItemDto> list = supervisorPayrollItemDto.getSupervisorConciliationItemList();
+		
+		try {
+			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/liq-supervisor.jasper");
+			// [roher] otra forma de hacerlo ... x ahora uso directamente el jasper, parece que es mas rapido ...
+//			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
+//			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			InputStream is = new FileInputStream(fullpath);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
+					new JRBeanCollectionDataSource(list));
+			response.setContentType("application/pdf");
+			String filename = "liq-supervisor-" + System.currentTimeMillis() + ".pdf";
+			response.addHeader("Content-disposition", "attachment; filename=" + filename); 
+			
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("Error inesperado al tratar de generar el pdf de tickets de cobro", e);
+			throw new ErrorTypedException("Ha ocurrido un error al tratar generar los tickets de cobro", 
+					ErrorType.UNKNOWN_ERROR);
+		}
+		
+	}
 
 }

@@ -17,6 +17,9 @@
 	        &nbsp;
 	    </div>
 	</div>
+	<form id="frmConciliationItemSup" action="${pageContext.request.contextPath}/controller/html/conciliationItem/export/supervisor" method="post">
+		<input type="hidden" id="payrollItemId" name="payrollItemId" value="${payrollItemId}">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -31,6 +34,15 @@
 							  <li><a href="${pageContext.request.contextPath}/controller/html/payrollDetail/supervisor/index?payrollId=${payrollId}">Detalle de liquidaci&oacute;n Supervisores</a></li>
 							  <li class="active">Detalle de liquidaci&oacute;n por Supervisor</li>
 							</ol>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							&nbsp;
+						</div>
+						<div class="col-md-2">
+							<button id="btnExportLiqSup" type="button" data-loading-text="Espere..." 
+								class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-print"></i>&nbsp;Imprimir</button>&nbsp;
 						</div>
 					</div>
 		    		<div class="row">
@@ -105,6 +117,8 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			ConciliationItem.initSupervisorDataTable(imgCheckUrl, "${payrollItemId}");
+			
+			ConciliationItem.initSupervisor();
 		    
 			return;
 		}	

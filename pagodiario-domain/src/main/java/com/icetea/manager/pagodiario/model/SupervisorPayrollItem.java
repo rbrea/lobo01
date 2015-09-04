@@ -1,8 +1,10 @@
 package com.icetea.manager.pagodiario.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,6 +30,12 @@ public class SupervisorPayrollItem extends AbstractPayrollItem {
 	private Trader supervisor;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<SupervisorConciliationItem> supervisorConciliationItems = Lists.newArrayList();
+	@Column(name = "SUBTOTAL_BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal subtotalBonus = BigDecimal.ZERO;
+	@Column(name = "SUBTOTAL_DEV", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal subtotalDev = BigDecimal.ZERO;
+	@Column(name = "SUBTOTAL_REDUCTION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal subtotalReduction = BigDecimal.ZERO;
 
 	public Trader getSupervisor() {
 		return supervisor;
@@ -50,6 +58,30 @@ public class SupervisorPayrollItem extends AbstractPayrollItem {
 		if(supervisorConciliationItem != null){
 			this.supervisorConciliationItems.add(supervisorConciliationItem);
 		}
+	}
+
+	public BigDecimal getSubtotalBonus() {
+		return subtotalBonus;
+	}
+
+	public void setSubtotalBonus(BigDecimal subtotalBonus) {
+		this.subtotalBonus = subtotalBonus;
+	}
+
+	public BigDecimal getSubtotalDev() {
+		return subtotalDev;
+	}
+
+	public void setSubtotalDev(BigDecimal subtotalDev) {
+		this.subtotalDev = subtotalDev;
+	}
+
+	public BigDecimal getSubtotalReduction() {
+		return subtotalReduction;
+	}
+
+	public void setSubtotalReduction(BigDecimal subtotalReduction) {
+		this.subtotalReduction = subtotalReduction;
 	}
 
 }
