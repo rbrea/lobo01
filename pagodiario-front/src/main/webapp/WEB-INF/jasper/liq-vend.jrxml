@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-09-04T00:20:51 -->
+<!-- 2015-09-04T01:41:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="liq-vend" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="01a29e24-f028-401f-953d-76ecf23b2c43">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PayrollTraderDS"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -43,7 +43,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="19" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LIQUIDACIÓN]]></text>
 			</staticText>
@@ -69,7 +69,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LIQ_DATE}]]></textFieldExpression>
 			</textField>
@@ -211,7 +211,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{SUBTOTAL_COLLECT}]]></textFieldExpression>
 			</textField>
@@ -224,7 +224,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{SUBTOTAL_DISCOUNT}]]></textFieldExpression>
 			</textField>
@@ -237,7 +237,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TOTAL_AMOUNT}]]></textFieldExpression>
 			</textField>
