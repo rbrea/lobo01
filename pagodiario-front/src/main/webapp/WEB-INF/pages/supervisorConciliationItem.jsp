@@ -42,7 +42,7 @@
 						</div>
 						<div class="col-md-2">
 							<button id="btnExportLiqSup" type="button" data-loading-text="Espere..." 
-								class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-print"></i>&nbsp;Imprimir</button>&nbsp;
+								class="btn btn-sm btn-success"><i class="glyphicon glyphicon-print"></i>&nbsp;Imprimir</button>&nbsp;
 						</div>
 					</div>
 		    		<div class="row">
