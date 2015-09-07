@@ -231,24 +231,17 @@ Trader.showModal = function(id, email, parentId, parentDescription){
 					.parent().parent().find('td:eq(5)').html().trim();
         		var isSupervisor = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(6)').html().trim();
-        	/*	
-        		var email = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
-    				.children("img[id='imgCheck_" + id + "']").parent().parent().data('email');
-        		var traderParentId = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
-					.children("img[id='imgCheck_" + id + "']").parent().parent().data('traderParentId');
-        		var traderParentDescription = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
-					.children("img[id='imgCheck_" + id + "']").parent().parent().data('traderParentDescription');
-        		*/
- 			   	$("#name").val(name).attr("readonly", "readonly");
+
+        		$("#name").val(name).attr("readonly", "readonly");
  			   	$("#documentNumber").val(documentNumber).attr("readonly", "readonly");
  			   	$("#email").val(email);
  			   	$("#phone").val(phone);
  			   	$("#address").val(address);
  			   	$("#city").val(city);
  			   	if(isSupervisor == "SI"){
- 				   $("#supervisor").attr("checked", true);   
+ 				   $("#supervisor").prop("checked", true);   
  			   	} else {
- 				   $("#supervisor").attr("checked", false);
+ 				   $("#supervisor").prop("checked", false);
  			   	}
  			   	
  			   	$("#btnCleanSupervisor").addClass("disabled");
@@ -400,7 +393,7 @@ Trader.resetModal = function(){
 	$("#phone").val('');
 	$("#address").val('');
 	$("#city").val('');
-	$("#supervisor").attr("checked", false);
+	$("#supervisor").prop("checked", false);
 	$("#traderParentId").val('');
 	$("#traderParentDescription").val('');
 	$("#frmTrader").validator('destroy');
