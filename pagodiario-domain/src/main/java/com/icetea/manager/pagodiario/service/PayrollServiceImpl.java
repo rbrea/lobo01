@@ -88,7 +88,7 @@ public class PayrollServiceImpl extends
 		payroll.setDateTo(dateTo);
 		
 		BigDecimal totalAmount = BigDecimal.ZERO;
-		
+		 
 		if(bills != null){
 			for(final Bill bill : bills){
 				// aca busco si ya existe liq de comision para el vendedor, si ya existe no lo vuelvo a crear ... uso el q ya tnia ...
@@ -374,11 +374,14 @@ public class PayrollServiceImpl extends
 
 		for(Trader supervisor : supervisores){
 			final Long supervisorId = supervisor.getId(); 
+			// busco todas las ventas de los vendedores que tengan como supervisor el supervisorId o las ventas propias del supervisor 
+			// (q tamb puede vender)
 			List<PayrollItem> foundList = ListUtils.select(payrollItemList, new Predicate<PayrollItem>() {
 				@Override
 				public boolean evaluate(PayrollItem p) {
-					return p.getTrader().getParent() != null 
-							&& p.getTrader().getParent().getId().equals(supervisorId);
+					return (p.getTrader().getParent() != null 
+							&& p.getTrader().getParent().getId().equals(supervisorId))
+							|| p.getTrader().getId().equals(supervisorId);
 				}
 			});
 			if(map.containsKey(supervisorId)){
@@ -438,15 +441,6 @@ public class PayrollServiceImpl extends
 									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), creditAmount));
 							item.setSubtotalCollect(NumberUtils.add(item.getSubtotalCollect(), creditAmount));
 						}
-						if(conciliationItem.getType() == AbstractConciliationItem.Type.BONUS){
-							BigDecimal bonusAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
-							supervisorConciliationItem.setBonusAmount(
-									NumberUtils.add(
-											supervisorConciliationItem.getBonusAmount(), bonusAmount));
-							supervisorConciliationItem.setTotalTrader(
-									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
-							item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
-						}
 						if(conciliationItem.getType() == AbstractConciliationItem.Type.DEVOLUTION){
 							BigDecimal devAmount = NumberUtils.calculatePercentage(conciliationItem.getCollectAmount(), new BigDecimal(50));
 							supervisorConciliationItem.setDevAmount(
@@ -466,6 +460,18 @@ public class PayrollServiceImpl extends
 							item.setSubtotalReduction(NumberUtils.add(item.getSubtotalCollect(), reductionAmount));
 						}
 					}
+					
+					if(pi.hasBonusItem()){
+						BonusConciliationItem bonusItem = pi.getBonusItem();
+						BigDecimal bonusAmount = NumberUtils.calculatePercentage(bonusItem.getCollectAmount(), new BigDecimal(50));
+						supervisorConciliationItem.setBonusAmount(
+								NumberUtils.add(
+										supervisorConciliationItem.getBonusAmount(), bonusAmount));
+						supervisorConciliationItem.setTotalTrader(
+								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
+						item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
+					}
+					
 					payroll.setTotalSupervisor(NumberUtils.add(
 							payroll.getTotalSupervisor(), supervisorConciliationItem.getTotalTrader()));
 					item.setTotalAmount(NumberUtils.add(item.getTotalAmount(), supervisorConciliationItem.getTotalTrader()));
@@ -533,8 +539,12 @@ public class PayrollServiceImpl extends
 			if(count > 300){
 				collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
 			}
+			bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
 			bonusItem.setCollectAmount(collectAmount);
-			bonusItem.setDescription("");
+			payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), collectAmount));
+			payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), collectAmount));
+			payroll.setTotalAmount(NumberUtils.add(payroll.getTotalAmount(), collectAmount));
+			payroll.setTotal(NumberUtils.add(payroll.getTotal(), collectAmount));
 		}
 		
 		return true;

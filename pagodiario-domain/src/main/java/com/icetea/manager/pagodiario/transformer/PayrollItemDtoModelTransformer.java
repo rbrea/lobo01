@@ -1,8 +1,14 @@
 package com.icetea.manager.pagodiario.transformer;
 
+import java.math.BigDecimal;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.icetea.manager.pagodiario.api.dto.ConciliationItemDto;
 import com.icetea.manager.pagodiario.api.dto.PayrollItemDto;
+import com.icetea.manager.pagodiario.model.BonusConciliationItem;
+import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -11,6 +17,15 @@ import com.icetea.manager.pagodiario.utils.NumberUtils;
 @Named
 public class PayrollItemDtoModelTransformer extends
 		AbstractDtoModelTransformer<PayrollItemDto, PayrollItem> {
+
+	private final ConciliationItemDtoModelTransformer conciliationItemDtoModelTransformer;
+	
+	@Inject
+	public PayrollItemDtoModelTransformer(
+			ConciliationItemDtoModelTransformer conciliationItemDtoModelTransformer) {
+		super();
+		this.conciliationItemDtoModelTransformer = conciliationItemDtoModelTransformer;
+	}
 
 	@Override
 	protected PayrollItemDto doTransform(PayrollItem e, int depth) {
@@ -25,6 +40,26 @@ public class PayrollItemDtoModelTransformer extends
 		d.setSubtotalDiscount(NumberUtils.toString(e.getSubtotalDiscount()));
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));
 		d.setTraderName(e.getTrader().getName());
+		
+		
+		for(ConciliationItem c : e.getItems()){
+			d.addConciliationItem(this.conciliationItemDtoModelTransformer.transform(c));
+		}
+		
+		BonusConciliationItem bonusItem = e.getBonusItem();
+		
+		if(bonusItem != null && bonusItem.getCollectAmount() != null 
+				&& bonusItem.getCollectAmount().compareTo(BigDecimal.ZERO) > 0){
+			ConciliationItemDto b = new ConciliationItemDto();
+			b.setId(bonusItem.getId());
+			b.setCollectAmount(NumberUtils.toString(bonusItem.getCollectAmount()));
+			b.setDate(DateUtils.toDate(bonusItem.getDate()));
+			b.setDescription(bonusItem.getDescription());
+			b.setDiscountAmount(NumberUtils.toString(bonusItem.getDiscountAmount()));
+			b.setType(bonusItem.getType().name());
+			
+			d.addConciliationItem(b);
+		}
 		
 		return d;
 	}

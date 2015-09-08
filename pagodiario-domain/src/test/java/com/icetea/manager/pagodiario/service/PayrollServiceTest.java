@@ -272,6 +272,30 @@ public class PayrollServiceTest {
 		this.productReductionDao.saveOrUpdate(productReduction);
 		
 		this.billDao.saveOrUpdate(bill);
+		
+		bill = new Bill();
+		
+		bp1 = this.createBillProduct(bill, 1, p1);
+		bp2 = this.createBillProduct(bill, 2, p2);
+		
+		bill.addBillProduct(bp1);
+		bill.addBillProduct(bp2);
+		bill.setClient(c);
+		bill.setCollectorId(8);
+		bill.setCreditNumber(130L);
+		bill.setStartDate(new Date());
+		bill.setEndDate(DateUtils.addDays(new Date(), 30));
+		bill.setOverdueDays(0);
+		bill.setRemainingAmount(new BigDecimal(2958));
+		bill.setStatus(Status.ACTIVE);
+		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalDailyInstallment(new BigDecimal(42));
+		bill.setTrader(this.traderDao.findById(13L));
+		payment = this.createPayment(bill);
+		bill.addPayment(payment);
+		
+		this.billDao.saveOrUpdate(bill);
+		
 
 		PayrollDto payrollDto = this.instance.processPeriod(
 				DateUtils.addDays(new Date(), -15), DateUtils.addDays(new Date(), 1));
@@ -280,21 +304,21 @@ public class PayrollServiceTest {
 		
 		Payroll payroll = this.payrollDao.findById(payrollDto.getId());
 		
-		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(730)));
-		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(840)));
+		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(1030)));
+		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(1140)));
 		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(110)));
 		// FIXME: la liq supervisor es 0 pq no asocie ningun supervisor ...
-		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(250)));
+		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(400)));
 		
 		List<SupervisorPayrollItem> supervisorPayrollItemList = payroll.getSupervisorPayrollItemList();
 		
 		assertThat("error supervisorPayrollItemList.size() != 1", supervisorPayrollItemList.size(), is(1));
 		SupervisorPayrollItem supervisorPayrollItem = supervisorPayrollItemList.get(0);
-		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal(250)));
+		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal(400)));
 		
 		assertThat("error payroll null", payroll != null, is(true));
 		// la lista tiene 2 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
-		assertThat("error lista de payrollitems size != 2", payroll.getPayrollItemList().size(), is(2));
+		assertThat("error lista de payrollitems size != 3", payroll.getPayrollItemList().size(), is(3));
 		
 		PayrollItem payrollItem = payroll.getPayrollItemList().get(0);
 		assertThat("total Liq Item collect error no 600", payrollItem.getSubtotalCollect(), is(new BigDecimal(600)));
@@ -309,6 +333,13 @@ public class PayrollServiceTest {
 		assertThat("total Liq Item 2 total error no 290", payrollItem.getTotalAmount(), is(new BigDecimal(230)));
 		
 		assertThat("error payroll 2 items size", payrollItem.getItems().size(), is(3)); // 3 = 1 CRED + 1 DEV + 1 BAJA
+		
+		payrollItem = payroll.getPayrollItemList().get(2);
+		assertThat("total Liq Item 2 collect error no 300", payrollItem.getSubtotalCollect(), is(new BigDecimal(300)));
+		assertThat("total Liq Item 2 discount error no 10", payrollItem.getSubtotalDiscount(), is(new BigDecimal(0)));
+		assertThat("total Liq Item 2 total error no 290", payrollItem.getTotalAmount(), is(new BigDecimal(300)));
+		
+		assertThat("error payroll items size", payrollItem.getItems().size(), is(1));
 	}
 	
 	@Test
@@ -368,32 +399,33 @@ public class PayrollServiceTest {
 		
 		Payroll payroll = this.payrollDao.findById(payrollDto.getId());
 		
-		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(30100)));
-		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(30100)));
+		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal(30702)));
+		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal(30702)));
 		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(0)));
 		// FIXME: la liq supervisor es 0 pq no asocie ningun supervisor ...
-		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(15050)));
+		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal(15351)));
 		
 		List<SupervisorPayrollItem> supervisorPayrollItemList = payroll.getSupervisorPayrollItemList();
 		
 		assertThat("error supervisorPayrollItemList.size() != 1", supervisorPayrollItemList.size(), is(1));
 		SupervisorPayrollItem supervisorPayrollItem = supervisorPayrollItemList.get(0);
-		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal(15050)));
+		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal(15351)));
 		
 		assertThat("error payroll null", payroll != null, is(true));
 		// la lista tiene 2 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
 		assertThat("error lista de payrollitems size", payroll.getPayrollItemList().size(), is(1));
 		
 		PayrollItem payrollItem = payroll.getPayrollItemList().get(0);
-		assertThat("total Liq Item collect error no 600", payrollItem.getSubtotalCollect(), is(new BigDecimal(30100)));
+		assertThat("total Liq Item collect error no 600", payrollItem.getSubtotalCollect(), is(new BigDecimal(30702)));
 		assertThat("total Liq Item discount error no 100", payrollItem.getSubtotalDiscount(), is(new BigDecimal(0)));
-		assertThat("total Liq Item total error no 500", payrollItem.getTotalAmount(), is(new BigDecimal(30100)));
+		assertThat("total Liq Item total error no 500", payrollItem.getTotalAmount(), is(new BigDecimal(30702)));
 		
 		assertThat("error payroll items != 2", payrollItem.getItems().size(), is(1));
 		
 		BonusConciliationItem bonusItem = payrollItem.getBonusItem();
 		
 		assertThat("bonusItem error", bonusItem.getCollectAmount(), is(new BigDecimal(602)));
+		assertThat("bonusItem error", bonusItem.getDescription(), is("PREMIO 2% (productos periodo(301)/Dias Habiles)"));
 	}
 	
 }

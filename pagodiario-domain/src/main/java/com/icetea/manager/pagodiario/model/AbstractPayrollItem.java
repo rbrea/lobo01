@@ -86,4 +86,10 @@ public abstract class AbstractPayrollItem extends Identifiable {
 		this.subtotalDiscount = subtotalDiscount;
 	}
 
+	public boolean hasBonusItem(){
+		return this.bonusItem != null 
+				&& this.bonusItem.getCollectAmount() != null 
+				&& this.bonusItem.getCollectAmount().compareTo(BigDecimal.ZERO) > 0; 
+	}
+	
 }

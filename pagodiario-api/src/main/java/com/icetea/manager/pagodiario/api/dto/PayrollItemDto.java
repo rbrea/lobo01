@@ -1,5 +1,9 @@
 package com.icetea.manager.pagodiario.api.dto;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 public class PayrollItemDto extends BasicIdentifiableDto {
 
 	private static final long serialVersionUID = 1L;
@@ -10,6 +14,8 @@ public class PayrollItemDto extends BasicIdentifiableDto {
 	private String payrollDateFrom;
 	private String payrollDateTo;
 	private String totalAmount;
+	
+	private List<ConciliationItemDto> conciliationItems = Lists.newArrayList();
 
 	public String getTraderName() {
 		return traderName;
@@ -47,5 +53,17 @@ public class PayrollItemDto extends BasicIdentifiableDto {
 	public void setPayrollDateTo(String payrollDateTo) {
 		this.payrollDateTo = payrollDateTo;
 	}
+	public List<ConciliationItemDto> getConciliationItems() {
+		return conciliationItems;
+	}
+	public void setConciliationItems(List<ConciliationItemDto> conciliationItems) {
+		this.conciliationItems = conciliationItems;
+	}
 
+	public void addConciliationItem(ConciliationItemDto d){
+		if(d != null){
+			this.conciliationItems.add(d);
+		}
+	}
+	
 }

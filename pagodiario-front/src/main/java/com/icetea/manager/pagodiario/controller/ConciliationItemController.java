@@ -94,7 +94,12 @@ public class ConciliationItemController extends ExceptionHandlingController {
 
 		List<ConciliationItemDto> list = Lists.newArrayList();
 
-		list = this.conciliationItemService.searchByPayrollItemId(payrollItemId);
+		
+		PayrollItemDto payrollItem = this.payrollItemService.searchById(payrollItemId);
+		
+		list.addAll(payrollItem.getConciliationItems());
+		
+//		list = this.conciliationItemService.searchByPayrollItemId(payrollItemId);
 		
 		r.setData(list);
 		
