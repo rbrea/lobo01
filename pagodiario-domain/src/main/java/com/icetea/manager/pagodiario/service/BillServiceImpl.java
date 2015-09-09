@@ -233,7 +233,7 @@ public class BillServiceImpl
 	}
 	
 	@Override
-	public List<BillTicketPojo> searchBillsByCollectorId(Integer collectorId, String fromDate, String toDate){
+	public List<BillTicketPojo> searchBillsByCollectorId(String ticketDateValue, Integer collectorId, String fromDate, String toDate){
 		
 		Date dateFrom = null;
 		if(StringUtils.isNotBlank(fromDate)){
@@ -246,7 +246,7 @@ public class BillServiceImpl
 	
 		List<Bill> bills = this.getDao().find(collectorId, dateFrom, dateTo);
 		
-		return this.billTicketTransformer.transform(bills);
+		return this.billTicketTransformer.transform(ticketDateValue, bills);
 	}
 
 	@Override

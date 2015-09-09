@@ -4,6 +4,15 @@ Ticket.init = function(){
 	
 	$("#zone").focus();
 	
+	// asigno el dia de hoy
+	$("#ticketDateValue").val(moment().add(1, 'days').format('DD/MM/YYYY'));
+	
+	$('#ticketDate').datetimepicker({
+        locale: 'es',
+        showTodayButton: true,
+        format: 'DD/MM/YYYY'
+    });
+	
 	$('#fecDesde').datetimepicker({
         locale: 'es',
         showTodayButton: true,

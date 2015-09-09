@@ -29,8 +29,8 @@ public class BillTicketFactory {
 		p.setCompanyType2("Remis");
 		p.setCreditNumber("226256");
 		p.setCreditNumber2("229988");
-		p.setInstallmentAmount("Cuota Imp.: 28.00");
-		p.setInstallmentAmount2("Cuota Imp.: 22.00");
+		p.setInstallmentAmount("28.00");
+		p.setInstallmentAmount2("22.00");
 		p.setOverdueDays("DIAS DE ATRASO: 26");
 		p.setOverdueDays2("DIAS DE ATRASO: 9");
 		p.setRemainingDays("28");
@@ -49,18 +49,18 @@ public class BillTicketFactory {
 		pr4.setCount(6);
 		pr4.setName("cover pc 15/7");
 		p.setProducts2(Lists.newArrayList(pr3, pr4));
-		p.setPurchaseDate("Fec Compra: 04/01/2014");
-		p.setPurchaseDate2("Fec Compra: 30/04/2015");
-		p.setRemainingAmount("Saldo Actual: 1999.00");
-		p.setRemainingAmount2("Saldo Actual: 600.00");
+		p.setPurchaseDate("04/01/2014");
+		p.setPurchaseDate2("30/04/2015");
+		p.setRemainingAmount("1999.00");
+		p.setRemainingAmount2("600.00");
 		p.setTicketNumber("NRO TCK: 254352");
 		p.setTicketNumber2("NRO TCK: 445679");
 		p.setTraderName("Flor (1133631310)");
 		p.setTraderName2("Eliana (1165778890)");
 		p.setTraderPhone("1133631310");
 		p.setTraderPhone2("1165778890");
-		p.setTotalAmount("Total Compra: 2500.00");
-		p.setTotalAmount2("Total Compra: 1000.00");
+		p.setTotalAmount("2500.00");
+		p.setTotalAmount2("1000.00");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		

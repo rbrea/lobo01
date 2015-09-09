@@ -27,8 +27,6 @@ public class BillTicketTransformer {
 	public BillTicketPojo transform(Bill d){
 		BillTicketPojo p = new BillTicketPojo();
 		
-		p.setCurrentDate(DateUtils.currentDate());
-		
 		if(d.getClient() != null){
 			String address = "";
 			if(StringUtils.isNotBlank(d.getClient().getAddress())){
@@ -58,7 +56,7 @@ public class BillTicketTransformer {
 		}
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
-			installment = "Cuota Imp \t$" + NumberUtils.toString(d.getTotalDailyInstallment());
+			installment = NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount(installment);
 		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -68,12 +66,12 @@ public class BillTicketTransformer {
 		}
 		String purchaseDate = "";
 		if(d.getStartDate() != null){
-			purchaseDate = "Fec Compra\t" + DateUtils.toDate(d.getStartDate());
+			purchaseDate = DateUtils.toDate(d.getStartDate());
 		}
 		p.setPurchaseDate(purchaseDate);
 		String remainingAmount = "";
 		if(d.getRemainingAmount() != null){
-			remainingAmount = "Saldo Actual\t$" + NumberUtils.toString(d.getRemainingAmount());
+			remainingAmount = NumberUtils.toString(d.getRemainingAmount());
 		}
 		p.setRemainingAmount(remainingAmount);
 		String ticketNumber = "";
@@ -83,7 +81,7 @@ public class BillTicketTransformer {
 		p.setTicketNumber(ticketNumber);
 		String totalAmount = "";
 		if(d.getTotalAmount() != null){
-			totalAmount = "Total Compra\t$" + NumberUtils.toString(d.getTotalAmount());
+			totalAmount = NumberUtils.toString(d.getTotalAmount());
 		}
 		p.setTotalAmount(totalAmount);
 		if(d.getTrader() != null){
@@ -129,7 +127,7 @@ public class BillTicketTransformer {
 		}
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
-			installment = "Cuota Imp \t\t $" + NumberUtils.toString(d.getTotalDailyInstallment());
+			installment = NumberUtils.toString(d.getTotalDailyInstallment());
 		}
 		p.setInstallmentAmount2(installment);
 		p.setOverdueDays2("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -139,12 +137,12 @@ public class BillTicketTransformer {
 		}
 		String purchaseDate = "";
 		if(d.getStartDate() != null){
-			purchaseDate = "Fec Compra\t" + DateUtils.toDate(d.getStartDate());
+			purchaseDate = DateUtils.toDate(d.getStartDate());
 		}
 		p.setPurchaseDate2(purchaseDate);
 		String remainingAmount = "";
 		if(d.getRemainingAmount() != null){
-			remainingAmount = "Saldo Actual\t$" + NumberUtils.toString(d.getRemainingAmount());
+			remainingAmount = NumberUtils.toString(d.getRemainingAmount());
 		}
 		p.setRemainingAmount2(remainingAmount);
 		
@@ -154,7 +152,7 @@ public class BillTicketTransformer {
 		}
 		String totalAmount = "";
 		if(d.getTotalAmount() != null){
-			totalAmount = "Total Compra\t$" + NumberUtils.toString(d.getTotalAmount());
+			totalAmount = NumberUtils.toString(d.getTotalAmount());
 		}
 		p.setTotalAmount2(totalAmount);
 		if(d.getTrader() != null){
@@ -171,7 +169,7 @@ public class BillTicketTransformer {
 		return p;
 	}
 	
-	public List<BillTicketPojo> transform(List<Bill> list){
+	public List<BillTicketPojo> transform(String ticketDateValue, List<Bill> list){
 		if(list == null){
 			return null;
 		}
@@ -181,6 +179,7 @@ public class BillTicketTransformer {
 		for(Bill b : list){
 			if(change){
 				billTicket = this.transform(b);
+				billTicket.setCurrentDate(ticketDateValue);
 				r.add(billTicket);
 				change = false;
 			} else {

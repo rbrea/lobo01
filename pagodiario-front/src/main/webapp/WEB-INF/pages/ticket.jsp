@@ -26,6 +26,17 @@
 		  		<div class="panel-body">
 		  			<form id="frmTicket" action="${pageContext.request.contextPath}/controller/html/ticket" method="post">
 		  			<div class="row">
+		  				<div class="form-group col-md-3">
+		  					<div class="form-group">
+		  						<label for="ticketDateValue">Fecha de Ticket</label>
+				                <div class='input-group date' id='ticketDate'>
+				                    <input type='text' class="form-control input-sm not-writable" id="ticketDateValue" name="ticketDateValue" placeholder="Ingrese fecha de Ticket..." data-required-error="Requerido" required/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+		  				</div>
 						<div class="form-group col-md-3">
 							<label for="zone">Zona / Cobrador</label>
 							<div class="input-group">
@@ -52,9 +63,6 @@
 			                    </span>
 			                </div>
 						</div>
-		  				<div class="col-md-3">
-							&nbsp;
-		  				</div>
 					</div>
 		  			</form>
 		  		</div>

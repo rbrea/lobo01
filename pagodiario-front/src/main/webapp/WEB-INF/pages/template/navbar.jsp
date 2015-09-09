@@ -47,7 +47,7 @@
 	                <li role="presentation">
 	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/payroll/index" class="disabled">
-	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Ejecutar Liquidaci&oacute;n
+	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Vendedor / Supervisor
 	                	</a>
 	                </li>
 	                <li role="presentation" class="hide">

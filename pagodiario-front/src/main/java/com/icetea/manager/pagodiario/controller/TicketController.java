@@ -55,12 +55,13 @@ public class TicketController extends ExceptionHandlingController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public void doGenerate(HttpServletRequest request,
 			HttpServletResponse response,
+			@RequestParam(required = false) String ticketDateValue,
 			@RequestParam(required = false) Integer zone,
 			@RequestParam(required = false) String fecDesdeValue,
 			@RequestParam(required = false) String fecHastaValue){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(zone, fecDesdeValue, fecHastaValue);
+		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(ticketDateValue, zone, fecDesdeValue, fecHastaValue);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/sgpd_ticket.jasper");
@@ -85,7 +86,9 @@ public class TicketController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "/validate", method = RequestMethod.GET)
-	public BasicOutputDto validate(@RequestParam(required = false) Integer collectorId,
+	public BasicOutputDto validate(
+			@RequestParam(required = false) String ticketDateValue,
+			@RequestParam(required = false) Integer collectorId,
 			@RequestParam(required = false) String fecDesdeValue,
 			@RequestParam(required = false) String fecHastaValue){
 		
@@ -93,7 +96,7 @@ public class TicketController extends ExceptionHandlingController {
 		d.setStatus(0);
 		
 		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(
-				collectorId, fecDesdeValue, fecHastaValue);
+				ticketDateValue, collectorId, fecDesdeValue, fecHastaValue);
 		
 		if(list == null || list.isEmpty()){
 			throw new ErrorTypedException(
