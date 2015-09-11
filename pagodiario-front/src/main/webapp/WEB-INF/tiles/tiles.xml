@@ -151,7 +151,7 @@
     	</put-list-attribute>
     </definition>
     
-    <definition name="ticket" extends="mainModalTemplate">
+    <definition name="collector" extends="mainModalTemplate">
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Cobradores" />
         <put-attribute name="body" value="/WEB-INF/pages/collector.jsp" />
         <put-list-attribute name="modals">

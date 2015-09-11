@@ -71,6 +71,9 @@
 	                <li role="presentation">
 	                	<a id="optTraders" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/trader/index"><i class="glyphicon glyphicon-globe"></i>&nbsp;Vendedores/Supervidores</a>
 	                </li>
+	                <li role="presentation">
+	                	<a id="optCollectors" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/collector/index"><i class="glyphicon glyphicon-inbox"></i>&nbsp;Cobradores</a>
+	                </li>
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">
 	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="glyphicon glyphicon-user"></i>&nbsp;Usuarios</a>

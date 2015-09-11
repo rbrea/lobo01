@@ -9,6 +9,8 @@ import javax.persistence.Table;
 public class Collector extends Identifiable {
 
 	private static final long serialVersionUID = 1L;
+	@Column(name = "ZONE", unique = true)
+	private Long zone;
 	@Column(name = "DESCRIPTION", length = 140)
 	private String description;
 
@@ -18,6 +20,14 @@ public class Collector extends Identifiable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Long getZone() {
+		return zone;
+	}
+
+	public void setZone(Long zone) {
+		this.zone = zone;
 	}
 	
 }

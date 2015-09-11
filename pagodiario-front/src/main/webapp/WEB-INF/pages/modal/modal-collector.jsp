@@ -17,6 +17,11 @@
   				<div class="panel-body">
   					<form id="frmCollector">
   						<input type="hidden" id="collectorId" name="id" value="">
+  						<div class="form-group">
+							<label for="collectorZone">Zona</label>
+						    <input type="number" class="form-control" id="collectorZone" name="collectorZone" placeholder="Ingrese Zona..." min="1" required>
+						    <div class="help-block with-errors"></div>
+						</div>
 						<div class="form-group">
 							<label for="collectorDescription">Descripci&oacute;n</label>
 						    <input type="text" class="form-control" id="collectorDescription" name="collectorDescription" placeholder="Ingrese Descripci&oacute;n..." data-maxlength="140" required>

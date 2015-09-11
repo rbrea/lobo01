@@ -12,6 +12,7 @@ public class CollectorDtoModelTransformer extends AbstractDtoModelTransformer<Co
 	protected CollectorDto doTransform(Collector e, int depth) {
 		CollectorDto d = new CollectorDto();
 		d.setId(e.getId());
+		d.setZone(e.getZone());
 		d.setDescription(e.getDescription());
 		
 		return d;

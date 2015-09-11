@@ -44,8 +44,8 @@
 								<table id="tCollectorResult" class="table table-condensed display">
 									<thead>
 							            <tr>
-							            	<th></th>
 							                <th>C&oacute;digo de Cobrador</th>
+							                <th>Zona</th>
 							                <th>Descripci&oacute;n</th>
 							                <th>Acciones</th>
 							            </tr>

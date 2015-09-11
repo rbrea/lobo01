@@ -27,6 +27,10 @@ Collector.initDataTable = function(imgCheckUrl){
                 "data":           null,
                 "defaultContent": ''
             },*/
+			{ 
+            	"className": 'centered',
+            	"data": "zone" 
+            },
             { 
             	"className": 'centered',
             	"data": "description" 
@@ -63,7 +67,33 @@ Collector.initDataTable = function(imgCheckUrl){
 }
 
 Collector.initControls = function(){
+	$("#collectorZone").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#collectorDescription").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#collectorZone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#collectorDescription").focus();			
+	    }
+	    
+	    return;
+	});
 	
+	$("#collectorDescription").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnCollectorAccept").focus();			
+		}
+	    
+	    return;
+	});
+
 	return;
 }
 
@@ -71,7 +101,7 @@ Collector.showModal = function(id){
 	
 	BootstrapDialog.show({
 		onshown: function(){
-			$("#collectorId").focus();
+			$("#collectorZone").focus();
 			
 			return;
 		},
@@ -89,19 +119,13 @@ Collector.showModal = function(id){
         	if(id != null && id != ""){
         		$("#collectorId").val(id);
         		
-        		var code = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+        		var zone = $("#tCollectorResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
         				.parent().parent().find('td:eq(1)').html().trim();
-        		var description = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+        		var description = $("#tCollectorResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(2)').html().trim();
-        		var price = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(3)').html().trim();
-        		var dailyInstallment = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(4)').html().trim();
         		
-        		$("#productCode").attr("readonly", true).val(code);
-        		$("#productDescription").val(description);
-        		$("#productPrice").val(price);
-        		$("#dailyInstallment").val(dailyInstallment);
+        		$("#collectorZone").val(zone);
+        		$("#collectorDescription").val(description);
         	}
         	
         	$("#modal-collector-container").css({"display":"block"});
@@ -121,7 +145,7 @@ Collector.showModal = function(id){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnCollectorAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
@@ -175,7 +199,7 @@ Collector.remove = function(id){
 					   Message.hideMessages($('#collectorAlertMessages'), $("#collectorMessages"));
 					   if(data != null && data.status == 0){
 						   
-						   var table = $('#tProductResult').dataTable();
+						   var table = $('#tCollectorResult').dataTable();
 
 						   table.fnDeleteRow($("#imgCheck_" + id).parent().parent(), null, true);
 						   
@@ -200,9 +224,10 @@ Collector.remove = function(id){
 }
 
 Collector.resetModal = function(){
-	$("#collectoId").val('');
+	$("#collectorId").val('');
+	$("#collectorZone").val('');
 	$("#collectorDescription").val('');
-	$("#frmProduct").validator('destroy');
+	$("#frmCollector").validator('destroy');
 	
 	return;
 }
@@ -210,10 +235,12 @@ Collector.resetModal = function(){
 Collector.add = function(dialog, btn){
 	
 	var id = $("#collectorId").val();
+	var zone = $("#collectorZone").val();
 	var description = $("#collectorDescription").val();
 	
 	var obj = new Object();
 	obj.id = id;
+	obj.zone = zone;
 	obj.description = description;
 	
 	$.ajax({ 
