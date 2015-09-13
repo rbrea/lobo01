@@ -1661,7 +1661,7 @@ Bill.initDetail = function(billId){
 				   }
 				   
 				   var products = d.products;
-				   var pBody = $("#tBillProducts > tbody");
+				   pBody = $("#tBillProducts > tbody");
 				   
 				   if(products.length > 0){
 					   pBody.children('tr').remove();
@@ -1677,6 +1677,42 @@ Bill.initDetail = function(billId){
 					   var td4 = $("<td class=\"centered\"></td>").append(products[i].totalAmount);
 					   
 					   tr.append(td0).append(td1).append(td2).append(td3).append(td4);
+					   
+					   pBody.append(tr);
+				   }
+				   
+				   var discounts = d.discounts;
+				   pBody = $("#tBillDiscount > tbody");
+				   
+				   if(discounts.length > 0){
+					   pBody.children('tr').remove();
+				   }
+				   
+				   for(var i=0;i<discounts.length;i++){
+					   var tr = $("<tr></tr>");
+					   
+					   var td0 = $("<td class=\"centered\"></td>").append(discounts[i].date);
+					   var td1 = $("<td class=\"centered\"></td>").append(discounts[i].amount);
+					   
+					   tr.append(td0).append(td1);
+					   
+					   pBody.append(tr);
+				   }
+				   
+				   var reductions = d.reductions;
+				   pBody = $("#tBillReduction > tbody");
+				   
+				   if(reductions.length > 0){
+					   pBody.children('tr').remove();
+				   }
+				   
+				   for(var i=0;i<reductions.length;i++){
+					   var tr = $("<tr></tr>");
+					   
+					   var td0 = $("<td class=\"centered\"></td>").append(discounts[i].date);
+					   var td1 = $("<td class=\"centered\"></td>").append(discounts[i].amount);
+					   
+					   tr.append(td0).append(td1);
 					   
 					   pBody.append(tr);
 				   }
@@ -1835,12 +1871,13 @@ Bill.addClient = function(dialog, btn){
 				   var address = r.companyAddress;
 				   var companyType = r.companyType;
 				   
-				   $("#traderParentId").val(selectedId);
+				   //$("#traderParentId").val(selectedId);
 				   $("#bClientId").val(selectedId);
+				   $("#billClientIdSelected").val(selectedId);
 				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				   
 			   }
-			   $("#modalBillClient").modal('hide');
+			   //$("#modalBillClient").modal('hide');
 
 			   // si esta todo ok entonces doy de alta ...
 			   //Bill.doPanelEnabled("#pnlTrader");

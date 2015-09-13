@@ -84,6 +84,23 @@
 		  					</tr>
 		  				</tbody>
 		  			</table>
+		  			<table id="tBillPayment" class="table table-bordered table-striped">
+		  				<thead>
+			  				<tr>
+			  					<th colspan="3" class="centered">PAGOS</th>
+			  				</tr>
+			  				<tr>
+			  					<th class="centered">FECHA</th>
+			  					<th class="centered">COBRADOR</th>
+			  					<th class="centered">IMPORTE</th>
+			  				</tr>
+		  				</thead>
+		  				<tbody>
+		  					<tr>
+		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
 		  			<table id="tBillDevolution" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
@@ -102,27 +119,42 @@
 		  					</tr>
 		  				</tbody>
 		  			</table>
-		  			<table id="tBillPayment" class="table table-bordered table-striped">
+		  			<table id="tBillDiscount" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="3" class="centered">PAGOS</th>
+			  					<th colspan="2" class="centered">DESCUENTOS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
-			  					<th class="centered">COBRADOR</th>
 			  					<th class="centered">IMPORTE</th>
 			  				</tr>
 		  				</thead>
 		  				<tbody>
 		  					<tr>
-		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
+		  						<td colspan="2" class="centered">No se han encontrado resultados</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
+		  			<table id="tBillReduction" class="table table-bordered table-striped">
+		  				<thead>
+			  				<tr>
+			  					<th colspan="2" class="centered">BAJAS</th>
+			  				</tr>
+			  				<tr>
+			  					<th class="centered">FECHA</th>
+			  					<th class="centered">IMPORTE</th>
+			  				</tr>
+		  				</thead>
+		  				<tbody>
+		  					<tr>
+		  						<td colspan="2" class="centered">No se han encontrado resultados</td>
 		  					</tr>
 		  				</tbody>
 		  			</table>
 		  			<table id="billRemainingAmount" class="table table-bordered table-striped">
 		  				<tr>
-		  					<td style="font-weight:bold;">SALDO</td>
-		  					<td id="remainingAmount" style="font-weight:bold;"></td>
+		  					<td style="font-weight:bold;background-color:#FF7E7E;">SALDO RESTANTE</td>
+		  					<td id="remainingAmount" style="font-weight:bold;background-color:#FF7E7E;"></td>
 		  				</tr>
 		  			</table>
 		  		</div>

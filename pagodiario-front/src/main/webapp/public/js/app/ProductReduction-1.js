@@ -89,10 +89,6 @@ ProductReduction.show = function(id){
 			        "columns": [
 						{ 
 							"className": 'centered',
-							"data": "id" 
-						},
-						{ 
-							"className": 'centered',
 							"data": "date" 
 						},
 			            { 	

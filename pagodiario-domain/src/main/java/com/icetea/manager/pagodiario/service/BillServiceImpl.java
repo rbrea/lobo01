@@ -11,8 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Preconditions;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
+import com.icetea.manager.pagodiario.api.dto.BillDetailDiscountDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailPaymentDto;
+import com.icetea.manager.pagodiario.api.dto.BillDetailReductionDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
@@ -28,8 +30,10 @@ import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
 import com.icetea.manager.pagodiario.model.Dev;
+import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Product;
+import com.icetea.manager.pagodiario.model.ProductReduction;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.BillDtoModelTransformer;
 import com.icetea.manager.pagodiario.transformer.BillTicketTransformer;
@@ -69,15 +73,21 @@ public class BillServiceImpl
 				String.format("No se registran productos asociados a la factura"), 
 				ErrorType.PRODUCT_REQUIRED);
 		
+		ErrorTypedConditions.checkArgument(d.getClientId() != null, "id de cliente requerido", ErrorType.VALIDATION_ERRORS);
+		
 		Client client = this.clientDao.findById(d.getClientId());
 		
 		ErrorTypedConditions.checkArgument(client != null, String.format("Cliente no encontrado con id: %s", d.getClientId()), 
 				ErrorType.CLIENT_NOT_FOUND);
 		
+		ErrorTypedConditions.checkArgument(d.getTraderId() != null, "id de vendedor requerido", ErrorType.VALIDATION_ERRORS);
+		
 		Trader trader = this.traderDao.findById(d.getTraderId());
 		
 		ErrorTypedConditions.checkArgument(trader != null, String.format("Vendedor no encontrado con id: %s", d.getTraderId()), 
 				ErrorType.TRADER_NOT_FOUND);
+		
+		ErrorTypedConditions.checkArgument(d.getCreditNumber() != null, "nro de credito requerido", ErrorType.VALIDATION_ERRORS);
 		
 		Bill found = this.getDao().findByCreditNumber(d.getCreditNumber());
 		
@@ -227,6 +237,20 @@ public class BillServiceImpl
 			r.setTotalAmount(NumberUtils.toString(p.getAmount()));
 			
 			d.getProducts().add(r);
+		}
+		for(Discount e : bill.getDiscounts()){
+			BillDetailDiscountDto r = new BillDetailDiscountDto();
+			r.setAmount(NumberUtils.toString(e.getAmount()));
+			r.setDate(DateUtils.toDate(e.getDate()));
+			
+			d.getDiscounts().add(r);
+		}
+		for(ProductReduction e : bill.getProductReductionList()){
+			BillDetailReductionDto r = new BillDetailReductionDto();
+			r.setAmount(NumberUtils.toString(e.getAmount()));
+			r.setDate(DateUtils.toDate(e.getDate()));
+			
+			d.getReductions().add(r);
 		}
 		
 		return d;

@@ -19,6 +19,8 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	private List<BillDetailDevolutionDto> devolutions = Lists.newArrayList();
 	private List<BillDetailPaymentDto> payments = Lists.newArrayList();
 	private List<BillProductDetailDto> products = Lists.newArrayList();
+	private List<BillDetailDiscountDto> discounts = Lists.newArrayList();
+	private List<BillDetailReductionDto> reductions = Lists.newArrayList();
 
 	public String getClientName() {
 		return clientName;
@@ -85,6 +87,18 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setProducts(List<BillProductDetailDto> products) {
 		this.products = products;
+	}
+	public List<BillDetailDiscountDto> getDiscounts() {
+		return discounts;
+	}
+	public void setDiscounts(List<BillDetailDiscountDto> discounts) {
+		this.discounts = discounts;
+	}
+	public List<BillDetailReductionDto> getReductions() {
+		return reductions;
+	}
+	public void setReductions(List<BillDetailReductionDto> reductions) {
+		this.reductions = reductions;
 	}
 	
 }

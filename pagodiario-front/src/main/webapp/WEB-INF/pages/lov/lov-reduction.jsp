@@ -5,7 +5,6 @@
 				<table id="tProductReductionResult" class="table table-condensed display">
 					<thead>
 			            <tr>
-			            	<th>C&oacute;digo</th>
 			                <th>Fecha</th>
 			                <th>Importe</th>
 			            </tr>

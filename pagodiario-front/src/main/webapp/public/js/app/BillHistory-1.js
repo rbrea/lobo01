@@ -142,10 +142,10 @@ BillHistory.getActionSelectElement = function(id, map){
 	  "</button>" +
 	  "<ul class=\"dropdown-menu dropdown-menu-left\">" +
 	  	"<li class=\"dropdown-header\">Consultas</li>" + 
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showPayments('" + id + "');\">Pagos</a></li>" +
+	    /*"<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showPayments('" + id + "');\">Pagos</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Discount.show('" + id + "');\">Descuentos</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Dev.show('" + id + "');\">Devoluciones</a></li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +*/
 	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Altas</li>" +
@@ -188,10 +188,6 @@ BillHistory.showPayments = function(id){
 			   		"bDestroy" : true,
 			   		responsive: true,
 			        "columns": [
-						{ 
-							"className": 'centered',
-							"data": "id" 
-						},
 						{ 
 							"className": 'centered',
 							"data": "date" 

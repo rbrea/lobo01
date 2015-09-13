@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="paymentDateValue">Fecha de Pago</label>
 		            	<div class='input-group date' id='paymentDate'>
-		                	<input type='text' class="form-control input-sm not-writable" id="paymentDateValue" name="paymentDateValue" placeholder="Ingrese fecha..." required/>
+		                	<input type='text' class="form-control  not-writable" id="paymentDateValue" name="paymentDateValue" placeholder="Ingrese fecha..." required/>
 		                  	<span class="input-group-addon">
 		                    	<span class="glyphicon glyphicon-calendar"></span>
 		                  	</span>
