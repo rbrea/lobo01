@@ -35,6 +35,12 @@ BillHistory.init = function(){
 		/*"bAutoWidth": false,*/
 		"bDestroy" : true,
 		responsive: true,
+		"createdRow": function ( row, data, index ) {
+    		
+    		$(row).data('billId', data.id);
+    		
+    		return;
+        },
         "ajax": Constants.contextRoot + "/controller/html/bill",
         "columns": [
             { 	
@@ -95,7 +101,6 @@ BillHistory.init = function(){
                 // this case `data: 0`.
                 "orderable": false,
                 "render": function ( data, type, row ) {
-                    //return data +' ('+ row[3]+')';
                 	
                 	var clazzDisabled = "";
                 	if(row.status == 'FINALIZED'){
@@ -107,12 +112,6 @@ BillHistory.init = function(){
                 		"collectorId" : row.collectorId,
                 		"detailClazzDisabled": clazzDisabled
                 	});
-                	/*
-                    return "<a id=\"btnShowPayments_" + row.id + "\" href=\"javascript:BillHistory.showPayments('" + row.id + "');\" class=\"btn btn-xs btn-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Mostrar pagos asociados a la factura\"><i class=\"glyphicon glyphicon-list\"></i></a>"
-                    	+ "&nbsp;<a id=\"btnShowModalPayment_" + row.id + "\" href=\"javascript:BillHistory.showModalPayment('" + row.id + "', '" + row.totalDailyInstallment + "', '" + row.collectorId + "');\" class=\"btn btn-xs btn-danger " + clazzDisabled +"\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Mostrar formulario de pago\"><i class=\"glyphicon glyphicon-list-alt\"></i></a>"
-                    	+ "&nbsp;<a id=\"btnShowDetail_" + row.id + "\" href=\"javascript:BillHistory.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success disabled\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Factura\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>"
-                    	+ "&nbsp;<a id=\"btnShowDiscount_" + row.id + "\" href=\"javascript:BillHistory.showDiscount('" + row.id + "');\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Descuentos\"><i class=\"glyphicon glyphicon-tasks\"></i></a>";
-                    	*/
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
         ],
@@ -153,6 +152,9 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "');\">Descuento</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
+	    "<li role=\"separator\" class=\"divider\"></li>" +
+	    "<li class=\"dropdown-header\">Otras</li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.remove('" + id + "');\"><i class=\"glyphicon glyphicon-remove-circle\"></i>&nbsp;Deshacer</a></li>" +
 	    "</ul></div>";
 	
 	return div;
@@ -687,6 +689,66 @@ BillHistory.showDev = function(id){
         	}
         }]
     });
+	
+	return;
+}
+
+BillHistory.remove = function(id){
+	
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar la factura seleccionada?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				$.ajax({ 
+				   type    : "DELETE",
+				   url     : Constants.contextRoot + "/controller/html/bill/" + id,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
+					   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+					   if(data != null && data.status == 0){
+						   
+						   var trList = $('#tBillResult > tbody > tr');
+						   
+						   var row = null;
+						   
+						   trList.each(function(){
+							   
+							   var billId = $(this).data('billId');
+							   if(billId == id){
+								   row = $(this);
+							   }
+							   
+							   return;
+						   });
+						   var table = $('#tBillResult').dataTable();
+
+						   if(row != null){
+							   table.fnDeleteRow(row, null, true);
+						   }
+						   
+						   return;
+					   }else{
+						   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
+					   }
+				   },
+				   error:function(data){
+					   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+					   
+					   return;
+				   }
+				});
+			}
+			
+			return;
+		}
+	});
 	
 	return;
 }

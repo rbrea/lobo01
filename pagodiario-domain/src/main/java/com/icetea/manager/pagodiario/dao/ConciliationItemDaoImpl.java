@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 
 @Named
-public class ConciliationDaoImpl extends BasicIdentificableDaoImpl<ConciliationItem> implements
+public class ConciliationItemDaoImpl extends BasicIdentificableDaoImpl<ConciliationItem> implements
 		ConciliationItemDao {
 
 	@Override
@@ -24,6 +24,16 @@ public class ConciliationDaoImpl extends BasicIdentificableDaoImpl<ConciliationI
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("payrollItem", "payrollItem");
 		criteria.add(Restrictions.eq("payrollItem.id", payrollItemId));
+		
+		return criteria.list();
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ConciliationItem> findByBillId(Long billId){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("bill", "bill");
+		criteria.add(Restrictions.eq("bill.id", billId));
 		
 		return criteria.list();
 	}

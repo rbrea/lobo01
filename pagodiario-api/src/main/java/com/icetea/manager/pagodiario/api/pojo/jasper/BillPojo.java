@@ -22,7 +22,7 @@ public class BillPojo extends BasicDto {
 	private String endDate;
 	private String status;
 	private String creditNumber;
-	private Integer collectorId;
+	private Long collectorId;
 	private String remainingAmount;
 	
 	public BillPojo() {
@@ -83,10 +83,10 @@ public class BillPojo extends BasicDto {
 	public void setCreditNumber(String creditNumber) {
 		this.creditNumber = creditNumber;
 	}
-	public Integer getCollectorId() {
+	public Long getCollectorId() {
 		return collectorId;
 	}
-	public void setCollectorId(Integer collectorId) {
+	public void setCollectorId(Long collectorId) {
 		this.collectorId = collectorId;
 	}
 	public String getRemainingAmount() {

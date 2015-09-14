@@ -26,7 +26,7 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 	protected BillDto doTransform(Bill e, int depth) {
 		BillDto d = new BillDto();
 		d.setClientId(e.getClient().getId());
-		d.setCollectorId(e.getCollectorId());
+		d.setCollectorId(e.getCollector().getId());
 		d.setCreditNumber(e.getCreditNumber());
 		d.setEndDate(DateUtils.toDate(e.getEndDate(), "dd/MM/yyyy"));
 		d.setId(e.getId());

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,8 +24,9 @@ public class Payment extends Identifiable {
 	private BigDecimal amount = BigDecimal.ZERO;
 	@Column(name = "PAYMENT_DATE", columnDefinition = "DATETIME", nullable = false)
 	private Date date;
-	@Column(name = "COLLECTOR_ID")
-	private Integer collectorId; // FIXME: [roher] esto deberia ser una entidad "COBRADOR" ???
+	@ManyToOne
+	@JoinColumn(name = "COLLECTOR_ID")
+	private Collector collector;
 	
 	public Bill getBill() {
 		return bill;
@@ -50,12 +52,12 @@ public class Payment extends Identifiable {
 		this.date = date;
 	}
 
-	public Integer getCollectorId() {
-		return collectorId;
+	public Collector getCollector() {
+		return collector;
 	}
 
-	public void setCollectorId(Integer collectorId) {
-		this.collectorId = collectorId;
+	public void setCollector(Collector collector) {
+		this.collector = collector;
 	}
-	
+
 }

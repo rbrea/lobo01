@@ -9,4 +9,6 @@ public interface ConciliationItemDao extends
 
 	List<ConciliationItem> findByPayrollItemId(Long payrollItemId);
 
+	List<ConciliationItem> findByBillId(Long billId);
+
 }

@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -52,8 +53,9 @@ public class Bill extends Identifiable {
 	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Payment> payments = Lists.newArrayList();
-	@Column(name = "COLLECTOR_ID", nullable = false)
-	private Integer collectorId;
+	@ManyToOne
+	@JoinColumn(name = "COLLECTOR_ID")
+	private Collector collector;
 	@Column(name = "CREDIT_NUMBER", nullable = false, unique = true)
 	private Long creditNumber;
 	@Column(name = "REMAINING_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
@@ -197,14 +199,6 @@ public class Bill extends Identifiable {
 		return c.getTime();
 	}
 
-	public Integer getCollectorId() {
-		return collectorId;
-	}
-
-	public void setCollectorId(Integer collectorId) {
-		this.collectorId = collectorId;
-	}
-
 	public Long getCreditNumber() {
 		return creditNumber;
 	}
@@ -312,5 +306,13 @@ public class Bill extends Identifiable {
 			this.bonusList.add(bonus);
 		}
 	}
-	
+
+	public Collector getCollector() {
+		return collector;
+	}
+
+	public void setCollector(Collector collector) {
+		this.collector = collector;
+	}
+
 }

@@ -9,27 +9,6 @@ Bill.initModalClient = function(){
 			$("input[id*='bcuotadiaria_']"), 
 			$("input[id*='bimp_']"));
 	
-	/*
-	$("#btnBillClient").click(function(){
-		var c = 0;
-		
-		$("#frmBillClient").on('invalid.bs.validator', 
-			function(e){
-			    c++;
-				
-				return;
-		});
-		
-		$("#frmBillClient").validator('validate');
-		
-		if(c == 0){
-			// si esta todo ok entonces doy de alta ...
-			Bill.addClient();
-		}
-		
-    	return;
-    });
-    */
 	$("#btnBillNewClient").on("click", function(){
 
 		//$("#modalBillClient").modal("show");
@@ -165,17 +144,6 @@ Bill.init = function(){
 		
 		return;
 	});
-	/*
-	$("#pnlTrader div[class='panel-body'] div[class='row']").find('input').attr("disabled", true).end()
-		.find('button').attr("disabled", true).end().find('.lov').attr("disabled", true);
-	*/
-	//Bill.doPanelDisabled("#pnlBill");
-	//Bill.doPanelDisabled("#pnlClient");
-	//Bill.doPanelDisabled("#pnlTrader");
-	//Bill.doPanelDisabled("#pnlProduct");
-	//Bill.doPanelDisabled("#pnlFinalize");
-	
-	//Bill.doPanelEnabled("#pnlTrader");
 	
 	$("#btnSearchClient").on("click", function(){
 		
@@ -646,15 +614,6 @@ Bill.doFinalize = function(){
 	return;
 }
 
-/*
-Bill.doPanelDisabled = function(panelId){
-	$(panelId + " div[class='panel-body'] div[class='row']").find('input').attr("disabled", true).end()
-		.find('button').attr("disabled", true).end().find('.lov').attr("disabled", true);
-	$(panelId).addClass("panel-default").removeClass("panel-success");
-	
-	return;
-}
-*/
 Bill.calculateCuotaDiaria = function(){
 	var elements = $("input[id*='bcuotadiaria_']");
 	var sum = 0;
@@ -694,83 +653,6 @@ Bill.doPanelEnabled = function(panelId){
 	
 	return;
 }
-/*
-Bill.addClient = function(){
-	
-	var id = $("#billClientId").val();
-	var name = $("#clientName").val();
-	var documentNumber = $("#clientDocumentNumber").val();
-	var email = $("#clientEmail").val();
-	var companyPhone = $("#clientCompanyPhone").val();
-	var companyAddress = $("#clientCompanyAddress").val();
-	var nearStreets = $("#clientNearStreets").val();
-	var companyCity = $("#clientCompanyCity").val();
-	var companyType = $("#clientCompanyType").val();
-	var phone = $("#clientPhone").val();
-	var address = $("#clientAddress").val();
-	var city = $("#clientCity").val();
-	
-	var obj = new Object();
-	obj.id = id;
-	obj.name = name;
-	obj.documentNumber = documentNumber;
-	obj.email = email;
-	obj.companyPhone = companyPhone;
-	obj.companyAddress = companyAddress;
-	obj.nearStreets = nearStreets;
-	obj.companyCity = companyCity;
-	obj.companyType = companyType;
-	obj.phone = phone;
-	obj.address = address;
-	obj.city = city;
-	
-	$.ajax({ 
-	   type    : "POST",
-	   url     : Constants.contextRoot + "/controller/html/client",
-	   dataType: 'json',
-	   data: JSON.stringify(obj),
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
-		   if(data != null && data.status == 0){
-
-			   var list = data.data;
-			   if(list.length > 0){
-				   
-				   var r = list[0];
-				   
-				   var selectedId = r.id;
-				   var selectedDescription = r.name;
-				   var address = r.companyAddress;
-				   var companyType = r.companyType;
-				   
-				   $("#traderParentId").val(selectedId);
-				   $("#bClientId").val(selectedId);
-				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
-				   
-			   }
-			   
-			   $("#modalBillClient").modal('hide');
-
-			   // si esta todo ok entonces doy de alta ...
-			   Bill.doPanelEnabled("#pnlTrader");
-			   $("#btraderid").focus();
-			   
-			   return;
-		   }else{
-			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
-		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
-	
-	return;
-}
-*/
 
 Bill.showLovProduct = function(elementId){
 	
@@ -1000,8 +882,6 @@ Bill.resetFour = function(){
 		}
 	}
 	
-	//Bill.doPanelDisabled("#pnlProduct");
-	
 	return;
 }
 
@@ -1033,13 +913,6 @@ Bill.initControls = function(){
 	    
 	    return;
 	});
-	/*
-	$("#bClientId").autoComplete({
-	    source: function(term, response){
-	        $.getJSON('/some/ajax/url/', { q: term }, function(data){ response(data); });
-	    }
-	});
-	*/
 	$("#bClientId").keyup(function(e){
 		if(e.keyCode == 13) {
 			var value = $(this).val();
@@ -1801,8 +1674,6 @@ Bill.showClientModal = function(){
     });
 	dialog.setSize(BootstrapDialog.SIZE_WIDE);
 	dialog.open();
-
-	//$("#modal-client-container").parent().parent().parent().parent().parent().css({'width':'800px'});
 	
 	return;
 }
@@ -1871,17 +1742,13 @@ Bill.addClient = function(dialog, btn){
 				   var address = r.companyAddress;
 				   var companyType = r.companyType;
 				   
-				   //$("#traderParentId").val(selectedId);
 				   $("#bClientId").val(selectedId);
 				   $("#billClientIdSelected").val(selectedId);
 				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				   
 			   }
-			   //$("#modalBillClient").modal('hide');
-
-			   // si esta todo ok entonces doy de alta ...
-			   //Bill.doPanelEnabled("#pnlTrader");
-			   $("#btraderid").focus();
+			   // comento este focus, porque me da un error jquery: Uncaught RangeError: Maximum call stack size exceeded
+			   //$("#btraderid").focus();
 			   
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);

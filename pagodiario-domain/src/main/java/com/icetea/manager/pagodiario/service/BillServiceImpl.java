@@ -22,6 +22,8 @@ import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.ClientDao;
+import com.icetea.manager.pagodiario.dao.CollectorDao;
+import com.icetea.manager.pagodiario.dao.ConciliationItemDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
@@ -29,6 +31,8 @@ import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.model.Collector;
+import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
@@ -49,16 +53,22 @@ public class BillServiceImpl
 	private final TraderDao traderDao;
 	private final ProductDao productDao;
 	private final BillTicketTransformer billTicketTransformer;
+	private final ConciliationItemDao conciliationItemDao;
+	private final CollectorDao collectorDao;
 	
 	@Inject
 	public BillServiceImpl(BillDao dao, BillDtoModelTransformer transformer,
 			ClientDao clientDao, TraderDao traderDao, ProductDao productDao,
-			BillTicketTransformer billTicketTransformer) {
+			BillTicketTransformer billTicketTransformer,
+			ConciliationItemDao conciliationItemDao,
+			CollectorDao collectorDao) {
 		super(dao, transformer);
 		this.clientDao = clientDao;
 		this.traderDao = traderDao;
 		this.productDao = productDao;
 		this.billTicketTransformer = billTicketTransformer;
+		this.conciliationItemDao = conciliationItemDao;
+		this.collectorDao = collectorDao;
 	}
 
 	@Override
@@ -132,7 +142,15 @@ public class BillServiceImpl
 		e.setRemainingAmount(calculatedTotalAmount);
 		e.setTrader(trader);
 		e.setEndDate(e.calculateEndDate());
-		e.setCollectorId(d.getCollectorId());
+		
+		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "Id de cobrador es requerido", ErrorType.VALIDATION_ERRORS);
+		
+		Collector collector = this.collectorDao.findById(d.getCollectorId());
+		
+		ErrorTypedConditions.checkArgument(collector != null, 
+				String.format("Cobrador no encontrado con id: %s", d.getCollectorId()), ErrorType.VALIDATION_ERRORS);
+		
+		e.setCollector(collector);
 		e.setCreditNumber(Long.valueOf(d.getCreditNumber()));
 		this.getDao().saveOrUpdate(e);
 		
@@ -140,7 +158,7 @@ public class BillServiceImpl
 		payment.setAmount(calculatedTotalDailyInstallment);
 		
 		payment.setBill(e);
-		payment.setCollectorId(d.getCollectorId());
+		payment.setCollector(collector);
 		payment.setDate(startDate);
 		
 		e.addPayment(payment);
@@ -213,7 +231,7 @@ public class BillServiceImpl
 		for(Payment p : bill.getPayments()){
 			BillDetailPaymentDto r = new BillDetailPaymentDto();
 			r.setAmount(NumberUtils.toString(p.getAmount()));
-			r.setCollector(String.valueOf(p.getCollectorId()));
+			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getId() : ""));
 			r.setDate(DateUtils.toDate(p.getDate()));
 			
 			d.getPayments().add(r);
@@ -276,6 +294,24 @@ public class BillServiceImpl
 	@Override
 	public List<BillDto> searchExpires(){
 		return this.getTransformer().transformAllTo(this.getDao().findExpires());
+	}
+
+	@Override
+	public boolean remove(Long id) {
+		
+		ErrorTypedConditions.checkArgument(id != null, "Id de factura es requerido", ErrorType.VALIDATION_ERRORS);
+		
+		Bill bill = this.getDao().findById(id);
+		
+		ErrorTypedConditions.checkArgument(bill != null, 
+				String.format("Factura %s no encontrada. No puede ser borrada.", id), ErrorType.VALIDATION_ERRORS);
+		
+		List<ConciliationItem> conciliationItemList = this.conciliationItemDao.findByBillId(id);
+		
+		ErrorTypedConditions.checkArgument(conciliationItemList == null || conciliationItemList.isEmpty(), 
+				String.format("La factura %s esta asociada a una liquidacion. No puede ser borrada.", id), ErrorType.VALIDATION_ERRORS);
+		
+		return this.getDao().delete(bill);
 	}
 	
 }

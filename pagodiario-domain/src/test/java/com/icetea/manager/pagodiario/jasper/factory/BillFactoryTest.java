@@ -17,11 +17,13 @@ import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
+import com.icetea.manager.pagodiario.api.dto.CollectorDto;
 import com.icetea.manager.pagodiario.api.dto.ProductDto;
 import com.icetea.manager.pagodiario.api.dto.TraderDto;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillListPojo;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.service.ClientService;
+import com.icetea.manager.pagodiario.service.CollectorService;
 import com.icetea.manager.pagodiario.service.ProductService;
 import com.icetea.manager.pagodiario.service.TraderService;
 import com.icetea.manager.pagodiario.utils.StringUtils;
@@ -42,6 +44,8 @@ public class BillFactoryTest {
 	private TraderService traderService;
 	@Inject
 	private ProductService productService;
+	@Inject
+	private CollectorService collectorService;
 	
 	@Before
 	public void init(){
@@ -97,9 +101,17 @@ public class BillFactoryTest {
 		
 		b.getBillProducts().add(bp);
 		b.setClientId(2L);
-		b.setCollectorId(12);
+		
+		CollectorDto collectorDto = new CollectorDto();
+		collectorDto.setId(1L);
+		collectorDto.setZone(1L);
+		collectorDto.setDescription("COBRADOR TEST");
+		
+		this.collectorService.insert(collectorDto);
+		
+		b.setCollectorId(1L);
 		b.setCreditNumber(7878787878L);
-		b.setStartDate("10/07/2015 00:00:00");
+		b.setStartDate("10/07/2015");
 		b.setTotalAmount("2000.00");
 		b.setTotalDailyInstallment("10.00");
 		b.setTraderId(2L);

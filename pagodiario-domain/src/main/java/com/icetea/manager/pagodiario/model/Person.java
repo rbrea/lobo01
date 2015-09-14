@@ -10,9 +10,9 @@ public abstract class Person extends Identifiable {
 
 	@Column(name = "NAME", length = 100, nullable = false)
 	private String name;
-	@Column(name = "DOCUMENT_TYPE", length = 100, nullable = false)
+	@Column(name = "DOCUMENT_TYPE", length = 100)
 	private String documentType;
-	@Column(name = "DOCUMENT_NUMBER", unique = true, nullable = false)
+	@Column(name = "DOCUMENT_NUMBER")
 	private Long documentNumber;
 	@Column(name = "PHONE", length = 100)
 	private String phone;

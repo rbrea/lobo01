@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
 import com.icetea.manager.pagodiario.dao.BillDaoImpl;
 import com.icetea.manager.pagodiario.dao.ClientDaoImpl;
+import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.DevDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.ProductDaoImpl;
@@ -32,6 +33,7 @@ import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Bonus;
 import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
@@ -65,6 +67,8 @@ public class PayrollServiceTest {
 	private DevDao devDao;
 	@Inject
 	private ProductReductionDao productReductionDao;
+	@Inject
+	private CollectorDao collectorDao;
 	
 	protected Trader createTrader(int i){
 		Trader t = new Trader();
@@ -105,11 +109,19 @@ public class PayrollServiceTest {
 		return p;
 	}
 	
+	protected Collector createCollector(){
+		Collector p = new Collector();
+		p.setZone(1L);
+		p.setDescription("COBRADOR TEST");
+		
+		return p;
+	}
+	
 	protected Payment createPayment(Bill bill){
 		Payment p = new Payment();
 		p.setAmount(new BigDecimal(42));
 		p.setBill(bill);
-		p.setCollectorId(8);
+		p.setCollector(bill.getCollector());
 		p.setDate(new Date());
 		
 		return p;
@@ -189,10 +201,13 @@ public class PayrollServiceTest {
 		BillProduct bp1 = this.createBillProduct(bill, 1, p1);
 		BillProduct bp2 = this.createBillProduct(bill, 2, p2);
 		
+		Collector collector = this.createCollector();
+		this.collectorDao.save(collector);
+		
 		bill.addBillProduct(bp1);
 		bill.addBillProduct(bp2);
 		bill.setClient(c);
-		bill.setCollectorId(8);
+		bill.setCollector(collector);
 		bill.setCreditNumber(111L);
 		bill.setStartDate(new Date());
 		bill.setEndDate(DateUtils.addDays(new Date(), 30));
@@ -222,7 +237,7 @@ public class PayrollServiceTest {
 		bill.addBillProduct(bp1);
 		bill.addBillProduct(bp2);
 		bill.setClient(c);
-		bill.setCollectorId(8);
+		bill.setCollector(collector);
 		bill.setCreditNumber(112L);
 		bill.setStartDate(new Date());
 		bill.setEndDate(DateUtils.addDays(new Date(), 30));
@@ -245,7 +260,7 @@ public class PayrollServiceTest {
 		bill.addBillProduct(bp1);
 		bill.addBillProduct(bp2);
 		bill.setClient(c);
-		bill.setCollectorId(8);
+		bill.setCollector(collector);
 		bill.setCreditNumber(113L);
 		bill.setStartDate(new Date());
 		bill.setEndDate(DateUtils.addDays(new Date(), 30));
@@ -281,7 +296,7 @@ public class PayrollServiceTest {
 		bill.addBillProduct(bp1);
 		bill.addBillProduct(bp2);
 		bill.setClient(c);
-		bill.setCollectorId(8);
+		bill.setCollector(collector);
 		bill.setCreditNumber(130L);
 		bill.setStartDate(new Date());
 		bill.setEndDate(DateUtils.addDays(new Date(), 30));
@@ -375,7 +390,11 @@ public class PayrollServiceTest {
 		bill.addBillProduct(bp1);
 		bill.addBillProduct(bp2);
 		bill.setClient(c);
-		bill.setCollectorId(8);
+		
+		Collector collector = this.createCollector();
+		this.collectorDao.save(collector);
+		
+		bill.setCollector(collector);
 		bill.setCreditNumber(111L);
 		bill.setStartDate(new Date());
 		bill.setEndDate(DateUtils.addDays(new Date(), 30));

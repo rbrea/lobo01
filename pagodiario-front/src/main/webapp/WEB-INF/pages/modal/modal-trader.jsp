@@ -39,7 +39,7 @@
 					</div>
 					<div class="form-group">
 						<label for="documentNumber">N&uacute;mero de Documento</label>
-					    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
+					    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">

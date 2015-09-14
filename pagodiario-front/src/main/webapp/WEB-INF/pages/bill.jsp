@@ -20,7 +20,7 @@
 					</div>
 					<div class="form-group">
 						<label for="billClientDocumentNumber">N&uacute;mero de Documento</label>
-					    <input type="number" class="form-control" id="billClientDocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento..." required>
+					    <input type="number" class="form-control" id="billClientDocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
@@ -192,17 +192,6 @@
 				            </div>
 		  				</div>
 		  			</div>
-		  			<!-- 
-		  			<div class="row" >
-		  				<div class="col-md-7">
-		  					&nbsp;
-		  				</div>
-		  				<div class="col-md-5">
-		  					<button id="btnSecondNext" type="button" data-loading-text="Espere..." class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-ok"></i>&nbsp;Siguiente</button>&nbsp;
-		  					<button id="btnSecondCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
-		  				</div>
-		  			</div>
-		  			 -->
 		  		</div>
 			</div>	
 		</div>
@@ -240,17 +229,6 @@
 		  					&nbsp;
 		  				</div>
 		  			</div>
-		  			<!-- 
-		    		<div class="row" >
-		  				<div class="col-md-7">
-		  					&nbsp;
-		  				</div>
-		  				<div class="col-md-5">
-		  					<button id="btnThirdNext" type="button" data-loading-text="Espere..." class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-ok"></i>&nbsp;Siguiente</button>&nbsp;
-		  					<button id="btnThirdCancel" type="button" data-loading-text="Espere..." class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancelar</button>
-		  				</div>
-		  			</div>
-		  			 -->
 		  		</div>
 			</div>	
 		</div>

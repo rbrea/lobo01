@@ -12,10 +12,12 @@ import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
+import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
+import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.transformer.PaymentDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -27,13 +29,16 @@ public class PaymentServiceImpl
 		implements PaymentService {
 
 	private final BillDao billDao;
+	private final CollectorDao collectorDao;
 	
 	@Inject
 	public PaymentServiceImpl(PaymentDao dao,
 			PaymentDtoModelTransformer transformer,
-			BillDao billDao) {
+			BillDao billDao,
+			CollectorDao collectorDao) {
 		super(dao, transformer);
 		this.billDao = billDao;
+		this.collectorDao = collectorDao;
 	}
 	
 	@Override
@@ -68,7 +73,15 @@ public class PaymentServiceImpl
 						d.getAmount(), NumberUtils.toString(bill.getRemainingAmount())), ErrorType.VALIDATION_ERRORS);
 		
 		e.setBill(bill);
-		e.setCollectorId(d.getCollectorId());
+		
+		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "Id de cobrador es requerido", ErrorType.VALIDATION_ERRORS);
+		
+		Collector collector = this.collectorDao.findById(d.getCollectorId());
+		
+		ErrorTypedConditions.checkArgument(collector != null, 
+				String.format("Cobrador no encontrado con id: %s", d.getCollectorId()), ErrorType.VALIDATION_ERRORS);
+		
+		e.setCollector(collector);
 		e.setDate(DateUtils.parseDate(d.getDate(), "dd/MM/yyyy"));
 		this.getDao().saveOrUpdate(e);
 		

@@ -7,7 +7,7 @@ public class PaymentDto extends BasicIdentifiableDto {
 	private Integer idx;
 	private String amount;
 	private String date;
-	private Integer collectorId;
+	private Long collectorId;
 	private Long billId;
 	private Long creditNumber;
 	
@@ -27,11 +27,11 @@ public class PaymentDto extends BasicIdentifiableDto {
 		this.date = date;
 	}
 	
-	public Integer getCollectorId() {
+	public Long getCollectorId() {
 		return collectorId;
 	}
 	
-	public void setCollectorId(Integer collectorId) {
+	public void setCollectorId(Long collectorId) {
 		this.collectorId = collectorId;
 	}
 	
