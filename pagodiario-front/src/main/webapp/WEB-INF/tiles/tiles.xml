@@ -75,6 +75,7 @@
 	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
 	    	<add-attribute value="/WEB-INF/pages/lov/lov-client.jsp" />
 	    	<add-attribute value="/WEB-INF/pages/lov/lov-product.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
     	</put-list-attribute>
     </definition>
     

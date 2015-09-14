@@ -370,6 +370,117 @@ Bill.init = function(){
 		return;
 	});
 	
+	$("#btnSearchCollector").on("click", function(){
+		
+		var value = $("#bCollectorId").val();
+		if(value != null && value != ""){
+			return Bill.getCollectorById(value);
+		}
+		
+    	$.ajax({ 
+		   type    : "GET",
+		   url     : Constants.contextRoot + "/controller/html/collector",
+		   dataType: 'json',
+		   contentType: "application/json;",
+		   success:function(data) {
+				
+			   var tbody = $("#tLovCollectorResult tbody");
+			   
+			   tbody.children('tr').remove();
+			   
+			   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+			   if(data != null && data.status == 0){
+
+				   var table = $("#tLovCollectorResult").dataTable( {
+				   		"data" : data.data,
+				   		"bDestroy" : true,
+				        "columns": [
+							{ 
+								"className": 'centered',
+								"data": "id" 
+							},
+							{ 
+								"className": 'centered',
+								"data": "zone" 
+							},
+				            { 	
+				            	"className": 'centered',
+				            	"data": "description" 
+				            }
+				        ],
+				        "order": [[0, 'asc']],
+				        "language": {
+				            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+				            "zeroRecords": "No se ha encontrado ningun elemento",
+				            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+				            "infoEmpty": "No hay registros disponibles",
+				            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+				            "search": "Buscar: ",
+				            "paginate": {
+				            	"previous": "Anterior",
+								"next": "Siguiente"
+							}
+				        } 
+				   	});
+				   
+				   	$('#tLovCollectorResult tbody').on('mouseover', 'tr', function () {
+						$(this).css({"cursor": "pointer"});	
+						
+						return;
+					});
+					
+					$('#tLovCollectorResult tbody').on( 'click', 'tr', function () {
+				        if ( $(this).hasClass('selected') ) {
+				            $(this).removeClass('selected');
+				        } else {
+				            table.$('tr.selected').removeClass('selected');
+				            $(this).addClass('selected');
+				            
+				            var selectedId = $(this).children('td').eq(0).html().trim();
+				            var zone = $(this).children('td').eq(1).html().trim();
+				            var selectedDescription = $(this).children('td').eq(2).html().trim();
+				            
+				            $("#bcobrador").val(selectedId);
+				            $("#bCollectorId").val(selectedId);
+				            $("#bCollectorDescription").val(zone + " / " + selectedDescription);
+				            $("#lov-collector-container").css({"display": "none"});
+
+							// si esta todo ok entonces doy de alta ...
+							//$("#bClientId").focus();
+
+				            BootstrapDialog.closeAll();
+				        }
+				        
+						return;
+				    });
+					
+					BootstrapDialog.show({
+						type:BootstrapDialog.TYPE_DANGER,
+						title: 'Cobradores',
+						autodestroy: false,
+						draggable: true,
+				        message: function(dialog) {
+				        	
+				        	$("#lov-collector-container").css({"display":"block"});
+				        	
+				        	return $("#lov-collector-container");
+				        }
+				    });
+					
+				} else {
+					Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+				}
+		   },
+		   error:function(data){
+			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+			   
+			   return;
+		   }
+		});
+		
+		return;
+	});
+	
 	$("#billNumber").focus();
 	
 	$("#btnFirstNext").on('click', function(){
@@ -836,6 +947,8 @@ Bill.resetFirst = function(){
 	$("#billNumber").val("");
 	$("#bnroticket").val("");
 	$("#bcobrador").val("");
+	$("#bCollectorId").val("");
+	$("#bCollectorDescription").val("");
 	$("#batraso").val("");
 	
 	return;
@@ -900,19 +1013,43 @@ Bill.resetPage = function(){
 Bill.initControls = function(){
 	$("#billNumber").keyup(function(e){
 		if(e.keyCode == 13) {
-			$("#bcobrador").focus();
+			$("#bCollectorId").focus();
 		}
 	    
 	    return;
 	});
 	
-	$("#bcobrador").keyup(function(e){
+	$("#bCollectorId").keyup(function(e){
 		if(e.keyCode == 13) {
-			$("#bClientId").focus();
+			var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getCollectorById(value);
+			} else {
+				$("#bClientId").focus();			
+			}
+		} else {
+			$("#bCollectorDescription").val("");
 		}
 	    
 	    return;
 	});
+	
+	$('#bCollectorId').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	var value = $(this).val();
+			if(value != null && value != ""){
+				Bill.getCollectorById(value);
+			} else {
+				$("#bClientId").focus();			
+			}
+	    }
+	    
+	    return;
+	});
+	
 	$("#bClientId").keyup(function(e){
 		if(e.keyCode == 13) {
 			var value = $(this).val();
@@ -921,6 +1058,8 @@ Bill.initControls = function(){
 			} else {
 				$("#btraderid").focus();			
 			}
+		} else {
+			$("#baddress").val("");
 		}
 	    
 	    return;
@@ -950,6 +1089,8 @@ Bill.initControls = function(){
 			} else {
 				$("#bcant_0").focus();
 			}
+		} else {
+			$("#btradername").val("");
 		}
 		
 		return;
@@ -1382,6 +1523,53 @@ Bill.getTraderById = function(id){
 				   $("#btraderid").focus();
 				   $("#btradername").parent().next().append("Vendedor no encontrado");
 				   $("#btradername").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
+	
+	return;
+}
+
+Bill.getCollectorById = function(id){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/collector?id=" + id,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#bCollectorDescription").parent().next().html("");
+		   $("#bCollectorDescription").val("");
+		   $("#bCollectorDescription").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var element = list[0];
+				   
+				   $("#bcobrador").val(element.id);
+				   $("#bCollectorId").val(element.id)
+		           $("#bCollectorDescription").val(element.zone + " / " + element.description);				   
+			
+		           $("#bClientId").focus();
+			   } else {
+				   $("#bCollectorId").focus();
+				   $("#bCollectorDescription").parent().next().append("Cobrador no encontrado");
+				   $("#bCollectorDescription").parent().parent().addClass("has-error");
 			   }
 			   
 		   } else {

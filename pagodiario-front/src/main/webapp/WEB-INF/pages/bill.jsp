@@ -105,44 +105,67 @@
 	</div>
 	<form id="frmBillAdd" role="form">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<div id="pnlBill" class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title">Datos de Factura</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
-		  				<div class="col-md-3">
+		  				<div class="col-md-6">
 		  					<div class="form-group">
 		  						<label for="billDateValue">Fecha de Factura</label>
 				                <div class='input-group date' id='billDate'>
-				                    <input type='text' class="form-control  not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha..." data-error="Requerido" required/>
+				                    <input type='text' class="form-control  not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha" data-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
 				                </div>
 				            </div>
 		  				</div>
-		  				<div class="col-md-4">
+		  				<div class="col-md-6">
 		  					<div class="form-group">
 		  						<label for="billNumber">N&uacute;mero de Cr&eacute;dito</label>
-				                <input type="number" class="form-control " id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura..." min="1" data-error="Requerido" required>
+				                <input type="number" class="form-control " id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-6">
+		  					&nbsp;
+		  				</div>
+		  				<div class="col-md-6">
+		  					&nbsp;
+		  				</div>
+		  			</div>
+		  		</div>
+			</div>	
+		</div>
+		<div class="col-md-6">
+			<div id="pnlCollector" class="panel panel-default">
+		  		<div class="panel-heading">
+		    		<h3 class="panel-title">Datos de Cobrador</h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<div class="row">
+		  				<input type="hidden" id="bcobrador" name="bcobrador">
 		  				<div class="col-md-2">
 							<div class="form-group">
-		  						<label for="bcobrador">Cobrador / Zona</label>
-				                <input type="number" class="form-control " id="bcobrador" name="bcobrador" placeholder="Cobrador" min="1" data-error="Requerido" required>
+		  						<label for="bCollectorId">C&oacute;digo</label>
+				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="C&oacute;digo" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
-		  				<div class="col-md-2">
-							&nbsp;		  					
-		  				</div>
-		  				<div class="col-md-1">
+		  				<div class="col-md-10">
 							<div class="form-group">
-								&nbsp;
+		  						<label for="bCollectorDescription">Zona / Descripci&oacute;n</label>
+		  						<div class="input-group">
+				                	<input type="text" class="form-control not-writable" id="bCollectorDescription" 
+				                			name="bCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
+				                	<span id="btnSearchCollector" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
+								</div>
+								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  			</div>
