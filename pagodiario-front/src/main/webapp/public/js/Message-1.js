@@ -1,15 +1,32 @@
 Message = function(){}
 
-Message.showMessages = function(messageContainer, container, message){
+Message.showMessages = function(messageContainer, container, message, containerClass, icon, introMessage){
 	var errorText = "<ul class='list-unstyled'>";
 	
     errorText += "<li>" + message + "</li>";
 	
 	errorText += "</ul>";
+
+	messageContainer.removeClass("alert-danger");
+	messageContainer.removeClass("alert-warning");
+	
+	if(containerClass == "" || containerClass == null || containerClass === undefined){
+		containerClass = "alert-danger";
+	}
+
+	messageContainer.addClass(containerClass);
+	
+	if(icon == "" || icon == null || icon === undefined){
+		icon = "glyphicon-warning-sign";
+	}
+	
+	if(introMessage == "" || introMessage == null || introMessage === undefined){
+		introMessage = "Ups! ";
+	}
 	
 	messageContainer.children('span').eq(0).html('');
 	messageContainer.children("span").eq(0).append(
-			"<i class='glyphicon glyphicon-warning-sign'> Ups! " + errorText);
+			"<i class='glyphicon " + icon + "'>&nbsp;" + introMessage + errorText);
 	container.removeClass("hide");
 	
 	return;

@@ -87,22 +87,21 @@
 	</div>
 </div>
 
+	<div id="facturaMessages" class="row hide" style="position:fixed;z-index:9000;width:80%;left:20%;">
+		<div class="row">
+		    <div class="col-md-12">
+		        <div id="facturaAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+		          <button type="button" class="close" 
+		                    onclick="javascript:$('#facturaAlertMessages').children('span').eq(0).html('');$('#facturaMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+		              <span></span>
+		        </div>
+		    </div>
+		</div>
+	</div>
 <div class="col-md-1">
 	&nbsp;
 </div>
 <div class="col-md-10">
-	<div id="facturaMessages" class="row hide">
-	    <div class="col-md-2">
-	        &nbsp;
-	    </div>
-	    <div class="col-md-8">
-	        <div id="facturaAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
-	          <button type="button" class="close" 
-	                    onclick="javascript:$('#facturaAlertMessages').children('span').eq(0).html('');$('#facturaMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-	              <span></span>
-	        </div>
-	    </div>
-	</div>
 	<form id="frmBillAdd" role="form">
 	<div class="row">
 		<div class="col-md-6">

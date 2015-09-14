@@ -710,6 +710,10 @@ Bill.doFinalize = function(){
 			   Bill.resetPage();
 			   $("html, body").animate({"scrollTop":"-590"}, "slow");
 			   
+			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), 
+					   "Factura creada correctamente. Para mayor informaci&oacute;n vaya a Detalle de Cr&eacute;dito.", "alert-warning", "glyphicon glyphicon-info-sign", "Bien! ");
+			   setTimeout(function(){$("#facturaMessages").hide(1000);}, 2000);
+			   
 			   return;
 		   }else{
 			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
