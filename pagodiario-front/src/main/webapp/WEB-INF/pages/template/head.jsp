@@ -2,6 +2,8 @@
 <link href="${pageContext.request.contextPath}/public/css/bootstrap.min.css"
 	rel="stylesheet">
 
+<!-- FONT AWESOME STYLES -->
+<link href="${pageContext.request.contextPath}/public/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/public/css/dashboard.css" rel="stylesheet">
 

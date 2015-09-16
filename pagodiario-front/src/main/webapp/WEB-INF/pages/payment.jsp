@@ -40,10 +40,30 @@
 		<div class="col-md-12">
 			<div id="pnlPaymentAdd" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Ingresar Pagos</h3>
+		    		<h3 class="panel-title"><i class="fa fa-credit-card fa-fw"></i> Ingresar Pagos</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<form id="frmPaymentAdd">
+		  			<div class="row">
+						<div class="form-group col-md-2">
+							<label for="paymentDateValue">Fecha de Pago</label>
+						</div>
+						<div class="form-group col-md-3">
+							<div class='input-group date' id='paymentDate'>
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                    <input type='text' class="form-control not-writable" id="paymentDateValue" name="paymentDateValue" placeholder="Fecha de Pago" data-error="Requerido" required/>
+			                </div>
+							<div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group col-md-2">
+							&nbsp;
+						</div>
+						<div class="col-md-4">
+		  					&nbsp;
+		  				</div>
+					</div>
 		  			<div class="row">
 						<div class="form-group col-md-2">
 							<label for="zone">Zona / Cobrador</label>
@@ -51,7 +71,7 @@
 						<div class="form-group col-md-3">
 							<div class="input-group">
 					    		<div class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></div>
-					    		<input type="number" class="form-control input-sm" id="zone" placeholder="Ingresar zona/cobrador ..." data-required-error="Requerido" required>
+					    		<input type="number" class="form-control" id="zone" placeholder="Ingresar zona/cobrador ..." data-required-error="Requerido" required>
 							</div>
 							<div class="help-block with-errors"></div>
 						</div>
@@ -74,14 +94,14 @@
 		  						<div class="form-group col-md-3">
 		  							<div class="input-group">
 		  								<div class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></div>
-										<input type="number" class="form-control input-sm" id="creditNumber_X" placeholder="Nro. de cr&eacute;dito" required>
+										<input type="number" class="form-control " id="creditNumber_X" placeholder="Nro. de cr&eacute;dito" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control input-sm" id="paymentAmount_X" placeholder="$ Importe" required>
+										<input type="number" class="form-control " id="paymentAmount_X" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
@@ -97,14 +117,14 @@
 		  						<div class="form-group col-md-3">
 		  							<div class="input-group">
 		  								<div class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></div>
-										<input type="number" class="form-control input-sm" id="creditNumber_0" placeholder="Nro. de cr&eacute;dito" required>
+										<input type="number" class="form-control " id="creditNumber_0" placeholder="Nro. de cr&eacute;dito" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control input-sm" id="paymentAmount_0" placeholder="$ Importe" required>
+										<input type="number" class="form-control " id="paymentAmount_0" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>

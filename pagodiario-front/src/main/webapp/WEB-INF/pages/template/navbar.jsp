@@ -21,22 +21,22 @@
 	                <li role="presentation">
 	                	<a id="optCargarFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/bill/index">
-	                		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Cargar Factura (Cr&eacute;dito)
+	                		<i class="fa fa-list-alt fa-fw"></i>&nbsp;Cargar Factura (Cr&eacute;dito)
 	                	</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Consultar Cr&eacute;ditos</a>
+	                	<a id="optHistorialFactura" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/bill/history/index"><i class="fa fa-folder-open-o fa-fw"></i>&nbsp;Consultar Cr&eacute;ditos</a>
 	                </li>
 	                <li role="presentation">
 	                	<a id="optPremio" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                		href="${pageContext.request.contextPath}/controller/html/payment/index">
-	                			<i class="glyphicon glyphicon-tag"></i>&nbsp;Cargar Pagos
+	                			<i class="fa fa-credit-card fa-fw"></i>&nbsp;Cargar Pagos
 	                	</a>
 	                </li>
 	               	<li role="presentation" class="divider"></li>
 	               	<li role="presentation">
 	               		<a id="optGenerarCuponCobro" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/ticket/index">
-	               			<i class="glyphicon glyphicon-usd"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
+	               			<i class="fa fa-file-text-o fa-fw"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
 	               		</a>
 	               	</li>
 	              </ul>
@@ -47,7 +47,7 @@
 	                <li role="presentation">
 	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/payroll/index" class="disabled">
-	                		<i class="glyphicon glyphicon-play-circle"></i>&nbsp;Vendedor / Supervisor
+	                		<i class="fa fa-calculator fa-fw"></i>&nbsp;Vendedor / Supervisor
 	                	</a>
 	                </li>
 	                <li role="presentation" class="hide">
@@ -66,17 +66,17 @@
 	                	<a id="optClients" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/index"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Clientes</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optProducts" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/product/index"><i class="glyphicon glyphicon-folder-close"></i>&nbsp;Productos</a>
+	                	<a id="optProducts" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/product/index"><i class="fa fa-money fa-fw"></i>&nbsp;Productos</a>
 	                </li>
 	                <li role="presentation">
-	                	<a id="optTraders" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/trader/index"><i class="glyphicon glyphicon-globe"></i>&nbsp;Vendedores/Supervidores</a>
+	                	<a id="optTraders" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/trader/index"><i class="fa fa-venus-mars"></i>&nbsp;Vendedores/Supervidores</a>
 	                </li>
 	                <li role="presentation">
 	                	<a id="optCollectors" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/collector/index"><i class="glyphicon glyphicon-inbox"></i>&nbsp;Cobradores</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">
-	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="glyphicon glyphicon-user"></i>&nbsp;Usuarios</a>
+	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="fa fa-users fa-fw"></i>&nbsp;Usuarios</a>
 	                </li>
 	                <!--  
 	                <li role="presentation" class="divider"></li>

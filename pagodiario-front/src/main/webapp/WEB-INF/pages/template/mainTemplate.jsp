@@ -17,9 +17,11 @@
 <link href="${pageContext.request.contextPath}/public/css/bootstrap.min.css"
 	rel="stylesheet">
 
+<!-- FONT AWESOME STYLES -->
+<link href="${pageContext.request.contextPath}/public/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/public/css/dashboard.css" rel="stylesheet">
-
+<link href="${pageContext.request.contextPath}/public/css/morris.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/css/main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
@@ -56,6 +58,8 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="${pageContext.request.contextPath}/public/js/ie10-viewport-bug-workaround.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="${pageContext.request.contextPath}/public/js/raphael-min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/morris.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Login-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/validator.min.js"></script>
@@ -64,5 +68,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
+	
+	
 </body>
 </html>

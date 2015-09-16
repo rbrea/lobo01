@@ -162,6 +162,23 @@ Payment.init = function(){
 		return;
 	});
 	
+	// asigno el dia de hoy
+	$("#paymentDateValue").val(moment().format('DD/MM/YYYY'));
+	
+	$('.not-writable').keypress(function(e) {
+        e.preventDefault();
+        
+        return;
+	}).css({
+		"cursor": "not-allowed"
+	});
+	
+	$('#paymentDate').datetimepicker({
+        locale: 'es',
+        showTodayButton: true,
+        format: 'DD/MM/YYYY'
+    });
+	
 	return;
 }
 
@@ -228,7 +245,7 @@ Payment.add = function(dialog){
 		obj.creditNumber = $("#creditNumber_" + idxList[i]).val();
 		obj.amount = $("#paymentAmount_" + idxList[i]).val();
 		obj.collectorId = $("#zone").val();
-		obj.date = moment().format('DD/MM/YYYY');
+		obj.date = $("#paymentDateValue").val();
 		
 		list.push(obj);
 	}

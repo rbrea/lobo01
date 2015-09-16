@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -96,6 +97,7 @@ public class PaymentServiceImpl
 		
 		if(bill.getRemainingAmount().compareTo(BigDecimal.ZERO) <= 0){
 			bill.setStatus(Status.COMPLETED);
+			bill.setCompletedDate(new Date());
 		}
 		
 		this.billDao.saveOrUpdate(bill);

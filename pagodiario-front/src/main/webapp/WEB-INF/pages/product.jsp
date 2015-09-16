@@ -21,7 +21,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">ABM de Productos</h3>
+		    		<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> ABM de Productos</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row tools-bar">

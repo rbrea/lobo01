@@ -70,7 +70,9 @@ public class Bill extends Identifiable {
 	private List<Dev> devList = Lists.newArrayList();
 	@Column(name = "OVERDUE_DAYS_FLAG", columnDefinition = "DATETIME")
 	private Date overdueDaysFlag = new Date();
-
+	@Column(name = "COMPLETED_DATE", columnDefinition = "DATETIME")
+	private Date completedDate;
+	
 	public Bill() {
 		super();
 	}
@@ -313,6 +315,14 @@ public class Bill extends Identifiable {
 
 	public void setCollector(Collector collector) {
 		this.collector = collector;
+	}
+
+	public Date getCompletedDate() {
+		return completedDate;
+	}
+
+	public void setCompletedDate(Date completedDate) {
+		this.completedDate = completedDate;
 	}
 
 }

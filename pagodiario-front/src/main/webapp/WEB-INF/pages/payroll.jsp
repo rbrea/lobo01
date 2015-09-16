@@ -15,7 +15,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Procesar Per&iacute;odo</h3>
+		    		<h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i> Procesar Per&iacute;odo</h3>
 		  		</div>
 		  		<div class="panel-body">
 		    		<div class="row">
@@ -50,7 +50,7 @@
 			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Liquidaciones</h3>
+		    		<h3 class="panel-title"><i class="fa fa-calculator fa-fw"></i> Liquidaciones</h3>
 		  		</div>
 		  		<div class="panel-body">
 		    		<div class="row">
