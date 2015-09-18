@@ -7,6 +7,6 @@ public interface PayrollCollectService
 		extends
 		BasicIdentifiableService<PayrollCollect, PayrollCollectDto> {
 
-	void processPayroll(String inputDate);
+	PayrollCollectDto processPayroll(String inputDate);
 
 }

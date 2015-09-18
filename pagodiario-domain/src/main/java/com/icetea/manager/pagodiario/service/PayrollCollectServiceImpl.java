@@ -42,7 +42,7 @@ public class PayrollCollectServiceImpl extends
 	}
 
 	@Override
-	public void processPayroll(final String inputDate){
+	public PayrollCollectDto processPayroll(final String inputDate){
 		
 		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(inputDate), 
 				"La Fecha de liquidacion de cobrador es requerida", ErrorType.VALIDATION_ERRORS);
@@ -51,7 +51,7 @@ public class PayrollCollectServiceImpl extends
 		
 		PayrollCollect payrollCollect = this.getDao().findByDate(date);
 		
-		ErrorTypedConditions.checkArgument(payrollCollect != null,
+		ErrorTypedConditions.checkArgument(payrollCollect == null,
 				String.format("Ya existe una liquidación de cobrador con fecha: ", inputDate), 
 				ErrorType.VALIDATION_ERRORS);
 		
@@ -59,7 +59,7 @@ public class PayrollCollectServiceImpl extends
 
 		if(bills == null || bills.isEmpty()){
 			
-			return;
+			return null;
 		}
 		
 		payrollCollect = new PayrollCollect();
@@ -89,6 +89,7 @@ public class PayrollCollectServiceImpl extends
 			payrollItemCollect.acumTotalAmount(amount);
 			
 			payrollItemCollect.incrementCards();
+			payrollCollect.incrementCards();
 			
 			List<Payment> payments = ListUtils.select(bill.getPayments(), new Predicate<Payment>() {
 				@Override
@@ -100,7 +101,7 @@ public class PayrollCollectServiceImpl extends
 			if(payments != null && !payments.isEmpty()){
 				for(Payment p : payments){
 					payrollItemCollect.acumTotalPayment(p.getAmount());
-					payrollCollect.acumTotalPayment(amount);
+					payrollCollect.acumTotalPayment(p.getAmount());
 				}
 			}
 			
@@ -121,9 +122,12 @@ public class PayrollCollectServiceImpl extends
 			
 			BigDecimal amountToPay = NumberUtils.calculatePercentage(totalPayment, commissionPercentage);
 			c.setAmountToPay(amountToPay);
+			payrollCollect.acumTotalAmountToPay(amountToPay);
 		}
 
 		this.getDao().saveOrUpdate(payrollCollect);
+		
+		return this.getTransformer().transform(payrollCollect);
 	}
 
 	@Override

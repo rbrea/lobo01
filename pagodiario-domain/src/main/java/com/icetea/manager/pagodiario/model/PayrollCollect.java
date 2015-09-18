@@ -65,6 +65,7 @@ public class PayrollCollect extends Identifiable {
 		
 		return this.totalPayment;
 	}
+	
 	public BigDecimal getTotalPayment() {
 		return totalPayment;
 	}
@@ -88,4 +89,11 @@ public class PayrollCollect extends Identifiable {
 		this.totalAmountToPay = totalAmountToPay;
 	}
 	
+	public BigDecimal acumTotalAmountToPay(BigDecimal amount){
+		
+		this.totalAmountToPay = NumberUtils.add(this.totalAmountToPay, amount);
+		
+		return this.totalAmountToPay;
+	}
+
 }
