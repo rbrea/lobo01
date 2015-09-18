@@ -30,7 +30,7 @@
 	        &nbsp;
 	    </div>
 		<div class="col-md-8">
-			<div class="panel panel-danger">
+			<div class="panel panel-red">
 		  		<div class="panel-heading">
 		    		<h3 class="panel-title centered" style="font-weight:bold;">DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span></h3>
 		  		</div>

@@ -184,5 +184,13 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
     	
     	return amount.divide(divisor, MathContext.DECIMAL128);
     }
+
+    public static boolean isZero(BigDecimal amount){
+    	if(amount == null){
+    		return false;
+    	}
+    	
+    	return amount.compareTo(BigDecimal.ZERO) == 0;
+    }
     
 }

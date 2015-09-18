@@ -24,4 +24,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findByClientId(Long clientId);
 
+	List<Bill> findActivesByDate(Date date);
+
 }

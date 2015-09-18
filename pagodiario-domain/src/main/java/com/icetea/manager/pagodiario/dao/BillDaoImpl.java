@@ -105,5 +105,20 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return criteria.list();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findActivesByDate(Date date){
+		Criteria criteria = super.createCriteria();
+		Date dateToVerify = DateUtils.lastSecondOfDay(date);
+		criteria.add(
+				Restrictions.or(
+						Restrictions.eq("status", Bill.Status.ACTIVE),
+						Restrictions.le("completedDate", dateToVerify)
+				)
+		);
+		
+		return criteria.list();
+	}
 	
 }

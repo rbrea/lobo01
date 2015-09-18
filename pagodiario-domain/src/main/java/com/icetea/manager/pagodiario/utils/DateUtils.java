@@ -96,4 +96,17 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		return Integer.valueOf(String.valueOf(diffDays));
 	}
 	
+	public static Date lastSecondOfDay(Date date){
+		if(date == null){
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		
+		return calendar.getTime();
+	}
+	
 }
