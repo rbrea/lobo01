@@ -9,4 +9,6 @@ public interface PayrollCollectService
 
 	PayrollCollectDto processPayroll(String inputDate);
 
+	PayrollCollectDto commitPayroll(Long id);
+
 }

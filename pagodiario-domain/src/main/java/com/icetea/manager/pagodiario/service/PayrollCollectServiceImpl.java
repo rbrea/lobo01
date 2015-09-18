@@ -10,6 +10,7 @@ import javax.inject.Named;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.collections4.Predicate;
+import org.apache.commons.lang3.NotImplementedException;
 
 import com.icetea.manager.pagodiario.api.dto.PayrollCollectDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
@@ -20,6 +21,7 @@ import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.ConciliationItemCollect;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.PayrollCollect;
+import com.icetea.manager.pagodiario.model.PayrollCollect.Status;
 import com.icetea.manager.pagodiario.model.PayrollItemCollect;
 import com.icetea.manager.pagodiario.transformer.PayrollCollectDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -94,7 +96,8 @@ public class PayrollCollectServiceImpl extends
 			List<Payment> payments = ListUtils.select(bill.getPayments(), new Predicate<Payment>() {
 				@Override
 				public boolean evaluate(Payment p) {
-					return p.getDate().equals(date);
+					
+					return p.getDate().compareTo(date) == 0;
 				}
 			});
 			
@@ -124,6 +127,7 @@ public class PayrollCollectServiceImpl extends
 			c.setAmountToPay(amountToPay);
 			payrollCollect.acumTotalAmountToPay(amountToPay);
 		}
+		payrollCollect.setStatus(Status.FINISHED);
 
 		this.getDao().saveOrUpdate(payrollCollect);
 		
@@ -132,14 +136,26 @@ public class PayrollCollectServiceImpl extends
 
 	@Override
 	public PayrollCollectDto insert(PayrollCollectDto o) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException("not implemented");
 	}
 
 	@Override
 	public PayrollCollectDto update(PayrollCollectDto o) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException("not implemented");
 	}
 
+	@Override
+	public PayrollCollectDto commitPayroll(Long id){
+		PayrollCollect payrollCollect = this.getDao().findById(id);
+		
+		ErrorTypedConditions.checkArgument(payrollCollect != null, "Liquidacion de cobrador seleccionada para confirmar no existe.", 
+				ErrorType.VALIDATION_ERRORS);
+		
+		payrollCollect.setStatus(Status.COMMITED);
+		
+		this.getDao().saveOrUpdate(payrollCollect);
+		
+		return this.getTransformer().transform(payrollCollect);
+	}
+	
 }

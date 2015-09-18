@@ -7,17 +7,26 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
 @Table(name = "PAYROLL_COLLECT")
+@Audited
 public class PayrollCollect extends Identifiable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static enum Status {
+		INITIALIZED, FINISHED, COMMITED
+	}
 
 	@Column(name = "PAYROLL_DATE", columnDefinition = "DATETIME")
 	private Date payrollDate;
@@ -29,6 +38,9 @@ public class PayrollCollect extends Identifiable {
 	private int totalCardsCount = 0;
 	@Column(name = "TOTAL_AMOUNT_TO_PAY", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)	
 	private BigDecimal totalAmountToPay = BigDecimal.ZERO;
+	@Column(name = "STATUS", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PayrollItemCollect> payrollItemCollectList = Lists.newArrayList();
 
@@ -94,6 +106,13 @@ public class PayrollCollect extends Identifiable {
 		this.totalAmountToPay = NumberUtils.add(this.totalAmountToPay, amount);
 		
 		return this.totalAmountToPay;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 }

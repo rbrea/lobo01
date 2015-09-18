@@ -159,5 +159,12 @@
 	    	<add-attribute value="/WEB-INF/pages/modal/modal-collector.jsp" />
     	</put-list-attribute>
     </definition>
+    
+    <definition name="payrollCollect" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/payrollCollect.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
                         
 </tiles-definitions>

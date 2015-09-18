@@ -25,6 +25,7 @@ public class PayrollCollectDtoModelTransformer extends
 	protected PayrollCollectDto doTransform(PayrollCollect e, int depth) {
 		PayrollCollectDto d = new PayrollCollectDto();
 		
+		d.setId(e.getId());
 		d.setPayrollDate(DateUtils.toDate(e.getPayrollDate()));
 		d.setTotalCards(e.getTotalCardsCount());
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));

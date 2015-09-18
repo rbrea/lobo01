@@ -55,7 +55,9 @@
 	                </li>
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation">
-	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Imprimir Liquidaci&oacute;n</a>
+	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/payrollcollect/index">
+	                		<i class="glyphicon glyphicon-calendar"></i>&nbsp;Liquidaci&oacute;n de Cobradores
+	                	</a>
 	                </li>
 	              </ul>
 	            </li>

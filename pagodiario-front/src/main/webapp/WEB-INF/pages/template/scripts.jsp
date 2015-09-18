@@ -48,3 +48,4 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Ticket-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Collector-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-1.js"></script>
