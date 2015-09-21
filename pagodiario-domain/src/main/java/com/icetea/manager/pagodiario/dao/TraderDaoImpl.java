@@ -34,5 +34,5 @@ public class TraderDaoImpl extends BasicIdentificableDaoImpl<Trader> implements
 		
 		return criteria.list();
 	}
-	
+
 }

@@ -19,5 +19,5 @@ public class CollectorDaoImpl extends BasicIdentificableDaoImpl<Collector>
 	public Collector findByZone(Long zone){
 		return (Collector) super.createCriteria().add(Restrictions.eq("zone", zone)).uniqueResult();
 	}
-	
+
 }
