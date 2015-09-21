@@ -12,6 +12,7 @@ public class PayrollItemCollectDto extends BasicIdentifiableDto {
 	private String totalPayment;
 	private String commissionPercentage;
 	private String amountToPay;
+	private String totalToCollect;
 
 	public Long getCollectorZone() {
 		return collectorZone;
@@ -60,6 +61,12 @@ public class PayrollItemCollectDto extends BasicIdentifiableDto {
 	}
 	public void setAmountToPay(String amountToPay) {
 		this.amountToPay = amountToPay;
+	}
+	public String getTotalToCollect() {
+		return totalToCollect;
+	}
+	public void setTotalToCollect(String totalToCollect) {
+		this.totalToCollect = totalToCollect;
 	}
 	
 }

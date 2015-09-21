@@ -14,6 +14,7 @@ public class PayrollItemCollectDtoModelTransformer extends
 	protected PayrollItemCollectDto doTransform(PayrollItemCollect e, int depth) {
 		PayrollItemCollectDto d = new PayrollItemCollectDto();
 		
+		d.setId(e.getId());
 		d.setAmountToPay(NumberUtils.toString(e.getAmountToPay()));
 		d.setCardsCount(e.getCardsCount());
 		d.setCollectorDescription(e.getCollector().getDescription());
@@ -22,6 +23,7 @@ public class PayrollItemCollectDtoModelTransformer extends
 		d.setCommissionPercentage(NumberUtils.toString(e.getCommissionPercentage()));
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));
 		d.setTotalPayment(NumberUtils.toString(e.getTotalPayment()));
+		d.setTotalToCollect(NumberUtils.toString(NumberUtils.subtract(e.getTotalPayment(), e.getAmountToPay())));
 		
 		return d;
 	}

@@ -160,8 +160,8 @@ PayrollCollect.processPeriod = function(){
 
 PayrollCollect.showDetail = function(id){
 	
-	$("#frmPayrollCollect")[0].action = Constants.contextRoot + "/controller/html/payrollCollectItem/index";
-	$("#payrollCollectId").val(id);
+	$("#frmPayrollCollect")[0].action = Constants.contextRoot + "/controller/html/payrollcollectitem/index";
+	$("#payrollId").val(id);
 	$("#frmPayrollCollect").submit();
 	
 	return;
@@ -259,6 +259,64 @@ PayrollCollect.undo = function(id){
 			return;
 		}
 	});
+	
+	return;
+}
+
+PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
+	
+	var table = $("#tPayrollCollectItemResult").dataTable( {
+		"bDestroy" : true,
+		"bRedraw" : true,
+        "ajax": Constants.contextRoot + "/controller/html/payrollcollectitem?id=" + id,
+        "columns": [
+			{
+				"className": 'centered',
+				"data": "id"
+			},
+            { 
+            	"className": 'centered',
+            	"data": "collectorZone" 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "collectorDescription" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "cardsCount" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "totalAmount" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "totalPayment" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "amountToPay"
+            },
+            {
+            	"className": 'centered',
+            	"data": "totalToCollect"
+         	}
+        ],
+        "order": [[0, 'asc']],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+            "zeroRecords": "No se ha encontrado ningun elemento",
+            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+            "search": "Buscar: ",
+            "paginate": {
+            	"previous": "Anterior",
+				"next": "Siguiente"
+			}
+        } 
+    });
 	
 	return;
 }

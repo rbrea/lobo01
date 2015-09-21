@@ -66,19 +66,29 @@
 					</div>
 		  			<div class="row">
 						<div class="form-group col-md-2">
-							<label for="zone">Zona / Cobrador</label>
+							<label for="bCollectorId">Zona / Cobrador</label>
 						</div>
-						<div class="form-group col-md-3">
-							<div class="input-group">
-					    		<div class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></div>
-					    		<input type="number" class="form-control" id="zone" placeholder="Ingresar zona/cobrador ..." data-required-error="Requerido" required>
-							</div>
-							<div class="help-block with-errors"></div>
-						</div>
+		  				<div class="col-md-1">
+							<input type="hidden" id="zone" name="zone">
+							<div class="form-group">
+				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="ID" min="1" data-error="Requerido" required>
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
+		  				<div class="col-md-4">
+							<div class="form-group">
+		  						<div class="input-group">
+				                	<input type="text" class="form-control not-writable" id="bCollectorDescription" 
+				                			name="bCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
+				                	<span id="btnPaymentSearchCollector" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
+								</div>
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
 						<div class="form-group col-md-2">
 							&nbsp;
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 		  					<button id="btnPaymentAdd" type="button" 
 		  							class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Agregar</button>&nbsp;
 	  						<button id="btnPaymentRemove" type="button"

@@ -69,5 +69,10 @@ public class CollectorServiceImpl
 		
 		return this.getDao().delete(e);
 	}
+
+	@Override
+	public CollectorDto searchByZone(Long zone){
+		return this.getTransformer().transform(this.getDao().findByZone(zone));
+	}
 	
 }

@@ -42,12 +42,18 @@ public class CollectorController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<CollectorDto> getList(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<CollectorDto> getList(@RequestParam(required = false) Long id,
+			@RequestParam(required = false) Long zone){
 		ListOutputDto<CollectorDto> r = new ListOutputDto<CollectorDto>();
 
 		List<CollectorDto> list = Lists.newArrayList();
 		
-		if(id != null){
+		if(zone != null){
+			CollectorDto p = this.collectorService.searchByZone(zone);
+			if(p != null){
+				list.add(p);
+			}
+		} else if(id != null){
 			CollectorDto p = this.collectorService.searchById(id);
 			if(p != null){
 				list.add(p);

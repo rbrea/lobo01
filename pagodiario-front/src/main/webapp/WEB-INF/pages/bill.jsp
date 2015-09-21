@@ -151,14 +151,14 @@
 		  				<input type="hidden" id="bcobrador" name="bcobrador">
 		  				<div class="col-md-2">
 							<div class="form-group">
-		  						<label for="bCollectorId">C&oacute;digo</label>
+		  						<label for="bCollectorId">Zona</label>
 				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="C&oacute;digo" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-10">
 							<div class="form-group">
-		  						<label for="bCollectorDescription">Zona / Descripci&oacute;n</label>
+		  						<label for="bCollectorDescription">Descripci&oacute;n</label>
 		  						<div class="input-group">
 				                	<input type="text" class="form-control not-writable" id="bCollectorDescription" 
 				                			name="bCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
@@ -188,6 +188,18 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
+		  				<div class="col-md-10">
+		  					<div class="form-group">
+		  						<label for="baddress">Cliente</label>
+		  						<div class="input-group">
+		  							<input type="hidden" id="billClientIdSelected" name="billClientIdSelected" required>
+					                <input type="text" class="form-control" id="baddress" name="baddress" placeholder="Ingrese nombre de cliente" required>
+									<span id="btnSearchClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
+		  						</div>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+						<!--  
 		  				<div class="col-md-2">
 		  					<input type="hidden" id="billClientIdSelected" name="billClientIdSelected">
 		  					<div class="form-group">
@@ -206,6 +218,7 @@
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
+		  				-->
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bcompanytype">Nuevo</label><br>
@@ -462,6 +475,36 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			Bill.init();
+			
+			$("#baddress").autocomplete({
+			    paramName: 'q',
+			    serviceUrl: "${pageContext.request.contextPath}/controller/html/client/autocomplete",
+			    transformResult: function(response) {
+			    	
+			    	var list = [];
+			    	
+			    	var parsed = JSON.parse(response);
+
+			    	$.each(parsed, function(){
+			    		
+			    		var obj = new Object();
+			    		obj.data = "" + this.id;
+			    		obj.value = this.name;
+			    		list.push(obj);
+			    		
+			    		return;
+			    	});
+			    	
+			        return {
+			            suggestions: list 
+			        };
+			    },
+			    onSelect: function (suggestion) {
+			        $("#billClientIdSelected").val(suggestion.data);
+			        
+			        return;
+			    }
+			});
 			
 			return;
 		}	

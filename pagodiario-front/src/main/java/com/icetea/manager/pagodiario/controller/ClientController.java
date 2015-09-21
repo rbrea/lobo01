@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,12 +43,15 @@ public class ClientController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<ClientDto> getClients(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<ClientDto> getClients(@RequestParam(required = false) Long id, 
+			@RequestParam(required = false) String q){
 		ListOutputDto<ClientDto> r = new ListOutputDto<ClientDto>();
 
 		List<ClientDto> clients = Lists.newArrayList();
 		
-		if(id == null){
+		if(StringUtils.isNotBlank(q)){
+			clients = this.clientService.searchByName(q);
+		} else if(id == null){
 			clients = this.clientService.searchAll();
 		} else {
 			ClientDto client = this.clientService.searchById(id);
@@ -59,6 +63,23 @@ public class ClientController extends ExceptionHandlingController {
 		r.setData(clients);
 		
 		return r;
+	}
+	
+	@RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
+	public @ResponseBody List<ClientDto> getClientsAutocomplete(@RequestParam(required = false) String q){
+
+		List<ClientDto> clients = Lists.newArrayList();
+		
+		if(StringUtils.isNotBlank(q)){
+			clients = this.clientService.searchByName(q);
+		} else {
+			clients = this.clientService.searchAll();
+		}
+		if(clients == null){
+			return Lists.newArrayList();
+		}
+		
+		return clients;
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)

@@ -135,6 +135,7 @@
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Pagos" />
         <put-attribute name="body" value="/WEB-INF/pages/payment.jsp" />
         <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
     	</put-list-attribute>
     </definition>
 
@@ -163,6 +164,13 @@
     <definition name="payrollCollect" extends="mainModalTemplate">
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones de Cobradores" />
         <put-attribute name="body" value="/WEB-INF/pages/payrollCollect.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="payrollCollectItem" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/payrollCollectItem.jsp" />
         <put-list-attribute name="modals">
     	</put-list-attribute>
     </definition>

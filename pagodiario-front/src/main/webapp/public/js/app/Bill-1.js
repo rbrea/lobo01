@@ -22,6 +22,12 @@ Bill.initModalClient = function(){
 
 Bill.init = function(){
 	
+	$("#baddress").on('keypress', function(){
+		$("#billClientIdSelected").val("");
+		
+		return;
+	});
+	
 	// asigno el dia de hoy
 	$("#billDateValue").val(moment().format('DD/MM/YYYY'));
 	
@@ -221,8 +227,8 @@ Bill.init = function(){
 				            var companyType = $(this).children('td').eq(3).html().trim();
 				            
 				            $("#billClientIdSelected").val(selectedId);
-				            $("#bClientId").val(selectedId);
-				            $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
+				            //$("#bClientId").val(selectedId);
+				            $("#baddress").val(selectedDescription);
 				            $("#lov-client-container").css({"display": "none"});
 
 							// si esta todo ok entonces doy de alta ...
@@ -441,8 +447,8 @@ Bill.init = function(){
 				            var selectedDescription = $(this).children('td').eq(2).html().trim();
 				            
 				            $("#bcobrador").val(selectedId);
-				            $("#bCollectorId").val(selectedId);
-				            $("#bCollectorDescription").val(zone + " / " + selectedDescription);
+				            $("#bCollectorId").val(zone);
+				            $("#bCollectorDescription").val(selectedDescription);
 				            $("#lov-collector-container").css({"display": "none"});
 
 							// si esta todo ok entonces doy de alta ...
@@ -1029,7 +1035,7 @@ Bill.initControls = function(){
 			if(value != null && value != ""){
 				Bill.getCollectorById(value);
 			} else {
-				$("#bClientId").focus();			
+				$("#baddress").focus();			
 			}
 		} else {
 			$("#bCollectorDescription").val("");
@@ -1047,39 +1053,28 @@ Bill.initControls = function(){
 			if(value != null && value != ""){
 				Bill.getCollectorById(value);
 			} else {
-				$("#bClientId").focus();			
+				$("#baddress").focus();			
 			}
 	    }
 	    
 	    return;
 	});
 	
-	$("#bClientId").keyup(function(e){
+	$("#baddress").keyup(function(e){
 		if(e.keyCode == 13) {
-			var value = $(this).val();
-			if(value != null && value != ""){
-				Bill.getClientById(value);
-			} else {
-				$("#btraderid").focus();			
-			}
+			$("#btraderid").focus();			
 		} else {
-			$("#baddress").val("");
+			$("#billClientIdSelected").val("");
 		}
 	    
 	    return;
 	});
 	
-	$('#bClientId').keydown(function(e){
+	$('#baddress').keydown(function(e){
 		// 13: enter
 		// 9: tab
 	    if(e.keyCode == 9){
 	    	e.preventDefault();
-	    	var value = $(this).val();
-			if(value != null && value != ""){
-				Bill.getClientById(value);
-			} else {
-				$("#btraderid").focus();			
-			}
 	    }
 	    
 	    return;
@@ -1474,7 +1469,7 @@ Bill.getClientById = function(id){
 				   var client = list[0];
 				   
 				   $("#billClientIdSelected").val(client.id);
-		           $("#baddress").val(client.name + " / " + client.companyAddress + " / " + client.companyType);				   
+		           $("#baddress").val(client.name);				   
 			
 		           $("#btraderid").focus();
 			   } else {
@@ -1543,11 +1538,11 @@ Bill.getTraderById = function(id){
 	return;
 }
 
-Bill.getCollectorById = function(id){
+Bill.getCollectorById = function(zone){
 	
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/collector?id=" + id,
+	   url     : Constants.contextRoot + "/controller/html/collector?zone=" + zone,
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
@@ -1566,8 +1561,8 @@ Bill.getCollectorById = function(id){
 				   var element = list[0];
 				   
 				   $("#bcobrador").val(element.id);
-				   $("#bCollectorId").val(element.id)
-		           $("#bCollectorDescription").val(element.zone + " / " + element.description);				   
+				   $("#bCollectorId").val(element.zone)
+		           $("#bCollectorDescription").val(element.description);				   
 			
 		           $("#bClientId").focus();
 			   } else {
@@ -1936,7 +1931,7 @@ Bill.addClient = function(dialog, btn){
 				   
 				   $("#bClientId").val(selectedId);
 				   $("#billClientIdSelected").val(selectedId);
-				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
+				   $("#baddress").val(selectedDescription);
 				   
 			   }
 			   // comento este focus, porque me da un error jquery: Uncaught RangeError: Maximum call stack size exceeded

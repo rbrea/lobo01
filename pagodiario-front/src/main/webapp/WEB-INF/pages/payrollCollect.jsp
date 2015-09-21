@@ -49,7 +49,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<form id="frmPayrollCollect" method="get">
-				<input type="hidden" id="payrollCollectId" name="payrollCollectId">
+				<input type="hidden" id="payrollId" name="payrollId">
 			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">

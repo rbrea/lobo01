@@ -286,3 +286,49 @@ Collector.add = function(dialog, btn){
 	return;
 }
 
+Collector.getByZone = function(zone, alertMessagesContainer, messagesContainer){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/collector?zone=" + zone,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#bCollectorDescription").parent().next().html("");
+		   $("#bCollectorDescription").val("");
+		   $("#bCollectorDescription").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages(alertMessagesContainer, messagesContainer);
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var element = list[0];
+				   
+				   $("#bcobrador").val(element.id);
+				   $("#bCollectorId").val(element.zone)
+		           $("#bCollectorDescription").val(element.description);				   
+			
+		           $("#bClientId").focus();
+			   } else {
+				   $("#bCollectorId").focus();
+				   $("#bCollectorDescription").parent().next().append("Cobrador no encontrado");
+				   $("#bCollectorDescription").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages(alertMessagesContainer, messagesContainer, data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages(alertMessagesContainer, messagesContainer, data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
+	
+	return;
+}

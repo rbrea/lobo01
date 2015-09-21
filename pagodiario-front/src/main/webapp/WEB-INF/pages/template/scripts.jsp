@@ -22,7 +22,7 @@
 	<script src="${pageContext.request.contextPath}/public/c3/d3.v3.min.js" charset="utf-8"></script>
 	<script src="${pageContext.request.contextPath}/public/c3/c3.min.js"></script>
 	
-	<script src="${pageContext.request.contextPath}/public/js/jquery.auto-complete.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/jquery.autocomplete.min.js"></script>
 	
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>

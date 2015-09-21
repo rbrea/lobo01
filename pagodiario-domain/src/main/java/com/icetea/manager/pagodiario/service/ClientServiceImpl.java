@@ -97,5 +97,10 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 		
 		return this.getDao().delete(e);
 	}
+
+	@Override
+	public List<ClientDto> searchByName(String q){
+		return this.getTransformer().transformAllTo(this.getDao().findByName(q));
+	}
 	
 }

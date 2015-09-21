@@ -28,5 +28,5 @@ public class PaymentDaoImpl extends BasicIdentificableDaoImpl<Payment>
 		
 		return criteria.list();
 	}
-
+	
 }
