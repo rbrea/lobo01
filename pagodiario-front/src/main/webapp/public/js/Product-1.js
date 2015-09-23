@@ -4,6 +4,9 @@ Product.initDataTable = function(imgCheckUrl){
 	
 	var table = $("#tProductResult").dataTable( {
 		"bDestroy" : true,
+		//"sAjaxSource": Constants.contextRoot + "/controller/html/product",
+        //"processing": true,
+        //"bServerSide": true,
         "ajax": Constants.contextRoot + "/controller/html/product",
         "columns": [
 			{

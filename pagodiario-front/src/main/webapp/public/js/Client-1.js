@@ -571,3 +571,39 @@ Client.initControls = function(){
 	
 	return;
 }
+
+Client.searchByName = function(name){
+	
+	var url = Constants.contextRoot + "/controller/html/client/autocomplete?q=" + name;
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : url,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   async: false,
+	   success:function(data) {
+		   $("#bill-client-form-group").removeClass("has-error");
+		   $("#billClientErrorMessageDiv").html("");
+		   if(data != null && data.length == 1){
+			   // todo ok
+			   var client = data[0];
+			   $("#billClientIdSelected").val(client.id);
+		   } else {
+			   $("#bill-client-form-group").addClass("has-error");
+			   $("#billClientErrorMessageDiv").append(Message.createErrorBlockMessage("Cliente inexistente"));
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}

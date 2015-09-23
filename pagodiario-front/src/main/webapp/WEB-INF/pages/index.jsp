@@ -4,6 +4,7 @@
 			&nbsp;
 		</div>
 	</div>
+	<!-- 
 	<div class="row">
 		<div class="col-md-1">
 			&nbsp;
@@ -30,11 +31,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div id="topSales-area-chart" style="height: 180px;"></div>
                 </div>
-                <!-- /.panel-body -->
             </div>
 		</div>
 		<div class="col-md-1">
@@ -64,11 +63,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div id="top5traders-area-chart" style="height: 180px;"></div>
                 </div>
-                <!-- /.panel-body -->
             </div>
 		</div>
 		<div class="col-md-5">
@@ -90,18 +87,16 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div id="collectedByZone-area-chart" style="height: 180px;"></div>
                 </div>
-                <!-- /.panel-body -->
             </div>
 		</div>
 		<div class="col-md-1">
 			&nbsp;
 		</div>	
 	</div>
-	<!-- 
+	-->
 	<div class="row">
 		<div class="col-md-4">
 			&nbsp;
@@ -115,7 +110,6 @@
 			&nbsp;
 		</div>	
 	</div>
-	 -->
 </div>
 
 <script>
@@ -123,7 +117,7 @@
 	$(document).ready(
 		function(){
 
-			Chart.init();
+			//Chart.init();
 			
 			return;
 		}		

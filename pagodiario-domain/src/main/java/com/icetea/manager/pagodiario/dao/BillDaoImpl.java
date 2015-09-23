@@ -65,12 +65,13 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Bill> find(Integer collectorId, Date dateFrom, Date dateTo){
+	public List<Bill> find(Long collectorId, Date dateFrom, Date dateTo){
 		Criteria criteria = super.createCriteria();
+		criteria.createAlias("collector", "collector");
 		if(dateFrom != null && dateTo != null){
 			criteria.add(Restrictions.between("startDate", dateFrom, dateTo));
 		}
-		criteria.add(Restrictions.eq("collectorId", collectorId));
+		criteria.add(Restrictions.eq("collector.id", collectorId));
 		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
 		
 		return criteria.list();

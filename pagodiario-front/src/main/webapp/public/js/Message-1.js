@@ -39,3 +39,12 @@ Message.hideMessages = function(messageContainer, container){
 	return;
 }
 
+Message.createErrorBlockMessage = function(text){
+	
+	var ul = $("<ul></ul>").addClass("list-unstyled");
+	var li = $("<li></li>").append(text);
+	ul.append(li);
+	
+	return ul;
+}
+

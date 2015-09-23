@@ -3,9 +3,9 @@ package com.icetea.manager.pagodiario.api.dto.chart;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.icetea.manager.pagodiario.api.dto.BasicDto;
+import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 
-public class ChartDto extends BasicDto {
+public class ChartDto extends BasicOutputDto {
 
 	private static final long serialVersionUID = 1L;
 

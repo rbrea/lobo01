@@ -30,13 +30,19 @@
 		  					<div class="form-group">
 		  						<label for="ticketDateValue">Fecha de Ticket</label>
 				                <div class='input-group date' id='ticketDate'>
-				                    <input type='text' class="form-control input-sm not-writable" id="ticketDateValue" name="ticketDateValue" placeholder="Ingrese fecha de Ticket..." data-required-error="Requerido" required/>
+				                    <input type='text' class="form-control not-writable" id="ticketDateValue" name="ticketDateValue" placeholder="Ingrese fecha de Ticket..." data-required-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
 				                </div>
 				            </div>
 		  				</div>
+		  				<div class="col-md-8">
+		  					&nbsp;
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<!--  
 						<div class="form-group col-md-3">
 							<label for="zone">Zona / Cobrador</label>
 							<div class="input-group">
@@ -45,10 +51,30 @@
 							</div>
 							<div class="help-block with-errors"></div>
 						</div>
+						-->
+						<div class="col-md-1">
+							<input type="hidden" id="zone" name="zone">
+							<label for="bCollectorId">Zona</label>
+							<div class="form-group">
+				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="ID" min="1" data-error="Requerido" required>
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
+		  				<div class="col-md-4">
+		  					<label for="bCollectorDescription">Descripci&oacute;n de Cobrador</label>
+							<div class="form-group">
+		  						<div class="input-group">
+				                	<input type="text" class="form-control not-writable" id="bCollectorDescription" 
+				                			name="bCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
+				                	<span id="btnTicketSearchCollector" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
+								</div>
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
 						<div class="form-group col-md-3">
 	  						<label for="fecDesdeValue">Fecha desde</label>
 			                <div class='input-group date' id='fecDesde'>
-			                    <input type='text' class="form-control input-sm not-writable" id="fecDesdeValue" name="fecDesdeValue" placeholder="Ingrese fecha desde ..."/>
+			                    <input type='text' class="form-control not-writable" id="fecDesdeValue" name="fecDesdeValue" placeholder="Ingrese fecha desde ..."/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -57,11 +83,14 @@
 						<div class="form-group col-md-3">
 	  						<label for="fecHastaValue">Fecha hasta</label>
 			                <div class='input-group date' id='fecHasta'>
-			                    <input type='text' class="form-control input-sm not-writable" id="fecHastaValue" name="fecHastaValue" placeholder="Ingrese fecha hasta ..."/>
+			                    <input type='text' class="form-control not-writable" id="fecHastaValue" name="fecHastaValue" placeholder="Ingrese fecha hasta ..."/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
 			                </div>
+						</div>
+						<div class="col-md-3">
+							&nbsp;
 						</div>
 					</div>
 		  			</form>

@@ -5,6 +5,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,8 +44,8 @@ public class ProductController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<ProductDto> getClients(@RequestParam(required = false) Long id,
-			@RequestParam(required = false) String code){
+	public @ResponseBody ListOutputDto<ProductDto> get(@RequestParam(required = false) Long id,
+			@RequestParam(required = false) String code, HttpServletRequest request){
 		ListOutputDto<ProductDto> r = new ListOutputDto<ProductDto>();
 
 		List<ProductDto> list = Lists.newArrayList();
@@ -69,7 +70,7 @@ public class ProductController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public @ResponseBody ListOutputDto<ProductDto> addClient(@RequestBody ProductDto input){
+	public @ResponseBody ListOutputDto<ProductDto> add(@RequestBody ProductDto input){
 		ListOutputDto<ProductDto> r = new ListOutputDto<ProductDto>();
 
 		List<ProductDto> list = Lists.newArrayList();
@@ -87,7 +88,7 @@ public class ProductController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody BasicOutputDto deleteClient(@PathVariable Long id){
+	public @ResponseBody BasicOutputDto delete(@PathVariable Long id){
 		BasicOutputDto r = new BasicOutputDto();
 
 		this.productService.remove(id);

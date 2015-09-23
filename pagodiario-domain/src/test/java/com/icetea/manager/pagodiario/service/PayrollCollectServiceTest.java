@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,6 +18,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.icetea.manager.pagodiario.api.dto.PayrollCollectDto;
+import com.icetea.manager.pagodiario.dao.CollectorDao;
+import com.icetea.manager.pagodiario.dao.PayrollCollectDao;
+import com.icetea.manager.pagodiario.dao.PayrollItemCollectDao;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
@@ -24,6 +28,8 @@ import com.icetea.manager.pagodiario.model.Client;
 import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
+import com.icetea.manager.pagodiario.model.PayrollCollect;
+import com.icetea.manager.pagodiario.model.PayrollItemCollect;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -36,6 +42,12 @@ public class PayrollCollectServiceTest extends AbstractPayrollServiceTest {
 
 	@Inject
 	private PayrollCollectServiceImpl instance;
+	@Inject
+	private PayrollItemCollectDao payrollItemCollectDao;
+	@Inject
+	private CollectorDao collectorDao;
+	@Inject
+	private PayrollCollectDao payrollCollectDao;
 	
 	@Test
 	public void process_ok(){
@@ -138,6 +150,75 @@ public class PayrollCollectServiceTest extends AbstractPayrollServiceTest {
 		assertThat("totalAmountToPay error", result.getTotalAmountToPay(), is("27.00"));
 		assertThat("totalCards error", result.getTotalCards(), is(2));
 		assertThat("totalPayment error", result.getTotalPayment(), is("150.00"));
+	}
+
+	@Test
+	public void findPeriod_ok(){
+		
+		Collector collector = new Collector();
+		collector.setZone(33L);
+		collector.setDescription("COBRADOR 33");
+		
+		this.collectorDao.saveOrUpdate(collector);
+		
+		Collector collector1 = new Collector();
+		collector1.setZone(99L);
+		collector1.setDescription("COBRADOR 99");
+		
+		this.collectorDao.saveOrUpdate(collector1);
+		
+		PayrollCollect pc = new PayrollCollect();
+		pc.setPayrollDate(DateUtils.addDays(new Date(), -2));
+		pc.setTotalAmount(new BigDecimal(400));
+		pc.setTotalPayment(new BigDecimal(300));
+		
+		PayrollItemCollect pic = new PayrollItemCollect();
+		pic.setPayrollCollect(pc);
+		pic.setTotalAmount(new BigDecimal(300));
+		pic.setTotalPayment(new BigDecimal(200));
+		pic.setCollector(collector);
+		
+		pc.getPayrollItemCollectList().add(pic);
+		
+		pic = new PayrollItemCollect();
+		pic.setPayrollCollect(pc);
+		pic.setTotalAmount(new BigDecimal(100));
+		pic.setTotalPayment(new BigDecimal(100));
+		pic.setCollector(collector);
+		
+		pc.getPayrollItemCollectList().add(pic);
+		
+		this.payrollCollectDao.saveOrUpdate(pc);
+		
+		pc = new PayrollCollect();
+		pc.setPayrollDate(DateUtils.addDays(new Date(), -2));
+		pc.setTotalAmount(new BigDecimal(200));
+		pc.setTotalPayment(new BigDecimal(100));
+		
+		pic = new PayrollItemCollect();
+		pic.setPayrollCollect(pc);
+		pic.setTotalAmount(new BigDecimal(200));
+		pic.setTotalPayment(new BigDecimal(100));
+		pic.setCollector(collector1);
+		
+		pc.getPayrollItemCollectList().add(pic);
+		
+		this.payrollCollectDao.saveOrUpdate(pc);
+		
+		List<?> list = this.payrollItemCollectDao.findPeriod(new Date());
+		
+		assertThat("", list != null, is(true));
+		assertThat("", list.size(), is(2));
+
+		Object[] obj0 = (Object[])list.get(0);
+		Long zone = (Long) obj0[0];
+		String collectorDescription = (String) obj0[1];
+		BigDecimal totalPayment = (BigDecimal) obj0[2];
+		
+		assertThat("", zone, is(33L));
+		assertThat("", collectorDescription, is("COBRADOR 33"));
+		assertThat("", totalPayment.compareTo(new BigDecimal(300)), is(0));
+		
 	}
 	
 }

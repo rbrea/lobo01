@@ -150,6 +150,7 @@
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Generar tickets de cobro" />
         <put-attribute name="body" value="/WEB-INF/pages/ticket.jsp" />
         <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
     	</put-list-attribute>
     </definition>
     

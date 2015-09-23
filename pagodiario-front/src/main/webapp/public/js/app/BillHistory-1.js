@@ -49,38 +49,47 @@ BillHistory.init = function(){
             },
             { 
             	"className": 'centered',
+            	"orderable": false,
             	"data": "startDate"
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"data": "endDate" 
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"data": "creditNumber" 
             },
             { 
             	"className": 'centered',
+            	"orderable": false,
             	"data": "collectorId" 
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"data": "overdueDays" 
             },
             { 
             	"className": 'centered',
+            	"orderable": false,
             	"data": "totalDailyInstallment" 
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"data": "totalAmount" 
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"data": "remainingAmount" 
             },
             { 	
             	"className": 'centered',
+            	"orderable": false,
             	"render": function ( data, type, row ) {
 			        var value = "INICIALIZADO";
 			        if(row.status == 'ACTIVE'){

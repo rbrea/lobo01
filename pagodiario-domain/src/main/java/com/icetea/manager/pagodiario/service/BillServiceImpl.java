@@ -275,7 +275,7 @@ public class BillServiceImpl
 	}
 	
 	@Override
-	public List<BillTicketPojo> searchBillsByCollectorId(String ticketDateValue, Integer collectorId, String fromDate, String toDate){
+	public List<BillTicketPojo> searchBillsByCollectorId(String ticketDateValue, Long collectorId, String fromDate, String toDate){
 		
 		Date dateFrom = null;
 		if(StringUtils.isNotBlank(fromDate)){

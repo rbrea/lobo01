@@ -25,6 +25,9 @@ Bill.init = function(){
 	$("#baddress").on('keypress', function(){
 		$("#billClientIdSelected").val("");
 		
+		$("#bill-client-form-group").removeClass("has-error");
+		$("#billClientErrorMessageDiv").html("");
+		
 		return;
 	});
 	
@@ -619,6 +622,16 @@ Bill.init = function(){
             		
             		$("#frmBillAdd").validator('validate');
             		
+            		var clientId = $("#billClientIdSelected").val();
+
+            		if(clientId == null || clientId == ""){
+            			Client.searchByName($("#baddress").val());
+            		}
+            		clientId = $("#billClientIdSelected").val();
+            		if(clientId == null || clientId == ""){
+            			c++;
+            		}
+            		
             		if(c == 0){
             			Bill.doFinalize();
             			dialog.close();
@@ -647,8 +660,8 @@ Bill.doFinalize = function(){
 	// TODO
 	var startDate = $("#billDateValue").val();
 	var billNumber = $("#billNumber").val();
-	var collectorId = $("#bcobrador").val();
 	var clientId = $("#billClientIdSelected").val();
+	var collectorId = $("#bcobrador").val();
 	var traderId = $("#btraderid").val();
 	
 	var obj = new Object();
@@ -718,7 +731,7 @@ Bill.doFinalize = function(){
 			   
 			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), 
 					   "Factura creada correctamente. Para mayor informaci&oacute;n vaya a Detalle de Cr&eacute;dito.", "alert-warning", "glyphicon glyphicon-info-sign", "Bien! ");
-			   setTimeout(function(){$("#facturaMessages").hide(1000);}, 2000);
+			   setTimeout(function(){$("#facturaMessages").addClass("hide");}, 2000);
 			   
 			   return;
 		   }else{
@@ -994,12 +1007,31 @@ Bill.resetFour = function(){
 	$("#bname_1").val("");
 	$("#bcuotadiaria_1").val("");
 	$("#bimp_1").val("");
+
+	$("#bcant_2").val("");
+	$("#bProductCode_2").val("");
+	$("#bname_2").val("");
+	$("#bcuotadiaria_2").val("");
+	$("#bimp_2").val("");
+	
+	$("#bcant_3").val("");
+	$("#bProductCode_3").val("");
+	$("#bname_3").val("");
+	$("#bcuotadiaria_3").val("");
+	$("#bimp_3").val("");
+	
+	$("#bcant_4").val("");
+	$("#bProductCode_4").val("");
+	$("#bname_4").val("");
+	$("#bcuotadiaria_4").val("");
+	$("#bimp_4").val("");
+	
 	$("#bcuotaTotal").val("");
 	$("#bimpTotal").val("");
 	
 	var list = $("div[id*='product_']");
 	
-	if(list.length > 2){
+	if(list.length > 5){
 		for(var i = list.length-1;i>1;i--){
 			$("#product_" + i).remove();
 		}
@@ -1034,6 +1066,7 @@ Bill.initControls = function(){
 			var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getCollectorById(value);
+				$("#baddress").focus();
 			} else {
 				$("#baddress").focus();			
 			}
@@ -1075,6 +1108,7 @@ Bill.initControls = function(){
 		// 9: tab
 	    if(e.keyCode == 9){
 	    	e.preventDefault();
+	    	$("#btraderid").focus();
 	    }
 	    
 	    return;

@@ -1,7 +1,9 @@
 package com.icetea.manager.pagodiario.service.chart;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,9 +16,8 @@ import com.icetea.manager.pagodiario.api.dto.chart.ChartDto;
 import com.icetea.manager.pagodiario.api.dto.chart.CollectorChartDto;
 import com.icetea.manager.pagodiario.api.dto.chart.TopTraderDto;
 import com.icetea.manager.pagodiario.api.dto.chart.TotalSaleDto;
-import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
-import com.icetea.manager.pagodiario.dao.TraderDao;
+import com.icetea.manager.pagodiario.dao.PayrollItemCollectDao;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.service.BasicServiceImpl;
@@ -25,19 +26,19 @@ import com.icetea.manager.pagodiario.utils.DateUtils;
 @Named
 public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 
-	private final TraderDao traderDao;
 	private final PayrollDao payrollDao;
-	private final CollectorDao collectorDao;
+	private final PayrollItemCollectDao payrollItemCollectDao;
 
 	@Inject
-	public ChartServiceImpl(TraderDao traderDao, PayrollDao payrollDao,
-			CollectorDao collectorDao) {
+	public ChartServiceImpl(PayrollDao payrollDao,
+			PayrollItemCollectDao payrollItemCollectDao) {
 		super();
-		this.traderDao = traderDao;
 		this.payrollDao = payrollDao;
-		this.collectorDao = collectorDao;
+		this.payrollItemCollectDao = payrollItemCollectDao;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
 	public ChartDto search(){
 		
 		ChartDto chart = new ChartDto();
@@ -107,6 +108,26 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 
 		List<CollectorChartDto> topCollectors = chart.getTopCollectors();
 		
+		List<?> picList = this.payrollItemCollectDao.findPeriod(new Date());
+		
+		if(picList != null){
+			
+			List<Object[]> list = (List<Object[]>)picList;
+			
+			for(Object[] o : list){
+				
+				Long zone = (Long) o[0];
+				String collectorDescription = (String) o[1];
+				BigDecimal totalPayment = (BigDecimal) o[2];
+				
+				CollectorChartDto c = new CollectorChartDto();
+				c.setLabel(collectorDescription);
+				c.setValue(totalPayment);
+				
+				topCollectors.add(c);
+			}
+			
+		}
 
 		return chart;
 	}

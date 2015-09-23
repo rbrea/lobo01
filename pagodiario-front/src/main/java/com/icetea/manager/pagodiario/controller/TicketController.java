@@ -56,7 +56,7 @@ public class TicketController extends ExceptionHandlingController {
 	public void doGenerate(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(required = false) String ticketDateValue,
-			@RequestParam(required = false) Integer zone,
+			@RequestParam(required = false) Long zone,
 			@RequestParam(required = false) String fecDesdeValue,
 			@RequestParam(required = false) String fecHastaValue){
 		Map<String, Object> params = Maps.newHashMap();
@@ -88,7 +88,7 @@ public class TicketController extends ExceptionHandlingController {
 	@RequestMapping(value = "/validate", method = RequestMethod.GET)
 	public BasicOutputDto validate(
 			@RequestParam(required = false) String ticketDateValue,
-			@RequestParam(required = false) Integer collectorId,
+			@RequestParam(required = false) Long collectorId,
 			@RequestParam(required = false) String fecDesdeValue,
 			@RequestParam(required = false) String fecHastaValue){
 		

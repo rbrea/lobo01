@@ -152,7 +152,7 @@
 		  				<div class="col-md-2">
 							<div class="form-group">
 		  						<label for="bCollectorId">Zona</label>
-				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="C&oacute;digo" min="1" data-error="Requerido" required>
+				                <input type="number" class="form-control " id="bCollectorId" name="bCollectorId" placeholder="Zona" min="1" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
@@ -189,14 +189,14 @@
 		  		<div class="panel-body">
 		  			<div class="row">
 		  				<div class="col-md-10">
-		  					<div class="form-group">
+		  					<div id="bill-client-form-group" class="form-group">
 		  						<label for="baddress">Cliente</label>
 		  						<div class="input-group">
 		  							<input type="hidden" id="billClientIdSelected" name="billClientIdSelected" required>
 					                <input type="text" class="form-control" id="baddress" name="baddress" placeholder="Ingrese nombre de cliente" required>
 									<span id="btnSearchClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
 		  						</div>
-								<div class="help-block with-errors"></div>
+								<div id="billClientErrorMessageDiv" class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 						<!--  
@@ -413,6 +413,126 @@
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
 				                <input type="number" class="form-control " id="bimp_1" name="bimp_1" placeholder="$ Importe">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-1">
+		  					&nbsp;
+		  				</div>
+		  			</div>
+		  			<div id="product_2" class="row">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcant_2" name="bcant_2" placeholder="Cant" min="1">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<input type="hidden" id="billProductId_2" name="billProductId_2">
+		  				<input type="hidden" id="billProductPrice_2" name="billProductPrice_2">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+					            <input type="text" class="form-control " id="bProductCode_2" name="bProductCode_2" placeholder="C&oacute;digo">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
+		  					<div class="form-group centered">
+			  					<div class="input-group">
+					                <input type="text" class="form-control  not-writable" id="bname_2" name="bname_2"  placeholder="Art&iacute;culo">
+									<span id="btnSearchProduct_2" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_2');"><i class="glyphicon glyphicon-search"></i></span>		  					
+			  					</div>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-2">
+							<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcuotadiaria_2" name="bcuotadiaria_2" placeholder="$ c/cta.">
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
+		  				<div class="col-md-2">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bimp_2" name="bimp_2" placeholder="$ Importe">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-1">
+		  					&nbsp;
+		  				</div>
+		  			</div>
+		  			<div id="product_3" class="row">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcant_3" name="bcant_3" placeholder="Cant" min="1">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<input type="hidden" id="billProductId_3" name="billProductId_3">
+		  				<input type="hidden" id="billProductPrice_3" name="billProductPrice_3">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+					            <input type="text" class="form-control " id="bProductCode_3" name="bProductCode_3" placeholder="C&oacute;digo">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
+		  					<div class="form-group centered">
+			  					<div class="input-group">
+					                <input type="text" class="form-control  not-writable" id="bname_3" name="bname_3"  placeholder="Art&iacute;culo">
+									<span id="btnSearchProduct_3" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_3');"><i class="glyphicon glyphicon-search"></i></span>		  					
+			  					</div>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-2">
+							<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcuotadiaria_3" name="bcuotadiaria_3" placeholder="$ c/cta.">
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
+		  				<div class="col-md-2">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bimp_3" name="bimp_3" placeholder="$ Importe">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-1">
+		  					&nbsp;
+		  				</div>
+		  			</div>
+		  			<div id="product_4" class="row">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcant_4" name="bcant_4" placeholder="Cant" min="1">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<input type="hidden" id="billProductId_4" name="billProductId_4">
+		  				<input type="hidden" id="billProductPrice_4" name="billProductPrice_4">
+		  				<div class="col-md-1">
+		  					<div class="form-group centered">
+					            <input type="text" class="form-control " id="bProductCode_4" name="bProductCode_4" placeholder="C&oacute;digo">
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-5">
+		  					<div class="form-group centered">
+			  					<div class="input-group">
+					                <input type="text" class="form-control  not-writable" id="bname_4" name="bname_4"  placeholder="Art&iacute;culo">
+									<span id="btnSearchProduct_4" class="input-group-addon lov" onclick="javascript:Bill.showLovProduct('_4');"><i class="glyphicon glyphicon-search"></i></span>		  					
+			  					</div>
+								<div class="help-block with-errors"></div>
+				            </div>
+		  				</div>
+		  				<div class="col-md-2">
+							<div class="form-group centered">
+				                <input type="number" class="form-control " id="bcuotadiaria_4" name="bcuotadiaria_4" placeholder="$ c/cta.">
+								<div class="help-block with-errors"></div>
+				            </div>		  					
+		  				</div>
+		  				<div class="col-md-2">
+		  					<div class="form-group centered">
+				                <input type="number" class="form-control " id="bimp_4" name="bimp_4" placeholder="$ Importe">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>

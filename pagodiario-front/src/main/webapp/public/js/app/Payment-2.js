@@ -61,7 +61,7 @@ Payment.init = function(){
 		
 		var value = $("#bCollectorId").val();
 		if(value != null && value != ""){
-			return Collector.getByZone(value, $('#paymentAlertMessages'), $("#paymentMessages"));
+			return Collector.getByZone(value, $("#zone"), $('#paymentAlertMessages'), $("#paymentMessages"));
 		}
 		
     	$.ajax({ 
@@ -172,7 +172,7 @@ Payment.init = function(){
 		if(e.keyCode == 13) {
 			var value = $(this).val();
 			if(value != null && value != ""){
-				Collector.getByZone(value, $('#paymentAlertMessages'), $("#paymentMessages"));
+				Collector.getByZone(value, $("#zone"), $('#paymentAlertMessages'), $("#paymentMessages"));
 				$("#creditNumber_0").focus();
 			} else {
 				$("#creditNumber_0").focus();			
@@ -191,7 +191,7 @@ Payment.init = function(){
 	    	e.preventDefault();
 	    	var value = $(this).val();
 			if(value != null && value != ""){
-				Collector.getByZone(value, $('#paymentAlertMessages'), $("#paymentMessages"));
+				Collector.getByZone(value, $("#zone"), $('#paymentAlertMessages'), $("#paymentMessages"));
 				$("#creditNumber_0").focus();
 			} else {
 				$("#creditNumber_0").focus();			

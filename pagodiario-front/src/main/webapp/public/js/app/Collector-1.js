@@ -286,7 +286,7 @@ Collector.add = function(dialog, btn){
 	return;
 }
 
-Collector.getByZone = function(zone, alertMessagesContainer, messagesContainer){
+Collector.getByZone = function(zone, elementIdContainer, alertMessagesContainer, messagesContainer){
 	
 	$.ajax({ 
 	   type    : "GET",
@@ -308,7 +308,7 @@ Collector.getByZone = function(zone, alertMessagesContainer, messagesContainer){
 			   if(list.length > 0){
 				   var element = list[0];
 				   
-				   $("#bcobrador").val(element.id);
+				   elementIdContainer.val(element.id);
 				   $("#bCollectorId").val(element.zone)
 		           $("#bCollectorDescription").val(element.description);				   
 			

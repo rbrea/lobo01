@@ -16,7 +16,7 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findByCollectorId(Long collectorId);
 
-	List<Bill> find(Integer collectorId, Date dateFrom, Date dateTo);
+	List<Bill> find(Long collectorId, Date dateFrom, Date dateTo);
 
 	List<Bill> findExpires();
 
