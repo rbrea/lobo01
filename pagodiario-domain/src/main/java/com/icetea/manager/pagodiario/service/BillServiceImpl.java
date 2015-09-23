@@ -231,7 +231,7 @@ public class BillServiceImpl
 		for(Payment p : bill.getPayments()){
 			BillDetailPaymentDto r = new BillDetailPaymentDto();
 			r.setAmount(NumberUtils.toString(p.getAmount()));
-			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getId() : ""));
+			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getZone() + " / " + p.getCollector().getDescription() : ""));
 			r.setDate(DateUtils.toDate(p.getDate()));
 			
 			d.getPayments().add(r);

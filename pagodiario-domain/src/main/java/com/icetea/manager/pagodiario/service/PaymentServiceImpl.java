@@ -77,7 +77,7 @@ public class PaymentServiceImpl
 		
 		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "Id de cobrador es requerido", ErrorType.VALIDATION_ERRORS);
 		
-		Collector collector = this.collectorDao.findById(d.getCollectorId());
+		Collector collector = this.collectorDao.findByZone(d.getCollectorId());
 		
 		ErrorTypedConditions.checkArgument(collector != null, 
 				String.format("Cobrador no encontrado con id: %s", d.getCollectorId()), ErrorType.VALIDATION_ERRORS);
