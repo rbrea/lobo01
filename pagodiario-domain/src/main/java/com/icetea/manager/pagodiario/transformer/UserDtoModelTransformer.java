@@ -13,6 +13,10 @@ public class UserDtoModelTransformer extends AbstractDtoModelTransformer<UserDto
 		UserDto d = new UserDto();
 		d.setToken(e.getToken());
 		d.setUsername(e.getUsername());
+		d.setAdmin(e.isAdmin());
+		if(e.isAdmin()){
+			d.getRoles().add("ROLE_ADMIN");
+		}
 		
 		return d;
 	}

@@ -44,18 +44,16 @@
 	            <li class="dropdown">
 	              <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Liquidaciones <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-	                <li role="presentation">
-	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" 
-	                			href="${pageContext.request.contextPath}/controller/html/payroll/index" class="disabled">
+	                <li role="presentation" class="ROLE_ADMIN">
+	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1"
+	                			href="${pageContext.request.contextPath}/controller/html/payroll/index">
 	                		<i class="fa fa-calculator fa-fw"></i>&nbsp;Vendedor / Supervisor
 	                	</a>
 	                </li>
-	                <li role="presentation" class="hide">
-	                	<a id="optHistorialLiq" style="cursor:pointer;" role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Historial</a>
-	                </li>
 	                <li role="presentation" class="divider"></li>
-	                <li role="presentation">
-	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/payrollcollect/index">
+	                <li role="presentation" class="ROLE_ADMIN">
+	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="${pageContext.request.contextPath}/controller/html/payrollcollect/index">
 	                		<i class="glyphicon glyphicon-calendar"></i>&nbsp;Liquidaci&oacute;n de Cobradores
 	                	</a>
 	                </li>
@@ -77,7 +75,7 @@
 	                	<a id="optCollectors" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/collector/index"><i class="glyphicon glyphicon-inbox"></i>&nbsp;Cobradores</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>
-	                <li role="presentation">
+	                <li role="presentation" class="ROLE_ADMIN">
 	                	<a id="optUsuarios" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/user"><i class="fa fa-users fa-fw"></i>&nbsp;Usuarios</a>
 	                </li>
 	                <!--  
@@ -152,7 +150,7 @@
     	    	});
     	        
     	        User.printUsername();
-    			
+    	        
     			return;
     		}
     	);

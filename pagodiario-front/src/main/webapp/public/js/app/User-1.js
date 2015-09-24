@@ -12,7 +12,10 @@ User.printUsername = function(){
 		   if(data != null){
 				   
 			   $("#userLogged").html(data.username);
+			   // completo la lista de perfiles ...
+			   Permission.fill(data);
 			   
+			   Permission.doCheck();
 		   }
 	   },
 	   error:function(data){

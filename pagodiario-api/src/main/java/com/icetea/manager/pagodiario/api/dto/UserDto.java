@@ -10,6 +10,7 @@ public class UserDto extends BasicDto {
 
 	private String username;
 	private String token;
+	private boolean admin;
 	
 	private List<String> roles = Lists.newArrayList();
 	
@@ -35,6 +36,14 @@ public class UserDto extends BasicDto {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }
