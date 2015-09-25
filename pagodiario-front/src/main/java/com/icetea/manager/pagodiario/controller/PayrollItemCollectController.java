@@ -22,9 +22,9 @@ import com.icetea.manager.pagodiario.service.PayrollCollectService;
 
 @Controller
 @RequestMapping(value = "/html/payrollcollectitem")
-public class PayrollCollectItemController extends ExceptionHandlingController {
+public class PayrollItemCollectController extends ExceptionHandlingController {
 
-private static final Logger LOGGER = getLogger(PayrollCollectItemController.class);
+private static final Logger LOGGER = getLogger(PayrollItemCollectController.class);
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -37,6 +37,14 @@ private static final Logger LOGGER = getLogger(PayrollCollectItemController.clas
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(@RequestParam(required = false) Long payrollId, ModelMap modelMap){
 		modelMap.addAttribute("payrollId", payrollId);
+		PayrollCollectDto p = this.payrollCollectService.searchById(payrollId);
+		if(p != null){
+			modelMap.addAttribute("totalCards", p.getTotalCards());
+			modelMap.addAttribute("totalToCollect", p.getTotalAmount());
+			modelMap.addAttribute("totalCollectedGross", p.getTotalPayment());
+			modelMap.addAttribute("totalCommission", p.getTotalAmountToPay());
+			modelMap.addAttribute("totalCollectedNet", p.getTotalToCollect());
+		}
 		
 		return "payrollCollectItem";
 	}

@@ -19,7 +19,21 @@
 			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-calculator fa-fw"></i> Liquidaci&oacute;n de Cobradores</h3>
+		    		<i class="fa fa-calculator fa-fw"></i> Liquidaci&oacute;n de Cobradores
+		    		<div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            	<i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                	<a href="#">
+                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -51,6 +65,16 @@
 							                <th>Cobrado Neto</th>
 							            </tr>
 							        </thead>
+							        <tfoot>
+							            <tr class="odd">
+							                <th colspan="3" style="text-align:left">TOTAL</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalCards}</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalToCollect}</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalCollectedGross}</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalCommission}</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalCollectedNet}</th>
+							            </tr>
+							        </tfoot>
 								</table>							
 							</div>
 						</div>
