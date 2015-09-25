@@ -91,7 +91,7 @@
 	            </li>
 	            <li class="dropdown icon-circle">
 	              <a id="dropUser" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-	              	<i class="glyphicon glyphicon-user fgrey"></i>&nbsp;<span id="userLogged"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+	              	<i class="glyphicon glyphicon-user fgrey"></i>&nbsp;&nbsp;<span id="userLogged"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
 	              </a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropUser">
 	              	<li><a id="btnLogout" href="javascript:void(0);"><i class="glyphicon glyphicon-off"></i>&nbsp;Cerrar sesi&oacute;n</a></li>

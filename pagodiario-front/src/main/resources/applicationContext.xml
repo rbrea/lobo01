@@ -111,4 +111,8 @@
 		</property>
 	</bean>
 	
+	<bean class="com.icetea.manager.pagodiario.configuration.LogbackConfiguration">
+  		<property name="location" value="classpath:${logback.configuration.filename}"/>
+	</bean>
+	
 </beans>
