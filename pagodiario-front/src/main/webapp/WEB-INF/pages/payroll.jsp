@@ -33,7 +33,7 @@
 						</div>
 						<div class="col-md-4">
 							<label for="">&nbsp;</label><br>
-							<button id="btnAccept" class="btn btn-success"><i class="glyphicon glyphicon-cog"></i>&nbsp;Procesar</button>&nbsp;
+							<button id="btnAccept" class="btn btn-success"><i class="fa fa-cog"></i>&nbsp;Procesar</button>&nbsp;
 						</div>
 						<div class="col-md-2">
 							&nbsp;

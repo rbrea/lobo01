@@ -22,7 +22,8 @@ body {
  * Hide default border to remove 1px line.
  */
 .navbar-fixed-top {
-  border: 0;
+  	/*border: 0; orig*/
+	border-bottom: 2px #8A0808 solid;
 }
 
 /*
