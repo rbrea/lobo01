@@ -23,6 +23,7 @@ import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.ClientDao;
 import com.icetea.manager.pagodiario.dao.CollectorDao;
+import com.icetea.manager.pagodiario.dao.ConciliationItemCollectDao;
 import com.icetea.manager.pagodiario.dao.ConciliationItemDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
@@ -33,6 +34,7 @@ import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Client;
 import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
+import com.icetea.manager.pagodiario.model.ConciliationItemCollect;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.model.Payment;
@@ -55,13 +57,15 @@ public class BillServiceImpl
 	private final BillTicketTransformer billTicketTransformer;
 	private final ConciliationItemDao conciliationItemDao;
 	private final CollectorDao collectorDao;
+	private final ConciliationItemCollectDao conciliationItemCollectDao;
 	
 	@Inject
 	public BillServiceImpl(BillDao dao, BillDtoModelTransformer transformer,
 			ClientDao clientDao, TraderDao traderDao, ProductDao productDao,
 			BillTicketTransformer billTicketTransformer,
 			ConciliationItemDao conciliationItemDao,
-			CollectorDao collectorDao) {
+			CollectorDao collectorDao,
+			ConciliationItemCollectDao conciliationItemCollectDao) {
 		super(dao, transformer);
 		this.clientDao = clientDao;
 		this.traderDao = traderDao;
@@ -69,6 +73,7 @@ public class BillServiceImpl
 		this.billTicketTransformer = billTicketTransformer;
 		this.conciliationItemDao = conciliationItemDao;
 		this.collectorDao = collectorDao;
+		this.conciliationItemCollectDao = conciliationItemCollectDao;
 	}
 
 	@Override
@@ -309,7 +314,14 @@ public class BillServiceImpl
 		List<ConciliationItem> conciliationItemList = this.conciliationItemDao.findByBillId(id);
 		
 		ErrorTypedConditions.checkArgument(conciliationItemList == null || conciliationItemList.isEmpty(), 
-				String.format("La factura %s esta asociada a una liquidacion. No puede ser borrada.", id), ErrorType.VALIDATION_ERRORS);
+				String.format("La factura con nro de ticket: %s esta asociada a una liquidacion. No puede ser borrada.", id), 
+				ErrorType.VALIDATION_ERRORS);
+		
+		List<ConciliationItemCollect> conciliationItemCollectList = this.conciliationItemCollectDao.findByBillId(id);
+		
+		ErrorTypedConditions.checkArgument(conciliationItemCollectList == null || conciliationItemCollectList.isEmpty(), 
+				String.format("La factura con nro de ticket: %s esta asociada a una liquidacion de cobrador. No puede ser borrada.", id), 
+				ErrorType.VALIDATION_ERRORS);
 		
 		return this.getDao().delete(bill);
 	}
