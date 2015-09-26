@@ -120,5 +120,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     	
     	return !in(valueToMatch, values);
     }
+
+    public static String toString(Object input){
+    	if(input == null){
+    		return null;
+    	}
+    	
+    	return input.toString();
+    }
     
 }

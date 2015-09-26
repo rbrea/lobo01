@@ -17,6 +17,9 @@
 				<input type="hidden" id="payrollCollectId" name="payrollCollectId" value="${payrollId}">
 				<input type="hidden" id="payrollCollectItemId" name="payrollCollectItemId">
 			</form>
+			<form id="frmPayrollItemCollectExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/payrollcollectitem/export/pdf">
+				<input type="hidden" id="payrollItemId" name="payrollItemId" value="${payrollId}">
+			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
 		    		<i class="fa fa-calculator fa-fw"></i> Liquidaci&oacute;n de Cobradores
@@ -27,7 +30,7 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>
-                                	<a href="#">
+                                	<a href="javascript:void(0);" onclick="javascript:PayrollCollect.exportToPdf();">
                                     	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
                                     </a>
                                 </li>

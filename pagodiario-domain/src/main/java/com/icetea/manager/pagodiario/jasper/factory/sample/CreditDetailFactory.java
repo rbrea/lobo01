@@ -51,10 +51,12 @@ public class CreditDetailFactory {
 		y.setAmount("0.00");
 		y.setCollector("Jorge");
 		y.setPaymentDate("12/09/2014");
+		payments.add(y);
 		y = new PaymentDetailPojo();
 		y.setAmount("0.00");
 		y.setCollector("Jorge");
 		y.setPaymentDate("12/09/2014");
+		payments.add(y);
 		p.setPayments(payments);
 		p.setTotalAmount("0.00");
 		p.setTraderName("Flor");

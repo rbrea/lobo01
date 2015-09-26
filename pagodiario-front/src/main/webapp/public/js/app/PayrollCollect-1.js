@@ -320,3 +320,10 @@ PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
 	
 	return;
 }
+
+PayrollCollect.exportToPdf = function(){
+
+	$("#frmPayrollItemCollectExportPdf").submit();
+	
+	return;
+}
