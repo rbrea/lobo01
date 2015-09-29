@@ -609,7 +609,7 @@
 			    		
 			    		var obj = new Object();
 			    		obj.data = "" + this.id;
-			    		obj.value = this.name;
+			    		obj.value = this.name + " / " + this.address + " / " + this.companyType;
 			    		list.push(obj);
 			    		
 			    		return;

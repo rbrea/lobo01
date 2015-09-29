@@ -14,6 +14,7 @@ public class PayrollCollectDto extends BasicIdentifiableDto {
 	private int totalCards;
 	private String totalAmountToPay;
 	private String totalToCollect;
+	private String status;
 	
 	private List<PayrollItemCollectDto> items = Lists.newArrayList();
 
@@ -58,6 +59,12 @@ public class PayrollCollectDto extends BasicIdentifiableDto {
 	}
 	public void setTotalToCollect(String totalToCollect) {
 		this.totalToCollect = totalToCollect;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

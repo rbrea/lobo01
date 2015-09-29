@@ -309,6 +309,7 @@ Collector.getByZone = function(zone, elementIdContainer, alertMessagesContainer,
 				   var element = list[0];
 				   
 				   elementIdContainer.val(element.id);
+				   $("#zone").val(element.zone)
 				   $("#bCollectorId").val(element.zone)
 		           $("#bCollectorDescription").val(element.description);				   
 			

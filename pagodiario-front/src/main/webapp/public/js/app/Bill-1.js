@@ -232,7 +232,7 @@ Bill.init = function(){
 				            
 				            $("#billClientIdSelected").val(selectedId);
 				            //$("#bClientId").val(selectedId);
-				            $("#baddress").val(selectedDescription);
+				            $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				            $("#lov-client-container").css({"display": "none"});
 
 							// si esta todo ok entonces doy de alta ...
@@ -734,7 +734,7 @@ Bill.doFinalize = function(){
 			   
 			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), 
 					   "Factura creada correctamente. Para mayor informaci&oacute;n vaya a Detalle de Cr&eacute;dito.", "alert-warning", "glyphicon glyphicon-info-sign", "Bien! ");
-			   setTimeout(function(){$("#facturaMessages").addClass("hide");}, 2000);
+			   setTimeout(function(){$("#facturaMessages").addClass("hide");}, 4000);
 			   
 			   return;
 		   }else{

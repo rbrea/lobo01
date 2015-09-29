@@ -128,7 +128,7 @@ Payment.init = function(){
 				            var zone = $(this).children('td').eq(1).html().trim();
 				            var selectedDescription = $(this).children('td').eq(2).html().trim();
 				            
-				            $("#zone").val(selectedId);
+				            $("#zone").val(/*selectedId*/zone);
 				            $("#bCollectorId").val(zone);
 				            $("#bCollectorDescription").val(selectedDescription);
 				            $("#lov-collector-container").css({"display": "none"});
@@ -486,6 +486,7 @@ Payment.showConfirmModal = function(){
 		   		"data" : list,
 		   		"bDestroy" : true,
 		   		responsive: true,
+		   		"pagingType": "simple",
 		        "columns": [
 					{ 
 						"className": 'centered',

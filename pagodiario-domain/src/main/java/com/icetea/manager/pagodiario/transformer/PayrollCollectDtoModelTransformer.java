@@ -32,6 +32,7 @@ public class PayrollCollectDtoModelTransformer extends
 		d.setTotalPayment(NumberUtils.toString(e.getTotalPayment()));
 		d.setTotalAmountToPay(NumberUtils.toString(e.getTotalAmountToPay()));
 		d.setTotalToCollect(NumberUtils.toString(NumberUtils.subtract(e.getTotalPayment(), e.getTotalAmountToPay())));
+		d.setStatus(e.getStatus().name());
 		
 		d.getItems().addAll(
 				this.payrollItemCollectDtoModelTransformer.transformAllTo(
