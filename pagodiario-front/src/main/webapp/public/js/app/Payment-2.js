@@ -81,6 +81,7 @@ Payment.init = function(){
 				   var table = $("#tLovCollectorResult").dataTable( {
 				   		"data" : data.data,
 				   		"bDestroy" : true,
+				   		"pagingType": "simple",
 				        "columns": [
 							{ 
 								"className": 'centered',

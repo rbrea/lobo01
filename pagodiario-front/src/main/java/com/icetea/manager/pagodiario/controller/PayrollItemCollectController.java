@@ -52,7 +52,7 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 	private ServletContext servletContext;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String showForm(@RequestParam(required = false) Long payrollId, ModelMap modelMap){
+	public String showFormCollect(@RequestParam(required = false) Long payrollId, ModelMap modelMap){
 		modelMap.addAttribute("payrollId", payrollId);
 		PayrollCollectDto p = this.payrollCollectService.searchById(payrollId);
 		if(p != null){
@@ -67,7 +67,7 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<PayrollItemCollectDto> get(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<PayrollItemCollectDto> getListItemCollect(@RequestParam(required = false) Long id){
 		ListOutputDto<PayrollItemCollectDto> r = new ListOutputDto<PayrollItemCollectDto>();
 
 		List<PayrollItemCollectDto> list = Lists.newArrayList();

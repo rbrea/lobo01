@@ -268,6 +268,9 @@ PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
 	var table = $("#tPayrollCollectItemResult").dataTable( {
 		"bDestroy" : true,
 		"bRedraw" : true,
+		"searching": false,
+		"ordering": false,
+		"paging":   false,
         "ajax": Constants.contextRoot + "/controller/html/payrollcollectitem?id=" + id,
         "columns": [
 			{

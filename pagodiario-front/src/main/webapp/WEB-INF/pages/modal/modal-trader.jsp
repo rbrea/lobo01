@@ -130,6 +130,7 @@
 						   var table = $("#tTraderChildrenResult").dataTable( {
 						   		"data" : data.data,
 						   		"bDestroy" : true,
+						   		"pagingType": "simple",
 						        "columns": [
 									{ 
 										"className": 'centered',
@@ -197,9 +198,10 @@
 						    });
 							
 							BootstrapDialog.show({
-								type:BootstrapDialog.TYPE_SUCCESS,
+								type:BootstrapDialog.TYPE_DANGER,
 								title: 'Vendedores',
 								autodestroy: false,
+								draggable: true,
 						        message: function(dialog) {
 						        	
 						        	$("#lov-container").css({"display":"block"});

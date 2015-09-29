@@ -438,6 +438,7 @@ Trader.showTraders = function(parentId){
             
             var table = $("#tTraderChildrenTable").dataTable({
             	"bDestroy" : true,
+            	"pagingType": "simple",
             	"createdRow": function ( row, data, index ) {
             		
             		$(row).attr('id', "traderChildrenId_" + data.id);

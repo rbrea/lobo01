@@ -24,6 +24,7 @@ ConciliationItem.initDataTable = function(imgCheckUrl, id){
 		"bDestroy" : true,
 		"searching": false,
 		"ordering": false,
+		"paging":   false,
 		"info" : false,
         "ajax": Constants.contextRoot + "/controller/html/conciliationItem?payrollItemId=" + id,
         "createdRow": function ( row, data, index ) {
@@ -126,6 +127,7 @@ ConciliationItem.initSupervisorDataTable = function(imgCheckUrl, id){
 		"bDestroy" : true,
 		"searching": false,
 		"ordering": false,
+		"paging":   false,
 		"info" : false,
         "ajax": Constants.contextRoot + "/controller/html/conciliationItem/supervisor?payrollItemId=" + id,
         "createdRow": function ( row, data, index ) {

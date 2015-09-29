@@ -178,6 +178,7 @@ Bill.init = function(){
 				   var table = $("#tLovClientResult").dataTable( {
 				   		"data" : data.data,
 				   		"bDestroy" : true,
+				   		"pagingType": "simple", 
 				        "columns": [
 							{ 
 								"className": 'centered',
@@ -295,6 +296,7 @@ Bill.init = function(){
 				   var table = $("#tTraderChildrenResult").dataTable( {
 				   		"data" : data.data,
 				   		"bDestroy" : true,
+				   		"pagingType": "simple",
 				        "columns": [
 							{ 
 								"className": 'centered',
@@ -403,6 +405,7 @@ Bill.init = function(){
 				   var table = $("#tLovCollectorResult").dataTable( {
 				   		"data" : data.data,
 				   		"bDestroy" : true,
+				   		"pagingType": "simple",
 				        "columns": [
 							{ 
 								"className": 'centered',
@@ -817,6 +820,7 @@ Bill.showLovProduct = function(elementId){
 			   var table = $("#tLovProductResult").dataTable( {
 			   		"data" : data.data,
 			   		"bDestroy" : true,
+			   		"pagingType": "simple",
 			        "columns": [
 						{ 
 							"className": 'centered',
