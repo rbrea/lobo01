@@ -17,11 +17,27 @@
 	        &nbsp;
 	    </div>
 	</div>
+	<form id="frmClientExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/client/export/pdf">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="glyphicon glyphicon-briefcase"></i> ABM de Clientes</h3>
+		    		<i class="glyphicon glyphicon-briefcase"></i>&nbsp;ABM de Clientes
+		    		<div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            	<i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Client.exportToPdf();">
+                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row tools-bar">

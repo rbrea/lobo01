@@ -761,3 +761,10 @@ BillHistory.remove = function(id){
 	
 	return;
 }
+
+BillHistory.exportToPdf = function(){
+
+	$("#frmBillHistoryExportPdf").submit();
+	
+	return;
+}

@@ -356,3 +356,10 @@ Product.initControls = function(){
 	
 	return;
 }
+
+Product.exportToPdf = function(){
+
+	$("#frmProductExportPdf").submit();
+	
+	return;
+}

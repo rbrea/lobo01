@@ -607,3 +607,10 @@ Client.searchByName = function(name){
 	
 	return;
 }
+
+Client.exportToPdf = function(){
+
+	$("#frmClientExportPdf").submit();
+	
+	return;
+}

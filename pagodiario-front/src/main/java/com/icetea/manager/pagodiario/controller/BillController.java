@@ -2,9 +2,20 @@ package com.icetea.manager.pagodiario.controller;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,12 +28,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 
 @Controller
@@ -33,6 +46,8 @@ public class BillController extends ExceptionHandlingController {
 	
 	@Inject
 	private BillService billService;
+	@Inject
+	private ServletContext servletContext;
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -120,6 +135,35 @@ public class BillController extends ExceptionHandlingController {
 		this.billService.remove(id);
 		
 		return r;
+	}
+
+	@RequestMapping(value = "/export/pdf", method = RequestMethod.POST)
+	public void exportBills(HttpServletRequest request,
+			HttpServletResponse response){
+		Map<String, Object> params = Maps.newHashMap();
+		
+		List<BillDto> list = this.billService.searchActives();
+		
+		try {
+			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/billhistory.jasper");
+			// [roher] otra forma de hacerlo ... x ahora uso directamente el jasper, parece que es mas rapido ...
+//			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
+//			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			InputStream is = new FileInputStream(fullpath);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
+					new JRBeanCollectionDataSource(list));
+			response.setContentType("application/pdf");
+			String filename = "historial_de_creditos-" + System.currentTimeMillis() + ".pdf";
+			response.addHeader("Content-disposition", "attachment; filename=" + filename); 
+			
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("Error inesperado al exportar las facturas", e);
+			throw new ErrorTypedException("Ha ocurrido un error al tratar generar el export de pdf de creditos", 
+					ErrorType.UNKNOWN_ERROR);
+		}
+		
 	}
 	
 }
