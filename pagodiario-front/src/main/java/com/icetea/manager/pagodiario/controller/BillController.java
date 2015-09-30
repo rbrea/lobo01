@@ -37,6 +37,7 @@ import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
+import com.icetea.manager.pagodiario.transformer.jasper.CreditDetailTransformer;
 
 @Controller
 @RequestMapping(value = "/html/bill")
@@ -48,6 +49,8 @@ public class BillController extends ExceptionHandlingController {
 	private BillService billService;
 	@Inject
 	private ServletContext servletContext;
+	@Inject
+	private CreditDetailTransformer creditDetailTransformer;
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -161,6 +164,36 @@ public class BillController extends ExceptionHandlingController {
 		} catch (Exception e) {
 			LOGGER.error("Error inesperado al exportar las facturas", e);
 			throw new ErrorTypedException("Ha ocurrido un error al tratar generar el export de pdf de creditos", 
+					ErrorType.UNKNOWN_ERROR);
+		}
+		
+	}
+	
+	@RequestMapping(value = "/detail/export/pdf", method = RequestMethod.POST)
+	public void exportBillDetail(HttpServletRequest request,
+			HttpServletResponse response, 
+			@RequestParam Long billId){
+		Map<String, Object> params = Maps.newHashMap();
+		
+		BillDetailDto d = this.billService.searchDetail(billId);
+		
+		try {
+			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/detalleCredito.jasper");
+			// [roher] otra forma de hacerlo ... x ahora uso directamente el jasper, parece que es mas rapido ...
+//			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
+//			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			InputStream is = new FileInputStream(fullpath);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
+					new JRBeanCollectionDataSource(Lists.newArrayList(this.creditDetailTransformer.transform(d))));
+			response.setContentType("application/pdf");
+			String filename = "detalle_de_credito_" + billId + "-" + System.currentTimeMillis() + ".pdf";
+			response.addHeader("Content-disposition", "attachment; filename=" + filename); 
+			
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("Error inesperado al exportar el detalle de credito", e);
+			throw new ErrorTypedException("Ha ocurrido un error al tratar generar el export de pdf de detalle de credito", 
 					ErrorType.UNKNOWN_ERROR);
 		}
 		

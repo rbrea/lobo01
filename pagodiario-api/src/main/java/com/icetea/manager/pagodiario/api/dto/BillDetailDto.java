@@ -21,6 +21,8 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	private List<BillProductDetailDto> products = Lists.newArrayList();
 	private List<BillDetailDiscountDto> discounts = Lists.newArrayList();
 	private List<BillDetailReductionDto> reductions = Lists.newArrayList();
+	
+	private String creditNumber;
 
 	public String getClientName() {
 		return clientName;
@@ -99,6 +101,12 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setReductions(List<BillDetailReductionDto> reductions) {
 		this.reductions = reductions;
+	}
+	public String getCreditNumber() {
+		return creditNumber;
+	}
+	public void setCreditNumber(String creditNumber) {
+		this.creditNumber = creditNumber;
 	}
 	
 }

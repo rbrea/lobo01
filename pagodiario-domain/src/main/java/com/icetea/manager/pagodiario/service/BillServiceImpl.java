@@ -7,8 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.base.Preconditions;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDiscountDto;
@@ -45,6 +43,7 @@ import com.icetea.manager.pagodiario.transformer.BillDtoModelTransformer;
 import com.icetea.manager.pagodiario.transformer.BillTicketTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Named
 public class BillServiceImpl 
@@ -232,6 +231,7 @@ public class BillServiceImpl
 		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
 		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
 		d.setTraderName(bill.getTrader().getName());
+		d.setCreditNumber(StringUtils.toString(bill.getCreditNumber()));
 		
 		for(Payment p : bill.getPayments()){
 			BillDetailPaymentDto r = new BillDetailPaymentDto();

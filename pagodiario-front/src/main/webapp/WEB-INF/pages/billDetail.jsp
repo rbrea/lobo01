@@ -25,6 +25,9 @@
 			</ol>
 		</div>
 	</div>
+	<form id="frmCreditDetailExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/detail/export/pdf">
+		<input type="hidden" id="billId" name="billId" value="${billId}">
+	</form>
 	<div class="row">
 		<div class="col-md-2">
 	        &nbsp;
@@ -32,7 +35,21 @@
 		<div class="col-md-8">
 			<div class="panel panel-red">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title centered" style="font-weight:bold;">DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span></h3>
+		    		<i class="glyphicon glyphicon-briefcase"></i>&nbsp;DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span>
+		    		<div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            	<i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Bill.exportDetailToPdf();">
+                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<table id="tCreditDetail" class="table table-bordered table-striped">

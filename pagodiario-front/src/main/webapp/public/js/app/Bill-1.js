@@ -2002,3 +2002,11 @@ Bill.addClient = function(dialog, btn){
 	
 	return;
 }
+
+
+Bill.exportDetailToPdf = function(){
+	
+	$("#frmCreditDetailExportPdf").submit();
+	
+	return;
+}
