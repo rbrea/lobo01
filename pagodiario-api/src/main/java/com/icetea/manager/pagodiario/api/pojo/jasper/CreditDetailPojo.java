@@ -20,6 +20,9 @@ public class CreditDetailPojo extends BasicDto {
 	private List<DevDetailPojo> devs = Lists.newArrayList();
 	private List<PaymentDetailPojo> payments = Lists.newArrayList();
 	private String totalAmount = "";
+	private List<ProductDetailPojo> products = Lists.newArrayList();
+	private List<DiscountDetailPojo> discounts = Lists.newArrayList();
+	private List<ReductionDetailPojo> reductions = Lists.newArrayList();
 	
 	public String getClientName() {
 		return clientName;
@@ -86,6 +89,24 @@ public class CreditDetailPojo extends BasicDto {
 	}
 	public void setCreditNumber(String creditNumber) {
 		this.creditNumber = creditNumber;
+	}
+	public List<ProductDetailPojo> getProducts() {
+		return products;
+	}
+	public void setProducts(List<ProductDetailPojo> products) {
+		this.products = products;
+	}
+	public List<DiscountDetailPojo> getDiscounts() {
+		return discounts;
+	}
+	public void setDiscounts(List<DiscountDetailPojo> discounts) {
+		this.discounts = discounts;
+	}
+	public List<ReductionDetailPojo> getReductions() {
+		return reductions;
+	}
+	public void setReductions(List<ReductionDetailPojo> reductions) {
+		this.reductions = reductions;
 	}
 	
 }

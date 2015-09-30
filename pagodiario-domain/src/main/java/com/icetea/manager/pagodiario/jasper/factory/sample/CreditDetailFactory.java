@@ -6,7 +6,10 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.pojo.jasper.CreditDetailPojo;
 import com.icetea.manager.pagodiario.api.pojo.jasper.DevDetailPojo;
+import com.icetea.manager.pagodiario.api.pojo.jasper.DiscountDetailPojo;
 import com.icetea.manager.pagodiario.api.pojo.jasper.PaymentDetailPojo;
+import com.icetea.manager.pagodiario.api.pojo.jasper.ProductDetailPojo;
+import com.icetea.manager.pagodiario.api.pojo.jasper.ReductionDetailPojo;
 
 public class CreditDetailFactory {
 
@@ -60,6 +63,27 @@ public class CreditDetailFactory {
 		p.setPayments(payments);
 		p.setTotalAmount("0.00");
 		p.setTraderName("Flor");
+		
+		ProductDetailPojo product = new ProductDetailPojo();
+		product.setCount("2");
+		product.setCode("P001");
+		product.setDescription("Producto de Test 01");
+		product.setInstallmentAmount("80.00");
+		product.setTotalAmount("1600.00");
+		
+		p.getProducts().add(product);
+		
+		DiscountDetailPojo discount = new DiscountDetailPojo();
+		discount.setDate("10/08/2015");
+		discount.setAmount("200.60");
+		
+		p.getDiscounts().add(discount);
+		
+		ReductionDetailPojo reduction = new ReductionDetailPojo();
+		reduction.setAmount("180.99");
+		reduction.setDate("15/09/2015");
+		
+		p.getReductions().add(reduction);
 		
 		list.add(p);
 		
