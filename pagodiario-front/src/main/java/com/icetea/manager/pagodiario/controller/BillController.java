@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.controller;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -18,6 +19,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
+import net.sf.jasperreports.engine.util.FileResolver;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.api.pojo.jasper.CreditDetailPojo;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
@@ -180,6 +184,7 @@ public class BillController extends ExceptionHandlingController {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/detail/export/pdf", method = RequestMethod.POST)
 	public void exportBillDetail(HttpServletRequest request,
 			HttpServletResponse response, 
@@ -195,6 +200,9 @@ public class BillController extends ExceptionHandlingController {
 //			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			
 			InputStream is = new FileInputStream(fullpath);
+			
+			final String fileResolverPath = this.servletContext.getRealPath("/WEB-INF/jasper/");
+			
 			String devsfullpath = this.servletContext.getRealPath("/WEB-INF/jasper/devs_sb.jrxml");
 //			JasperReport devsSR = (JasperReport)JRLoader.loadObjectFromFile(devsfullpath);
 			
@@ -202,8 +210,30 @@ public class BillController extends ExceptionHandlingController {
 			
 			params.put("devs_sb.jasper", devsSR);
 			
-			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
-					new JRBeanCollectionDataSource(Lists.newArrayList(this.creditDetailTransformer.transform(d))));
+			FileResolver devsfileResolver = new FileResolver() {
+				
+				@Override
+				public File resolveFile(String fileName) {
+					
+					return new File(fileResolverPath + "/" + fileName);
+				}
+			}; 
+			
+			params.put("REPORT_FILE_RESOLVER", devsfileResolver);
+			
+			CreditDetailPojo creditDetail = this.creditDetailTransformer.transform(d);
+			
+			JRBeanCollectionDataSource creditDetailDs = new JRBeanCollectionDataSource(Lists.newArrayList(creditDetail));
+			JRBeanCollectionDataSource devsDs = new JRBeanCollectionDataSource(creditDetail.getDevs());
+			
+			Map<String, Object>[] masterData = new Map[1];
+   		    masterData[0] = Maps.newHashMap();
+			masterData[0].put("arrayDataSourceMov",creditDetailDs);
+			masterData[0].put("arrayDataSourceVendors",devsDs);
+			
+			JRMapArrayDataSource jrMapArrayDataSource = new JRMapArrayDataSource(masterData);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, creditDetailDs);
 			response.setContentType("application/pdf");
 			String filename = "detalle_de_credito_" + billId + "-" + System.currentTimeMillis() + ".pdf";
 			response.addHeader("Content-disposition", "attachment; filename=" + filename); 
