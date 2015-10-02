@@ -495,6 +495,17 @@ Bill.init = function(){
 	
 	$("#billNumber").focus();
 	
+	$("#billNumber").on('blur', function(){
+		
+		var creditNumber = $(this).val();
+		
+		if(creditNumber != null && creditNumber != ""){
+			Bill.searchByCreditNumber($(this).val());
+		}
+		
+		return;
+	});
+	
 	$("#btnFirstNext").on('click', function(){
 		
 		var c = 0;
@@ -2003,10 +2014,47 @@ Bill.addClient = function(dialog, btn){
 	return;
 }
 
-
 Bill.exportDetailToPdf = function(){
 	
 	$("#frmCreditDetailExportPdf").submit();
+	
+	return;
+}
+
+Bill.searchByCreditNumber = function(creditNumber){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/bill?creditNumber=" + creditNumber,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#billCreditNumberErrorMessageDiv").html("");
+		   $("#billNumber").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages($('#facturaAlertMessages'), $("#facturaMessages"));
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   //$("#bClientId").focus();
+				   $("#billCreditNumberErrorMessageDiv").append("Nro de Crédito ya usado");
+				   $("#billNumber").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
 	
 	return;
 }

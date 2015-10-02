@@ -325,5 +325,11 @@ public class BillServiceImpl
 		
 		return this.getDao().delete(bill);
 	}
+
+	@Override
+	public BillDto searchByCreditNumber(Long creditNumber){
+
+		return this.getTransformer().transform(this.getDao().findByCreditNumber(creditNumber));
+	}
 	
 }

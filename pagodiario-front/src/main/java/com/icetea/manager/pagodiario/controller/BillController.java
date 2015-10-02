@@ -12,9 +12,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.slf4j.Logger;
@@ -70,15 +72,24 @@ public class BillController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<BillDto> getBills(@RequestParam(required = false) Long id){
+	public @ResponseBody ListOutputDto<BillDto> getBills(@RequestParam(required = false) Long id,
+			@RequestParam(required = false) Long creditNumber){
 		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
 
 		List<BillDto> list = Lists.newArrayList();
 		
-		if(id == null){
-			list = this.billService.searchAll();
+		if(id != null){
+			BillDto bill = this.billService.searchById(id);
+			if(bill != null){
+				list.add(bill);
+			}
+		} else if(creditNumber != null){
+			BillDto bill = this.billService.searchByCreditNumber(creditNumber);
+			if(bill != null){
+				list.add(bill);
+			}
 		} else {
-			list.add(this.billService.searchById(id));
+			list = this.billService.searchAll();
 		}
 		
 		r.setData(list);
@@ -182,7 +193,14 @@ public class BillController extends ExceptionHandlingController {
 			// [roher] otra forma de hacerlo ... x ahora uso directamente el jasper, parece que es mas rapido ...
 //			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
 //			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			
 			InputStream is = new FileInputStream(fullpath);
+			String devsfullpath = this.servletContext.getRealPath("/WEB-INF/jasper/devs_sb.jrxml");
+//			JasperReport devsSR = (JasperReport)JRLoader.loadObjectFromFile(devsfullpath);
+			
+			JasperReport devsSR = JasperCompileManager.compileReport(devsfullpath);
+			
+			params.put("devs_sb.jasper", devsSR);
 			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
 					new JRBeanCollectionDataSource(Lists.newArrayList(this.creditDetailTransformer.transform(d))));
@@ -198,5 +216,5 @@ public class BillController extends ExceptionHandlingController {
 		}
 		
 	}
-	
+
 }

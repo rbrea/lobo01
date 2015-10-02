@@ -26,4 +26,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	List<BillDto> searchExpires();
 
+	BillDto searchByCreditNumber(Long creditNumber);
+
 }

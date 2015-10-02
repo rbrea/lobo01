@@ -126,7 +126,7 @@
 		  					<div class="form-group">
 		  						<label for="billNumber">N&uacute;mero de Cr&eacute;dito</label>
 				                <input type="number" class="form-control " id="billNumber" name="billNumber" placeholder="Ingrese n&uacute;mero de factura" min="1" data-error="Requerido" required>
-								<div class="help-block with-errors"></div>
+								<div id="billCreditNumberErrorMessageDiv" class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  			</div>
