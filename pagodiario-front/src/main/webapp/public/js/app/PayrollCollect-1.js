@@ -97,8 +97,10 @@ PayrollCollect.initDataTable = function(imgCheckUrl){
                 	var undoButtonHtml = "";
                 	
                 	if(row.status == 'FINISHED'){
-                		commitButtonHtml = "&nbsp;<a id=\"btnCommit_" + row.id + "\" href=\"javascript:PayrollCollect.commit('" + row.id + "');\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Confirmar Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-ok\"></i></a>";
-                		undoButtonHtml = "&nbsp;<a id=\"btnUndo_" + row.id + "\" href=\"javascript:PayrollCollect.undo('" + row.id + "');\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Deshacer Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-remove\"></i></a>";
+                		if(Permission.isAdmin){
+                			commitButtonHtml = "&nbsp;<a id=\"btnCommit_" + row.id + "\" href=\"javascript:PayrollCollect.commit('" + row.id + "');\" class=\"btn btn-xs btn-primary ROLE_ADMIN\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Confirmar Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-ok\"></i></a>";
+                			undoButtonHtml = "&nbsp;<a id=\"btnUndo_" + row.id + "\" href=\"javascript:PayrollCollect.undo('" + row.id + "');\" class=\"btn btn-xs btn-danger ROLE_ADMIN\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Deshacer Liquidaci&oacute;n\"><i class=\"glyphicon glyphicon-remove\"></i></a>";
+                		}
                 	}
                 	
                     return "<a href=\"javascript:PayrollCollect.showDetail('" + row.id + "');\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Detalle de Liquidaci&oacute;n de Cobrador\"><i class=\"glyphicon glyphicon-zoom-in\"></i></a>"

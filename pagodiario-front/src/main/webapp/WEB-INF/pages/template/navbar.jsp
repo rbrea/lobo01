@@ -52,7 +52,7 @@
 	                	</a>
 	                </li>
 	                <li role="presentation" class="divider"></li>
-	                <li role="presentation" class="ROLE_ADMIN icon-circle">
+	                <li role="presentation" class="icon-circle">
 	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" 
 	                			href="${pageContext.request.contextPath}/controller/html/payrollcollect/index">
 	                		<i class="glyphicon glyphicon-calendar"></i>&nbsp;Liquidaci&oacute;n de Cobradores

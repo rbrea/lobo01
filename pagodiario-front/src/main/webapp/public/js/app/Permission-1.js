@@ -18,7 +18,11 @@ Permission.fill = function(user){
 
 Permission.doCheck = function(){
 	$("a[class*='ROLE_ADMIN']").each(function(){
-		$(this).attr("disabled", !Permission.isAdmin);
+		if(!Permission.isAdmin){
+			$(this).css({"display" : "none"});
+		}
+		
+		//$(this).attr("disabled", !Permission.isAdmin);
 		
 		return;
 	});
