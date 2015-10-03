@@ -65,7 +65,6 @@
 							                <th>DNI</th>
 							                <th>Tel&eacute;fono</th>
 							                <th>Domicilio</th>
-							                <th>Entre Calles</th>
 							                <th>Localidad / Barrio</th>
 							                <th>Tipo Comercio</th>
 							                <th>Email</th>

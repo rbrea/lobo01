@@ -45,10 +45,6 @@ Client.initDataTable = function(imgCheckUrl){
             	"className": 'centered',
             	"data": "companyAddress" 
             },
-            { 	
-            	"className": 'centered',
-            	"data": "nearStreets" 
-            },
             { 
             	"className": 'centered',
             	"data": "companyCity" 

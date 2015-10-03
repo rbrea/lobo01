@@ -9,5 +9,7 @@ public interface ClientDao extends BasicIdentificableDao<Client> {
 	Client find(Long documentNumber);
 
 	List<Client> findByName(String name);
+
+	Client findByNameAndAddress(String name, String address);
  
 }

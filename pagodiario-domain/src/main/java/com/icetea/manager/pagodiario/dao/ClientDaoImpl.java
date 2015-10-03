@@ -35,5 +35,14 @@ public class ClientDaoImpl extends BasicIdentificableDaoImpl<Client>
 		
 		return criteria.list();
 	}
+	
+	@Override
+	public Client findByNameAndAddress(String name, String address){
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.ilike("name", name));
+		criteria.add(Restrictions.ilike("companyAddress", address));
+		
+		return (Client) criteria.uniqueResult();
+	}
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -31,23 +33,34 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 
 	@Override
 	public ClientDto insert(ClientDto input) {
+		
+		final String name = input.getName();
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(name), 
+				String.format("El Nombre del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
 
-		Client e = this.getDao().find(input.getDocumentNumber());
+		final String companyAddress = input.getCompanyAddress();
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(companyAddress), 
+				String.format("El domicilio comercial del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
 
-		ErrorTypedConditions.checkArgument(e == null, "Cliente ya existe dni: " + input.getDocumentNumber(),
+		Client e = this.getDao().findByNameAndAddress(name, companyAddress);
+
+		ErrorTypedConditions.checkArgument(e == null, 
+				String.format("Cliente ya existe con nombre: %s y domicilio comercial: %s.", name, companyAddress),
 				ErrorType.VALIDATION_ERRORS);
 		
 		e = new Client();
 		e.setAddress(input.getAddress());
 		e.setCity(input.getCity());
-		e.setCompanyAddress(input.getCompanyAddress());
+		e.setCompanyAddress(companyAddress);
 		e.setCompanyCity(input.getCompanyCity());
 		e.setCompanyPhone(input.getCompanyPhone());
 		e.setCompanyType(input.getCompanyType());
 		e.setDocumentNumber(input.getDocumentNumber());
 		e.setDocumentType(input.getDocumentType());
 		e.setEmail(input.getEmail());
-		e.setName(input.getName());
+		e.setName(name);
 		e.setNearStreets(input.getNearStreets());
 		e.setPhone(input.getPhone());
 		
@@ -63,16 +76,36 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 		if(e == null){
 			throw new RuntimeException("El cliente no existe");
 		}
+		
+		final String name = d.getName();
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(name), 
+				String.format("El Nombre del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
+
+		final String companyAddress = d.getCompanyAddress();
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(companyAddress), 
+				String.format("El domicilio comercial del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
+		
+		if(!StringUtils.equalsIgnoreCase(e.getName(), name)
+				|| !StringUtils.equalsIgnoreCase(e.getCompanyAddress(), companyAddress)){
+			
+			Client client = this.getDao().findByNameAndAddress(name, companyAddress);
+			ErrorTypedConditions.checkArgument(client == null, 
+					String.format("Cliente ya existe con nombre: %s y domicilio comercial: %s.", name, companyAddress),
+					ErrorType.VALIDATION_ERRORS);
+		}
+		
 		e.setAddress(d.getAddress());
 		e.setCity(d.getCity());
-		e.setCompanyAddress(d.getCompanyAddress());
+		e.setCompanyAddress(companyAddress);
 		e.setCompanyCity(d.getCompanyCity());
 		e.setCompanyPhone(d.getCompanyPhone());
 		e.setCompanyType(d.getCompanyType());
 		e.setDocumentNumber(d.getDocumentNumber());
 		e.setDocumentType(d.getDocumentType());
 		e.setEmail(d.getEmail());
-		e.setName(d.getName());
+		e.setName(name);
 		e.setNearStreets(d.getNearStreets());
 		e.setPhone(d.getPhone());
 		
