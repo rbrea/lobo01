@@ -57,7 +57,8 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findByCollectorId(Long collectorId){
 		Criteria criteria = super.createCriteria();
-		criteria.add(Restrictions.eq("collectorId", collectorId));
+		criteria.createAlias("collector", "collector");
+		criteria.add(Restrictions.eq("collector.id", collectorId));
 		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
 		
 		return criteria.list();

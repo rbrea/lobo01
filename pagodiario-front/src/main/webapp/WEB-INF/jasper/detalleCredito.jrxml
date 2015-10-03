@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-09-30T18:05:59 -->
+<!-- 2015-10-02T18:12:58 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalleCredito" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e81091a0-ab57-4f30-b68c-6ec3013c271e">
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -255,29 +255,29 @@
 				<textFieldExpression><![CDATA[$F{firstInstallmentAmount}]]></textFieldExpression>
 			</textField>
 			<subreport overflowType="Stretch">
-				<reportElement x="-20" y="271" width="612" height="200" uuid="2950c9af-2033-40a4-8b6c-0f0cf2df54f2">
+				<reportElement positionType="Float" x="-20" y="271" width="612" height="200" uuid="2950c9af-2033-40a4-8b6c-0f0cf2df54f2">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{devs})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["devs_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport overflowType="Stretch">
-				<reportElement x="-20" y="470" width="612" height="140" uuid="40804f88-1735-42bd-b88a-77d0cbcdacae"/>
+				<reportElement positionType="Float" x="-20" y="470" width="612" height="140" uuid="40804f88-1735-42bd-b88a-77d0cbcdacae"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{payments})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["payments_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="-20" y="610" width="610" height="120" uuid="244b5a4a-c163-419d-9fc5-424df08360eb"/>
+				<reportElement positionType="Float" x="-20" y="610" width="610" height="120" uuid="244b5a4a-c163-419d-9fc5-424df08360eb"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{products})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["products_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="-20" y="730" width="610" height="109" uuid="10a07053-e20f-44f6-85ee-a861110a5767"/>
+				<reportElement positionType="Float" x="-20" y="730" width="610" height="109" uuid="10a07053-e20f-44f6-85ee-a861110a5767"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{discounts})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["discounts_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="-20" y="840" width="610" height="127" uuid="c8bcbe68-67ce-49b1-882c-60051671e094"/>
+				<reportElement positionType="Float" x="-20" y="840" width="610" height="127" uuid="c8bcbe68-67ce-49b1-882c-60051671e094"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{reductions})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["reductions_sb.jasper"]]></subreportExpression>
 			</subreport>

@@ -1,6 +1,16 @@
 BillHistory = function(){}
 
 BillHistory.init = function(){
+	
+	$(".bill-history-filter").hide();
+	
+	$("#aBillHistoryShowFilter").on("click", function(){
+		
+		BillHistory.showFilter();
+		
+		return;
+	});
+	
 	/*
 	$('#startDate').datetimepicker({
         locale: 'es',
@@ -119,7 +129,8 @@ BillHistory.init = function(){
                 	return BillHistory.getActionSelectElement(row.id, {
                 		"totalDailyInstallment": row.totalDailyInstallment,
                 		"collectorId" : row.collectorId,
-                		"detailClazzDisabled": clazzDisabled
+                		"detailClazzDisabled": clazzDisabled,
+                		"creditNumber" : row.creditNumber
                 	});
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
@@ -139,6 +150,171 @@ BillHistory.init = function(){
         } 
     });
 	
+	$("#btnBillHistorySearch").on('click', function(){
+		
+		var collectorId = $("#billHistoryCollectorId").val();
+		
+		BillHistory.searchByFilter(collectorId);
+		
+		return;
+	});
+	
+	$("#btnBillHistoryReset").on('click', function(){
+		
+		BillHistory.resetFilter(true);
+		
+		return;
+	});
+	
+	$("#billHistoryCollectorZone").on('keypress', function(){
+		
+		BillHistory.resetFilter(false);
+		
+		return;
+	});
+	
+	$("#billHistoryCollectorZone").keyup(function(e){
+		if(e.keyCode == 13) {
+			var value = $(this).val();
+			if(value != null && value != ""){
+				$("#btnBillHistorySearch").focus();
+				return BillHistory.getCollectorByZone(value, $('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+			}
+		} else {
+			$("#billHistoryCollectorDescription").val("");
+		}
+	    
+	    return;
+	});
+	
+	$('#billHistoryCollectorZone').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	var value = $(this).val();
+			if(value != null && value != ""){
+				e.preventDefault();
+				$("#btnBillHistorySearch").focus();
+				return BillHistory.getCollectorByZone(value, $('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+			}
+	    }
+	    
+	    return;
+	});
+	
+	$("#btnBillHistorySearchCollector").on("click", function(){
+		
+		var value = $("#billHistoryCollectorZone").val();
+		if(value != null && value != ""){
+			return BillHistory.getCollectorByZone(value, $('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+		}
+		
+    	$.ajax({ 
+		   type    : "GET",
+		   url     : Constants.contextRoot + "/controller/html/collector",
+		   dataType: 'json',
+		   contentType: "application/json;",
+		   success:function(data) {
+				
+			   var tbody = $("#tLovCollectorResult tbody");
+			   
+			   tbody.children('tr').remove();
+			   
+			   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+			   if(data != null && data.status == 0){
+
+				   var table = $("#tLovCollectorResult").dataTable( {
+				   		"data" : data.data,
+				   		"bDestroy" : true,
+				   		"pagingType": "simple",
+				        "columns": [
+							{ 
+								"className": 'centered',
+								"data": "id" 
+							},
+							{ 
+								"className": 'centered',
+								"data": "zone" 
+							},
+				            { 	
+				            	"className": 'centered',
+				            	"data": "description" 
+				            }
+				        ],
+				        "order": [[0, 'asc']],
+				        "language": {
+				            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+				            "zeroRecords": "No se ha encontrado ningun elemento",
+				            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+				            "infoEmpty": "No hay registros disponibles",
+				            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+				            "search": "Buscar: ",
+				            "paginate": {
+				            	"previous": "Anterior",
+								"next": "Siguiente"
+							}
+				        } 
+				   	});
+				   
+				   	$('#tLovCollectorResult tbody').on('mouseover', 'tr', function () {
+						$(this).css({"cursor": "pointer"});	
+						
+						return;
+					});
+					
+					$('#tLovCollectorResult tbody').on( 'click', 'tr', function () {
+				        if ( $(this).hasClass('selected') ) {
+				            $(this).removeClass('selected');
+				        } else {
+				            table.$('tr.selected').removeClass('selected');
+				            $(this).addClass('selected');
+				            
+				            var selectedId = $(this).children('td').eq(0).html().trim();
+				            var zone = $(this).children('td').eq(1).html().trim();
+				            var selectedDescription = $(this).children('td').eq(2).html().trim();
+				            
+				            $("#billHistoryCollectorId").val(selectedId);
+				            $("#billHistoryCollectorZone").val(zone);
+				            $("#billHistoryCollectorDescription").val(selectedDescription);
+				            $("#lov-collector-container").css({"display": "none"});
+
+							// si esta todo ok entonces doy de alta ...
+							//$("#bClientId").focus();
+
+				            BootstrapDialog.closeAll();
+				        }
+				        
+						return;
+				    });
+					
+					BootstrapDialog.show({
+						type:BootstrapDialog.TYPE_DANGER,
+						title: 'Cobradores',
+						autodestroy: false,
+						draggable: true,
+				        message: function(dialog) {
+				        	
+				        	$("#lov-collector-container").css({"display":"block"});
+				        	
+				        	return $("#lov-collector-container");
+				        }
+				    });
+					
+				} else {
+					Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
+				}
+		   },
+		   error:function(data){
+			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+			   
+			   return;
+		   }
+		});
+		
+		return;
+	});
+
+	
 	return;
 }
 
@@ -154,7 +330,7 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Discount.show('" + id + "');\">Descuentos</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Dev.show('" + id + "');\">Devoluciones</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +*/
-	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
+	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "&creditNumber=" + map.creditNumber + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Altas</li>" +
 	    "<li class=\"" + map.detailClazzDisabled + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
@@ -765,6 +941,276 @@ BillHistory.remove = function(id){
 BillHistory.exportToPdf = function(){
 
 	$("#frmBillHistoryExportPdf").submit();
+	
+	return;
+}
+
+BillHistory.searchByFilter = function(collectorId){
+
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/bill?collectorId=" + collectorId,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   var tbody = $("#tBillResult tbody");
+		   
+		   tbody.children('tr').remove();
+		   
+		   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+		   if(data != null && data.status == 0){
+			   
+			   var table = $("#tBillResult").dataTable( {
+				/*
+				"fnRowCallback": function(nRow, aData, iDisplayIndex){
+					$('td', nRow).attr('nowrap', 'nowrap');
+					
+					return nRow;
+				},*/
+				"fnInitComplete": function(){
+					$('#tBillResult tbody tr').each(function(){
+						$(this).find('td:eq(1)').attr('nowrap', 'nowrap');
+						$(this).find('td:eq(2)').attr('nowrap', 'nowrap');
+						$(this).find('td:eq(10)').attr('nowrap', 'nowrap');
+						
+						return;
+					});
+					
+					return;
+				},
+				/*"bAutoWidth": false,*/
+				"bDestroy" : true,
+				responsive: true,
+				"createdRow": function ( row, data, index ) {
+		    		
+		    		$(row).data('billId', data.id);
+		    		
+		    		return;
+		        },
+		        "data": data.data,
+		        "columns": [
+		            { 	
+		            	"className": 'centered',
+		            	"data": "id" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "startDate"
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "endDate" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "creditNumber" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "collectorId" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "overdueDays" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "totalDailyInstallment" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "totalAmount" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "remainingAmount" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"render": function ( data, type, row ) {
+					        var value = "INICIALIZADO";
+					        if(row.status == 'ACTIVE'){
+					        	value = "ACTIVO";
+					        } else if(row.status == 'FINALIZED'){
+					        	value = 'FINALIZADO';
+					        } else if(row.status == 'CANCELED'){
+					        	value = 'CANCELADO';
+					        }
+					        
+					        return value;
+					    } 
+		            },
+		            {
+		            	"className":      'centered',
+			         	// The `data` parameter refers to the data for the cell (defined by the
+		                // `data` option, which defaults to the column being worked with, in
+		                // this case `data: 0`.
+		                "orderable": false,
+		                "render": function ( data, type, row ) {
+		                	
+		                	var clazzDisabled = "";
+		                	if(row.status == 'FINALIZED'){
+		                		clazzDisabled = 'disabled';
+		                	}
+		                	
+		                	return BillHistory.getActionSelectElement(row.id, {
+		                		"totalDailyInstallment": row.totalDailyInstallment,
+		                		"collectorId" : row.collectorId,
+		                		"detailClazzDisabled": clazzDisabled,
+		                		"creditNumber" : row.creditNumber
+		                	});
+		                } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
+		         	}
+		        ],
+		        "order": [[0, 'desc']],
+		        "language": {
+		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+		            "zeroRecords": "No se ha encontrado ningun elemento",
+		            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+		            "infoEmpty": "No hay registros disponibles",
+		            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+		            "search": "Buscar: ",
+		            "paginate": {
+		            	"previous": "Anterior",
+						"next": "Siguiente"
+					}
+		        } 
+		    });
+		   } else {
+			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
+
+BillHistory.getCollectorByZone = function(zone, alertMessagesContainer, messagesContainer){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/collector?zone=" + zone,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+
+		   $("#billHistoryCollectorDescription").parent().next().html("");
+		   $("#billHistoryCollectorDescription").val("");
+		   $("#billHistoryCollectorZone").parent().parent().removeClass("has-error");
+		   $("#billHistoryCollectorDescription").parent().parent().removeClass("has-error");
+		   
+		   Message.hideMessages(alertMessagesContainer, messagesContainer);
+		   
+		   if(data != null && data.status == 0){
+			   
+			   var list = data.data;
+			   
+			   if(list.length > 0){
+				   var element = list[0];
+				   
+				   $("#billHistoryCollectorId").val(element.id)
+				   $("#billHistoryCollectorZone").val(element.zone)
+		           $("#billHistoryCollectorDescription").val(element.description);				   
+			
+		           $("#bClientId").focus();
+			   } else {
+				   $("#billHistoryCollectorZone").focus();
+				   $("#billHistoryCollectorDescription").parent().next().append("Cobrador no encontrado");
+				   $("#billHistoryCollectorZone").parent().parent().addClass("has-error");
+				   $("#billHistoryCollectorDescription").parent().parent().addClass("has-error");
+			   }
+			   
+		   } else {
+				Message.showMessages(alertMessagesContainer, messagesContainer, data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages(alertMessagesContainer, messagesContainer, data.responseJSON.message);
+		   
+		   return false;
+	   }
+	});
+	
+	return;
+}
+
+BillHistory.hideFilter = function(){
+
+	BillHistory.resetFilter(true);
+	
+	$(".bill-history-filter").hide("slow");
+	/*
+	$("#optBillHistoryShowFilter").toggleClass("disabled");
+	$("#optBillHistoryHideFilter").toggleClass("disabled");
+	
+	$("#aBillHistoryShowFilter").on("click", function(e){
+		
+		BillHistory.showFilter();
+		
+		return;
+	});
+	
+	$("#aBillHistoryHideFilter").on("click", function(e){
+		e.preventDefault();
+		
+		return;
+	});
+	*/
+	
+	return;
+}
+
+BillHistory.showFilter = function(){
+	
+	$(".bill-history-filter").show("slow");
+	/*
+	$("#optBillHistoryShowFilter").toggleClass("disabled");
+	$("#optBillHistoryHideFilter").toggleClass("disabled");
+	
+	$("#aBillHistoryShowFilter").on("click", function(e){
+		e.preventDefault();
+		
+		return;
+	});
+	
+	$("#aBillHistoryHideFilter").on("click", function(e){
+		
+		BillHistory.hideFilter();
+		
+		return;
+	});
+	*/
+	
+	return;
+}
+
+BillHistory.resetFilter = function(enabled){
+	
+	$("#billHistoryCollectorId").val("");
+	if(enabled){
+		$("#billHistoryCollectorZone").val("");
+	}
+	$("#billHistoryCollectorDescription").val("");
+	
+	$("#billHistoryCollectorDescription").parent().next().html("");
+	$("#billHistoryCollectorDescription").val("");
+	$("#billHistoryCollectorZone").parent().parent().removeClass("has-error");
+	$("#billHistoryCollectorDescription").parent().parent().removeClass("has-error");
 	
 	return;
 }

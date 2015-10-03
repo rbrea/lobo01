@@ -77,7 +77,8 @@ public class BillController extends ExceptionHandlingController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public @ResponseBody ListOutputDto<BillDto> getBills(@RequestParam(required = false) Long id,
-			@RequestParam(required = false) Long creditNumber){
+			@RequestParam(required = false) Long creditNumber,
+			@RequestParam(required = false) Long collectorId){
 		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
 
 		List<BillDto> list = Lists.newArrayList();
@@ -91,6 +92,11 @@ public class BillController extends ExceptionHandlingController {
 			BillDto bill = this.billService.searchByCreditNumber(creditNumber);
 			if(bill != null){
 				list.add(bill);
+			}
+		} else if(collectorId != null){
+			List<BillDto> bills = this.billService.searchByCollectorId(collectorId);
+			if(bills != null){
+				list.addAll(bills);
 			}
 		} else {
 			list = this.billService.searchAll();
@@ -120,11 +126,14 @@ public class BillController extends ExceptionHandlingController {
 	}
 
 	@RequestMapping(value = "/detail/index", method = RequestMethod.GET)
-	public String showDetail(@RequestParam(required = false) Long billId, ModelMap model){
+	public String showDetail(@RequestParam(required = false) Long billId, 
+			@RequestParam(required = false) Long creditNumber,
+			ModelMap model){
 		
 		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
 		
 		model.addAttribute("billId", billId);
+		model.addAttribute("creditNumber", creditNumber);
 		
 		return "bill-detail";
 	}

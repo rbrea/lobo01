@@ -35,7 +35,7 @@
 		<div class="col-md-8">
 			<div class="panel panel-red">
 		  		<div class="panel-heading">
-		    		<i class="glyphicon glyphicon-briefcase"></i>&nbsp;DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber"></span>
+		    		<i class="glyphicon glyphicon-eye-open"></i>&nbsp;DETALLE DE CR&Eacute;DITO&nbsp;<span id="detailCreditNumber" style="font-weight:bold;">${creditNumber}</span>
 		    		<div class="pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
