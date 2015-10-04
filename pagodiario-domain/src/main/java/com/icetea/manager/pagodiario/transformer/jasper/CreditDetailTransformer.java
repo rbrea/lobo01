@@ -31,15 +31,15 @@ public class CreditDetailTransformer {
 		c.setCreditDate(d.getCreditDate());
 		c.setCreditNumber(d.getCreditNumber());
 		
-		if(d.getDevolutions() == null || d.getDevolutions().isEmpty()){
-			DevDetailPojo dev = new DevDetailPojo();
-			dev.setAmount("");
-			dev.setDevDate("");
-			dev.setInstallmentAmount("");
-			dev.setProduct("");
-			
-			c.getDevs().add(dev);
-		} else {
+//		if(d.getDevolutions() == null || d.getDevolutions().isEmpty()){
+//			DevDetailPojo dev = new DevDetailPojo();
+//			dev.setAmount("");
+//			dev.setDevDate("");
+//			dev.setInstallmentAmount("");
+//			dev.setProduct("");
+//			
+//			c.getDevs().add(dev);
+//		} else {
 			for (BillDetailDevolutionDto devolution : d.getDevolutions()) {
 				DevDetailPojo dev = new DevDetailPojo();
 				dev.setAmount(devolution.getAmount());
@@ -49,15 +49,15 @@ public class CreditDetailTransformer {
 				
 				c.getDevs().add(dev);
 			}
-		}
+//		}
 		
-		if(d.getDiscounts() == null || d.getDiscounts().isEmpty()){
-			DiscountDetailPojo dis = new DiscountDetailPojo();
-			dis.setAmount("");
-			dis.setDate("");
-			
-			c.getDiscounts().add(dis);
-		} else {
+//		if(d.getDiscounts() == null || d.getDiscounts().isEmpty()){
+//			DiscountDetailPojo dis = new DiscountDetailPojo();
+//			dis.setAmount("");
+//			dis.setDate("");
+//			
+//			c.getDiscounts().add(dis);
+//		} else {
 			for (BillDetailDiscountDto discount : d.getDiscounts()) {
 				DiscountDetailPojo dis = new DiscountDetailPojo();
 				dis.setAmount(discount.getAmount());
@@ -65,19 +65,19 @@ public class CreditDetailTransformer {
 				
 				c.getDiscounts().add(dis);
 			}
-		}
+//		}
 		
 		c.setFirstInstallmentAmount(d.getFirstInstallmentAmount());
 		c.setInstallmentAmount(d.getInstallmentAmount());
 		
-		if(d.getPayments() == null || d.getPayments().isEmpty()){
-			PaymentDetailPojo pa = new PaymentDetailPojo();
-			pa.setAmount("");
-			pa.setCollector("");
-			pa.setPaymentDate("");
-			
-			c.getPayments().add(pa);
-		} else {
+//		if(d.getPayments() == null || d.getPayments().isEmpty()){
+//			PaymentDetailPojo pa = new PaymentDetailPojo();
+//			pa.setAmount("");
+//			pa.setCollector("");
+//			pa.setPaymentDate("");
+//			
+//			c.getPayments().add(pa);
+//		} else {
 			for (BillDetailPaymentDto p : d.getPayments()) {
 				PaymentDetailPojo pa = new PaymentDetailPojo();
 				pa.setAmount(p.getAmount());
@@ -86,19 +86,19 @@ public class CreditDetailTransformer {
 				
 				c.getPayments().add(pa);
 			}
-		}
+//		}
 		
 		
-		if(d.getProducts() == null || d.getProducts().isEmpty()){
-			ProductDetailPojo p = new ProductDetailPojo();
-			p.setCode("");
-			p.setCount("");
-			p.setDescription("");
-			p.setInstallmentAmount("");
-			p.setTotalAmount("");
-			
-			c.getProducts().add(p);
-		} else {
+//		if(d.getProducts() == null || d.getProducts().isEmpty()){
+//			ProductDetailPojo p = new ProductDetailPojo();
+//			p.setCode("");
+//			p.setCount("");
+//			p.setDescription("");
+//			p.setInstallmentAmount("");
+//			p.setTotalAmount("");
+//			
+//			c.getProducts().add(p);
+//		} else {
 			for (BillProductDetailDto product : d.getProducts()) {
 				ProductDetailPojo p = new ProductDetailPojo();
 				p.setCode(product.getCodProducto());
@@ -109,15 +109,15 @@ public class CreditDetailTransformer {
 				
 				c.getProducts().add(p);
 			}
-		}
+//		}
 		
-		if(d.getReductions() == null || d.getReductions().isEmpty()){
-			ReductionDetailPojo r = new ReductionDetailPojo();
-			r.setAmount("");
-			r.setDate("");
-			
-			c.getReductions().add(r);
-		} else {
+//		if(d.getReductions() == null || d.getReductions().isEmpty()){
+//			ReductionDetailPojo r = new ReductionDetailPojo();
+//			r.setAmount("");
+//			r.setDate("");
+//			
+//			c.getReductions().add(r);
+//		} else {
 			for (BillDetailReductionDto red : d.getReductions()) {
 				ReductionDetailPojo r = new ReductionDetailPojo();
 				r.setAmount(red.getAmount());
@@ -125,7 +125,7 @@ public class CreditDetailTransformer {
 				
 				c.getReductions().add(r);
 			}
-		}
+//		}
 		
 		c.setTotalAmount(d.getCreditAmount());
 		c.setTraderName(d.getTraderName());

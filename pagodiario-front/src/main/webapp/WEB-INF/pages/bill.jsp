@@ -363,14 +363,14 @@
 		  				<div class="col-md-2">
 							<div class="form-group centered">
 		  						<label for="bcuotadiaria_0">$ c/cta.</label>
-				                <input type="number" class="form-control " id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta." data-error="Requerido" required>
+				                <input type="text" class="form-control " id="bcuotadiaria_0" name="bcuotadiaria_0" placeholder="$ c/cta." data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
 		  						<label for="bimp_0">$ Importe</label>
-				                <input type="number" class="form-control " id="bimp_0" name="bimp_0" placeholder="$ Importe" data-error="Requerido" required>
+				                <input type="text" class="form-control " id="bimp_0" name="bimp_0" placeholder="$ Importe" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -406,13 +406,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcuotadiaria_1" name="bcuotadiaria_1" placeholder="$ c/cta.">
+				                <input type="text" class="form-control " id="bcuotadiaria_1" name="bcuotadiaria_1" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bimp_1" name="bimp_1" placeholder="$ Importe">
+				                <input type="text" class="form-control " id="bimp_1" name="bimp_1" placeholder="$ Importe">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -446,13 +446,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcuotadiaria_2" name="bcuotadiaria_2" placeholder="$ c/cta.">
+				                <input type="text" class="form-control " id="bcuotadiaria_2" name="bcuotadiaria_2" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bimp_2" name="bimp_2" placeholder="$ Importe">
+				                <input type="text" class="form-control " id="bimp_2" name="bimp_2" placeholder="$ Importe">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -486,13 +486,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcuotadiaria_3" name="bcuotadiaria_3" placeholder="$ c/cta.">
+				                <input type="text" class="form-control " id="bcuotadiaria_3" name="bcuotadiaria_3" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bimp_3" name="bimp_3" placeholder="$ Importe">
+				                <input type="text" class="form-control " id="bimp_3" name="bimp_3" placeholder="$ Importe">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
@@ -526,13 +526,13 @@
 		  				</div>
 		  				<div class="col-md-2">
 							<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcuotadiaria_4" name="bcuotadiaria_4" placeholder="$ c/cta.">
+				                <input type="text" class="form-control " id="bcuotadiaria_4" name="bcuotadiaria_4" placeholder="$ c/cta.">
 								<div class="help-block with-errors"></div>
 				            </div>		  					
 		  				</div>
 		  				<div class="col-md-2">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bimp_4" name="bimp_4" placeholder="$ Importe">
+				                <input type="text" class="form-control " id="bimp_4" name="bimp_4" placeholder="$ Importe">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
