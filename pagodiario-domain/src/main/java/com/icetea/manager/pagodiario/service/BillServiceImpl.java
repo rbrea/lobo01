@@ -247,7 +247,7 @@ public class BillServiceImpl
 			r.setAmount(NumberUtils.toString(p.getAmount()));
 			r.setDate(DateUtils.toDate(p.getDate()));
 			r.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
-			r.setProductDescription("NO DISPONIBLE");
+			r.setProductDescription(p.getObservations());
 			
 			d.getDevolutions().add(r);
 		}

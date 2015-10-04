@@ -24,7 +24,21 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Detalle de liquidaci&oacute;n por Vendedor</h3>
+		    		<i class="glyphicon glyphicon-stats"></i>&nbsp;&nbsp;Detalle de liquidaci&oacute;n por Vendedor
+		    		<div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            	<i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:ConciliationItem.printPayroll();">
+                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -34,15 +48,6 @@
 							  <li><a href="${pageContext.request.contextPath}/controller/html/payrollDetail/index?payrollId=${payrollId}">Detalle de liquidaci&oacute;n</a></li>
 							  <li class="active">Detalle de liquidaci&oacute;n por Vendedor</li>
 							</ol>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-10">
-							&nbsp;
-						</div>
-						<div class="col-md-2">
-							<button id="btnExportLiqVend" type="button" data-loading-text="Espere..." 
-								class="btn btn-sm btn-success"><i class="glyphicon glyphicon-print"></i>&nbsp;Imprimir</button>&nbsp;
 						</div>
 					</div>
 					<div class="row">
@@ -121,8 +126,6 @@
 			
 			ConciliationItem.initDataTable(imgCheckUrl, "${payrollItemId}");
 		    
-			ConciliationItem.init();
-
 			return;
 		}	
 		

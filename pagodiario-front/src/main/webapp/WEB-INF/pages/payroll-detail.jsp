@@ -29,7 +29,7 @@
 			</form>
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title">Detalle de liquidaci&oacute;n</h3>
+		    		<i class="glyphicon glyphicon-stats"></i>&nbsp;&nbsp;Detalle de liquidaci&oacute;n
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">

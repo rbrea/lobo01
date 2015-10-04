@@ -125,7 +125,7 @@
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
-			  					<th class="centered">PRODUCTO</th>
+			  					<th class="centered">OBSERVACIONES</th>
 			  					<th class="centered">IMPORTE</th>
 			  					<th class="centered">CUOTA</th>
 			  				</tr>

@@ -31,53 +31,100 @@ public class CreditDetailTransformer {
 		c.setCreditDate(d.getCreditDate());
 		c.setCreditNumber(d.getCreditNumber());
 		
-		for (BillDetailDevolutionDto devolution : d.getDevolutions()) {
+		if(d.getDevolutions() == null || d.getDevolutions().isEmpty()){
 			DevDetailPojo dev = new DevDetailPojo();
-			dev.setAmount(devolution.getAmount());
-			dev.setDevDate(devolution.getDate());
-			dev.setInstallmentAmount(devolution.getInstallmentAmount());
-			dev.setProduct(devolution.getProductDescription());
+			dev.setAmount("");
+			dev.setDevDate("");
+			dev.setInstallmentAmount("");
+			dev.setProduct("");
 			
 			c.getDevs().add(dev);
+		} else {
+			for (BillDetailDevolutionDto devolution : d.getDevolutions()) {
+				DevDetailPojo dev = new DevDetailPojo();
+				dev.setAmount(devolution.getAmount());
+				dev.setDevDate(devolution.getDate());
+				dev.setInstallmentAmount(devolution.getInstallmentAmount());
+				dev.setProduct(devolution.getProductDescription());
+				
+				c.getDevs().add(dev);
+			}
 		}
 		
-		for (BillDetailDiscountDto discount : d.getDiscounts()) {
+		if(d.getDiscounts() == null || d.getDiscounts().isEmpty()){
 			DiscountDetailPojo dis = new DiscountDetailPojo();
-			dis.setAmount(discount.getAmount());
-			dis.setDate(discount.getDate());
+			dis.setAmount("");
+			dis.setDate("");
 			
 			c.getDiscounts().add(dis);
+		} else {
+			for (BillDetailDiscountDto discount : d.getDiscounts()) {
+				DiscountDetailPojo dis = new DiscountDetailPojo();
+				dis.setAmount(discount.getAmount());
+				dis.setDate(discount.getDate());
+				
+				c.getDiscounts().add(dis);
+			}
 		}
 		
 		c.setFirstInstallmentAmount(d.getFirstInstallmentAmount());
 		c.setInstallmentAmount(d.getInstallmentAmount());
 		
-		for (BillDetailPaymentDto p : d.getPayments()) {
+		if(d.getPayments() == null || d.getPayments().isEmpty()){
 			PaymentDetailPojo pa = new PaymentDetailPojo();
-			pa.setAmount(p.getAmount());
-			pa.setCollector(p.getCollector());
-			pa.setPaymentDate(p.getDate());
+			pa.setAmount("");
+			pa.setCollector("");
+			pa.setPaymentDate("");
 			
 			c.getPayments().add(pa);
+		} else {
+			for (BillDetailPaymentDto p : d.getPayments()) {
+				PaymentDetailPojo pa = new PaymentDetailPojo();
+				pa.setAmount(p.getAmount());
+				pa.setCollector(p.getCollector());
+				pa.setPaymentDate(p.getDate());
+				
+				c.getPayments().add(pa);
+			}
 		}
 		
-		for (BillProductDetailDto product : d.getProducts()) {
+		
+		if(d.getProducts() == null || d.getProducts().isEmpty()){
 			ProductDetailPojo p = new ProductDetailPojo();
-			p.setCode(product.getCodProducto());
-			p.setCount(product.getCount());
-			p.setDescription(product.getDescription());
-			p.setInstallmentAmount(product.getInstallmentAmount());
-			p.setTotalAmount(p.getTotalAmount());
+			p.setCode("");
+			p.setCount("");
+			p.setDescription("");
+			p.setInstallmentAmount("");
+			p.setTotalAmount("");
 			
 			c.getProducts().add(p);
+		} else {
+			for (BillProductDetailDto product : d.getProducts()) {
+				ProductDetailPojo p = new ProductDetailPojo();
+				p.setCode(product.getCodProducto());
+				p.setCount(product.getCount());
+				p.setDescription(product.getDescription());
+				p.setInstallmentAmount(product.getInstallmentAmount());
+				p.setTotalAmount(product.getTotalAmount());
+				
+				c.getProducts().add(p);
+			}
 		}
 		
-		for (BillDetailReductionDto red : d.getReductions()) {
+		if(d.getReductions() == null || d.getReductions().isEmpty()){
 			ReductionDetailPojo r = new ReductionDetailPojo();
-			r.setAmount(red.getAmount());
-			r.setDate(red.getDate());
+			r.setAmount("");
+			r.setDate("");
 			
 			c.getReductions().add(r);
+		} else {
+			for (BillDetailReductionDto red : d.getReductions()) {
+				ReductionDetailPojo r = new ReductionDetailPojo();
+				r.setAmount(red.getAmount());
+				r.setDate(red.getDate());
+				
+				c.getReductions().add(r);
+			}
 		}
 		
 		c.setTotalAmount(d.getCreditAmount());

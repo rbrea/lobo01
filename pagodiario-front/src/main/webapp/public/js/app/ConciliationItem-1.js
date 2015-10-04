@@ -1,21 +1,15 @@
 ConciliationItem = function(){}
 
-ConciliationItem.init = function(){
+ConciliationItem.printPayroll = function(){
 	
-	$("#btnExportLiqVend").on('click', function(){
-		$("#frmConciliationItem").submit();
-		
-		return;
-	});
+	$("#frmConciliationItem").submit();
 }
 
-ConciliationItem.initSupervisor = function(){
+ConciliationItem.printSupervisorPayroll = function(){
 	
-	$("#btnExportLiqSup").on('click', function(){
-		$("#frmConciliationItemSup").submit();
-		
-		return;
-	});
+	$("#frmConciliationItemSup").submit();
+	
+	return;
 }
 
 ConciliationItem.initDataTable = function(imgCheckUrl, id){
