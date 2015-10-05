@@ -97,6 +97,7 @@
 		</div>	
 	</div>
 	-->
+	 <!--  
 	<div class="row">
 		<div class="col-md-4">
 			&nbsp;
@@ -109,6 +110,115 @@
 		<div class="col-md-4">
 			&nbsp;
 		</div>	
+	</div>
+	-->
+	<div class="row">
+		&nbsp;
+	</div>
+	<div class="row">
+		&nbsp;
+	</div>
+	<div class="row">
+		&nbsp;
+	</div>
+	<div class="row">
+		&nbsp;
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+			&nbsp;
+		</div>
+		<div class="col-md-2">
+           <div class="panel panel-primary">
+               <div class="panel-heading">
+                   <div class="row">
+                       <div class="col-xs-3">
+                           <i class="fa fa-line-chart fa-5x"></i>
+                       </div>
+                       <div class="col-xs-9 text-right">
+                           <div class="huge"></div>
+                           <div></div>
+                       </div>
+                   </div>
+               </div>
+               <a href="#">
+                   <div class="panel-footer">
+                       <span class="pull-left">Total Facturado</span>
+                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                       <div class="clearfix"></div>
+                   </div>
+               </a>
+           </div>
+       </div>
+       <div class="col-md-2">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-bar-chart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge"></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">Total Comisiones</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-area-chart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge"></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">Top 5 Vendedores</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-pie-chart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge"></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer fred">
+                        <span class="pull-left">Top 5 Cobradores</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-2">
+        	&nbsp;
+        </div>
 	</div>
 </div>
 
