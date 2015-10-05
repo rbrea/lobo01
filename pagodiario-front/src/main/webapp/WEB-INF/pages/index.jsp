@@ -1,3 +1,13 @@
+<div id="placeholder-topsales-container" style="display:none;width:600px;height:300px">
+	<div class="container-fluid">
+		<div class="row">
+			<div id="placeholder-topsales" class="col-md-12">
+			
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="col-md-12">
 	<div class="row">
 		<div class="col-md-12">
@@ -141,7 +151,7 @@
                        </div>
                    </div>
                </div>
-               <a href="#">
+               <a href="javascript:void(0);" id="btnTopSalesChart">
                    <div class="panel-footer">
                        <span class="pull-left">Total Facturado</span>
                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -227,7 +237,7 @@
 	$(document).ready(
 		function(){
 
-			//Chart.init();
+			Chart.init();
 			
 			return;
 		}		

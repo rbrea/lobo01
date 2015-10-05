@@ -66,6 +66,14 @@
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
+	
+	<!-- jQuery Flot -->
+	<script src="${pageContext.request.contextPath}/public/flot/excanvas.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.resize.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.pie.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.stack.min.js"></script>
+	
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
