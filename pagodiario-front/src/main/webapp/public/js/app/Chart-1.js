@@ -1,15 +1,8 @@
 Chart = function(){}
 
 Chart.init = function(){
-	
-	$("#btnTopSalesChart").on('click',
-		function(){
-			
-	//		Chart.showBills();
-				
-			return;
-		}
-	);
+
+	Chart.drawDashboard();	
 	
 	return;
 }
@@ -207,4 +200,31 @@ Chart.showBills = function(){
 	
 	
 	return;
+}
+
+Chart.drawDashboard = function(){
+
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/dashboard/info",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			if(data.status == 0){
+				$("#totalAmountValue").html("$ " + data.totalAmount);
+				$("#totalCollectedValue").html("$ " + data.totalCollected);
+				if(data.totalcommission == null || data.totalcommission == "" || data.totalcommission === undefined){
+					data.totalcommission = "-";
+				}
+				$("#totalCommissionValue").html("$ " + data.totalcommission);
+				$("#cantBillsValue").html(data.countActivesBills);
+				
+			}
+	   },
+	   error:function(data){
+		   
+		   return;
+	   }
+	});
+	
 }
