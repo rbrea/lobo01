@@ -766,8 +766,9 @@ Bill.calculateCuotaDiaria = function(){
 	var elements = $("input[id*='bcuotadiaria_']");
 	var sum = 0;
 	$.each(elements, function(){
-		if($(this).val() != null && $(this).val() != ""){
-			sum = sum + parseFloat(Math.round($(this).val() * 100) / 100);
+		var value = $(this).val();
+		if(value != null && value != "" && value != undefined){
+			sum = sum + parseFloat(Math.round(value * 100) / 100);
 		}
 		
 		return;
@@ -782,8 +783,9 @@ Bill.calculateImporteTotal = function(){
 	var elements = $("input[id*='bimp_']");
 	var sum = 0;
 	$.each(elements, function(){
-		if($(this).val() != null && $(this).val() != ""){
-			sum = sum + parseFloat(Math.round($(this).val() * 100) / 100);
+		var value = $(this).val();
+		if(value != null && value != "" && value != undefined){
+			sum = sum + parseFloat(Math.round(value * 100) / 100);
 		}
 		
 		return;
@@ -891,7 +893,7 @@ Bill.showLovProduct = function(elementId){
 			            var idValue = $("#elementSelectedId").val();
 			            
 			            var realPrice = 0;
-			            if(price != ""){
+			            if(price !=null && price != ""){
 			            	realPrice = parseFloat(Math.floor(price * 100) / 100);
 			            }
 			            
@@ -964,6 +966,11 @@ Bill.calculateImp = function(element){
 	
 	var idValue = id.substring(id.indexOf("_") + 1);
 	
+	var value = $("#billProductPrice_" + idValue).val();
+	
+	if(value == null || value == "" || value === undefined){
+		return false;
+	}
 	var price = parseFloat($("#billProductPrice_" + idValue).val());
 	
 	var cant = element.val();
