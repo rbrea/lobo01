@@ -163,6 +163,8 @@ BillHistory.init = function(){
 		
 		BillHistory.resetFilter(true);
 		
+		BillHistory.searchByFilter(null);
+		
 		return;
 	});
 	
@@ -946,10 +948,16 @@ BillHistory.exportToPdf = function(){
 }
 
 BillHistory.searchByFilter = function(collectorId){
+	
+	var urlQueryString = "";
+	if(collectorId != null && collectorId != ""){
+		urlQueryString = "?collectorId=" + collectorId;
+		$("#bhCollectorId").val(collectorId);
+	}
 
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/bill?collectorId=" + collectorId,
+	   url     : Constants.contextRoot + "/controller/html/bill" + urlQueryString,
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
@@ -960,6 +968,7 @@ BillHistory.searchByFilter = function(collectorId){
 		   
 		   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
 		   if(data != null && data.status == 0){
+			   if(data)
 			   
 			   var table = $("#tBillResult").dataTable( {
 				/*
@@ -1178,23 +1187,6 @@ BillHistory.hideFilter = function(){
 BillHistory.showFilter = function(){
 	
 	$(".bill-history-filter").show("slow");
-	/*
-	$("#optBillHistoryShowFilter").toggleClass("disabled");
-	$("#optBillHistoryHideFilter").toggleClass("disabled");
-	
-	$("#aBillHistoryShowFilter").on("click", function(e){
-		e.preventDefault();
-		
-		return;
-	});
-	
-	$("#aBillHistoryHideFilter").on("click", function(e){
-		
-		BillHistory.hideFilter();
-		
-		return;
-	});
-	*/
 	
 	return;
 }
@@ -1204,6 +1196,7 @@ BillHistory.resetFilter = function(enabled){
 	$("#billHistoryCollectorId").val("");
 	if(enabled){
 		$("#billHistoryCollectorZone").val("");
+		$("#bhCollectorId").val("");
 	}
 	$("#billHistoryCollectorDescription").val("");
 	

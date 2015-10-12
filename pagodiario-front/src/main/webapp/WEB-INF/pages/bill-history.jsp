@@ -18,6 +18,7 @@
 	    </div>
 	</div>
 	<form id="frmBillHistoryExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/export/pdf">
+		<input type="hidden" id="bhCollectorId" name="bhCollectorId">
 	</form>
 	<div class="row">
 		<div class="col-md-12">
@@ -54,7 +55,7 @@
 		  			<div class="container-fluid">
 						<div class="row bill-history-filter">
 			  				<div class="form-group col-md-2">
-								<label for="billHistoryCollectorId">Zona / Cobrador</label>
+								<label for="billHistoryCollectorZone">Zona / Cobrador</label>
 							</div>
 			  				<div class="col-md-1">
 								<input type="hidden" id="billHistoryCollectorId" name="billHistoryCollectorId">

@@ -193,7 +193,13 @@ public class BillServiceImpl
 	@Override
 	public List<BillDto> searchActives(){
 	
-		return this.getTransformer().transformAllTo(this.getDao().find(Status.ACTIVE));
+		return this.searchActives(null);
+	}
+	
+	@Override
+	public List<BillDto> searchActives(Long collectorId){
+	
+		return this.getTransformer().transformAllTo(this.getDao().find(Status.ACTIVE, collectorId));
 	}
 	
 	@Override
@@ -280,7 +286,7 @@ public class BillServiceImpl
 	}
 	
 	@Override
-	public List<BillTicketPojo> searchBillsByCollectorId(String ticketDateValue, Long collectorId, String fromDate, String toDate){
+	public List<BillTicketPojo> searchBillsByCollectorZone(String ticketDateValue, Long collectorZone, String fromDate, String toDate){
 		
 		Date dateFrom = null;
 		if(StringUtils.isNotBlank(fromDate)){
@@ -291,7 +297,7 @@ public class BillServiceImpl
 			dateTo = DateUtils.parseDate(toDate);
 		}
 	
-		List<Bill> bills = this.getDao().find(collectorId, dateFrom, dateTo);
+		List<Bill> bills = this.getDao().find(collectorZone, dateFrom, dateTo);
 		
 		return this.billTicketTransformer.transform(ticketDateValue, bills);
 	}

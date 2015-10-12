@@ -54,12 +54,20 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
+		
+//		BigDecimal installmentAmount = null;
+//		
+//		bill.setTotalDailyInstallment(installmentAmount);
 
 		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
 		
 		this.billDao.saveOrUpdate(bill);
 		
 		return this.getTransformer().transform(e);
+	}
+	
+	protected BigDecimal doNewInstallmentAmountCalculation(BigDecimal totalAmount, BigDecimal totalRemaining){
+		return null;
 	}
 
 	@Override

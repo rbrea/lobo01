@@ -166,10 +166,11 @@ public class BillController extends ExceptionHandlingController {
 
 	@RequestMapping(value = "/export/pdf", method = RequestMethod.POST)
 	public void exportBills(HttpServletRequest request,
-			HttpServletResponse response){
+			HttpServletResponse response,
+			@RequestParam(required = false) Long bhCollectorId){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillDto> list = this.billService.searchActives();
+		List<BillDto> list = this.billService.searchActives(bhCollectorId);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/billhistory.jasper");

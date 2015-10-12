@@ -23,9 +23,13 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Bill> find(Status status){
+	public List<Bill> find(Status status, Long collectorId){
 		Criteria criteria = super.createCriteria();
 		criteria.add(Restrictions.eq("status", status));
+		if(collectorId != null){
+			criteria.createAlias("collector", "collector");
+			criteria.add(Restrictions.eq("collector.id", collectorId));
+		}
 		
 		return criteria.list();
 	}
@@ -66,13 +70,13 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Bill> find(Long collectorId, Date dateFrom, Date dateTo){
+	public List<Bill> find(Long collectorZone, Date dateFrom, Date dateTo){
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("collector", "collector");
 		if(dateFrom != null && dateTo != null){
 			criteria.add(Restrictions.between("startDate", dateFrom, dateTo));
 		}
-		criteria.add(Restrictions.eq("collector.id", collectorId));
+		criteria.add(Restrictions.eq("collector.zone", collectorZone));
 		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
 		
 		return criteria.list();

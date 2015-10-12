@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-10-04T12:30:27 -->
+<!-- 2015-10-12T14:29:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="devs_sb" pageWidth="612" pageHeight="1008" columnWidth="536" leftMargin="20" rightMargin="56" topMargin="20" bottomMargin="20" uuid="86e7f817-62e3-4c8f-9ce2-13e33a4f0f05">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -100,32 +100,32 @@
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="129" height="23" uuid="1f5a98fb-bf4a-4b7f-84c4-556e610aab3d"/>
+				<reportElement x="0" y="0" width="129" height="20" uuid="1f5a98fb-bf4a-4b7f-84c4-556e610aab3d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{devDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="129" y="0" width="213" height="23" uuid="3dfe007f-a34a-44aa-b209-28b0fec30c43"/>
+				<reportElement x="129" y="0" width="213" height="20" uuid="3dfe007f-a34a-44aa-b209-28b0fec30c43"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="342" y="0" width="129" height="23" uuid="7b3b430c-c809-4a1c-b322-928efba55434"/>
+				<reportElement x="342" y="0" width="129" height="20" uuid="7b3b430c-c809-4a1c-b322-928efba55434"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="471" y="0" width="97" height="23" uuid="0dedc8ce-1da1-4692-887e-e045910b6ae7">
+				<reportElement x="471" y="0" width="97" height="20" uuid="0dedc8ce-1da1-4692-887e-e045910b6ae7">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{installmentAmount}]]></textFieldExpression>
 			</textField>

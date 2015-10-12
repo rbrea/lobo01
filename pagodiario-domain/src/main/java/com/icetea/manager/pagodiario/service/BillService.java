@@ -14,6 +14,8 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 	BillDto update(BillDto d);
 
 	List<BillDto> searchActives();
+	
+	List<BillDto> searchActives(Long collectorId);
 
 	boolean updateOverdueDays(Long billId);
 
@@ -21,7 +23,7 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	BillDetailDto searchDetail(Long billId);
 
-	List<BillTicketPojo> searchBillsByCollectorId(String ticketDateValue, Long collectorId,
+	List<BillTicketPojo> searchBillsByCollectorZone(String ticketDateValue, Long collectorZone,
 			String fromDate, String toDate);
 
 	List<BillDto> searchExpires();

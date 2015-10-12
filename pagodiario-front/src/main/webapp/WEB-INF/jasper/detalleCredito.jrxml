@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-10-04T12:58:01 -->
+<!-- 2015-10-12T14:26:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalleCredito" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e81091a0-ab57-4f30-b68c-6ec3013c271e">
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -259,29 +259,29 @@
 				<textFieldExpression><![CDATA[$F{firstInstallmentAmount}]]></textFieldExpression>
 			</textField>
 			<subreport overflowType="Stretch">
-				<reportElement stretchType="RelativeToTallestObject" x="-20" y="597" width="612" height="130" isRemoveLineWhenBlank="true" uuid="2950c9af-2033-40a4-8b6c-0f0cf2df54f2">
+				<reportElement stretchType="RelativeToTallestObject" x="-21" y="780" width="612" height="103" isRemoveLineWhenBlank="true" uuid="2950c9af-2033-40a4-8b6c-0f0cf2df54f2">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{devs})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["devs_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport overflowType="Stretch">
-				<reportElement stretchType="RelativeToTallestObject" x="-20" y="410" width="612" height="187" isRemoveLineWhenBlank="true" uuid="40804f88-1735-42bd-b88a-77d0cbcdacae"/>
+				<reportElement stretchType="RelativeToTallestObject" x="-21" y="430" width="612" height="350" isRemoveLineWhenBlank="true" uuid="40804f88-1735-42bd-b88a-77d0cbcdacae"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{payments})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["payments_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-19" y="210" width="610" height="200" isRemoveLineWhenBlank="true" uuid="244b5a4a-c163-419d-9fc5-424df08360eb"/>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-19" y="210" width="610" height="220" isRemoveLineWhenBlank="true" uuid="244b5a4a-c163-419d-9fc5-424df08360eb"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{products})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["products_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="-20" y="727" width="610" height="109" isRemoveLineWhenBlank="true" uuid="10a07053-e20f-44f6-85ee-a861110a5767"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-20" y="887" width="610" height="40" isRemoveLineWhenBlank="true" uuid="10a07053-e20f-44f6-85ee-a861110a5767"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{discounts})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["discounts_sb.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="-19" y="836" width="610" height="131" isRemoveLineWhenBlank="true" uuid="c8bcbe68-67ce-49b1-882c-60051671e094"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-20" y="927" width="610" height="40" isRemoveLineWhenBlank="true" uuid="c8bcbe68-67ce-49b1-882c-60051671e094"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{reductions})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["reductions_sb.jasper"]]></subreportExpression>
 			</subreport>

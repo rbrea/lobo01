@@ -8,7 +8,7 @@ import com.icetea.manager.pagodiario.model.Bill.Status;
 
 public interface BillDao extends BasicIdentificableDao<Bill> {
 
-	List<Bill> find(Status status);
+	List<Bill> find(Status status, Long collectorId);
 
 	List<Bill> find(Date dateFrom, Date dateTo);
 
@@ -16,7 +16,7 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findByCollectorId(Long collectorId);
 
-	List<Bill> find(Long collectorId, Date dateFrom, Date dateTo);
+	List<Bill> find(Long collectorZone, Date dateFrom, Date dateTo);
 
 	List<Bill> findExpires();
 

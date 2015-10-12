@@ -61,7 +61,7 @@ public class TicketController extends ExceptionHandlingController {
 			@RequestParam(required = false) String fecHastaValue){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(ticketDateValue, zone, fecDesdeValue, fecHastaValue);
+		List<BillTicketPojo> list = this.billService.searchBillsByCollectorZone(ticketDateValue, zone, fecDesdeValue, fecHastaValue);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/sgpd_ticket.jasper");
@@ -95,7 +95,7 @@ public class TicketController extends ExceptionHandlingController {
 		BasicOutputDto d = new BasicOutputDto();
 		d.setStatus(0);
 		
-		List<BillTicketPojo> list = this.billService.searchBillsByCollectorId(
+		List<BillTicketPojo> list = this.billService.searchBillsByCollectorZone(
 				ticketDateValue, collectorId, fecDesdeValue, fecHastaValue);
 		
 		if(list == null || list.isEmpty()){
