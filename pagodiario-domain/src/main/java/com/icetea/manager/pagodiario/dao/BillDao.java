@@ -26,4 +26,7 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findActivesByDate(Date date);
 
+	@SuppressWarnings("rawtypes")
+	List findActivesGroupingByWeekAndTrader();
+
 }

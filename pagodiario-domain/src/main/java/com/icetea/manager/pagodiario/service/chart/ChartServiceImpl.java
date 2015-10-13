@@ -11,30 +11,44 @@ import javax.inject.Named;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.chart.ChartDto;
+import com.icetea.manager.pagodiario.api.dto.chart.ChartTraderSalesWeekDto;
 import com.icetea.manager.pagodiario.api.dto.chart.CollectorChartDto;
 import com.icetea.manager.pagodiario.api.dto.chart.TopTraderDto;
 import com.icetea.manager.pagodiario.api.dto.chart.TotalSaleDto;
+import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.PayrollItemCollectDao;
+import com.icetea.manager.pagodiario.dao.TraderDao;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
+import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.service.BasicServiceImpl;
 import com.icetea.manager.pagodiario.utils.DateUtils;
+import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
 public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 
 	private final PayrollDao payrollDao;
 	private final PayrollItemCollectDao payrollItemCollectDao;
+	private final BillDao billDao;
+	private final TraderDao traderDao;
 
 	@Inject
 	public ChartServiceImpl(PayrollDao payrollDao,
-			PayrollItemCollectDao payrollItemCollectDao) {
+			PayrollItemCollectDao payrollItemCollectDao,
+			BillDao billDao,
+			TraderDao traderDao) {
 		super();
 		this.payrollDao = payrollDao;
 		this.payrollItemCollectDao = payrollItemCollectDao;
+		this.billDao = billDao;
+		this.traderDao = traderDao;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -46,7 +60,6 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 		List<TopTraderDto> topTraders = chart.getTopTraders();
 
 		Payroll lastPayroll = this.payrollDao.findLast();
-		
 		
 		if(lastPayroll != null){
 			
@@ -130,6 +143,45 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 		}
 
 		return chart;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List<ChartTraderSalesWeekDto> searchTraderBillsByWeek(){
+		
+		List<ChartTraderSalesWeekDto> list = Lists.newArrayList();
+		
+		List c = this.billDao.findActivesGroupingByWeekAndTrader();
+		if(c != null && !c.isEmpty()){
+			for(int i=0;i<c.size();i++){
+				Object[] o = (Object[]) c.get(i);
+				Trader trader = this.traderDao.findById((Long)o[0]);
+				Integer weekOfYear = (Integer)o[1];
+				BigDecimal amount = (BigDecimal)o[2];
+				if(trader == null){
+					continue;
+				}
+				final String traderName = trader.getName();
+				ChartTraderSalesWeekDto d = CollectionUtils.find(list, new Predicate<ChartTraderSalesWeekDto>() {
+					@Override
+					public boolean evaluate(ChartTraderSalesWeekDto w) {
+						return StringUtils.equals(w.getLabel(), traderName);
+					}
+				});
+				if(d == null){
+					d = new ChartTraderSalesWeekDto();
+					d.setLabel(traderName);
+				}
+				List<Object> elem = Lists.newArrayListWithExpectedSize(2);
+				elem.add(weekOfYear);
+				elem.add(NumberUtils.toString(amount));
+				d.addData(elem);
+				
+				list.add(d);
+			}
+		}
+		
+		return list; 
 	}
 	
 }

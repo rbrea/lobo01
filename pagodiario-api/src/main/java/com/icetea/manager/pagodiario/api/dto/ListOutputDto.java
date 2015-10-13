@@ -36,4 +36,10 @@ public class ListOutputDto<T extends BasicDto> extends BasicOutputDto {
 		this.data = data;
 	}
 	
+	public void addAll(List<T> list){
+		if(list != null){
+			this.data.addAll(list);
+		}
+	}
+	
 }

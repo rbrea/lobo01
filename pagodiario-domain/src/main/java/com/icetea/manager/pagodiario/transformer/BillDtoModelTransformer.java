@@ -42,9 +42,9 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 			BillProductDto bpd = this.billProductDtoModelTransformer.transform(bp);
 			d.getBillProducts().add(bpd);
 		}
+		d.setWeekOfYear(e.getWeekOfYear());
 		
 		return d;
 	}
-
 
 }

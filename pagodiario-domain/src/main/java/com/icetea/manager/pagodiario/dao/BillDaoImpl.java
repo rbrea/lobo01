@@ -1,11 +1,14 @@
 package com.icetea.manager.pagodiario.dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.icetea.manager.pagodiario.model.Bill;
@@ -119,12 +122,42 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		Date dateToVerify = DateUtils.lastSecondOfDay(date);
 		criteria.add(
 				Restrictions.or(
-						Restrictions.eq("status", Bill.Status.ACTIVE),
+						Restrictions.eq("status", Status.ACTIVE),
 						Restrictions.le("completedDate", dateToVerify)
 				)
 		);
 		
 		return criteria.list();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List findActivesGroupingByWeekAndTrader(){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("trader", "trader");
+		
+		criteria.add(Restrictions.eq("status", Status.ACTIVE));
+	
+		Date now = new Date();
+		Date from = DateUtils.truncate(DateUtils.addYears(now, -1), Calendar.DATE);
+		
+		criteria.add(Restrictions.between("startDate", from, now));
+		
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.groupProperty("trader.id").as("TRADER_ID"));
+//		projectionList.add(Projections.sqlGroupProjection(
+//			    "week({alias}.START_DATE) as WEEK, month({alias}.START_DATE) as MONTH, year({alias}.START_DATE) as YEAR", 
+//			    "week({alias}.START_DATE), month({alias}.START_DATE), year({alias}.START_DATE)", 
+//			    new String[]{"week", "month", "year"}, 
+//			    new Type[] {DoubleType.INSTANCE}));
+		projectionList.add(Projections.groupProperty("weekOfYear").as("WEEK_OF_YEAR"));
+		projectionList.add(Projections.sum("totalAmount").as("TOTAL_AMOUNT"));
+		
+		criteria.setProjection(projectionList);
+		
+		List list = criteria.list();
+
+		return list;
 	}
 	
 }

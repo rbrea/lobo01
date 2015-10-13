@@ -2,7 +2,9 @@ Chart = function(){}
 
 Chart.init = function(){
 
-	Chart.drawDashboard();	
+	Chart.drawDashboard();
+	
+	Chart.plotSalesByWeek();
 	
 	return;
 }
@@ -227,4 +229,77 @@ Chart.drawDashboard = function(){
 	   }
 	});
 	
+}
+
+Chart.plotSalesByWeek = function(){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/chart/sales/week",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			if(data.status == 0){
+				
+				var data = data.data;
+				
+				var options = {
+					series: {
+						lines: {
+							show: true
+						},
+						points: {
+							show: true
+						}
+					},
+					legend: {
+						noColumns: 2
+					},
+					xaxis: {
+						tickDecimals: 0
+					},
+					yaxis: {
+						min: 0
+					},
+					selection: {
+						mode: "x"
+					}
+				};
+
+				var placeholder = $("#placeholder");
+
+				placeholder.bind("plotselected", function (event, ranges) {
+
+					$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+
+					var zoom = $("#zoom").prop("checked");
+
+					if (zoom) {
+						$.each(plot.getXAxes(), function(_, axis) {
+							var opts = axis.options;
+							opts.min = ranges.xaxis.from;
+							opts.max = ranges.xaxis.to;
+						});
+						plot.setupGrid();
+						plot.draw();
+						plot.clearSelection();
+					}
+				});
+
+				placeholder.bind("plotunselected", function (event) {
+					$("#selection").text("");
+				});
+
+				var plot = $.plot(placeholder, data, options);
+				
+				
+			}
+	   },
+	   error:function(data){
+		   
+		   return;
+	   }
+	});
+	
+	return;
 }

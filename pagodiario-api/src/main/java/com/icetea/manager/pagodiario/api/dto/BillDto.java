@@ -20,6 +20,7 @@ public class BillDto extends BasicIdentifiableDto {
 	private Long creditNumber;
 	private Long collectorId;
 	private String remainingAmount;
+	private Integer weekOfYear;
 
 	public Long getTraderId() {
 		return traderId;
@@ -92,6 +93,12 @@ public class BillDto extends BasicIdentifiableDto {
 	}
 	public void setRemainingAmount(String remainingAmount) {
 		this.remainingAmount = remainingAmount;
+	}
+	public Integer getWeekOfYear() {
+		return weekOfYear;
+	}
+	public void setWeekOfYear(Integer weekOfYear) {
+		this.weekOfYear = weekOfYear;
 	}
 	
 }

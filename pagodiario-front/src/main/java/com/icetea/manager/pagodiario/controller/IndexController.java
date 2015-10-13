@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.FileMeta;
+import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.chart.ChartDto;
+import com.icetea.manager.pagodiario.api.dto.chart.ChartTraderSalesWeekDto;
 import com.icetea.manager.pagodiario.api.dto.chart.DashBoardDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.service.BillService;
@@ -107,6 +109,18 @@ public class IndexController extends ExceptionHandlingController {
 		}
 		
 		return d;
+	}
+
+	@RequestMapping(value = "/html/chart/sales/week")
+	public @ResponseBody ListOutputDto<ChartTraderSalesWeekDto> getSalesTradersByWeek(HttpServletResponse response){
+	
+		ListOutputDto<ChartTraderSalesWeekDto> result = new ListOutputDto<ChartTraderSalesWeekDto>();
+		
+		List<ChartTraderSalesWeekDto> list = this.chartService.searchTraderBillsByWeek();
+		
+		result.addAll(list);
+		
+		return result;
 	}
 	
 }

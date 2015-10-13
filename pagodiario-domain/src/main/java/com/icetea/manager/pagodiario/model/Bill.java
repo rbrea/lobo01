@@ -72,6 +72,8 @@ public class Bill extends Identifiable {
 	private Date overdueDaysFlag = new Date();
 	@Column(name = "COMPLETED_DATE", columnDefinition = "DATETIME")
 	private Date completedDate;
+	@Column(name = "WEEK_OF_YEAR")
+	private Integer weekOfYear = 0;
 	
 	public Bill() {
 		super();
@@ -323,6 +325,14 @@ public class Bill extends Identifiable {
 
 	public void setCompletedDate(Date completedDate) {
 		this.completedDate = completedDate;
+	}
+
+	public Integer getWeekOfYear() {
+		return weekOfYear;
+	}
+
+	public void setWeekOfYear(Integer weekOfYear) {
+		this.weekOfYear = weekOfYear;
 	}
 
 }

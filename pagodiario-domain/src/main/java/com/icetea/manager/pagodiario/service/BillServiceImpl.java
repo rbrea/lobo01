@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -127,6 +128,14 @@ public class BillServiceImpl
 		e.setClient(client);
 		Date startDate = DateUtils.parseDate(d.getStartDate());
 		e.setStartDate(startDate);
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(startDate);
+		
+		int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+		
+		e.setWeekOfYear(weekOfYear);
+		
 		BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
 //		if(calculatedTotalAmount.compareTo(NumberUtils.toBigDecimal(d.getTotalAmount())) != 0){
 //			throw new ErrorTypedException("Error de validacion de importe total", ErrorType.UNKNOWN_ERROR);
@@ -337,5 +346,5 @@ public class BillServiceImpl
 
 		return this.getTransformer().transform(this.getDao().findByCreditNumber(creditNumber));
 	}
-	
+
 }
