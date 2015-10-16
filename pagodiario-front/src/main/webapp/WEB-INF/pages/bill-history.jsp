@@ -135,6 +135,7 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			BillHistory.init();
+			Dev.init();
 		    
 			return;
 		}	

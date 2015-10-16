@@ -89,6 +89,7 @@
         	<add-attribute value="/WEB-INF/pages/lov/lov-reduction.jsp" />
         	<add-attribute value="/WEB-INF/pages/lov/lov-dev.jsp" />
         	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-product.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-payment.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-discount.jsp" />
         	<add-attribute value="/WEB-INF/pages/modal/modal-bonus.jsp" />

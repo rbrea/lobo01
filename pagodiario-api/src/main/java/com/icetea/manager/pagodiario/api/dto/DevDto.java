@@ -8,6 +8,10 @@ public class DevDto extends BasicIdentifiableDto {
 	private String observations;
 	private String amount;
 	private String date;
+	private Integer productCount;
+	private Long productId;
+	private String productCode;
+	private String productInstallment;
 
 	public Long getBillId() {
 		return billId;
@@ -32,6 +36,30 @@ public class DevDto extends BasicIdentifiableDto {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getProductInstallment() {
+		return productInstallment;
+	}
+	public void setProductInstallment(String productInstallment) {
+		this.productInstallment = productInstallment;
+	}
+	public Integer getProductCount() {
+		return productCount;
+	}
+	public void setProductCount(Integer productCount) {
+		this.productCount = productCount;
+	}
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 	
 }

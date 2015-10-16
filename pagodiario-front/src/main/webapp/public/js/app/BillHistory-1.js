@@ -811,6 +811,7 @@ BillHistory.showDev = function(id){
 	BootstrapDialog.show({
 		onhidden:function(){
 			Dev.resetModal();
+			$("#frmDev").validator('destroy');
 			
 			return;
 		},
@@ -832,6 +833,8 @@ BillHistory.showDev = function(id){
         	
         	$("#modal-dev-container").css({"display":"block"});
         	
+        	$("#devProductCount").focus();
+        	
         	return $("#modal-dev-container");
         },
         buttons: [{
@@ -846,7 +849,7 @@ BillHistory.showDev = function(id){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnAcceptDev',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
