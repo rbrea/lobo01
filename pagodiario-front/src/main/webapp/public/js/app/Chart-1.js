@@ -1,3 +1,47 @@
+var previousPoint = null, previousLabel = null;
+var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+		    
+$(document).ready(
+		function(){
+			
+	        $.fn.UseTooltip = function () {
+	            $(this).bind("plothover", function (event, pos, item) {
+	                if (item) {
+	                    if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+	                        previousPoint = item.dataIndex;
+	                        previousLabel = item.series.label;
+	                        $("#tooltip").remove();
+	 
+	                        var x = item.datapoint[0];
+	                        var y = item.datapoint[1];
+	 
+	                        var color = item.series.color;
+	                        var month = new Date(x).getMonth();//x;
+	 
+	                        if (item.seriesIndex == 0) {
+	                        	Chart.showTooltip(item.pageX,
+	                            item.pageY,
+	                            color,
+	                            "<strong>" + item.series.label + "</strong><br>" + monthNames[month] + " : <strong>" + y + "</strong>(Pesos)");
+	                        } else {
+	                        	Chart.showTooltip(item.pageX,
+	                            item.pageY,
+	                            color,
+	                            "<strong>" + item.series.label + "</strong><br>" + monthNames[month] + " : <strong>" + y + "</strong>(Pesos)");
+	                        }
+	                    }
+	                } else {
+	                    $("#tooltip").remove();
+	                    previousPoint = null;
+	                }
+	            });
+	        };
+		
+		return;
+	}
+		
+);
+
 Chart = function(){}
 
 Chart.init = function(){
@@ -241,8 +285,21 @@ Chart.plotSalesByWeek = function(){
 	   success:function(data) {
 			if(data.status == 0){
 				
-				var data = data.data;
+				//var list = data.data;
 				
+				var dataset = data.data;
+				/*
+				for(var i=0;i<list.length;i++){
+					var l = list[i];
+					var elem = new Object();
+					elem.label = l.label;
+					elem.data = [];
+					elem.data.push(Commons.gd(l.data[0][1], l.data[0][0], 1));
+					elem.data.push(l.data[0][2]);
+					
+					dataset.push(elem);
+				}
+				*/
 				var options = {
 					series: {
 						lines: {
@@ -256,18 +313,36 @@ Chart.plotSalesByWeek = function(){
 						noColumns: 2
 					},
 					xaxis: {
-						tickDecimals: 0
+						mode: "time",
+						min:0,
+						timeformat: "%Y-%m",
+		                axisLabel: "meses",
+		                axisLabelUseCanvas: true,
+		                axisLabelFontSizePixels: 12,
+		                axisLabelFontFamily: 'Verdana, Arial',
+		                axisLabelPadding: 10
 					},
 					yaxis: {
-						min: 0
+		                axisLabel: "Monto Vendido en Pesos",
+		                axisLabelUseCanvas: true,
+		                axisLabelFontSizePixels: 12,
+		                axisLabelFontFamily: 'Verdana, Arial',
+		                axisLabelPadding: 3
 					},
 					selection: {
 						mode: "x"
-					}
+					},
+					grid: {
+		                hoverable: true,
+		                borderWidth: 2,
+		                borderColor: "#633200"/*,
+		                backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }*/
+		            }
 				};
 
 				var placeholder = $("#placeholder");
 
+				/*
 				placeholder.bind("plotselected", function (event, ranges) {
 
 					$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
@@ -289,9 +364,10 @@ Chart.plotSalesByWeek = function(){
 				placeholder.bind("plotunselected", function (event) {
 					$("#selection").text("");
 				});
-
-				var plot = $.plot(placeholder, data, options);
+				*/
 				
+				var plot = $.plot(placeholder, dataset, options);
+				placeholder.UseTooltip();
 				
 			}
 	   },
@@ -302,4 +378,21 @@ Chart.plotSalesByWeek = function(){
 	});
 	
 	return;
+}
+
+
+Chart.showTooltip = function(x, y, color, contents) {
+    $('<div id="tooltip">' + contents + '</div>').css({
+        position: 'absolute',
+        display: 'none',
+        top: y - 40,
+        left: x - 120,
+        border: '2px solid ' + color,
+        padding: '3px',
+        'font-size': '9px',
+        'border-radius': '5px',
+        'background-color': '#fff',
+        'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+        opacity: 0.9
+    }).appendTo("body").fadeIn(200);
 }

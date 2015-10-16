@@ -69,10 +69,13 @@
 	
 	<!-- jQuery Flot -->
 	<script src="${pageContext.request.contextPath}/public/flot/excanvas.min.js"></script>
-	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.resize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.pie.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.stack.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.time.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.symbol.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.axislabels.js"></script>
 	
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>

@@ -73,7 +73,11 @@ public class Bill extends Identifiable {
 	@Column(name = "COMPLETED_DATE", columnDefinition = "DATETIME")
 	private Date completedDate;
 	@Column(name = "WEEK_OF_YEAR")
-	private Integer weekOfYear = 0;
+	private Integer weekOfYear;
+	@Column(name = "MONTH")
+	private Integer month;
+	@Column(name = "YEAR")
+	private Integer year;
 	
 	public Bill() {
 		super();
@@ -333,6 +337,22 @@ public class Bill extends Identifiable {
 
 	public void setWeekOfYear(Integer weekOfYear) {
 		this.weekOfYear = weekOfYear;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
 	}
 
 }

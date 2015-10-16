@@ -17,10 +17,16 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/moment.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/locales.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/bootstrap-datetimepicker.min.js"></script>
-	
-	<!-- Load d3.js and c3.js -->
-	<script src="${pageContext.request.contextPath}/public/c3/d3.v3.min.js" charset="utf-8"></script>
-	<script src="${pageContext.request.contextPath}/public/c3/c3.min.js"></script>
+
+	<!-- jQuery Flot -->
+	<script src="${pageContext.request.contextPath}/public/flot/excanvas.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.resize.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.pie.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.stack.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.time.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.symbol.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.axislabels.js"></script>
 	
 	<script src="${pageContext.request.contextPath}/public/js/jquery.autocomplete.min.js"></script>
 	

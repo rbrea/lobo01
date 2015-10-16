@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service.chart;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -156,8 +157,10 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 			for(int i=0;i<c.size();i++){
 				Object[] o = (Object[]) c.get(i);
 				Trader trader = this.traderDao.findById((Long)o[0]);
-				Integer weekOfYear = (Integer)o[1];
-				BigDecimal amount = (BigDecimal)o[2];
+				//Integer weekOfYear = (Integer)o[1];
+				Integer month = (Integer)o[1];
+				Integer year = (Integer)o[2];
+				BigDecimal amount = (BigDecimal)o[3];
 				if(trader == null){
 					continue;
 				}
@@ -171,13 +174,19 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 				if(d == null){
 					d = new ChartTraderSalesWeekDto();
 					d.setLabel(traderName);
+					list.add(d);
 				}
-				List<Object> elem = Lists.newArrayListWithExpectedSize(2);
-				elem.add(weekOfYear);
+				List<Object> elem = Lists.newArrayListWithExpectedSize(3);
+//				elem.add((weekOfYear < 10) ? "0" + weekOfYear : weekOfYear + "-" + year);
+				//elem.add(month);
+				//elem.add(year);
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Calendar.DAY_OF_MONTH, 1);
+				calendar.set(Calendar.MONTH, month);
+				calendar.set(Calendar.YEAR, year);
+				elem.add(calendar.getTimeInMillis());
 				elem.add(NumberUtils.toString(amount));
 				d.addData(elem);
-				
-				list.add(d);
 			}
 		}
 		

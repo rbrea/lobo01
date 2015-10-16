@@ -92,6 +92,8 @@ public class BillDaoTest {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(startDate);
 		bill.setWeekOfYear(calendar.get(Calendar.WEEK_OF_YEAR));
+		bill.setMonth(calendar.get(Calendar.MONTH));
+		bill.setYear(calendar.get(Calendar.YEAR));
 		
 		this.instance.saveOrUpdate(bill);
 		
@@ -105,6 +107,8 @@ public class BillDaoTest {
 		bill.setTotalDailyInstallment(new BigDecimal(50));
 		bill.setTrader(trader);
 		bill.setWeekOfYear(calendar.get(Calendar.WEEK_OF_YEAR));
+		bill.setMonth(calendar.get(Calendar.MONTH));
+		bill.setYear(calendar.get(Calendar.YEAR));
 		
 		this.instance.saveOrUpdate(bill);
 		
@@ -122,12 +126,19 @@ public class BillDaoTest {
 		calendar.setTime(startDate);
 		
 		bill.setWeekOfYear(calendar.get(Calendar.WEEK_OF_YEAR));
+		bill.setMonth(calendar.get(Calendar.MONTH));
+		bill.setYear(calendar.get(Calendar.YEAR));
 		
 		this.instance.saveOrUpdate(bill);
 		
 		List list = this.instance.findActivesGroupingByWeekAndTrader();
 		
 		assertThat("error", list != null && !list.isEmpty() && list.size() == 2, is(true));
+		Object[] o = (Object[]) list.get(0);
+		assertThat("error 0", (Long)o[0], is(13L)); // TRADER_ID
+		assertThat("error 1", (Integer)o[1], is(3)); // MONTH
+		assertThat("error 2", (Integer)o[2], is(2015)); // YEAR
+		assertThat("error 3", ((BigDecimal)o[3]).compareTo(new BigDecimal(11000)), is(0)); // AMOUNT
 	}
 	
 }

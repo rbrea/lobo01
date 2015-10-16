@@ -136,6 +136,12 @@ public class BillServiceImpl
 		
 		e.setWeekOfYear(weekOfYear);
 		
+		int month = calendar.get(Calendar.MONTH);
+		e.setMonth(month);
+		
+		int year = calendar.get(Calendar.YEAR);
+		e.setYear(year);
+		
 		BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
 //		if(calculatedTotalAmount.compareTo(NumberUtils.toBigDecimal(d.getTotalAmount())) != 0){
 //			throw new ErrorTypedException("Error de validacion de importe total", ErrorType.UNKNOWN_ERROR);

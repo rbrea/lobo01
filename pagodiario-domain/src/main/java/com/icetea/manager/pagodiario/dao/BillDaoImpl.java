@@ -148,9 +148,10 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 //		projectionList.add(Projections.sqlGroupProjection(
 //			    "week({alias}.START_DATE) as WEEK, month({alias}.START_DATE) as MONTH, year({alias}.START_DATE) as YEAR", 
 //			    "week({alias}.START_DATE), month({alias}.START_DATE), year({alias}.START_DATE)", 
-//			    new String[]{"week", "month", "year"}, 
+//			    new String[]{"WEEK", "MONTH", "YEAR"}, 
 //			    new Type[] {DoubleType.INSTANCE}));
-		projectionList.add(Projections.groupProperty("weekOfYear").as("WEEK_OF_YEAR"));
+		projectionList.add(Projections.groupProperty("month").as("MONTH"));
+		projectionList.add(Projections.groupProperty("year").as("YEAR"));
 		projectionList.add(Projections.sum("totalAmount").as("TOTAL_AMOUNT"));
 		
 		criteria.setProjection(projectionList);
