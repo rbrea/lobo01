@@ -8,6 +8,7 @@ public class DiscountDto extends BasicIdentifiableDto {
 	private String observations;
 	private String amount;
 	private String date;
+	private String installmentAmount;
 
 	public Long getBillId() {
 		return billId;
@@ -32,6 +33,12 @@ public class DiscountDto extends BasicIdentifiableDto {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getInstallmentAmount() {
+		return installmentAmount;
+	}
+	public void setInstallmentAmount(String installmentAmount) {
+		this.installmentAmount = installmentAmount;
 	}
 	
 }

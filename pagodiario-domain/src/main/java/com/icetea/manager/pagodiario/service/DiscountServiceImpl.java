@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.icetea.manager.pagodiario.api.dto.DiscountDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -38,23 +40,45 @@ public class DiscountServiceImpl extends
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getAmount()), 
+				"El monto de descuento es requerido", ErrorType.VALIDATION_ERRORS);
+		
 		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());
+		
+		ErrorTypedConditions.checkArgument(!NumberUtils.isNegative(amount), 
+				"El monto de descuento no puede ser menor a 0.", ErrorType.VALIDATION_ERRORS);
 
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
 				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
 						o.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getInstallmentAmount()), 
+				"El nuevo monto de la cuota diaria es requerido", ErrorType.VALIDATION_ERRORS);
+		
+		BigDecimal newInstallmentAmount = NumberUtils.toBigDecimal(o.getInstallmentAmount());
+		
+		ErrorTypedConditions.checkArgument(!NumberUtils.isNegative(newInstallmentAmount), 
+				"El nuevo monto de la cuota diaria no puede ser menor a 0.", 
+				ErrorType.VALIDATION_ERRORS);
+		
+		ErrorTypedConditions.checkArgument(newInstallmentAmount.compareTo(bill.getRemainingAmount()) <= 0, 
+				String.format("El nuevo monto de la cuota diaria no puede ser mayor al monto restante: %s", 
+						NumberUtils.toString(bill.getRemainingAmount())), 
+				ErrorType.VALIDATION_ERRORS);
 		
 		Discount e = new Discount();
 		e.setAmount(amount);
 		e.setDate(DateUtils.parseDate(o.getDate(), "dd/MM/yyyy"));
 		e.setObservations(o.getObservations());
 		e.setBill(bill);
+		e.setInstallmentAmount(newInstallmentAmount);
 		
 		this.getDao().saveOrUpdate(e);
 		
 		bill.getDiscounts().add(e);
 		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
+		bill.setTotalDailyInstallment(newInstallmentAmount);
 
 		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
 		

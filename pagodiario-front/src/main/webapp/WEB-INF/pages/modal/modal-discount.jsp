@@ -32,6 +32,16 @@
 						<div class="input-group">
 					    	<span class="input-group-addon">$</span>
 					    	<input type="text" class="form-control" id="discountAmount" name="discountAmount" placeholder="Ingrese Importe..." required>
+					    	<span class="input-group-addon">.00</span>
+					    </div>
+					    <div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group">
+						<label for="discountInstallmentAmount">Cuota Diaria</label>
+						<div class="input-group">
+					    	<span class="input-group-addon">$</span>
+					    	<input type="text" class="form-control" id="discountInstallmentAmount" name="discountInstallmentAmount" placeholder="Ingrese Cuota Diaria..." required>
+					    	<span class="input-group-addon">.00</span>
 					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
@@ -51,3 +61,18 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+
+	$(document).ready(
+		function(){
+			
+			Discount.init();
+			
+			return;
+		}	
+		
+	);
+
+</script>

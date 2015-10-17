@@ -6,6 +6,7 @@ Dev.init = function(){
 	var devProductCodeElem = $("#devProductCode");
 	var devAmountElem = $("#devAmount"); 
 	var devObservationsElem = $('#devObservations');
+	var devInstallment = $("#devInstallment");
 	
 	devProductCountElem.keyup(function(e){
 		if(e.keyCode == 13) {
@@ -31,9 +32,9 @@ Dev.init = function(){
 			var value = $(this).val();
 			if(value != null && value != ""){
 				Dev.getProductByCode(value);
-				devAmountElem.focus();
+				devInstallment.focus();
 			} else {
-				devAmountElem.focus();			
+				devInstallment.focus();			
 			}
 		} else {
 			$("#devProductDescription").val("");
@@ -51,8 +52,27 @@ Dev.init = function(){
 			if(value != null && value != ""){
 				Dev.getProductByCode(value);
 			} else {
-				devAmountElem.focus();			
+				devInstallment.focus();			
 			}
+	    }
+	    
+	    return;
+	});
+	
+	devInstallment.keyup(function(e){
+		if(e.keyCode == 13) {
+			devAmountElem.focus();			
+		}
+	    
+	    return;
+	});
+
+	devInstallment.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	devAmountElem.focus();			
 	    }
 	    
 	    return;
@@ -430,7 +450,7 @@ Dev.getProductByCode = function(code){
 		            $("#devInstallment").val(parseFloat(dailyInstallment) * cant);
 		            $("#devAmount").val(realPrice * cant);
 				   
-		           $("#devAmount").focus();
+		           $("#devInstallment").focus();
 			   } else {
 				   $("#devProductCode").focus();
 				   $("#devProductDescription").parent().next().append("Producto no encontrado");

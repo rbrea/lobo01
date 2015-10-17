@@ -1,5 +1,71 @@
 Discount = function(){}
 
+Discount.init = function(){
+
+	var discountAmountElem = $("#discountAmount");
+	var discountInstallmentAmountElem = $("#discountInstallmentAmount");
+	var discountObservationsElem = $("#discountObservations"); 
+	
+	discountAmountElem.keyup(function(e){
+		if(e.keyCode == 13) {
+			discountInstallmentAmountElem.focus();			
+		}
+	    
+	    return;
+	});
+
+	discountAmountElem.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	discountInstallmentAmountElem.focus();			
+	    }
+	    
+	    return;
+	});
+	
+	discountInstallmentAmountElem.keyup(function(e){
+		if(e.keyCode == 13) {
+			discountObservationsElem.focus();			
+		}
+	    
+	    return;
+	});
+
+	discountInstallmentAmountElem.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+	    	discountObservationsElem.focus();			
+	    }
+	    
+	    return;
+	});
+	
+	discountObservationsElem.keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	discountObservationsElem.keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAccept").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	return;
+}
+
 Discount.resetModal = function(){
 	$("#discountBillId").val("");
 	$("#discountDateValue").val("");
@@ -17,6 +83,7 @@ Discount.add = function(dialog, btn){
 	obj.amount = $("#discountAmount").val();
 	obj.observations = $("#discountObservations").val();
 	obj.date = $("#discountDateValue").val();
+	obj.installmentAmount = $("#discountInstallmentAmount").val();
 	
 	$.ajax({ 
 	   type    : "POST",

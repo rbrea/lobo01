@@ -45,7 +45,6 @@
   					</div>
   					<div class="row">
 						<input type="hidden" id="devProductId" name="devProductId">
-						<input type="hidden" id="devInstallment" name="devInstallment">
 						<div class="col-md-3">
 		  					<div class="form-group">
 		  						<label for="devProductCode">C&oacute;digo</label>
@@ -64,6 +63,22 @@
 				            </div>
 						</div>
 					</div>
+					<div class="row">
+  						<div class="col-md-6">
+							<div class="form-group">
+								<label for="devInstallment">Cuota Diaria a Restar</label>
+								<div class="input-group">
+							    	<span class="input-group-addon">$</span>
+							    	<input type="text" class="form-control" id="devInstallment" name="devInstallment" placeholder="Ingrese Cuota Diaria a restar..." required>
+							    	<span class="input-group-addon">.00</span>
+							    </div>
+							    <div class="help-block with-errors"></div>
+							</div>
+  						</div>
+  						<div class="col-md-6">
+  							&nbsp;
+  						</div>
+  					</div>
   					<div class="row">
   						<div class="col-md-6">
 							<div class="form-group">
@@ -71,6 +86,7 @@
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
 							    	<input type="text" class="form-control" id="devAmount" name="devAmount" placeholder="Ingrese Importe..." required>
+							    	<span class="input-group-addon">.00</span>
 							    </div>
 							    <div class="help-block with-errors"></div>
 							</div>

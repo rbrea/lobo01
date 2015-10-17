@@ -25,6 +25,8 @@ public class Discount extends Identifiable {
 	private Date date;
 	@ManyToOne
 	private Bill bill;
+	@Column(name = "INSTALLMENT_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal installmentAmount = BigDecimal.ZERO;
 
 	public Discount() {
 		super();
@@ -53,6 +55,14 @@ public class Discount extends Identifiable {
 	}
 	public void setBill(Bill bill) {
 		this.bill = bill;
+	}
+
+	public BigDecimal getInstallmentAmount() {
+		return installmentAmount;
+	}
+
+	public void setInstallmentAmount(BigDecimal installmentAmount) {
+		this.installmentAmount = installmentAmount;
 	}
 	
 }

@@ -192,5 +192,13 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
     	
     	return amount.compareTo(BigDecimal.ZERO) == 0;
     }
+
+    public static boolean isNegative(BigDecimal amount){
+    	if(amount == null){
+    		return false;
+    	}
+    	
+    	return amount.compareTo(BigDecimal.ZERO) < 0;
+    }
     
 }

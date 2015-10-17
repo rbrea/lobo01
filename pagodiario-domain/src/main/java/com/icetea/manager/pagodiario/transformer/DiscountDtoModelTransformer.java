@@ -18,6 +18,7 @@ public class DiscountDtoModelTransformer extends
 		d.setBillId(e.getBill().getId());
 		d.setDate(DateUtils.toDate(e.getDate()));
 		d.setObservations(e.getObservations());
+		d.setInstallmentAmount(NumberUtils.toString(e.getInstallmentAmount()));
 		
 		return d;
 	}

@@ -336,7 +336,7 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Altas</li>" +
 	    "<li class=\"" + map.detailClazzDisabled + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "');\">Descuento</a></li>" +
+	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "', '" + map.totalDailyInstallment + "');\">Descuento</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
@@ -569,7 +569,7 @@ BillHistory.resetModal = function(){
 	return;
 }
 
-BillHistory.showDiscount = function(id){
+BillHistory.showDiscount = function(id, installmentAmount){
 	
 	if($(this).hasClass('disabled')){
 		return false;
@@ -578,6 +578,7 @@ BillHistory.showDiscount = function(id){
 	BootstrapDialog.show({
 		onhidden:function(){
 			Discount.resetModal();
+			$("#frmDiscount").validator('destroy');
 			
 			return;
 		},
@@ -597,6 +598,7 @@ BillHistory.showDiscount = function(id){
             });
         	
         	$("#discountBillId").val(id);
+        	$("#discountInstallmentAmount").val(installmentAmount);
         	
         	$("#modal-discount-container").css({"display":"block"});
         	

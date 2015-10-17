@@ -43,8 +43,14 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getAmount()), 
+				"El monto de devolucion es requerido", ErrorType.VALIDATION_ERRORS);
+		
 		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());
 
+		ErrorTypedConditions.checkArgument(!NumberUtils.isNegative(amount), 
+				"El monto de devolucion no puede ser menor a 0.", ErrorType.VALIDATION_ERRORS);
+		
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
 				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
 						o.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
@@ -52,7 +58,8 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		boolean isDevAmountGreaterThanRemainingAmount = amount.compareTo(bill.getRemainingAmount()) > 0;
 		
 		ErrorTypedConditions.checkArgument(!isDevAmountGreaterThanRemainingAmount, 
-				String.format("No se puede devolver un monto mayor al monto a pagar restante: %s", bill.getRemainingAmount()), 
+				String.format("No se puede devolver un monto mayor al monto a pagar restante: %s", 
+						NumberUtils.toString(bill.getRemainingAmount())), 
 				ErrorType.VALIDATION_ERRORS);
 		
 		ErrorTypedConditions.checkArgument(o.getProductCount() != null, 
@@ -88,8 +95,12 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		e.setProduct(product);
 		e.setProductCount(o.getProductCount());
 
-		BigDecimal devInstallmentAmount = billProductFound.getDailyInstallment();/*NumberUtils.multiply(
+		BigDecimal devInstallmentAmount = NumberUtils.toBigDecimal(o.getProductInstallment());/*NumberUtils.multiply(
 				new BigDecimal(o.getProductCount()), billProductFound.getDailyInstallment());*/
+		
+		ErrorTypedConditions.checkArgument(!NumberUtils.isNegative(devInstallmentAmount), 
+				String.format("El monto de la cuota diaria no puede ser negativo: %s", 
+						NumberUtils.toString(devInstallmentAmount)), ErrorType.VALIDATION_ERRORS);
 		
 		e.setInstallmentAmount(devInstallmentAmount);
 		
