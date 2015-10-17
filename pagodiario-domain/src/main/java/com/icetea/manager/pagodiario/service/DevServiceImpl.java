@@ -15,6 +15,7 @@ import com.icetea.manager.pagodiario.dao.DevDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.transformer.DevDtoModelTransformer;
@@ -48,6 +49,12 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
 						o.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
 		
+		boolean isDevAmountGreaterThanRemainingAmount = amount.compareTo(bill.getRemainingAmount()) > 0;
+		
+		ErrorTypedConditions.checkArgument(!isDevAmountGreaterThanRemainingAmount, 
+				String.format("No se puede devolver un monto mayor al monto a pagar restante: %s", bill.getRemainingAmount()), 
+				ErrorType.VALIDATION_ERRORS);
+		
 		ErrorTypedConditions.checkArgument(o.getProductCount() != null, 
 				"La cantidad de productos es requerido", ErrorType.VALIDATION_ERRORS);
 		ErrorTypedConditions.checkArgument(o.getProductId() != null, 
@@ -60,15 +67,31 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		ErrorTypedConditions.checkArgument(product != null, 
 				"El producto seleccionado no fue encontrado en el sistema", ErrorType.VALIDATION_ERRORS);
 		
-		// TODO: asociar el producto a la devolucion
-		// TODO: recalcular el monto de la cuota diaria
+		BillProduct billProductFound = null;
 		
+		for (BillProduct billProduct : bill.getBillProducts()) {
+			Long productId = billProduct.getProduct().getId();
+			if(productId.equals(product.getId())){
+				billProductFound = billProduct;
+				break;
+			}
+		}
+		
+		ErrorTypedConditions.checkArgument(billProductFound != null, 
+				"El producto seleccionado no pertenece a la factura seleccionada", ErrorType.VALIDATION_ERRORS);
 		
 		Dev e = new Dev();
 		e.setAmount(amount);
 		e.setDate(DateUtils.parseDate(o.getDate(), "dd/MM/yyyy"));
 		e.setObservations(StringUtils.trim(o.getObservations()));
 		e.setBill(bill);
+		e.setProduct(product);
+		e.setProductCount(o.getProductCount());
+
+		BigDecimal devInstallmentAmount = billProductFound.getDailyInstallment();/*NumberUtils.multiply(
+				new BigDecimal(o.getProductCount()), billProductFound.getDailyInstallment());*/
+		
+		e.setInstallmentAmount(devInstallmentAmount);
 		
 		this.getDao().saveOrUpdate(e);
 		
@@ -77,9 +100,8 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
 		
-//		BigDecimal installmentAmount = null;
-//		
-//		bill.setTotalDailyInstallment(installmentAmount);
+		
+		bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), devInstallmentAmount));
 
 		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
 		

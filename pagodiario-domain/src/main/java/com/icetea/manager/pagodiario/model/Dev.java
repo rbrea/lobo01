@@ -25,6 +25,12 @@ public class Dev extends Identifiable {
 	private Date date;
 	@ManyToOne
 	private Bill bill;
+	@ManyToOne
+	private Product product;
+	@Column(name = "PRODUCT_COUNT")
+	private int productCount = 0;
+	@Column(name = "INSTALLMENT_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
+	private BigDecimal installmentAmount = BigDecimal.ZERO;
 	
 	public Dev() {
 		super();
@@ -60,6 +66,30 @@ public class Dev extends Identifiable {
 
 	public void setBill(Bill bill) {
 		this.bill = bill;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public int getProductCount() {
+		return productCount;
+	}
+
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
+	}
+
+	public BigDecimal getInstallmentAmount() {
+		return installmentAmount;
+	}
+
+	public void setInstallmentAmount(BigDecimal installmentAmount) {
+		this.installmentAmount = installmentAmount;
 	}
 	
 }
