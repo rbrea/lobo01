@@ -90,6 +90,18 @@
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">
+	              <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-industry fgrey"></i>&nbsp;&nbsp;Administraci&oacute;n <span class="caret"></span></a>
+	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+	                <li role="presentation" class="ROLE_ADMIN icon-circle">
+	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1"
+	                			href="${pageContext.request.contextPath}/controller/html/dashboard/index">
+		                		<i class="fa fa-bar-chart"></i>
+	                		&nbsp;Tablero de Control
+	                	</a>
+	                </li>
+	              </ul>
+	            </li>
+	            <li class="dropdown icon-circle">
 	              <a id="dropUser" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
 	              	<i class="glyphicon glyphicon-user fgrey"></i>&nbsp;&nbsp;<span id="userLogged"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
 	              </a>

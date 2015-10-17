@@ -24,7 +24,7 @@
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.resize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.pie.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.stack.min.js"></script>
-	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.time.min.js"></script>
+	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.time.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.symbol.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.axislabels.js"></script>
 	
@@ -56,3 +56,4 @@
     <script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Collector-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
