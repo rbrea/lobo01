@@ -905,7 +905,7 @@ Bill.showLovProduct = function(elementId){
 			            if(cant == null || cant == ""){
 			            	cant = 0;
 			            }
-			            $("#bcuotadiaria_" + idValue).val(dailyInstallment);
+			            $("#bcuotadiaria_" + idValue).val(dailyInstallment * cant);
 			            $("#bimp_" + idValue).val(realPrice * cant);
 			            $("#billProductPrice_" + idValue).val(realPrice);
 			            $("#lov-client-container").css({"display": "none"});
@@ -983,6 +983,20 @@ Bill.calculateImp = function(element){
 	var imp = price * cant;
 	
 	$("#bimp_" + idValue).val(imp.toFixed(2));
+	
+	var installAmountElement = $("#bcuotadiaria_" + idValue);
+	
+	var iAmount = installAmountElement.val();
+	
+	if(iAmount != null && iAmount != ""){
+		var installmentAmount = parseFloat(iAmount);
+		if(installmentAmount === undefined || installmentAmount == null || installmentAmount == ""){
+			installmentAmount = 0;
+		}
+		iAmount = installmentAmount * cant;
+		
+		installAmountElement.val(iAmount);
+	}
 	
 	return;
 }
@@ -1679,7 +1693,7 @@ Bill.getProductByCode = function(index, code){
 		           if(cant == null || cant == ""){
 		        	   cant = 0;
 		           }
-		           $("#bcuotadiaria_" + index).val(e.dailyInstallment);
+		           $("#bcuotadiaria_" + index).val(e.dailyInstallment * cant);
 		           $("#bimp_" + index).val(realPrice * cant);
 		           $("#billProductPrice_" + index).val(realPrice);
 		           

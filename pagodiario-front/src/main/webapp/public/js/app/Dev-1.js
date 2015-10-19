@@ -59,6 +59,19 @@ Dev.init = function(){
 	    return;
 	});
 	
+	devProductCountElem.on('blur', function(){
+		var cant = $(this).val();
+		if(cant === undefined || cant == null || cant == ""){
+			cant = 0;
+		}
+		var installmentAmount = devInstallment.val();
+		if(installmentAmount != null && installmentAmount != ""){
+			devInstallment.val(cant * parseFloat(installmentAmount));
+		}
+		
+		return;
+	});
+	
 	devInstallment.keyup(function(e){
 		if(e.keyCode == 13) {
 			devAmountElem.focus();			
