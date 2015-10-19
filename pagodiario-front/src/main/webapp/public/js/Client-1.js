@@ -208,12 +208,10 @@ Client.showModal = function(id){
         		
         		var companyAddress = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(4)').html().trim();
-        		var nearStreets = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(5)').html().trim();
         		var companyCity = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(6)').html().trim();
+					.parent().parent().find('td:eq(5)').html().trim();
         		var companyType = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(7)').html().trim();
+					.parent().parent().find('td:eq(6)').html().trim();
         		
         		var email = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
         			.children("img[id='imgCheck_" + id + "']").parent().parent().data('email');
@@ -229,7 +227,6 @@ Client.showModal = function(id){
  			    $("#email").val(email);
  			    $("#companyPhone").val(companyPhone);
  			    $("#companyAddress").val(companyAddress);
- 			    $("#nearStreets").val(nearStreets);
  			    $("#companyCity").val(companyCity);
  			    $("#companyType").val(companyType);
  			    $("#phone").val(phone);

@@ -361,8 +361,7 @@ Dev.showLovProduct = function(){
 			            if(cant == null || cant == ""){
 			            	cant = 1;
 			            }
-			            /*$("#devInstallment").val(parseFloat(dailyInstallment) * cant);*/
-			            $("#devInstallment").val(parseFloat(dailyInstallment));
+			            $("#devInstallment").val(parseFloat(dailyInstallment) * cant);
 			            $("#devAmount").val(realPrice * cant);
 			            $("#lov-client-container").css({"display": "none"});
 			            
@@ -448,8 +447,7 @@ Dev.getProductByCode = function(code){
 		            if(cant == null || cant == ""){
 		            	cant = 1;
 		            }
-		            //$("#devInstallment").val(parseFloat(dailyInstallment) * cant);
-		            $("#devInstallment").val(parseFloat(dailyInstallment));
+		            $("#devInstallment").val(parseFloat(dailyInstallment) * cant);
 		            $("#devAmount").val(realPrice * cant);
 				   
 		           $("#devInstallment").focus();
