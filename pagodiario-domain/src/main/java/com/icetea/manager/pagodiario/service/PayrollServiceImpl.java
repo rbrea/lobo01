@@ -368,7 +368,28 @@ public class PayrollServiceImpl extends
 			
 			final Trader supervisor = trader.getParent();
 			if(supervisor != null && supervisor.isSupervisor()){
-				supervisores.add(supervisor);
+				
+				Trader found = CollectionUtils.find(supervisores, new Predicate<Trader>() {
+					@Override
+					public boolean evaluate(Trader t) {
+						return supervisor.getId().equals(t.getId());
+					}
+				});
+				if(found == null){
+					supervisores.add(supervisor);
+				}
+			} else {
+				if(trader.isSupervisor()){
+					Trader found = CollectionUtils.find(supervisores, new Predicate<Trader>() {
+						@Override
+						public boolean evaluate(Trader t) {
+							return trader.getId().equals(t.getId());
+						}
+					});
+					if(found == null){
+						supervisores.add(trader);
+					}
+				}
 			}
 		}
 
