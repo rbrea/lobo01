@@ -441,3 +441,24 @@ body {
 .fgrey {
 	color: #777 !important;	
 }
+
+.widget-icons a{
+	color: #aaa;
+	text-decoration:none !important;
+}
+
+.widget-icons a:hover{
+	color: #999;
+	text-decoration:none !important;
+}
+
+.widget-icons a:active{
+	color: #999;
+	text-decoration:none !important;
+}
+
+.widget-icons a:visited{
+	color: #999;
+	text-decoration:none !important;
+}
+

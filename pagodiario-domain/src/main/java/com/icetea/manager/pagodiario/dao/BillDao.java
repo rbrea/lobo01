@@ -29,4 +29,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 	@SuppressWarnings("rawtypes")
 	List findActivesGroupingByWeekAndTrader();
 
+	List<Bill> findByFilter(Long creditNumber, Long collectorId, Status status);
+
 }

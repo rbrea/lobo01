@@ -30,4 +30,7 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	BillDto searchByCreditNumber(Long creditNumber);
 
+	List<BillDto> searchByFilter(Long creditNumber, Long collectorId,
+			String statusArg);
+
 }

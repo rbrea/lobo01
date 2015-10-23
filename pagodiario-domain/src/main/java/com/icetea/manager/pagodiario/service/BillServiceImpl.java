@@ -353,4 +353,12 @@ public class BillServiceImpl
 		return this.getTransformer().transform(this.getDao().findByCreditNumber(creditNumber));
 	}
 
+	@Override
+	public List<BillDto> searchByFilter(Long creditNumber, Long collectorId, String statusArg){
+	
+		Bill.Status status = Bill.Status.getValueOf(statusArg);
+		
+		return this.getTransformer().transformAllTo(this.getDao().findByFilter(creditNumber, collectorId, status));
+	}
+	
 }

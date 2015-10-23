@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
 import net.sf.jasperreports.engine.util.FileResolver;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -78,7 +79,8 @@ public class BillController extends ExceptionHandlingController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public @ResponseBody ListOutputDto<BillDto> getBills(@RequestParam(required = false) Long id,
 			@RequestParam(required = false) Long creditNumber,
-			@RequestParam(required = false) Long collectorId){
+			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false) String status){
 		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
 
 		List<BillDto> list = Lists.newArrayList();
@@ -93,8 +95,8 @@ public class BillController extends ExceptionHandlingController {
 			if(bill != null){
 				list.add(bill);
 			}
-		} else if(collectorId != null){
-			List<BillDto> bills = this.billService.searchByCollectorId(collectorId);
+		} else if(collectorId != null || StringUtils.isNotBlank(status)){
+			List<BillDto> bills = this.billService.searchByFilter(creditNumber, collectorId, status);
 			if(bills != null){
 				list.addAll(bills);
 			}
@@ -167,10 +169,12 @@ public class BillController extends ExceptionHandlingController {
 	@RequestMapping(value = "/export/pdf", method = RequestMethod.POST)
 	public void exportBills(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(required = false) Long bhCollectorId){
+			@RequestParam(required = false) Long bhCollectorId,
+			@RequestParam(required = false, value = "bhCreditNumber") Long creditNumber,
+			@RequestParam(required = false, value = "bhStatus") String status){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillDto> list = this.billService.searchActives(bhCollectorId);
+		List<BillDto> list = this.billService.searchByFilter(creditNumber, bhCollectorId, status);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/billhistory.jasper");

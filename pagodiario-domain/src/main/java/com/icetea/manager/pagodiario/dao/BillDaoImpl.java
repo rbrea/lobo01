@@ -161,4 +161,22 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		return list;
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findByFilter(Long creditNumber, Long collectorId, Bill.Status status){
+		Criteria criteria = super.createCriteria();
+		if(creditNumber != null){
+			criteria.add(Restrictions.eq("creditNumber", creditNumber));
+		}
+		if(collectorId != null){
+			criteria.createAlias("collector", "collector");
+			criteria.add(Restrictions.eq("collector.id", collectorId));
+		}
+		if(status != null){
+			criteria.add(Restrictions.eq("status", status));
+		}
+		
+		return criteria.list();
+	}
+	
 }

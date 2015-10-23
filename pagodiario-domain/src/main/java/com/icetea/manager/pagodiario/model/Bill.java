@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
@@ -29,7 +30,18 @@ public class Bill extends Identifiable {
 	private static final long serialVersionUID = 1L;
 
 	public static enum Status {
-		INITIALIZED, ACTIVE, COMPLETED, FINALIZED, CANCELED
+		INITIALIZED, ACTIVE, COMPLETED, FINALIZED, CANCELED;
+		
+		public static Status getValueOf(String name){
+			for(Status s : Status.values()){
+				if(StringUtils.equalsIgnoreCase(s.name(), name)){
+					return s;
+				}
+			}
+			
+			return null;
+		}
+		
 	}
 	
 	@ManyToOne

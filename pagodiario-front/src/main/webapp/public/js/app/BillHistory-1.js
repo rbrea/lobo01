@@ -2,11 +2,27 @@ BillHistory = function(){}
 
 BillHistory.init = function(){
 	
-	$(".bill-history-filter").hide();
-	
-	$("#aBillHistoryShowFilter").on("click", function(){
+	$("#billHistoryCollapseButton").on("click", function(){
+
+		var div = $("#bill-history-filter");
 		
-		BillHistory.showFilter();
+		var i = $(this).children("i").eq(0);
+		if(div.hasClass("collapse")){
+			i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+		} if(div.hasClass("in")){
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+			BillHistory.resetFilter(false);
+		} else {
+			i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+		}
+		
+		return;
+	})
+	
+	$("#billHistoryTicketNumber").on('keypress', function(e){
+		
+		BillHistory.resetCollectorFilter(false);
+		BillHistory.resetStatus(false);
 		
 		return;
 	});
@@ -44,7 +60,7 @@ BillHistory.init = function(){
 		},
 		/*"bAutoWidth": false,*/
 		"bDestroy" : true,
-		responsive: true,
+		responsive: false,
 		"createdRow": function ( row, data, index ) {
     		
     		$(row).data('billId', data.id);
@@ -153,8 +169,10 @@ BillHistory.init = function(){
 	$("#btnBillHistorySearch").on('click', function(){
 		
 		var collectorId = $("#billHistoryCollectorId").val();
+		var creditNumber = $("#billHistoryTicketNumber").val();
+		var status = $("#billHistoryStatus").val();
 		
-		BillHistory.searchByFilter(collectorId);
+		BillHistory.searchByFilter(collectorId, creditNumber, status);
 		
 		return;
 	});
@@ -163,14 +181,15 @@ BillHistory.init = function(){
 		
 		BillHistory.resetFilter(true);
 		
-		BillHistory.searchByFilter(null);
+		BillHistory.searchByFilter(null, null, null);
 		
 		return;
 	});
 	
 	$("#billHistoryCollectorZone").on('keypress', function(){
 		
-		BillHistory.resetFilter(false);
+		BillHistory.resetCollectorFilter(false);
+		BillHistory.resetTicketNumber(false);
 		
 		return;
 	});
@@ -179,7 +198,7 @@ BillHistory.init = function(){
 		if(e.keyCode == 13) {
 			var value = $(this).val();
 			if(value != null && value != ""){
-				$("#btnBillHistorySearch").focus();
+				$("#billHistoryStatus").focus();
 				return BillHistory.getCollectorByZone(value, $('#billHistoryAlertMessages'), $("#billHistoryMessages"));
 			}
 		} else {
@@ -196,9 +215,47 @@ BillHistory.init = function(){
 	    	var value = $(this).val();
 			if(value != null && value != ""){
 				e.preventDefault();
-				$("#btnBillHistorySearch").focus();
+				$("#billHistoryStatus").focus();
 				return BillHistory.getCollectorByZone(value, $('#billHistoryAlertMessages'), $("#billHistoryMessages"));
 			}
+	    }
+	    
+	    return;
+	});
+	
+	$("#billHistoryStatus").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#billHistoryTicketNumber").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billHistoryStatus').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#billHistoryTicketNumber").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#billHistoryTicketNumber").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnBillHistorySearch").focus();			
+		}
+	    
+	    return;
+	});
+	
+	$('#billHistoryTicketNumber').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnBillHistorySearch").focus();			
 	    }
 	    
 	    return;
@@ -952,14 +1009,33 @@ BillHistory.exportToPdf = function(){
 	return;
 }
 
-BillHistory.searchByFilter = function(collectorId){
+BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
 		urlQueryString = "?collectorId=" + collectorId;
 		$("#bhCollectorId").val(collectorId);
 	}
-
+	if(creditNumber != null && creditNumber != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "creditNumber=" + creditNumber;
+			
+		$("#bhCreditNumber").val(creditNumber);
+	}
+	if(status != null && status != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "status=" + status;
+		$("#bhStatus").val(status);
+	}
+	
 	$.ajax({ 
 	   type    : "GET",
 	   url     : Constants.contextRoot + "/controller/html/bill" + urlQueryString,
@@ -1165,9 +1241,9 @@ BillHistory.getCollectorByZone = function(zone, alertMessagesContainer, messages
 
 BillHistory.hideFilter = function(){
 
-	BillHistory.resetFilter(true);
+	BillHistory.resetFilter(false);
 	
-	$(".bill-history-filter").hide("slow");
+	$("#bill-history-filter").hide("slow");
 	/*
 	$("#optBillHistoryShowFilter").toggleClass("disabled");
 	$("#optBillHistoryHideFilter").toggleClass("disabled");
@@ -1191,12 +1267,21 @@ BillHistory.hideFilter = function(){
 
 BillHistory.showFilter = function(){
 	
-	$(".bill-history-filter").show("slow");
+	$("#bill-history-filter").show("slow");
 	
 	return;
 }
 
 BillHistory.resetFilter = function(enabled){
+
+	BillHistory.resetCollectorFilter(enabled);
+	BillHistory.resetTicketNumber(enabled);
+	BillHistory.resetStatus(enabled);
+	
+	return;
+}
+
+BillHistory.resetCollectorFilter = function(enabled){
 	
 	$("#billHistoryCollectorId").val("");
 	if(enabled){
@@ -1212,3 +1297,25 @@ BillHistory.resetFilter = function(enabled){
 	
 	return;
 }
+
+BillHistory.resetTicketNumber = function(enabled){
+	
+	$("#billHistoryTicketNumber").val("");
+	if(enabled){
+		$("#bhCreditNumber").val("");
+	}
+	
+	return;
+}
+
+BillHistory.resetStatus = function(enabled){
+	
+	$('#billHistoryStatus option:contains("Todos")').prop('selected', true);
+	if(enabled){
+		$("#bhStatus").val("");
+	}
+	
+	return;
+}
+
+
