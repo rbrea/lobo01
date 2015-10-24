@@ -38,9 +38,17 @@ Payroll.fillPeriodSelector = function(){
 		   Message.hideMessages($('#payrollAlertMessages'), $("#payrollMessages"));
 		   if(list != null && list.length > 0){
 			   
+			   var periodSelect = $("#optPayrollPeriod");
+			   
 			   for(var i=0;i<list.length;i++){
-				   
-				   $("#optPayrollPeriod").append("<option>" + list[i] + "</option>");
+				   var value = list[i];
+				   var idx = value.indexOf("--CURRENT");
+				   if(idx > -1){
+					   value = value.substring(0, idx);
+					   periodSelect.append("<option selected='selected'>" + value + "</option>");
+				   } else {
+					   periodSelect.append("<option>" + value + "</option>");
+				   }
 			   }
 			   
 			   return;

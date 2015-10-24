@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.ProductReductionDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.ProductReduction;
 import com.icetea.manager.pagodiario.transformer.ProductReductionDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -52,9 +54,12 @@ public class ProductReductionServiceImpl
 		e.setObservations(o.getObservations());
 		e.setBill(bill);
 		
+		
 		this.getDao().saveOrUpdate(e);
 		
 		bill.getProductReductionList().add(e);
+		bill.setStatus(Status.CANCELED);
+		bill.setUpdatedDate(new Date());
 		
 		this.billDao.saveOrUpdate(bill);
 		

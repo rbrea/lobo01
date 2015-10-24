@@ -9,7 +9,7 @@ ProductReduction.resetModal = function(){
 	return;
 }
 
-ProductReduction.add = function(dialog, btn){
+ProductReduction.add = function(dialog, btn, handler){
 	var billId = $("#productReductionBillId").val();
 
 	var obj = new Object();
@@ -33,6 +33,7 @@ ProductReduction.add = function(dialog, btn){
        		   btn.stopSpin();
 			   dialog.close();
 
+			   handler(data);
 			   //BillHistory.init();
 			   
 			   return;

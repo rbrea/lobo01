@@ -1839,8 +1839,8 @@ Bill.initDetail = function(billId){
 				   for(var i=0;i<reductions.length;i++){
 					   var tr = $("<tr></tr>");
 					   
-					   var td0 = $("<td class=\"centered\"></td>").append(discounts[i].date);
-					   var td1 = $("<td class=\"centered\"></td>").append(discounts[i].amount);
+					   var td0 = $("<td class=\"centered\"></td>").append(reductions[i].date);
+					   var td1 = $("<td class=\"centered\"></td>").append(reductions[i].amount);
 					   
 					   tr.append(td0).append(td1);
 					   
@@ -2078,4 +2078,18 @@ Bill.searchByCreditNumber = function(creditNumber){
 	});
 	
 	return;
+}
+
+Bill.translateStatus = function(status){
+	var value = "INICIALIZADO";
+    
+	if(status == 'ACTIVE'){
+    	value = "ACTIVO";
+    } else if(status == 'FINALIZED'){
+    	value = 'FINALIZADO';
+    } else if(status == 'CANCELED'){
+    	value = 'CANCELADO';
+    }
+    
+	return value;
 }

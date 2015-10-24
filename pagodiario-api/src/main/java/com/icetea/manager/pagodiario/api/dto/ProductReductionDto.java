@@ -8,6 +8,7 @@ public class ProductReductionDto extends BasicIdentifiableDto {
 	private String observations;
 	private String amount;
 	private String date;
+	private String billStatus;
 
 	public Long getBillId() {
 		return billId;
@@ -32,6 +33,12 @@ public class ProductReductionDto extends BasicIdentifiableDto {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getBillStatus() {
+		return billStatus;
+	}
+	public void setBillStatus(String billStatus) {
+		this.billStatus = billStatus;
 	}
 	
 }

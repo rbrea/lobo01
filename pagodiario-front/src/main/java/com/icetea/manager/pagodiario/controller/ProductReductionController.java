@@ -66,13 +66,13 @@ private static final Logger LOGGER = getLogger(ProductReductionController.class)
 		ListOutputDto<ProductReductionDto> r = new ListOutputDto<ProductReductionDto>();
 
 		List<ProductReductionDto> list = Lists.newArrayList();
-		ProductReductionDto client = null;
+		ProductReductionDto d = null;
 		if(input.getId() != null){
-			client = this.productReductionService.update(input);
-			list.add(client);
+			d = this.productReductionService.update(input);
+			list.add(d);
 		} else {
-			client = this.productReductionService.insert(input);
-			list.add(client);
+			d = this.productReductionService.insert(input);
+			list.add(d);
 		}
 		r.setData(list);
 		

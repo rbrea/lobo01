@@ -10,6 +10,7 @@ public class PaymentDto extends BasicIdentifiableDto {
 	private Long collectorId;
 	private Long billId;
 	private Long creditNumber;
+	private String billStatus;
 	
 	public String getAmount() {
 		return amount;
@@ -57,6 +58,14 @@ public class PaymentDto extends BasicIdentifiableDto {
 
 	public void setIdx(Integer idx) {
 		this.idx = idx;
+	}
+
+	public String getBillStatus() {
+		return billStatus;
+	}
+
+	public void setBillStatus(String billStatus) {
+		this.billStatus = billStatus;
 	}
 	
 }

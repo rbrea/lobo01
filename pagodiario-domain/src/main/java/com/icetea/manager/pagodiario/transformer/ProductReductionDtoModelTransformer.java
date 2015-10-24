@@ -18,6 +18,7 @@ public class ProductReductionDtoModelTransformer extends
 		d.setBillId(e.getBill().getId());
 		d.setDate(DateUtils.toDate(e.getDate()));
 		d.setObservations(e.getObservations());
+		d.setBillStatus(e.getBill().getStatus().name());
 		
 		return d;
 	}

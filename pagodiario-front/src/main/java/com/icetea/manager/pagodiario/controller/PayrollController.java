@@ -118,8 +118,8 @@ public class PayrollController extends ExceptionHandlingController {
 	    c.set(Calendar.DAY_OF_MONTH, 1);
 	    Date start = c.getTime();
 	    
-	    
-	    Date before = DateUtils.addMonths(now, -1);
+	    // [roher] aca es donde esta la papa!! depende el nro que le ponga aca es d donde empieza ...
+	    Date before = DateUtils.addMonths(now, -12);
 	    c.setTime(before);
 	    
 	    c.set(Calendar.DAY_OF_MONTH, 15);
@@ -132,7 +132,7 @@ public class PayrollController extends ExceptionHandlingController {
 
 	    Date end = middle;
 	    start = middle;
-	    for(int i=0;i<10;i++){
+	    for(int i=0;i<28;i++){
 	    	if(!first){
 	    		end = DateUtils.addMonths(start, 1);
 	    		c.setTime(end);
@@ -144,6 +144,10 @@ public class PayrollController extends ExceptionHandlingController {
 	    	}
 	    	
 	    	String period = DateUtils.toDate(start) + " a " + DateUtils.toDate(end);
+
+	    	if(now.before(end) && now.after(start)){
+	    		period += "--CURRENT";
+	    	}
 	    	
 	    	list.add(period);
 	    	

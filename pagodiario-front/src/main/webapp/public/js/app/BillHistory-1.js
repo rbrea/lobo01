@@ -117,16 +117,10 @@ BillHistory.init = function(){
             	"className": 'centered',
             	"orderable": false,
             	"render": function ( data, type, row ) {
-			        var value = "INICIALIZADO";
-			        if(row.status == 'ACTIVE'){
-			        	value = "ACTIVO";
-			        } else if(row.status == 'FINALIZED'){
-			        	value = 'FINALIZADO';
-			        } else if(row.status == 'CANCELED'){
-			        	value = 'CANCELADO';
-			        }
 			        
-			        return value;
+			        var value = Bill.translateStatus(row.status);
+			        
+			        return "<span id='status_" + row.id + "'>" + value + "</span>";
 			    } 
             },
             {
@@ -146,7 +140,8 @@ BillHistory.init = function(){
                 		"totalDailyInstallment": row.totalDailyInstallment,
                 		"collectorId" : row.collectorId,
                 		"detailClazzDisabled": clazzDisabled,
-                		"creditNumber" : row.creditNumber
+                		"creditNumber" : row.creditNumber,
+                		"status" : row.status
                 	});
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
@@ -379,6 +374,13 @@ BillHistory.init = function(){
 
 BillHistory.getActionSelectElement = function(id, map){
 	
+	var status = map.status;
+	
+	var hideClass = "";
+	if(status != 'ACTIVE'){
+		hideClass = "hide";
+	}
+	
 	var div = "<div class=\"btn-group\">" +
 	  "<button type=\"button\" class=\"btn btn-xs btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
 	    "Acciones&nbsp;<span class=\"caret\"></span>" +
@@ -390,12 +392,12 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:Dev.show('" + id + "');\">Devoluciones</a></li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:ProductReduction.show('" + id + "');\">Bajas</a></li>" +*/
 	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "&creditNumber=" + map.creditNumber + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
-	    "<li role=\"separator\" class=\"divider\"></li>" +
-	    "<li class=\"dropdown-header\">Altas</li>" +
-	    "<li class=\"" + map.detailClazzDisabled + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "', '" + map.totalDailyInstallment + "');\">Descuento</a></li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
+	    "<li id=\"liSeparatorCreation_" + id + "\" role=\"separator " + hideClass + "\" class=\"divider\"></li>" +
+	    "<li id=\"liTitleCreation_" + id + "\" class=\"dropdown-header " + hideClass + "\">Altas</li>" +
+	    "<li id=\"liPayment_" + id + "\" class=\"" + map.detailClazzDisabled + " " + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
+	    "<li id=\"liDiscount_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "', '" + map.totalDailyInstallment + "');\">Descuento</a></li>" +
+	    "<li id=\"liDev_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
+	    "<li id=\"liReduction_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Otras</li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.remove('" + id + "');\"><i class=\"glyphicon glyphicon-remove-circle\"></i>&nbsp;Deshacer</a></li>" +
@@ -850,7 +852,7 @@ BillHistory.showProductReduction = function(id){
 	        		btn.spin();
 	        		
 					// si esta todo ok entonces doy de alta ...
-	        		ProductReduction.add(dialog, btn);
+	        		ProductReduction.add(dialog, btn, BillHistory.reductionHandler);
 				}
         		
         		return;
@@ -1318,4 +1320,26 @@ BillHistory.resetStatus = function(enabled){
 	return;
 }
 
+BillHistory.reductionHandler = function(data){
 
+	var list = data.data;
+	
+	var reduction = list[0];
+	
+	var billStatus = reduction.billStatus;
+	
+	if(billStatus != 'ACTIVE'){
+		$("#liSeparatorCreation_" + reduction.billId).addClass("hide");
+		$("#liTitleCreation_" + reduction.billId).addClass("hide");
+		$("#liPayment_" + reduction.billId).addClass("hide");
+		$("#liDiscount_" + reduction.billId).addClass("hide");
+		$("#liDev_" + reduction.billId).addClass("hide");
+		$("#liReduction_" + reduction.billId).addClass("hide");
+		
+		var status = Bill.translateStatus(billStatus);
+		
+		$("#status_" + reduction.billId).html(status)
+	}
+	
+	return;
+}
