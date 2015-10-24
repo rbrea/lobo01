@@ -1,6 +1,6 @@
 var previousPoint = null, previousLabel = null;
 var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-		    
+
 $(document).ready(
 		function(){
 			
@@ -35,8 +35,8 @@ $(document).ready(
 	                    previousPoint = null;
 	                }
 	            });
-	        };
-		
+	        }
+	        
 		return;
 	}
 		
@@ -49,6 +49,58 @@ Chart.init = function(){
 	Chart.drawDashboard();
 	
 	Chart.plotSalesByWeek();
+	
+	Chart.showBarChart();
+	
+	Chart.showPieChart();
+	
+	$("#chartCollapseButton-01").on("click", function(){
+
+		var div = $("#body-01");
+		
+		var i = $(this).children("i").eq(0);
+		if(div.hasClass("collapse")){
+			i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+		} if(div.hasClass("in")){
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		} else {
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		}
+		
+		return;
+	});
+	
+	$("#chartCollapseButton-02").on("click", function(){
+
+		var div = $("#body-02");
+		
+		var i = $(this).children("i").eq(0);
+		if(div.hasClass("collapse")){
+			i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+		} if(div.hasClass("in")){
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		} else {
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		}
+		
+		return;
+	});
+	
+	$("#chartCollapseButton-03").on("click", function(){
+
+		var div = $("#body-03");
+		
+		var i = $(this).children("i").eq(0);
+		if(div.hasClass("collapse")){
+			i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+		} if(div.hasClass("in")){
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		} else {
+			i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+		}
+		
+		return;
+	});
 	
 	return;
 }
@@ -314,7 +366,7 @@ Chart.plotSalesByWeek = function(){
 					},
 					xaxis: {
 						mode: "time",
-						min:0,
+						min: 0,
 						timeformat: "%Y-%m",
 		                axisLabel: "meses",
 		                axisLabelUseCanvas: true,
@@ -367,7 +419,7 @@ Chart.plotSalesByWeek = function(){
 				*/
 				
 				var plot = $.plot(placeholder, dataset, options);
-				placeholder.UseTooltip();
+				//placeholder.UseTooltip();
 				
 			}
 	   },
@@ -395,4 +447,99 @@ Chart.showTooltip = function(x, y, color, contents) {
         'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
         opacity: 0.9
     }).appendTo("body").fadeIn(200);
+}
+
+
+Chart.showBarChart = function(){
+	 var data = [[0, 11],[1, 15],[2, 25],[3, 24],[4, 13],[5, 18]];
+     var dataset = [{ label: "2012 Average Temperature", data: data, color: "#5482FF" }];
+     var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"], [3, "Taipei"],[4, "Beijing"], [5, "Sydney"]];
+
+     var options = {
+         series: {
+             bars: {
+                 show: true
+             }
+         },
+         bars: {
+             align: "center",
+             barWidth: 0.5
+         },
+         xaxis: {
+             axisLabel: "World Cities",
+             axisLabelUseCanvas: true,
+             axisLabelFontSizePixels: 12,
+             axisLabelFontFamily: 'Verdana, Arial',
+             axisLabelPadding: 10,
+             ticks: ticks
+         },
+         yaxis: {
+             axisLabel: "Average Temperature",
+             axisLabelUseCanvas: true,
+             axisLabelFontSizePixels: 12,
+             axisLabelFontFamily: 'Verdana, Arial',
+             axisLabelPadding: 3,
+             tickFormatter: function (v, axis) {
+                 return v + "°C";
+             }
+         },
+         legend: {
+             noColumns: 0,
+             labelBoxBorderColor: "#000000",
+             position: "nw"
+         },
+         grid: {
+             hoverable: true,
+             borderWidth: 2,
+             backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+         }
+     };
+     
+     $.plot($("#flot-placeholder"), dataset, options);
+	
+	return;
+}
+
+Chart.showPieChart = function(){
+	
+	var dataSet = [
+       {label: "Asia", data: 4119630000, color: "#005CDE" },
+       { label: "Latin America", data: 590950000, color: "#00A36A" },
+       { label: "Africa", data: 1012960000, color: "#7D0096" },
+       { label: "Oceania", data: 35100000, color: "#992B00" },
+       { label: "Europe", data: 727080000, color: "#DE000F" },
+       { label: "North America", data: 344120000, color: "#ED7B00" }    
+   ];
+	
+	var options = {
+			series: {
+			    pie: {
+			        show: true,                
+			        label: {
+			            show:true,
+			            radius: 0.8,
+			            formatter: function (label, series) {                
+			                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+			                label + ' : ' +
+			                Math.round(series.percent) +
+			                '%</div>';
+			            },
+			            background: {
+			                opacity: 0.8,
+			                color: '#000'
+			            }
+			        }
+			    }
+			},
+	         grid: {
+	             hoverable: true,
+	             borderWidth: 2,
+	             backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+	         }
+	     };
+	
+	
+	 $.plot($("#pie-chart-example"), dataSet, options);
+	 
+	return;
 }

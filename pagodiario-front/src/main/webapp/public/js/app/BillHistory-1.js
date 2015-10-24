@@ -17,7 +17,7 @@ BillHistory.init = function(){
 		}
 		
 		return;
-	})
+	});
 	
 	$("#billHistoryTicketNumber").on('keypress', function(e){
 		

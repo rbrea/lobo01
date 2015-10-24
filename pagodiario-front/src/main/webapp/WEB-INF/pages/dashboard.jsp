@@ -26,7 +26,7 @@
 		<div class="col-md-10">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-			    	<h3 class="panel-title"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Dashboard</h3>
+			    	<h3 class="panel-title"><i class="fa fa-area-chart"></i>&nbsp;&nbsp;Dashboard</h3>
 			  	</div>
 			  	<div class="panel-body">
 			    	<div class="container-fluid">
@@ -121,12 +121,57 @@
 					        </div>
 						</div>
 						<div class="row">
+							<div class="col-md-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<i class="fa fa-line-chart"></i>&nbsp;&nbsp;Total Facturado por Vendedor
+										<div class="widget-icons pull-right">
+					                 		<a id="chartCollapseButton-01" class="wminimize" data-toggle="collapse" href="#body-01" 
+					                 			 aria-expanded="true" aria-controls="body-01">
+					                 			<i class="fa fa-chevron-up"></i>
+					                 		</a>&nbsp;&nbsp; 
+					               		</div>
+									</div>
+									<div id="body-01" class="panel-body in">
+										<div id="placeholder" style="height: 305px;">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-md-6">
-								<div id="curve-chart" class="well" style="height: 305px;">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<i class="fa fa-pie-chart"></i>&nbsp;&nbsp;Total por Vendedor
+										<div class="widget-icons pull-right">
+					                 		<a id="chartCollapseButton-02" class="wminimize" data-toggle="collapse" href="#body-02" 
+					                 			 aria-expanded="true" aria-controls="body-02">
+					                 			<i class="fa fa-chevron-up"></i>
+					                 		</a>&nbsp;&nbsp; 
+					               		</div>
+									</div>
+									<div id="body-02" class="panel-body in">
+										<div id="pie-chart-example" style="height: 305px;width:100%;">
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div id="placeholder" class="well" style="height: 305px;">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Total por Cobrador
+										<div class="widget-icons pull-right">
+					                 		<a id="chartCollapseButton-03" class="wminimize" data-toggle="collapse" href="#body-03" 
+					                 			 aria-expanded="true" aria-controls="body-03">
+					                 			<i class="fa fa-chevron-up"></i>
+					                 		</a>&nbsp;&nbsp; 
+					               		</div>
+									</div>
+									<div id="body-03" class="panel-body in">
+										<div id="flot-placeholder" style="height: 305px;">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>			    		

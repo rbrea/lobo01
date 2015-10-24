@@ -60,6 +60,18 @@
 	                </li>
 	              </ul>
 	            </li>
+	            <li class="dropdown icon-circle">
+	              <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-industry fgrey"></i>&nbsp;&nbsp;Administraci&oacute;n <span class="caret"></span></a>
+	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+	                <li role="presentation" class="ROLE_ADMIN icon-circle">
+	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1"
+	                			href="${pageContext.request.contextPath}/controller/html/dashboard/index">
+		                		<i class="fa fa-bar-chart"></i>
+	                		&nbsp;Tablero de Control
+	                	</a>
+	                </li>
+	              </ul>
+	            </li>
 				<li class="dropdown icon-circle">
 	              <a id="dropAbm" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sitemap fgrey"></i>&nbsp;&nbsp;ABM <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropAbm">
@@ -87,18 +99,6 @@
 	                <li role="presentation" class="divider"></li>
 	                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
 	                -->
-	              </ul>
-	            </li>
-	            <li class="dropdown icon-circle">
-	              <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-industry fgrey"></i>&nbsp;&nbsp;Administraci&oacute;n <span class="caret"></span></a>
-	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-	                <li role="presentation" class="ROLE_ADMIN icon-circle">
-	                	<a id="optEjecutarLiq" style="cursor:pointer;" role="menuitem" tabindex="-1"
-	                			href="${pageContext.request.contextPath}/controller/html/dashboard/index">
-		                		<i class="fa fa-bar-chart"></i>
-	                		&nbsp;Tablero de Control
-	                	</a>
-	                </li>
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">
