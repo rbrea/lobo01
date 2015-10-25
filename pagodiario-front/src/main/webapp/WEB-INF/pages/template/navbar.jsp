@@ -39,6 +39,11 @@
 	               			<i class="fa fa-file-text-o fa-fw"></i>&nbsp;Generar cup&oacute;n de Cobro (ticket)
 	               		</a>
 	               	</li>
+	               	<li role="presentation" class="icon-circle">
+	               		<a id="optGenerarVoucher" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/voucher/index">
+	               			<i class="fa fa-money"></i>&nbsp;Generar voucher de Descuento
+	               		</a>
+	               	</li>
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">

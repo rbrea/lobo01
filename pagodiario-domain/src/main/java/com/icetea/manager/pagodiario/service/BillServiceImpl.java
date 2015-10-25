@@ -360,5 +360,14 @@ public class BillServiceImpl
 		
 		return this.getTransformer().transformAllTo(this.getDao().findByFilter(creditNumber, collectorId, status));
 	}
+
+	@Override
+	public List<BillDto> searchToMakeVouchers(Date date){
+	
+		ErrorTypedConditions.checkArgument(date != null, 
+				"La fecha de finalizado es requerida.", ErrorType.VALIDATION_ERRORS);
+		
+		return this.getTransformer().transformAllTo(this.getDao().findToMakeVouchers(date));
+	}
 	
 }

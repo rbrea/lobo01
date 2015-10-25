@@ -23,6 +23,12 @@ public class BillDto extends BasicIdentifiableDto {
 	private Integer weekOfYear;
 	private Integer month;
 	private Integer year;
+	private String traderName;
+	private String traderPhone;
+	private String clientName;
+	private String clientAddress;
+	private String clientCompanyType;
+	private String clientDocumentNumber;
 
 	public Long getTraderId() {
 		return traderId;
@@ -113,6 +119,42 @@ public class BillDto extends BasicIdentifiableDto {
 	}
 	public void setMonth(Integer month) {
 		this.month = month;
+	}
+	public String getTraderName() {
+		return traderName;
+	}
+	public void setTraderName(String traderName) {
+		this.traderName = traderName;
+	}
+	public String getTraderPhone() {
+		return traderPhone;
+	}
+	public void setTraderPhone(String traderPhone) {
+		this.traderPhone = traderPhone;
+	}
+	public String getClientName() {
+		return clientName;
+	}
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+	public String getClientAddress() {
+		return clientAddress;
+	}
+	public void setClientAddress(String clientAddress) {
+		this.clientAddress = clientAddress;
+	}
+	public String getClientCompanyType() {
+		return clientCompanyType;
+	}
+	public void setClientCompanyType(String clientCompanyType) {
+		this.clientCompanyType = clientCompanyType;
+	}
+	public String getClientDocumentNumber() {
+		return clientDocumentNumber;
+	}
+	public void setClientDocumentNumber(String clientDocumentNumber) {
+		this.clientDocumentNumber = clientDocumentNumber;
 	}
 	
 }

@@ -9,6 +9,7 @@ import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Named
 public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto, Bill> {
@@ -45,6 +46,14 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 		d.setWeekOfYear(e.getWeekOfYear());
 		d.setMonth(e.getMonth());
 		d.setYear(e.getYear());
+		
+		d.setTraderName(StringUtils.emptyWhenNull(e.getTrader().getName()));
+		d.setTraderPhone(StringUtils.emptyWhenNull(e.getTrader().getPhone()));
+		d.setClientName(StringUtils.emptyWhenNull(e.getClient().getName()));
+		d.setClientAddress(StringUtils.emptyWhenNull(e.getClient().getCompanyAddress()));
+		d.setClientCompanyType(StringUtils.emptyWhenNull(e.getClient().getCompanyType()));
+		d.setClientDocumentNumber((e.getClient().getDocumentNumber() != null) 
+				? e.getClient().getDocumentNumber().toString() : StringUtils.EMPTY);
 		
 		return d;
 	}

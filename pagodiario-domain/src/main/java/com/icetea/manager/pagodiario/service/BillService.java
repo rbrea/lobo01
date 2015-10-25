@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
@@ -32,5 +33,7 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	List<BillDto> searchByFilter(Long creditNumber, Long collectorId,
 			String statusArg);
+
+	List<BillDto> searchToMakeVouchers(Date date);
 
 }

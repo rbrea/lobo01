@@ -57,3 +57,4 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Collector-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Voucher-1.js"></script>

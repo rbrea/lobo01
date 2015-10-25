@@ -31,4 +31,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findByFilter(Long creditNumber, Long collectorId, Status status);
 
+	List<Bill> findToMakeVouchers(Date date);
+
 }

@@ -178,5 +178,16 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return criteria.list();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findToMakeVouchers(Date date){
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.eq("status", Bill.Status.FINALIZED));
+		criteria.add(Restrictions.between("completedDate", date, DateUtils.addDays(date, 1)));
+		criteria.add(Restrictions.le("overdueDays", 0));
+		
+		return criteria.list();
+	}
 	
 }
