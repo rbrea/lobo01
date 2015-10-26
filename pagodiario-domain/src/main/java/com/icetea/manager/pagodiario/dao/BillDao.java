@@ -33,4 +33,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findToMakeVouchers(Date date);
 
+	List<Bill> findLastYear();
+
 }

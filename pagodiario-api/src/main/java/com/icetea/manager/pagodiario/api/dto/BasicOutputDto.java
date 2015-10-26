@@ -8,7 +8,7 @@ public class BasicOutputDto extends BasicDto {
 
 	private String cause;
 	private String message;
-	private Integer status;
+	private Integer status = 0;
 	private ErrorType errorType;
 	
 	public static enum BasicOutputType {

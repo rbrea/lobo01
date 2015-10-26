@@ -190,4 +190,16 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		return criteria.list();
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findLastYear(){
+		Criteria criteria = super.createCriteria();
+		Date now = new Date();
+		criteria.add(
+				Restrictions.between("startDate", 
+						DateUtils.addMonths(now, -12), DateUtils.addDays(now, 1)));
+		
+		return criteria.list();
+	}
+	
 }

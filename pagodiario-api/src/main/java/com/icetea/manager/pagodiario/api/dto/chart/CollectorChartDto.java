@@ -8,9 +8,12 @@ public class CollectorChartDto extends BasicDto {
 
 	private static final long serialVersionUID = 1L;
 
+	private Long collectorId;
 	private String label;
-	private BigDecimal value = BigDecimal.ZERO;
-
+	private BigDecimal data = BigDecimal.ZERO;
+	private String color;
+	private BigDecimal totalAmount = BigDecimal.ZERO;
+	
 	public String getLabel() {
 		return label;
 	}
@@ -19,12 +22,36 @@ public class CollectorChartDto extends BasicDto {
 		this.label = label;
 	}
 
-	public BigDecimal getValue() {
-		return value;
+	public BigDecimal getData() {
+		return data;
 	}
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
+	public void setData(BigDecimal data) {
+		this.data = data;
+	}
+
+	public Long getCollectorId() {
+		return collectorId;
+	}
+
+	public void setCollectorId(Long collectorId) {
+		this.collectorId = collectorId;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 }

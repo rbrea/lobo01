@@ -451,95 +451,155 @@ Chart.showTooltip = function(x, y, color, contents) {
 
 
 Chart.showBarChart = function(){
-	 var data = [[0, 11],[1, 15],[2, 25],[3, 24],[4, 13],[5, 18]];
-     var dataset = [{ label: "2012 Average Temperature", data: data, color: "#5482FF" }];
-     var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"], [3, "Taipei"],[4, "Beijing"], [5, "Sydney"]];
-
-     var options = {
-         series: {
-             bars: {
-                 show: true
-             }
-         },
-         bars: {
-             align: "center",
-             barWidth: 0.5
-         },
-         xaxis: {
-             axisLabel: "World Cities",
-             axisLabelUseCanvas: true,
-             axisLabelFontSizePixels: 12,
-             axisLabelFontFamily: 'Verdana, Arial',
-             axisLabelPadding: 10,
-             ticks: ticks
-         },
-         yaxis: {
-             axisLabel: "Average Temperature",
-             axisLabelUseCanvas: true,
-             axisLabelFontSizePixels: 12,
-             axisLabelFontFamily: 'Verdana, Arial',
-             axisLabelPadding: 3,
-             tickFormatter: function (v, axis) {
-                 return v + "°C";
-             }
-         },
-         legend: {
-             noColumns: 0,
-             labelBoxBorderColor: "#000000",
-             position: "nw"
-         },
-         grid: {
-             hoverable: true,
-             borderWidth: 2,
-             backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
-         }
-     };
-     
-     $.plot($("#flot-placeholder"), dataset, options);
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/dashboard/toptraders",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(output) {
+		   
+			if(output.listOutputDto.status == 0){
+				var list = output.listOutputDto.data;
+				
+				var data = [];
+				var ticks = [];
+				
+				for(var i=0;i<list.length;i++){
+					var obj = list[i];
+					
+					var e = [];
+					e.push(i);
+					e.push(obj.value);
+					
+					data.push(e);
+					
+					var t = [];
+					t.push(i);
+					t.push(obj.nombre);
+					
+					ticks.push(t);
+				}
+				
+				var dataset = [{ label: "Top Vendedores desde hace 1 a&ntilde;o", data: data, color: "#5482FF" }];
+					/*
+				 var data = [[0, 11],[1, 15],[2, 25],[3, 24],[4, 13],[5, 18]];
+			     var dataset = [{ label: "2012 Average Temperature", data: data, color: "#5482FF" }];
+			     var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"], [3, "Taipei"],[4, "Beijing"], [5, "Sydney"]];
+					 */
+					var options = {
+							series: {
+								bars: {
+									show: true
+								}
+							},
+							bars: {
+								align: "center",
+								barWidth: 0.5
+							},
+							xaxis: {
+								axisLabel: "Vendedores",
+								axisLabelUseCanvas: true,
+								axisLabelFontSizePixels: 12,
+								axisLabelFontFamily: 'Verdana, Arial',
+								axisLabelPadding: 10,
+								ticks: ticks
+							},
+							yaxis: {
+								axisLabel: "Monto vendido",
+								axisLabelUseCanvas: true,
+								axisLabelFontSizePixels: 12,
+								axisLabelFontFamily: 'Verdana, Arial',
+								axisLabelPadding: 3,
+								tickFormatter: function (v, axis) {
+									return "$ " + v;
+								}
+							},
+							legend: {
+								noColumns: 0,
+								labelBoxBorderColor: "#000000",
+								position: "nw"
+							},
+							grid: {
+								hoverable: true,
+								borderWidth: 2,
+								backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+							}
+					};
+					
+					$.plot($("#flot-placeholder"), dataset, options);
+				
+			}
+	   },
+	   error:function(data){
+		   //Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
 	
 	return;
 }
 
 Chart.showPieChart = function(){
 	
-	var dataSet = [
-       {label: "Asia", data: 4119630000, color: "#005CDE" },
-       { label: "Latin America", data: 590950000, color: "#00A36A" },
-       { label: "Africa", data: 1012960000, color: "#7D0096" },
-       { label: "Oceania", data: 35100000, color: "#992B00" },
-       { label: "Europe", data: 727080000, color: "#DE000F" },
-       { label: "North America", data: 344120000, color: "#ED7B00" }    
-   ];
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/dashboard/topcollectors",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(output) {
+		   
+			if(output.listOutputDto.status == 0){
+				var dataSet = output.listOutputDto.data;
+				/*
+				var dataSet = [
+	               {label: "Asia", data: 4119630000, color: "#005CDE" },
+	               { label: "Latin America", data: 590950000, color: "#00A36A" },
+	               { label: "Africa", data: 1012960000, color: "#7D0096" },
+	               { label: "Oceania", data: 35100000, color: "#992B00" },
+	               { label: "Europe", data: 727080000, color: "#DE000F" },
+	               { label: "North America", data: 344120000, color: "#ED7B00" }
+	           ];
+	        	*/
+				var options = {
+	        			series: {
+	        			    pie: {
+	        			        show: true,                
+	        			        label: {
+	        			            show:true,
+	        			            radius: 0.8,
+	        			            formatter: function (label, series) {                
+	        			                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+	        			                label + ' : ' +
+	        			                Math.round(series.percent) +
+	        			                '%</div>';
+	        			            },
+	        			            background: {
+	        			                opacity: 0.8,
+	        			                color: '#000'
+	        			            }
+	        			        }
+	        			    }
+	        			},
+	        	         grid: {
+	        	             hoverable: true,
+	        	             borderWidth: 2,
+	        	             backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+	        	         }
+	        	     };
+	        	
+	        	
+	        	 $.plot($("#pie-chart-example"), dataSet, options);
+				
+			}
+	   },
+	   error:function(data){
+		   //Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
 	
-	var options = {
-			series: {
-			    pie: {
-			        show: true,                
-			        label: {
-			            show:true,
-			            radius: 0.8,
-			            formatter: function (label, series) {                
-			                return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
-			                label + ' : ' +
-			                Math.round(series.percent) +
-			                '%</div>';
-			            },
-			            background: {
-			                opacity: 0.8,
-			                color: '#000'
-			            }
-			        }
-			    }
-			},
-	         grid: {
-	             hoverable: true,
-	             borderWidth: 2,
-	             backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
-	         }
-	     };
-	
-	
-	 $.plot($("#pie-chart-example"), dataSet, options);
-	 
 	return;
 }

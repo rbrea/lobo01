@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.PayrollItemCollectDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
+import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.PayrollItem;
 import com.icetea.manager.pagodiario.model.Trader;
@@ -39,6 +39,8 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 	private final PayrollItemCollectDao payrollItemCollectDao;
 	private final BillDao billDao;
 	private final TraderDao traderDao;
+	
+	private static final List<String> COLORS = Lists.newArrayList("#005CDE", "#00A36A", "#992B00", "#7D0096", "#DE000F", "#ED7B00"); 
 
 	@Inject
 	public ChartServiceImpl(PayrollDao payrollDao,
@@ -120,29 +122,6 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 			
 		}
 
-		List<CollectorChartDto> topCollectors = chart.getTopCollectors();
-		
-		List<?> picList = this.payrollItemCollectDao.findPeriod(new Date());
-		
-		if(picList != null){
-			
-			List<Object[]> list = (List<Object[]>)picList;
-			
-			for(Object[] o : list){
-				
-				Long zone = (Long) o[0];
-				String collectorDescription = (String) o[1];
-				BigDecimal totalPayment = (BigDecimal) o[2];
-				
-				CollectorChartDto c = new CollectorChartDto();
-				c.setLabel(collectorDescription);
-				c.setValue(totalPayment);
-				
-				topCollectors.add(c);
-			}
-			
-		}
-
 		return chart;
 	}
 
@@ -191,6 +170,80 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 		}
 		
 		return list; 
+	}
+	
+	@Override
+	public List<TopTraderDto> searchTopTraders(){
+		
+		List<TopTraderDto> list = Lists.newArrayList();
+		
+		List<Bill> bills = this.billDao.findLastYear();
+		
+		for(final Bill b : bills){
+			
+			TopTraderDto t = CollectionUtils.find(list, new Predicate<TopTraderDto>() {
+				@Override
+				public boolean evaluate(TopTraderDto o) {
+					return b.getTrader().getId().equals(o.getTraderId());
+				}
+			});
+			
+			if(t == null){
+				t = new TopTraderDto();
+				t.setTraderId(b.getTrader().getId());
+				t.setNombre(b.getTrader().getName());
+				list.add(t);
+			}
+			t.setValue(NumberUtils.add(t.getValue(), b.getTotalAmount()));
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public List<CollectorChartDto> searchTopCollectors(){
+		
+		List<CollectorChartDto> list = Lists.newArrayList();
+		
+		List<Bill> bills = this.billDao.findLastYear();
+		
+		int k = 0;
+		
+		BigDecimal total = BigDecimal.ZERO;
+		
+		for(final Bill b : bills){
+			
+			CollectorChartDto t = CollectionUtils.find(list, new Predicate<CollectorChartDto>() {
+				@Override
+				public boolean evaluate(CollectorChartDto o) {
+					return b.getCollector().getId().equals(o.getCollectorId());
+				}
+			});
+			
+			if(t == null){
+				t = new CollectorChartDto();
+				t.setCollectorId(b.getCollector().getId());
+				t.setLabel("Zona: " + b.getCollector().getZone());
+				list.add(t);
+				t.setColor(COLORS.get(k));
+				k++;
+				if(k == 6){
+					k = 0;
+				}
+			}
+			t.setTotalAmount(NumberUtils.add(t.getTotalAmount(), b.getTotalAmount()));
+			total = NumberUtils.add(total, b.getTotalAmount());
+		}
+		
+		for(CollectorChartDto c : list){
+			
+			c.setLabel(c.getLabel() + " - $" + NumberUtils.toString(c.getTotalAmount()));
+			
+			BigDecimal part = NumberUtils.divide(c.getTotalAmount(), total);
+			c.setData(NumberUtils.multiply(part, NumberUtils._100));
+		}
+		
+		return list;
 	}
 	
 }

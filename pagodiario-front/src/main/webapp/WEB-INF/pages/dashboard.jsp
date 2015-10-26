@@ -143,7 +143,7 @@
 							<div class="col-md-6">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<i class="fa fa-pie-chart"></i>&nbsp;&nbsp;Total por Vendedor
+										<i class="fa fa-pie-chart"></i>&nbsp;&nbsp;Total por Cobrador
 										<div class="widget-icons pull-right">
 					                 		<a id="chartCollapseButton-02" class="wminimize" data-toggle="collapse" href="#body-02" 
 					                 			 aria-expanded="true" aria-controls="body-02">
@@ -160,7 +160,7 @@
 							<div class="col-md-6">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Total por Cobrador
+										<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Total por Vendedor
 										<div class="widget-icons pull-right">
 					                 		<a id="chartCollapseButton-03" class="wminimize" data-toggle="collapse" href="#body-03" 
 					                 			 aria-expanded="true" aria-controls="body-03">
@@ -191,64 +191,7 @@
 		function(){
 
 			Chart.init();
-			// Shim allowing us to get the state of the check-box on jQuery versions
-			// prior to 1.6, when prop was added.  The reason we don't just use attr
-			// is because it doesn't work in jQuery versions 1.9.x and later.
-	
-			// TODO: Remove this once Flot's minimum supported jQuery reaches 1.6.
-			if (typeof $.fn.prop != 'function') {
-			    $.fn.prop = $.fn.attr;
-			}
-			
-			var sin = [], cos = [];
-		    for (var i = 0; i < 14; i += 0.5) {
-		        sin.push([i, Math.sin(i)]);
-		        cos.push([i, Math.cos(i)]);
-		    }
-	
-			var plot = $.plot($("#curve-chart"),
-	           [ { data: sin, label: "sin(x)"}, { data: cos, label: "cos(x)" } ], {
-	               series: {
-	                   lines: { show: true, fill: true},
-	                   points: { show: true }
-	               },
-	               grid: { hoverable: true, clickable: true, borderWidth:0 },
-	               yaxis: { min: -1.2, max: 1.2 },
-	               colors: ["#1eafed", "#1eafed"]
-	             });			
-			
-			var previousPoint = null;
-		    $("#curve-chart").bind("plothover", function (event, pos, item) {
-		        $("#x").text(pos.x.toFixed(2));
-		        $("#y").text(pos.y.toFixed(2));
 
-		        if ($("#enableTooltip:checked").length > 0) {
-		            if (item) {
-		                if (previousPoint != item.dataIndex) {
-		                    previousPoint = item.dataIndex;
-		                    
-		                    $("#tooltip").remove();
-		                    var x = item.datapoint[0].toFixed(2),
-		                        y = item.datapoint[1].toFixed(2);
-		                    
-		                    showTooltip(item.pageX, item.pageY, 
-		                                item.series.label + " of " + x + " = " + y);
-		                }
-		            }
-		            else {
-		                $("#tooltip").remove();
-		                previousPoint = null;            
-		            }
-		        }
-		    }); 
-
-		    $("#curve-chart").bind("plotclick", function (event, pos, item) {
-		        if (item) {
-		            $("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
-		            plot.highlight(item.series, item.datapoint);
-		        }
-		    });
-		    
 			return;
 		}		
 	);
