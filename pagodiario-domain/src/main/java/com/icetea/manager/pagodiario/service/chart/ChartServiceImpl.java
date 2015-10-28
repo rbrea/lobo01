@@ -169,6 +169,17 @@ public class ChartServiceImpl extends BasicServiceImpl implements ChartService {
 			}
 		}
 		
+		Collections.sort(list.get(0).getData(), new Comparator<Object>() {
+			
+			@Override
+			public int compare(Object o1, Object o2) {
+				List<Object> data = (List<Object>)o1;
+				List<Object> data2 = (List<Object>)o2;
+				
+				return ((Long)data.get(0)).compareTo((Long)data2.get(0));
+			}
+		});
+		
 		return list; 
 	}
 	

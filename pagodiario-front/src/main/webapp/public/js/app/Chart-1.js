@@ -352,6 +352,13 @@ Chart.plotSalesByWeek = function(){
 					dataset.push(elem);
 				}
 				*/
+				
+				var now = new Date();
+				
+				var firstYear = now.getFullYear();
+				
+				var minDate = new Date(firstYear - 1, now.getMonth(), 1);
+				
 				var options = {
 					series: {
 						lines: {
@@ -366,8 +373,8 @@ Chart.plotSalesByWeek = function(){
 					},
 					xaxis: {
 						mode: "time",
-						min: 0,
-						timeformat: "%Y-%m",
+						min: minDate,
+						timeformat: "%m-%Y",
 		                axisLabel: "meses",
 		                axisLabelUseCanvas: true,
 		                axisLabelFontSizePixels: 12,
@@ -379,7 +386,10 @@ Chart.plotSalesByWeek = function(){
 		                axisLabelUseCanvas: true,
 		                axisLabelFontSizePixels: 12,
 		                axisLabelFontFamily: 'Verdana, Arial',
-		                axisLabelPadding: 3
+		                axisLabelPadding: 3,
+		                tickFormatter: function (v, axis) {
+							return "$" + v;
+						}
 					},
 					selection: {
 						mode: "x"
@@ -482,11 +492,6 @@ Chart.showBarChart = function(){
 				}
 				
 				var dataset = [{ label: "Top Vendedores desde hace 1 a&ntilde;o", data: data, color: "#5482FF" }];
-					/*
-				 var data = [[0, 11],[1, 15],[2, 25],[3, 24],[4, 13],[5, 18]];
-			     var dataset = [{ label: "2012 Average Temperature", data: data, color: "#5482FF" }];
-			     var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"], [3, "Taipei"],[4, "Beijing"], [5, "Sydney"]];
-					 */
 					var options = {
 							series: {
 								bars: {
@@ -522,8 +527,8 @@ Chart.showBarChart = function(){
 							},
 							grid: {
 								hoverable: true,
-								borderWidth: 2,
-								backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+								borderWidth: 2/*,
+								backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }*/
 							}
 					};
 					
@@ -552,16 +557,6 @@ Chart.showPieChart = function(){
 		   
 			if(output.listOutputDto.status == 0){
 				var dataSet = output.listOutputDto.data;
-				/*
-				var dataSet = [
-	               {label: "Asia", data: 4119630000, color: "#005CDE" },
-	               { label: "Latin America", data: 590950000, color: "#00A36A" },
-	               { label: "Africa", data: 1012960000, color: "#7D0096" },
-	               { label: "Oceania", data: 35100000, color: "#992B00" },
-	               { label: "Europe", data: 727080000, color: "#DE000F" },
-	               { label: "North America", data: 344120000, color: "#ED7B00" }
-	           ];
-	        	*/
 				var options = {
 	        			series: {
 	        			    pie: {
