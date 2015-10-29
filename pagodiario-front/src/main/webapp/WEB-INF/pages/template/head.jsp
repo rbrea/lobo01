@@ -21,6 +21,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/bootstrap-datetimepicker.min.css" type="text/css" media="screen" />
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/public/jquery-ui/jquery-ui.min.css" type="text/css" media="screen" />
+
 <link href="${pageContext.request.contextPath}/public/c3/c3.min.css" rel="stylesheet" type="text/css">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->

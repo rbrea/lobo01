@@ -93,5 +93,11 @@ public class CollectorController extends ExceptionHandlingController {
 		
 		return r;
 	}
+
+	@RequestMapping(value = "/index/detail", method = RequestMethod.GET)
+	public String showDetail(){
+		
+		return "collector-detail";
+	}
 	
 }

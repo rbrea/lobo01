@@ -191,5 +191,12 @@
         <put-list-attribute name="modals">
     	</put-list-attribute>
     </definition>
-                        
+
+	<definition name="collector-detail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/collectorDetail.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+                            
 </tiles-definitions>

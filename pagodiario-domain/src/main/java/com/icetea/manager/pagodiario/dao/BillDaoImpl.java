@@ -201,5 +201,10 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return criteria.list();
 	}
+
+	public List<Bill> findBillsWithCollectors(Date from, Date to){
+		
+		return null;
+	}
 	
 }

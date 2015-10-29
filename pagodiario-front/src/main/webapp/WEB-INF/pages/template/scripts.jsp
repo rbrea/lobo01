@@ -17,6 +17,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/moment.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/locales.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/bootstrap-datetimepicker.min.js"></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/jquery-ui/jquery-ui.min.js"></script>
 
 	<!-- jQuery Flot -->
 	<script src="${pageContext.request.contextPath}/public/flot/excanvas.min.js"></script>
