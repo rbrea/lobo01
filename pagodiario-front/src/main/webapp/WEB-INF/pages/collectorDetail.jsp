@@ -21,7 +21,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="glyphicon glyphicon-inbox"></i> Detalle de Cobradores</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Detalle de Cobradores</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -80,6 +80,8 @@
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
+							        <tbody>
+							        </tbody>
 								</table>							
 							</div>
 						</div>
@@ -194,6 +196,12 @@
 				$("#week-date-value").val("");
 				$("#fromDate").val("");
 				$("#toDate").val("");
+				
+				var table = $('#tCollectorDetailResult').DataTable();
+				 
+				table
+				    .clear()
+				    .draw();
 				
 				return;
 			});
