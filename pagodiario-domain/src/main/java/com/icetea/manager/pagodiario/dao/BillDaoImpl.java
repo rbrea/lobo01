@@ -202,9 +202,20 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		return criteria.list();
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<Bill> findBillsWithCollectors(Date from, Date to){
+		Criteria criteria = super.createCriteria();
+		//criteria.add(ResBillDaotrictions.between("startDate", lo, hi))
+		Date toVerify = DateUtils.lastSecondOfDay(to);
+		criteria.add(
+				Restrictions.or(
+						Restrictions.eq("status", Status.ACTIVE),
+						Restrictions.between("completedDate", from, toVerify)
+				)
+		);
 		
-		return null;
+		return criteria.list();
 	}
-	
+
 }

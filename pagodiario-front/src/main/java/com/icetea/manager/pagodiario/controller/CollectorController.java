@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
+import com.icetea.manager.pagodiario.api.dto.CollectorDetailDto;
 import com.icetea.manager.pagodiario.api.dto.CollectorDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
+import com.icetea.manager.pagodiario.service.CollectorDetailService;
 import com.icetea.manager.pagodiario.service.CollectorService;
 
 @Controller
@@ -29,6 +31,8 @@ public class CollectorController extends ExceptionHandlingController {
 	
 	@Inject
 	private CollectorService collectorService;
+	@Inject
+	private CollectorDetailService collectorDetailService;
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -98,6 +102,21 @@ public class CollectorController extends ExceptionHandlingController {
 	public String showDetail(){
 		
 		return "collector-detail";
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<CollectorDetailDto> getCollectorDetails(@RequestParam(required = false) String from,
+			@RequestParam(required = false) String to){
+		ListOutputDto<CollectorDetailDto> r = new ListOutputDto<CollectorDetailDto>();
+
+		List<CollectorDetailDto> list = this.collectorDetailService.search(from, to);
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		
+		r.setData(list);
+		
+		return r;
 	}
 	
 }

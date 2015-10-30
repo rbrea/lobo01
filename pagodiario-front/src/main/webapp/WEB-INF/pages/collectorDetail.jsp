@@ -73,7 +73,10 @@
 							            <tr>
 							                <th>C&oacute;digo de Cobrador</th>
 							                <th>Zona</th>
-							                <th>Descripci&oacute;n</th>
+							                <th>Nombre</th>
+							                <th>Monto Total</th>
+							                <th>Monto Cobrado</th>
+							                <th>Monto Restante</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
@@ -118,8 +121,8 @@
 	            var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
 	            //$('#startDate').text($.datepicker.formatDate(dateFormat, startDate, inst.settings));
 	            //$('#endDate').text($.datepicker.formatDate(dateFormat, endDate, inst.settings));
-	            $('#fromDate').text($.datepicker.formatDate(dateFormat, startDate, inst.settings));
-	            $('#toDate').text($.datepicker.formatDate(dateFormat, endDate, inst.settings));
+	            $('#fromDate').val($.datepicker.formatDate(dateFormat, startDate, inst.settings));
+	            $('#toDate').val($.datepicker.formatDate(dateFormat, endDate, inst.settings));
 	            $("#week-date-value").val($.datepicker.formatDate(dateFormat, startDate, inst.settings) 
 	            		+ " - " + $.datepicker.formatDate(dateFormat, endDate, inst.settings));
 	        }
@@ -178,6 +181,23 @@
 			
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 
+			
+			$("#btnSearchCollectorDetail").on('click', function(){
+				
+				Collector.initCollectorDetail($("#fromDate").val(), $("#toDate").val(), imgCheckUrl);
+				
+				return;
+			});
+			
+			$("#btnResetCollectorDetail").on('click', function(){
+		
+				$("#week-date-value").val("");
+				$("#fromDate").val("");
+				$("#toDate").val("");
+				
+				return;
+			});
+			
 			return;
 		}	
 		

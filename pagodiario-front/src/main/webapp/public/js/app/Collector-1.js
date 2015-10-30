@@ -333,3 +333,77 @@ Collector.getByZone = function(zone, elementIdContainer, alertMessagesContainer,
 	
 	return;
 }
+
+
+Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
+	
+	if(fromDate == null){
+		fromDate = "";
+	}
+	if(toDate == null){
+		toDate = "";
+	}
+	
+	var table = $("#tCollectorDetailResult").dataTable( {
+		"bDestroy" : true,
+        "ajax": Constants.contextRoot + "/controller/html/collector/detail?from=" + fromDate + "&to=" + toDate,
+        "columns": [
+			{
+				"className":      'centered',
+			 	// The `data` parameter refers to the data for the cell (defined by the
+			    // `data` option, which defaults to the column being worked with, in
+			    // this case `data: 0`.
+			    "render": function ( data, type, row ) {
+			        //return data +' ('+ row[3]+')';
+			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
+			    }
+			},
+			{ 
+            	"className": 'centered',
+            	"data": "zone" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "name" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "amountToCollect" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "amountCollected" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "remainingAmount" 
+            },
+            {
+            	"className":      'centered',
+	         	// The `data` parameter refers to the data for the cell (defined by the
+                // `data` option, which defaults to the column being worked with, in
+                // this case `data: 0`.
+                "orderable": false,
+                "render": function ( data, type, row ) {
+                    //return data +' ('+ row[3]+')';
+                    return "";
+                }
+         	}
+        ],
+        "order": [[0, 'asc']],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+            "zeroRecords": "No se ha encontrado ningun elemento",
+            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+            "search": "Buscar: ",
+            "paginate": {
+            	"previous": "Anterior",
+				"next": "Siguiente"
+			}
+        } 
+    });
+	
+	return;
+}

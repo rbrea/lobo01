@@ -35,4 +35,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findLastYear();
 
+	List<Bill> findBillsWithCollectors(Date from, Date to);
+
 }

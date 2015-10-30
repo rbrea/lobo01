@@ -63,6 +63,12 @@
 	                		<i class="glyphicon glyphicon-calendar"></i>&nbsp;Liquidaci&oacute;n de Cobradores
 	                	</a>
 	                </li>
+	                <li role="presentation" class="icon-circle">
+	                	<a id="opt" style="cursor:pointer;" role="menuitem" tabindex="-1" 
+	                			href="${pageContext.request.contextPath}/controller/html/collector/index/detail">
+	                		<i class="fa fa-money"></i>&nbsp;Detalle de Cobradores
+	                	</a>
+	                </li>
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">
