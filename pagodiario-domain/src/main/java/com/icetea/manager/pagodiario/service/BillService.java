@@ -36,4 +36,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	List<BillDto> searchToMakeVouchers(Date date);
 
+	List<BillDto> searchFinalizedInTime();
+
 }

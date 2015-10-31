@@ -10,6 +10,7 @@ public class DashBoardDto extends BasicOutputDto {
 	private String totalCollected = "0.00";
 	private String totalCommission = "0.00";
 	private int countActivesBills = 0;
+	private int countFinalizedInTime = 0;
 	
 	public String getTotalAmount() {
 		return totalAmount;
@@ -34,6 +35,12 @@ public class DashBoardDto extends BasicOutputDto {
 	}
 	public void setCountActivesBills(int countActivesBills) {
 		this.countActivesBills = countActivesBills;
+	}
+	public int getCountFinalizedInTime() {
+		return countFinalizedInTime;
+	}
+	public void setCountFinalizedInTime(int countFinalizedInTime) {
+		this.countFinalizedInTime = countFinalizedInTime;
 	}
 	
 }

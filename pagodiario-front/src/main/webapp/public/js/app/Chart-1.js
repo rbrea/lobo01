@@ -314,7 +314,7 @@ Chart.drawDashboard = function(){
 				if(data.totalcommission == null || data.totalcommission == "" || data.totalcommission === undefined){
 					data.totalcommission = "-";
 				}
-				$("#totalCommissionValue").html("$ " + data.totalcommission);
+				$("#countFinalizedBills").html(data.countFinalizedInTime);
 				$("#cantBillsValue").html(data.countActivesBills);
 				
 			}

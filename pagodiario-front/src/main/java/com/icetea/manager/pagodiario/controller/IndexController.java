@@ -108,6 +108,11 @@ public class IndexController extends ExceptionHandlingController {
 			}
 		}
 		
+		List<BillDto> finalizes = this.billService.searchFinalizedInTime();
+		if(finalizes != null){
+			d.setCountFinalizedInTime(finalizes.size());
+		}
+		
 		return d;
 	}
 

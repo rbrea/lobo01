@@ -10,6 +10,8 @@ public class CollectorDetailDto extends BasicDto {
 	private String amountToCollect;
 	private String amountCollected;
 	private String remainingAmount;
+	private String fromDate;
+	private String toDate;
 
 	public String getZone() {
 		return zone;
@@ -46,6 +48,18 @@ public class CollectorDetailDto extends BasicDto {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+	public String getToDate() {
+		return toDate;
+	}
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
 	}
 	
 }

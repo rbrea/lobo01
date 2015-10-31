@@ -21,13 +21,28 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Detalle de Cobradores</h3>
+		    		<i class="glyphicon glyphicon-play"></i> Detalle de Cobradores
+		    		<div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            	<i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Collector.exportCollectorDetailToPdf();">
+                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
 		  				<div class="col-md-3">
 		  					<label for="week-date-value">Seleccione semana a mostrar:</label> 
 		  				</div>
+		  				<form id="frmCollectorDetailExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/collector/detail/export/pdf">
 		  				<div class="col-md-3">
 		  					<input type="hidden" name="fromDate" id="fromDate">
 		  					<input type="hidden" name="toDate" id="toDate">
@@ -38,6 +53,7 @@
 			                    </span>
 		  					</div>
 		  				</div>
+		  				</form>
 		  				<div class="col-md-6">
 		  					&nbsp;
 		  				</div>

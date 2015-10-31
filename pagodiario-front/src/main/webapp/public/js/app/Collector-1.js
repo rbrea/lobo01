@@ -337,12 +337,13 @@ Collector.getByZone = function(zone, elementIdContainer, alertMessagesContainer,
 
 Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
 	
-	if(fromDate == null){
-		fromDate = "";
+	if(fromDate == null || toDate == null || fromDate == "" || toDate == ""){
+		Message.showMessages($("#collectorDetailAlertMessages"), $("#collectorDetailMessages"), "Fecha desde y Fecha Hasta son requeridos");
+		
+		return;
 	}
-	if(toDate == null){
-		toDate = "";
-	}
+	
+	Message.hideMessages($("#collectorDetailAlertMessages"), $("#collectorDetailMessages"));
 	
 	var table = $("#tCollectorDetailResult").dataTable( {
 		"bDestroy" : true,
@@ -404,6 +405,13 @@ Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
 			}
         } 
     });
+	
+	return;
+}
+
+Collector.exportCollectorDetailToPdf = function(){
+	
+	$("#frmCollectorDetailExportPdf").submit();	
 	
 	return;
 }

@@ -369,5 +369,10 @@ public class BillServiceImpl
 		
 		return this.getTransformer().transformAllTo(this.getDao().findToMakeVouchers(date));
 	}
+
+	@Override
+	public List<BillDto> searchFinalizedInTime(){
+		return this.getTransformer().transformAllTo(this.getDao().findFinalizedInTime());
+	}
 	
 }

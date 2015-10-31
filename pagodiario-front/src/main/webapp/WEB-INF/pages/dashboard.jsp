@@ -83,8 +83,8 @@
 					                            <i class="fa fa-area-chart fa-5x"></i>
 					                        </div>
 					                        <div class="col-xs-9 text-right">
-					                            <div class="huge" id="totalCommissionValue"></div>
-					                            <div>Total Comisiones</div>
+					                            <div class="huge" id="countFinalizedBills"></div>
+					                            <div>Facturas Finalizadas</div>
 					                        </div>
 					                    </div>
 					                </div>
