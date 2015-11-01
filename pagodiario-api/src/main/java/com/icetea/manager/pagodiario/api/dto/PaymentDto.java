@@ -1,6 +1,6 @@
 package com.icetea.manager.pagodiario.api.dto;
 
-public class PaymentDto extends BasicIdentifiableDto {
+public class PaymentDto extends BillInfoDto {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -8,9 +8,7 @@ public class PaymentDto extends BasicIdentifiableDto {
 	private String amount;
 	private String date;
 	private Long collectorId;
-	private Long billId;
 	private Long creditNumber;
-	private String billStatus;
 	
 	public String getAmount() {
 		return amount;
@@ -36,14 +34,6 @@ public class PaymentDto extends BasicIdentifiableDto {
 		this.collectorId = collectorId;
 	}
 	
-	public Long getBillId() {
-		return billId;
-	}
-
-	public void setBillId(Long billId) {
-		this.billId = billId;
-	}
-
 	public Long getCreditNumber() {
 		return creditNumber;
 	}
@@ -60,12 +50,4 @@ public class PaymentDto extends BasicIdentifiableDto {
 		this.idx = idx;
 	}
 
-	public String getBillStatus() {
-		return billStatus;
-	}
-
-	public void setBillStatus(String billStatus) {
-		this.billStatus = billStatus;
-	}
-	
 }

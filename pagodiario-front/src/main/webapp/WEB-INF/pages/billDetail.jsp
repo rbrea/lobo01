@@ -81,6 +81,14 @@
 		  					<td style="font-weight:bold;">Pago Primer Cuota</td>
 		  					<td id="firstInstallment"></td>
 		  				</tr>
+		  				<tr>
+		  					<td style="font-weight:bold;">Estado</td>
+		  					<td id="status"></td>
+		  				</tr>
+		  				<tr>
+		  					<td style="font-weight:bold;">Fecha de Pago total</td>
+		  					<td id="completedDate"></td>
+		  				</tr>
 		  			</table>
 		  			<table id="tBillProducts" class="table table-bordered table-striped">
 		  				<thead>

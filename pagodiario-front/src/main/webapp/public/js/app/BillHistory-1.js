@@ -85,7 +85,7 @@ BillHistory.init = function(){
             },
             { 	
             	"className": 'centered',
-            	"orderable": false,
+            	"orderable": true,
             	"data": "creditNumber" 
             },
             { 
@@ -96,12 +96,18 @@ BillHistory.init = function(){
             { 	
             	"className": 'centered',
             	"orderable": false,
-            	"data": "overdueDays" 
+            	"render": function ( data, type, row ) {
+			        
+			        return "<span id='overdueDays_" + row.id + "'>" + row.overdueDays + "</span>";
+			    } 
             },
             { 
             	"className": 'centered',
             	"orderable": false,
-            	"data": "totalDailyInstallment" 
+            	"render": function ( data, type, row ) {
+			        
+			        return "<span id='installmentAmount_" + row.id + "'>" + row.totalDailyInstallment + "</span>";
+			    } 
             },
             { 	
             	"className": 'centered',
@@ -111,7 +117,10 @@ BillHistory.init = function(){
             { 	
             	"className": 'centered',
             	"orderable": false,
-            	"data": "remainingAmount" 
+            	"render": function ( data, type, row ) {
+			        
+			        return "<span id='remainingAmount_" + row.id + "'>" + row.remainingAmount + "</span>";
+			    }  
             },
             { 	
             	"className": 'centered',
@@ -132,7 +141,7 @@ BillHistory.init = function(){
                 "render": function ( data, type, row ) {
                 	
                 	var clazzDisabled = "";
-                	if(row.status == 'FINALIZED'){
+                	if(row.status == 'CANCELED' || row.status == 'CANCELED_DISCOUNT' || row.status == 'REDUCED'){
                 		clazzDisabled = 'disabled';
                 	}
                 	
@@ -146,7 +155,7 @@ BillHistory.init = function(){
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
         ],
-        "order": [[0, 'desc']],
+        "order": [[3, 'desc']],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",
@@ -380,6 +389,10 @@ BillHistory.getActionSelectElement = function(id, map){
 	if(status != 'ACTIVE'){
 		hideClass = "hide";
 	}
+	var hideClassDiscount = "hide";
+	if(status == 'CANCELED'){
+		hideClassDiscount = "";
+	}
 	
 	var div = "<div class=\"btn-group\">" +
 	  "<button type=\"button\" class=\"btn btn-xs btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
@@ -398,6 +411,7 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li id=\"liDiscount_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "', '" + map.totalDailyInstallment + "');\">Descuento</a></li>" +
 	    "<li id=\"liDev_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
 	    "<li id=\"liReduction_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
+	    "<li id=\"liCancelDiscount_" + id + "\" class=\"" + hideClassDiscount + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.cancelWithDiscount('" + id + "');\">Cancelar/Descuento</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
 	    "<li class=\"dropdown-header\">Otras</li>" +
 	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.remove('" + id + "');\"><i class=\"glyphicon glyphicon-remove-circle\"></i>&nbsp;Deshacer</a></li>" +
@@ -560,7 +574,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 	        		btn.spin();
 	        		
 					// si esta todo ok entonces doy de alta ...
-					BillHistory.addPayment(dialog, btn);
+					BillHistory.addPayment(dialog, btn, BillHistory.addResponseHandler);
 				}
         		
         		return;
@@ -571,7 +585,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 	return;
 }
 
-BillHistory.addPayment = function(dialog, btn){
+BillHistory.addPayment = function(dialog, btn, responseHandler){
 	var billId = $("#paymentBillId").val();
 
 	var obj = new Object();
@@ -595,7 +609,8 @@ BillHistory.addPayment = function(dialog, btn){
        		   btn.stopSpin();
 			   dialog.close();
 
-			   BillHistory.init();
+			   //BillHistory.init();
+			   responseHandler(data);
 			   
 			   return;
 		   }else{
@@ -698,7 +713,7 @@ BillHistory.showDiscount = function(id, installmentAmount){
 	        		btn.spin();
 	        		
 					// si esta todo ok entonces doy de alta ...
-					Discount.add(dialog, btn);
+					Discount.add(dialog, btn, BillHistory.addResponseHandler);
 				}
         		
         		return;
@@ -852,7 +867,7 @@ BillHistory.showProductReduction = function(id){
 	        		btn.spin();
 	        		
 					// si esta todo ok entonces doy de alta ...
-	        		ProductReduction.add(dialog, btn, BillHistory.reductionHandler);
+	        		ProductReduction.add(dialog, btn, BillHistory.addResponseHandler);
 				}
         		
         		return;
@@ -933,7 +948,7 @@ BillHistory.showDev = function(id){
 	        		btn.spin();
 	        		
 					// si esta todo ok entonces doy de alta ...
-					Dev.add(dialog, btn);
+					Dev.add(dialog, btn, BillHistory.addResponseHandler);
 				}
         		
         		return;
@@ -1098,7 +1113,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		            },
 		            { 	
 		            	"className": 'centered',
-		            	"orderable": false,
+		            	"orderable": true,
 		            	"data": "creditNumber" 
 		            },
 		            { 
@@ -1109,12 +1124,18 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		            { 	
 		            	"className": 'centered',
 		            	"orderable": false,
-		            	"data": "overdueDays" 
+		            	"render": function ( data, type, row ) {
+					        
+					        return "<span id='overdueDays_" + row.id + "'>" + row.overdueDays + "</span>";
+					    } 
 		            },
 		            { 
 		            	"className": 'centered',
 		            	"orderable": false,
-		            	"data": "totalDailyInstallment" 
+		            	"render": function ( data, type, row ) {
+					        
+					        return "<span id='installmentAmount_" + row.id + "'>" + row.totalDailyInstallment + "</span>";
+					    } 
 		            },
 		            { 	
 		            	"className": 'centered',
@@ -1124,22 +1145,19 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		            { 	
 		            	"className": 'centered',
 		            	"orderable": false,
-		            	"data": "remainingAmount" 
+		            	"render": function ( data, type, row ) {
+					        
+					        return "<span id='remainingAmount_" + row.id + "'>" + row.remainingAmount + "</span>";
+					    }  
 		            },
 		            { 	
 		            	"className": 'centered',
 		            	"orderable": false,
 		            	"render": function ( data, type, row ) {
-					        var value = "INICIALIZADO";
-					        if(row.status == 'ACTIVE'){
-					        	value = "ACTIVO";
-					        } else if(row.status == 'FINALIZED'){
-					        	value = 'FINALIZADO';
-					        } else if(row.status == 'CANCELED'){
-					        	value = 'CANCELADO';
-					        }
 					        
-					        return value;
+					        var value = Bill.translateStatus(row.status);
+					        
+					        return "<span id='status_" + row.id + "'>" + value + "</span>";
 					    } 
 		            },
 		            {
@@ -1151,7 +1169,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		                "render": function ( data, type, row ) {
 		                	
 		                	var clazzDisabled = "";
-		                	if(row.status == 'FINALIZED'){
+		                	if(row.status == 'CANCELED' || row.status == 'CANCELED_DISCOUNT' || row.status == 'REDUCED'){
 		                		clazzDisabled = 'disabled';
 		                	}
 		                	
@@ -1159,12 +1177,13 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		                		"totalDailyInstallment": row.totalDailyInstallment,
 		                		"collectorId" : row.collectorId,
 		                		"detailClazzDisabled": clazzDisabled,
-		                		"creditNumber" : row.creditNumber
+		                		"creditNumber" : row.creditNumber,
+		                		"status" : row.status
 		                	});
 		                } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
 		         	}
 		        ],
-		        "order": [[0, 'desc']],
+		        "order": [[3, 'desc']],
 		        "language": {
 		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
 		            "zeroRecords": "No se ha encontrado ningun elemento",
@@ -1246,23 +1265,6 @@ BillHistory.hideFilter = function(){
 	BillHistory.resetFilter(false);
 	
 	$("#bill-history-filter").hide("slow");
-	/*
-	$("#optBillHistoryShowFilter").toggleClass("disabled");
-	$("#optBillHistoryHideFilter").toggleClass("disabled");
-	
-	$("#aBillHistoryShowFilter").on("click", function(e){
-		
-		BillHistory.showFilter();
-		
-		return;
-	});
-	
-	$("#aBillHistoryHideFilter").on("click", function(e){
-		e.preventDefault();
-		
-		return;
-	});
-	*/
 	
 	return;
 }
@@ -1320,26 +1322,67 @@ BillHistory.resetStatus = function(enabled){
 	return;
 }
 
-BillHistory.reductionHandler = function(data){
+BillHistory.addResponseHandler = function(data){
 
 	var list = data.data;
 	
-	var reduction = list[0];
+	var element = list[0];
 	
-	var billStatus = reduction.billStatus;
+	var billStatus = element.billStatus;
+	var billId = element.billId;
 	
 	if(billStatus != 'ACTIVE'){
-		$("#liSeparatorCreation_" + reduction.billId).addClass("hide");
-		$("#liTitleCreation_" + reduction.billId).addClass("hide");
-		$("#liPayment_" + reduction.billId).addClass("hide");
-		$("#liDiscount_" + reduction.billId).addClass("hide");
-		$("#liDev_" + reduction.billId).addClass("hide");
-		$("#liReduction_" + reduction.billId).addClass("hide");
-		
-		var status = Bill.translateStatus(billStatus);
-		
-		$("#status_" + reduction.billId).html(status)
+		$("#liSeparatorCreation_" + element.billId).addClass("hide");
+		$("#liTitleCreation_" + element.billId).addClass("hide");
+		$("#liPayment_" + element.billId).addClass("hide");
+		$("#liDiscount_" + element.billId).addClass("hide");
+		$("#liDev_" + element.billId).addClass("hide");
+		$("#liReduction_" + element.billId).addClass("hide");
 	}
+	if(billStatus == 'CANCELED'){
+		$("#liCancelDiscount_" + billId).removeClass("hide");
+	}
+	
+	var status = Bill.translateStatus(billStatus);
+	$("#status_" + element.billId).html(status)
+
+	if(Commons.isValid(element.overdueDays)){
+		$("#overdueDays_" + billId).html(element.overdueDays);
+	}
+	if(Commons.isValid(element.installmentAmount)){
+		$("#installmentAmount_" + billId).html(element.installmentAmount);
+	}
+	if(Commons.isValid(element.remainingAmount)){
+		$("#remainingAmount_" + billId).html(element.remainingAmount);
+	}
+	
+	return;
+}
+
+BillHistory.cancelWithDiscount = function(id){
+
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/bill/canceldiscount?id=" + id,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+		   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+		   if(data != null && data.status == 0){
+
+			   BillHistory.addResponseHandler(data);
+			   
+			   return;
+		   }else{
+			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+
+		   return;
+	   }
+	});
 	
 	return;
 }

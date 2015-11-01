@@ -17,6 +17,10 @@ public class DevDtoModelTransformer extends AbstractDtoModelTransformer<DevDto, 
 		d.setBillId(e.getBill().getId());
 		d.setDate(DateUtils.toDate(e.getDate()));
 		d.setObservations(e.getObservations());
+		d.setBillStatus(e.getBill().getStatus().name());
+		d.setRemainingAmount(NumberUtils.toString(e.getBill().getRemainingAmount()));
+		d.setOverdueDays(e.getBill().getOverdueDays());
+		d.setInstallmentAmount(NumberUtils.toString(e.getBill().getTotalDailyInstallment()));
 		
 		return d;
 	}

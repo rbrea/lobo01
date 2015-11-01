@@ -1,6 +1,6 @@
 package com.icetea.manager.pagodiario.api.dto;
 
-public class DevDto extends BasicIdentifiableDto {
+public class DevDto extends BillInfoDto {
 
 	private static final long serialVersionUID = 1L;
 

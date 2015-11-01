@@ -4,6 +4,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -143,6 +145,13 @@ public class CollectorController extends ExceptionHandlingController {
 		Map<String, Object> params = Maps.newHashMap();
 		
 		List<CollectorDetailDto> list = this.collectorDetailService.search(fromDate, toDate);
+		
+		Collections.sort(list, new Comparator<CollectorDetailDto>() {
+			@Override
+			public int compare(CollectorDetailDto o1, CollectorDetailDto o2) {
+				return o1.getId().compareTo(o2.getId());
+			}
+		});
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/collectorDetail.jasper");

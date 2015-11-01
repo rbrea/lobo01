@@ -54,12 +54,13 @@ public class ProductReductionServiceImpl
 		e.setObservations(o.getObservations());
 		e.setBill(bill);
 		
-		
 		this.getDao().saveOrUpdate(e);
 		
 		bill.getProductReductionList().add(e);
-		bill.setStatus(Status.CANCELED);
-		bill.setUpdatedDate(new Date());
+		bill.setStatus(Status.REDUCED);
+		Date now = DateUtils.now();
+		bill.setUpdatedDate(now);
+		bill.setCompletedDate(now);
 		
 		this.billDao.saveOrUpdate(bill);
 		

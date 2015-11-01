@@ -45,7 +45,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		criteria.add(
 				Restrictions.or(
 						Restrictions.eq("status", Bill.Status.ACTIVE),
-						Restrictions.eq("status", Bill.Status.FINALIZED)
+						Restrictions.eq("status", Bill.Status.CANCELED)
 				)
 		);
 		
@@ -183,7 +183,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findToMakeVouchers(Date date){
 		Criteria criteria = super.createCriteria();
-		criteria.add(Restrictions.eq("status", Bill.Status.FINALIZED));
+		criteria.add(Restrictions.eq("status", Bill.Status.CANCELED));
 		criteria.add(Restrictions.between("completedDate", date, DateUtils.addDays(date, 1)));
 		criteria.add(Restrictions.le("overdueDays", 0));
 		
@@ -206,14 +206,9 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findBillsWithCollectors(Date from, Date to){
 		Criteria criteria = super.createCriteria();
-		//criteria.add(ResBillDaotrictions.between("startDate", lo, hi))
+		//criteria.add(Restrictions.between("startDate", lo, hi))
 		Date toVerify = DateUtils.lastSecondOfDay(to);
-		criteria.add(
-				Restrictions.or(
-						Restrictions.eq("status", Status.ACTIVE),
-						Restrictions.between("completedDate", from, toVerify)
-				)
-		);
+		criteria.add(Restrictions.eq("status", Status.ACTIVE));
 		
 		return criteria.list();
 	}
@@ -222,7 +217,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findFinalizedInTime(){
 		Criteria criteria = super.createCriteria();
-		criteria.add(Restrictions.eq("status", Bill.Status.FINALIZED));
+		criteria.add(Restrictions.eq("status", Bill.Status.CANCELED));
 		criteria.add(Restrictions.le("overdueDays", 0));
 		
 		return criteria.list();

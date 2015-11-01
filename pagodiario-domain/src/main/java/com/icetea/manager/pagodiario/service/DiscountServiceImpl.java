@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Discount;
 import com.icetea.manager.pagodiario.transformer.DiscountDtoModelTransformer;
+import com.icetea.manager.pagodiario.utils.BillUtils;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
@@ -24,13 +26,17 @@ public class DiscountServiceImpl extends
 		BasicIdentifiableServiceImpl<Discount, DiscountDao, DiscountDto, DiscountDtoModelTransformer> 
 			implements DiscountService {
 
-	private BillDao billDao;
+	private final BillDao billDao;
+	private final BillUtils billUtils;
 	
 	@Inject
 	public DiscountServiceImpl(DiscountDao dao,
-			DiscountDtoModelTransformer transformer, BillDao billDao) {
+			DiscountDtoModelTransformer transformer, 
+			BillDao billDao,
+			BillUtils billUtils) {
 		super(dao, transformer);
 		this.billDao = billDao;
+		this.billUtils = billUtils;
 	}
 
 	@Override
@@ -61,10 +67,10 @@ public class DiscountServiceImpl extends
 				"El nuevo monto de la cuota diaria no puede ser menor a 0.", 
 				ErrorType.VALIDATION_ERRORS);
 		
-		ErrorTypedConditions.checkArgument(newInstallmentAmount.compareTo(bill.getRemainingAmount()) <= 0, 
-				String.format("El nuevo monto de la cuota diaria no puede ser mayor al monto restante: %s", 
-						NumberUtils.toString(bill.getRemainingAmount())), 
-				ErrorType.VALIDATION_ERRORS);
+//		ErrorTypedConditions.checkArgument(newInstallmentAmount.compareTo(bill.getRemainingAmount()) <= 0, 
+//				String.format("El nuevo monto de la cuota diaria no puede ser mayor al monto restante: %s", 
+//						NumberUtils.toString(bill.getRemainingAmount())), 
+//				ErrorType.VALIDATION_ERRORS);
 		
 		Discount e = new Discount();
 		e.setAmount(amount);
@@ -80,7 +86,14 @@ public class DiscountServiceImpl extends
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
 		bill.setTotalDailyInstallment(newInstallmentAmount);
 
-		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
+		if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
+			// [roher] actualizo los dias de atraso segun el nuevo monto de cuota diaria y el nuevo remanente
+			int overdueDays = e.getAmount().divide(
+					bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
+			bill.decrementOverdueDays(overdueDays);
+		}
+
+		this.billUtils.doBillCancelation(bill);
 		
 		this.billDao.saveOrUpdate(bill);
 		

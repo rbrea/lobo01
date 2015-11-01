@@ -75,7 +75,7 @@ Discount.resetModal = function(){
 	return;
 }
 
-Discount.add = function(dialog, btn){
+Discount.add = function(dialog, btn, responseHandler){
 	var billId = $("#discountBillId").val();
 
 	var obj = new Object();
@@ -100,7 +100,8 @@ Discount.add = function(dialog, btn){
        		   btn.stopSpin();
 			   dialog.close();
 
-			   BillHistory.init();
+			   //BillHistory.init();
+			   responseHandler(data);
 			   
 			   return;
 		   }else{

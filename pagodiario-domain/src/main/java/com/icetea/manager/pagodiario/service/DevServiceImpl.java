@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Product;
 import com.icetea.manager.pagodiario.transformer.DevDtoModelTransformer;
+import com.icetea.manager.pagodiario.utils.BillUtils;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
@@ -28,13 +30,16 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 	
 	private final BillDao billDao;
 	private final ProductDao productDao;
+	private final BillUtils billUtils;
 
 	@Inject
 	public DevServiceImpl(DevDao dao, DevDtoModelTransformer transformer,
-			BillDao billDao, ProductDao productDao) {
+			BillDao billDao, ProductDao productDao,
+			BillUtils billUtils) {
 		super(dao, transformer);
 		this.billDao = billDao;
 		this.productDao = productDao;
+		this.billUtils = billUtils;
 	}
 
 	@Override
@@ -110,11 +115,16 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
-		
-		
 		bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), devInstallmentAmount));
 
-		// FIXME: [roher] tal vez tenga q actualizar los dias de atraso ...
+		// [roher] actualizo los dias de atraso segun el nuevo monto de cuota diaria y el nuevo remanente
+		if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
+			int overdueDays = e.getAmount().divide(
+					bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
+			bill.decrementOverdueDays(overdueDays);
+		}
+		
+		this.billUtils.doBillCancelation(bill);
 		
 		this.billDao.saveOrUpdate(bill);
 		

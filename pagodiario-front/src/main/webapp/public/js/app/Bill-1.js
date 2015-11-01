@@ -1749,6 +1749,21 @@ Bill.initDetail = function(billId){
 				   $("#installment").append(d.installmentAmount);
 				   $("#firstInstallment").append(d.firstInstallmentAmount);
 				   $("#remainingAmount").append(d.remainingAmount);
+				   $("#completedDate").append(d.completedDate);
+				   
+				   var statusElement = $("#status");
+				   
+				   statusElement.append(Bill.translateStatus(d.status));
+				   
+				   if(d.status == 'ACTIVE'){
+					   statusElement.css("background-color", "#f0ad4e");
+				   } else if(d.status == 'CANCELED'){
+					   statusElement.css("background-color", "#5cb85c");
+				   } else if(d.status == 'CANCELED_DISCOUNT'){
+					   statusElement.css("background-color", "#428bca");
+				   } else if(d.status == 'REDUCED'){
+					   statusElement.css("background-color", "#d9534f");
+				   }
 				   
 				   var devolutions = d.devolutions;
 				   
@@ -2085,10 +2100,12 @@ Bill.translateStatus = function(status){
     
 	if(status == 'ACTIVE'){
     	value = "ACTIVO";
-    } else if(status == 'FINALIZED'){
-    	value = 'FINALIZADO';
     } else if(status == 'CANCELED'){
     	value = 'CANCELADO';
+    } else if(status == 'CANCELED_DISCOUNT'){
+    	value = 'CANC/DESC';
+    } else if(status == 'REDUCED'){
+    	value = 'BAJA';
     }
     
 	return value;

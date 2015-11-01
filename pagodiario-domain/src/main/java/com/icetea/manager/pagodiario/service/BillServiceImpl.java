@@ -15,6 +15,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailPaymentDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailReductionDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
+import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
@@ -253,6 +254,8 @@ public class BillServiceImpl
 		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
 		d.setTraderName(bill.getTrader().getName());
 		d.setCreditNumber(StringUtils.toString(bill.getCreditNumber()));
+		d.setCompletedDate((bill.getCompletedDate() != null) ? DateUtils.toDate(bill.getCompletedDate()) : StringUtils.EMPTY);
+		d.setStatus(bill.getStatus().name());
 		
 		for(Payment p : bill.getPayments()){
 			BillDetailPaymentDto r = new BillDetailPaymentDto();
@@ -373,6 +376,26 @@ public class BillServiceImpl
 	@Override
 	public List<BillDto> searchFinalizedInTime(){
 		return this.getTransformer().transformAllTo(this.getDao().findFinalizedInTime());
+	}
+
+	@Override
+	public BillInfoDto setCancelDiscount(Long id){
+
+		Bill bill = this.getDao().findById(id);
+		ErrorTypedConditions.checkArgument(bill != null, 
+				String.format("Factura no encontrada con id: %s", id), ErrorType.VALIDATION_ERRORS);
+
+		bill.setStatus(Status.CANCELED_DISCOUNT);
+		bill.setUpdatedDate(DateUtils.now());
+		
+		BillInfoDto r = new BillInfoDto();
+		r.setBillId(id);
+		r.setBillStatus(bill.getStatus().name());
+		r.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
+		r.setOverdueDays(bill.getOverdueDays());
+		r.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
+		
+		return r;
 	}
 	
 }

@@ -23,6 +23,9 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	private List<BillDetailReductionDto> reductions = Lists.newArrayList();
 	
 	private String creditNumber;
+	
+	private String completedDate;
+	private String status;
 
 	public String getClientName() {
 		return clientName;
@@ -107,6 +110,18 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setCreditNumber(String creditNumber) {
 		this.creditNumber = creditNumber;
+	}
+	public String getCompletedDate() {
+		return completedDate;
+	}
+	public void setCompletedDate(String completedDate) {
+		this.completedDate = completedDate;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

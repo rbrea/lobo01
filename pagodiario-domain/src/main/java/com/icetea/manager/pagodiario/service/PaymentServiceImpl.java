@@ -2,7 +2,6 @@ package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,10 +16,10 @@ import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
-import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.transformer.PaymentDtoModelTransformer;
+import com.icetea.manager.pagodiario.utils.BillUtils;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
@@ -31,15 +30,18 @@ public class PaymentServiceImpl
 
 	private final BillDao billDao;
 	private final CollectorDao collectorDao;
+	private final BillUtils billUtils;
 	
 	@Inject
 	public PaymentServiceImpl(PaymentDao dao,
 			PaymentDtoModelTransformer transformer,
 			BillDao billDao,
-			CollectorDao collectorDao) {
+			CollectorDao collectorDao,
+			BillUtils billUtils) {
 		super(dao, transformer);
 		this.billDao = billDao;
 		this.collectorDao = collectorDao;
+		this.billUtils = billUtils;
 	}
 	
 	@Override
@@ -65,10 +67,6 @@ public class PaymentServiceImpl
 		
 		ErrorTypedConditions.checkArgument(bill != null, "Número de crédito inexistente.", ErrorType.BILL_NOT_FOUND);
 		
-		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalDailyInstallment()) >= 0, 
-				String.format("El monto a pagar no puede ser menor que la cuota diaria: $%s", 
-						NumberUtils.toString(bill.getTotalDailyInstallment())), ErrorType.VALIDATION_ERRORS);
-		
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getRemainingAmount()) <= 0, 
 				String.format("El monto ingresado: $%s no puede ser mayor al monto restante a pagar de la factura: $%s", 
 						d.getAmount(), NumberUtils.toString(bill.getRemainingAmount())), ErrorType.VALIDATION_ERRORS);
@@ -90,17 +88,21 @@ public class PaymentServiceImpl
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
 		// tengo q restar el monto (calculando los dias de atraso)
 		
-		int overdueDays = e.getAmount().divide(
-				bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
-		
-		bill.decrementOverdueDays(overdueDays);
-		
-		if(bill.getRemainingAmount().compareTo(BigDecimal.ZERO) <= 0){
-			bill.setStatus(Status.FINALIZED);
-			bill.setCompletedDate(new Date());
+		if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
+			int overdueDays = e.getAmount().divide(
+					bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
+			
+			bill.decrementOverdueDays(overdueDays);
 		}
+
+		this.billUtils.doBillCancelation(bill);
 		
 		this.billDao.saveOrUpdate(bill);
+		
+		d.setBillStatus(bill.getStatus().name());
+		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
+		d.setOverdueDays(bill.getOverdueDays());
+		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
 		
 		return d;
 	}

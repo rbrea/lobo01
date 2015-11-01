@@ -59,7 +59,7 @@ public class BillDaoTest {
 		Bill bill = new Bill();
 		bill.setCreditNumber(123L);
 		bill.setStartDate(now);
-		bill.setStatus(Status.FINALIZED);
+		bill.setStatus(Status.CANCELED);
 		bill.setCompletedDate(now);
 		
 		this.instance.save(bill);

@@ -30,7 +30,7 @@ public class Bill extends Identifiable {
 	private static final long serialVersionUID = 1L;
 
 	public static enum Status {
-		INITIALIZED, ACTIVE, COMPLETED, FINALIZED, CANCELED;
+		INITIALIZED, ACTIVE, COMPLETED, CANCELED, CANCELED_DISCOUNT, REDUCED;
 		
 		public static Status getValueOf(String name){
 			for(Status s : Status.values()){

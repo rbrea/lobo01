@@ -240,7 +240,7 @@
 		  				<div class="col-md-2">
 		  					<div class="form-group">
 		  						<label for="btraderid">C&oacute;digo</label>
-				                <input type="text" class="form-control " id="btraderid" name="btraderid" placeholder="C&oacute;digo" data-error="Requerido" required>
+				                <input type="number" class="form-control " id="btraderid" name="btraderid" placeholder="C&oacute;digo" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>

@@ -66,13 +66,13 @@ public class DiscountController extends ExceptionHandlingController {
 		ListOutputDto<DiscountDto> r = new ListOutputDto<DiscountDto>();
 
 		List<DiscountDto> list = Lists.newArrayList();
-		DiscountDto client = null;
+		DiscountDto element = null;
 		if(input.getId() != null){
-			client = this.discountService.update(input);
-			list.add(client);
+			element = this.discountService.update(input);
+			list.add(element);
 		} else {
-			client = this.discountService.insert(input);
-			list.add(client);
+			element = this.discountService.insert(input);
+			list.add(element);
 		}
 		r.setData(list);
 		

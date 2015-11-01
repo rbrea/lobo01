@@ -146,7 +146,7 @@ Dev.resetModal = function(){
 	return;
 }
 
-Dev.add = function(dialog, btn){
+Dev.add = function(dialog, btn, responseHandler){
 	var billId = $("#devBillId").val();
 
 	var obj = new Object();
@@ -174,7 +174,9 @@ Dev.add = function(dialog, btn){
        		   btn.stopSpin();
 			   dialog.close();
 
-			   BillHistory.init();
+			   //BillHistory.init();
+			   
+			   responseHandler(data);
 			   
 			   return;
 		   }else{

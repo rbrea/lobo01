@@ -27,11 +27,13 @@ public class CollectorDetailTransformer {
 		
 		for(Bill bill : bills){
 			final Collector collector = bill.getCollector();
+			
+			final Long collectorId = collector.getId();
 
 			CollectorDetailDto d = CollectionUtils.find(list, new Predicate<CollectorDetailDto>() {
 				@Override
 				public boolean evaluate(CollectorDetailDto c) {
-					return c.getZone().equals(collector.getZone());
+					return c.getId().equals(collectorId);
 				}
 			});
 			List<Payment> payments = bill.getPayments();
@@ -43,7 +45,7 @@ public class CollectorDetailTransformer {
 				d.setId(collector.getId());
 				d.setZone(String.valueOf(collector.getZone()));
 				d.setName(collector.getDescription());
-				
+				list.add(d);
 			}
 			
 			if(StringUtils.isBlank(d.getAmountToCollect())){
@@ -69,17 +71,13 @@ public class CollectorDetailTransformer {
 				}
 			});
 
-			int paymentCounter = 0;
-			
 			for(Payment p : paymentList){
 				d.setAmountCollected(NumberUtils.toString(NumberUtils.add(d.getAmountCollected(), p.getAmount())));
-				paymentCounter++;
 			}
 			
 			d.setRemainingAmount(NumberUtils.toString(
 					NumberUtils.subtract(new BigDecimal(d.getAmountToCollect()), d.getAmountCollected())));
 			
-			list.add(d);
 		}
 		
 		return list;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
+import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.model.Bill;
 
@@ -37,5 +38,7 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 	List<BillDto> searchToMakeVouchers(Date date);
 
 	List<BillDto> searchFinalizedInTime();
+
+	BillInfoDto setCancelDiscount(Long id);
 
 }

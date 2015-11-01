@@ -38,6 +38,7 @@ import com.google.common.collect.Maps;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
+import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.CreditDetailPojo;
@@ -259,6 +260,22 @@ public class BillController extends ExceptionHandlingController {
 					ErrorType.UNKNOWN_ERROR);
 		}
 		
+	}
+
+	@RequestMapping(value = "/canceldiscount", method = RequestMethod.POST)
+	public @ResponseBody ListOutputDto<BillInfoDto> add(@RequestParam(required = false) Long id){
+		ListOutputDto<BillInfoDto> r = new ListOutputDto<BillInfoDto>();
+
+		List<BillInfoDto> list = Lists.newArrayList();
+		
+		BillInfoDto billInfoDto = this.billService.setCancelDiscount(id);
+		if(billInfoDto != null){
+			list.add(billInfoDto);
+		}
+		
+		r.setData(list);
+		
+		return r;
 	}
 	
 }
