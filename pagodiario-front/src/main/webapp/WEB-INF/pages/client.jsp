@@ -71,6 +71,7 @@
 							                <th>Telefono Particular</th>
 							                <th>Domicilio Particular</th>
 							                <th>Ciudad Particular</th>
+							                <th>Tuvo Baja?</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

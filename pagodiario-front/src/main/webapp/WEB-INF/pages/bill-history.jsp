@@ -85,7 +85,8 @@
 						  						<option selected="selected" value="all">Todos</option>
 						  						<option value="ACTIVE">ACTIVO</option>
 						  						<option value="CANCELED">CANCELADO</option>
-						  						<option value="FINALIZED">FINALIZADO</option>
+						  						<option value="CANCELED_DISCOUNT">CANC C DESCUENTO</option>
+						  						<option value="REDUCED">BAJA</option>
 						  					</select>
 						  				</div>
 										<div class="col-md-1">

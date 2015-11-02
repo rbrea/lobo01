@@ -161,6 +161,8 @@ Bill.init = function(){
 			return Bill.getClientById(value);
 		}
 		
+		var lovClientContainer = $("#lov-client-container");
+		
     	$.ajax({ 
 		   type    : "GET",
 		   url     : Constants.contextRoot + "/controller/html/client",
@@ -195,6 +197,18 @@ Bill.init = function(){
 				            { 	
 				            	"className": 'centered',
 				            	"data": "companyType" 
+				            },
+				            { 	
+				            	"className": 'centered',
+				            	"render": function ( data, type, row ) {
+				                    //return data +' ('+ row[3]+')';
+				            		var mark = "<i class=\"fa fa-square-o fa-4\"></i>";
+				            		if(row.reductionMark != null && row.reductionMark != ""){
+				            			mark = "<i class=\"fa fa-check-square-o fa-4\"></i>";
+				            		}
+				            		
+				                    return "<span id='reductionMark_'" + row.id + " style='font-weight:bold;'>" + mark + "</span>"; 
+				                }
 				            }
 				        ],
 				        "order": [[1, 'asc']],
@@ -212,38 +226,50 @@ Bill.init = function(){
 				        } 
 				   	});
 				   
-				   	$('#tLovClientResult tbody').on('mouseover', 'tr', function () {
+				   var tbodyLovClientResult = $('#tLovClientResult tbody');
+				   
+				   tbodyLovClientResult.on('mouseover', 'tr', function () {
 						$(this).css({"cursor": "pointer"});	
 						
 						return;
 					});
 					
-					$('#tLovClientResult tbody').on( 'click', 'tr', function () {
-				        if ( $(this).hasClass('selected') ) {
-				            $(this).removeClass('selected');
-				        } else {
-				            table.$('tr.selected').removeClass('selected');
-				            $(this).addClass('selected');
+				   tbodyLovClientResult.on( 'click', 'tr', function () {
+					   
+					   var me = $(this);
+					   
+				       if ( me.hasClass('selected') ) {
+				    	   me.removeClass('selected');
+				       } else {
+				    	   table.$('tr.selected').removeClass('selected');
+				    	   me.addClass('selected');
+				    	   
+				    	   var selectedId = me.children('td').eq(0).html().trim();
+				    	   var selectedDescription = me.children('td').eq(1).html().trim();
+				    	   var address = me.children('td').eq(2).html().trim();
+				    	   var companyType = me.children('td').eq(3).html().trim();
+				    	   var reductionMark = me.children('td').eq(4).html().trim();
+				    	   
+				    	   var hasMark = $(reductionMark).children("i").hasClass("fa-check-square-o");
 				            
-				            var selectedId = $(this).children('td').eq(0).html().trim();
-				            var selectedDescription = $(this).children('td').eq(1).html().trim();
-				            var address = $(this).children('td').eq(2).html().trim();
-				            var companyType = $(this).children('td').eq(3).html().trim();
-				            
-				            $("#billClientIdSelected").val(selectedId);
-				            //$("#bClientId").val(selectedId);
-				            $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
-				            $("#lov-client-container").css({"display": "none"});
+				    	   var mark = "";
+				    	   if(hasMark){
+				    		   mark = " / B";
+				    	   }
+				    	   
+				    	   $("#billClientIdSelected").val(selectedId);
+				    	   //$("#bClientId").val(selectedId);
+				    	   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType + mark);
+				    	   lovClientContainer.css({"display": "none"});
 
-							// si esta todo ok entonces doy de alta ...
-							Bill.doPanelEnabled("#pnlTrader");
-							$("#btraderid").focus();
+				    	   // si esta todo ok entonces doy de alta ...
+				    	   BootstrapDialog.closeAll();
 
-				            BootstrapDialog.closeAll();
-				        }
+				    	   $("#btraderid").focus();
+				       }
 				        
-						return;
-				    });
+				       return;
+				   });
 					
 					BootstrapDialog.show({
 						type:BootstrapDialog.TYPE_DANGER,
@@ -252,9 +278,9 @@ Bill.init = function(){
 						draggable: true,
 				        message: function(dialog) {
 				        	
-				        	$("#lov-client-container").css({"display":"block"});
+				        	lovClientContainer.css({"display":"block"});
 				        	
-				        	return $("#lov-client-container");
+				        	return lovClientContainer;
 				        }
 				    });
 					
@@ -274,7 +300,9 @@ Bill.init = function(){
 	
 	$("#btnSearchTrader").on("click", function(){
 		
-		var value = $("#btraderid").val();
+		var btraderidElement = $("#btraderid");
+		
+		var value = btraderidElement.val();
 		if(value != null && value != ""){
 			return Bill.getTraderById(value);
 		}
@@ -342,13 +370,12 @@ Bill.init = function(){
 				            var selectedId = $(this).children('td').eq(0).html().trim();
 				            var selectedDni = $(this).children('td').eq(1).html().trim();
 				            var selectedDescription = $(this).children('td').eq(2).html().trim();
-				            $("#btraderid").val(selectedId);
+				            btraderidElement.val(selectedId);
 				            $("#btradername").val(selectedDescription + " / " + selectedDni);
 				            $("#lov-container").css({"display": "none"});
 
 				            BootstrapDialog.closeAll();
 				            // si esta todo ok entonces doy de alta ...
-							Bill.doPanelEnabled("#pnlProduct");
 							$("#bcant_0").focus();
 				        }
 				        
@@ -360,10 +387,11 @@ Bill.init = function(){
 						title: 'Vendedores',
 						autodestroy: false,
 				        message: function(dialog) {
+				        	var lovContainer = $("#lov-container");
 				        	
-				        	$("#lov-container").css({"display":"block"});
+				        	lovContainer.css({"display":"block"});
 				        	
-				        	return $("#lov-container");
+				        	return lovContainer;
 				        }
 				    });
 					
@@ -1129,9 +1157,11 @@ Bill.initControls = function(){
 	    return;
 	});
 	
+	var btraderidElement = $("#btraderid");
+	
 	$("#baddress").keyup(function(e){
 		if(e.keyCode == 13) {
-			$("#btraderid").focus();			
+			btraderidElement.focus();			
 		} else {
 			$("#billClientIdSelected").val("");
 		}
@@ -1144,13 +1174,13 @@ Bill.initControls = function(){
 		// 9: tab
 	    if(e.keyCode == 9){
 	    	e.preventDefault();
-	    	$("#btraderid").focus();
+	    	btraderidElement.focus();
 	    }
 	    
 	    return;
 	});
 	
-	$("#btraderid").keyup(function(e){
+	btraderidElement.keyup(function(e){
 		if(e.keyCode == 13) {
 			var value = $(this).val();
 			if(value != null && value != ""){
@@ -1165,7 +1195,7 @@ Bill.initControls = function(){
 		return;
 	});
 	
-	$('#btraderid').keydown(function(e){
+	btraderidElement.keydown(function(e){
 		// 13: enter
 		// 9: tab
 	    if(e.keyCode == 9){
@@ -2016,7 +2046,7 @@ Bill.addClient = function(dialog, btn){
 				   
 				   $("#bClientId").val(selectedId);
 				   $("#billClientIdSelected").val(selectedId);
-				   $("#baddress").val(selectedDescription);
+				   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType);
 				   
 			   }
 			   // comento este focus, porque me da un error jquery: Uncaught RangeError: Maximum call stack size exceeded

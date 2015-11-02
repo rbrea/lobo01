@@ -8,6 +8,7 @@ public class ClientDto extends PersonDto {
 	private String companyAddress;
 	private String companyCity;
 	private String companyPhone;
+	private String reductionMark;
 
 	public String getCompanyType() {
 		return companyType;
@@ -32,6 +33,12 @@ public class ClientDto extends PersonDto {
 	}
 	public void setCompanyPhone(String companyPhone) {
 		this.companyPhone = companyPhone;
+	}
+	public String getReductionMark() {
+		return reductionMark;
+	}
+	public void setReductionMark(String reductionMark) {
+		this.reductionMark = reductionMark;
 	}
 
 }

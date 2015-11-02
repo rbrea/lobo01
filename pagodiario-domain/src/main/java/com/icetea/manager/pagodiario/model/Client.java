@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -21,6 +23,8 @@ public class Client extends Person {
 	private String companyCity;
 	@Column(name = "COMPANY_PHONE", length = 100)
 	private String companyPhone;
+	@Column(name = "REDUCTION_MARK", columnDefinition = "DATETIME")
+	private Date reductionMark;
 
 	public Client() {
 		super();
@@ -60,6 +64,14 @@ public class Client extends Person {
 	
 	public void setCompanyPhone(String companyPhone) {
 		this.companyPhone = companyPhone;
+	}
+
+	public Date getReductionMark() {
+		return reductionMark;
+	}
+
+	public void setReductionMark(Date reductionMark) {
+		this.reductionMark = reductionMark;
 	}
 
 }

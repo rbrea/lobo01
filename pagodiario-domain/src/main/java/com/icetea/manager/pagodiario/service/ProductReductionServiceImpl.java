@@ -61,6 +61,8 @@ public class ProductReductionServiceImpl
 		Date now = DateUtils.now();
 		bill.setUpdatedDate(now);
 		bill.setCompletedDate(now);
+		// [roher] le actualizo al cliente la marca de que alguna vez tuvo un pago incompleto ...
+		bill.getClient().setReductionMark(now);
 		
 		this.billDao.saveOrUpdate(bill);
 		

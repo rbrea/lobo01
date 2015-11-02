@@ -9,6 +9,7 @@
 			                <th>Nombre y apellido</th>
 			                <th>Domicilio / Comercio</th>
 			                <th>Tipo de Comercio</th>
+			                <th>Tuvo Baja?</th>
 			            </tr>
 			        </thead>
 				</table>							

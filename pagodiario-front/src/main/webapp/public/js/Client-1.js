@@ -73,6 +73,18 @@ Client.initDataTable = function(imgCheckUrl){
             	"data": "city",
             	"visible":false
             },
+            { 	
+            	"className": 'centered',
+            	"render": function ( data, type, row ) {
+                    //return data +' ('+ row[3]+')';
+            		var mark = "<i class=\"fa fa-square-o fa-4\"></i>";
+            		if(row.reductionMark != null && row.reductionMark != ""){
+            			mark = "<i class=\"fa fa-check-square-o fa-4\"></i>";
+            		}
+            		
+                    return "<span id='reductionMark_'" + row.id + " style='font-weight:bold;'>" + mark + "</span>"; 
+                }
+            },
             {
             	"className":      'centered',
 	         	// The `data` parameter refers to the data for the cell (defined by the

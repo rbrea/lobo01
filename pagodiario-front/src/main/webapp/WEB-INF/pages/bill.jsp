@@ -107,7 +107,7 @@
 		<div class="col-md-6">
 			<div id="pnlBill" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Datos de Factura</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Datos de Factura</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -144,7 +144,7 @@
 		<div class="col-md-6">
 			<div id="pnlCollector" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Datos de Cobrador</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Datos de Cobrador</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -184,7 +184,7 @@
 		<div class="col-md-6">
 			<div id="pnlClient" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Datos de Cliente</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Datos de Cliente</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -233,7 +233,7 @@
 		<div class="col-md-6">
 			<div id="pnlTrader" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Datos de Vendedor</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Datos de Vendedor</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -272,7 +272,7 @@
 		<div class="col-md-12">
 			<div id="pnlProduct" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Productos</h3>
+		    		<h3 class="panel-title"><i class="glyphicon glyphicon-play"></i> Productos</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">
@@ -609,7 +609,13 @@
 			    		
 			    		var obj = new Object();
 			    		obj.data = "" + this.id;
-			    		obj.value = this.name + " / " + this.address + " / " + this.companyType;
+			    		
+			    		var mark = "";
+			    	   	if(this.reductionMark != null && this.reductionMark != ""){
+			    			mark = " / B";
+			    	   	}
+			    		
+			    		obj.value = this.name + " / " + this.address + " / " + this.companyType + mark;
 			    		list.push(obj);
 			    		
 			    		return;

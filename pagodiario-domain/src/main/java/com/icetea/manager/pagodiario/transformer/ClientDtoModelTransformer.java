@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
 import com.icetea.manager.pagodiario.model.Client;
+import com.icetea.manager.pagodiario.utils.DateUtils;
 
 @Named
 public class ClientDtoModelTransformer extends AbstractDtoModelTransformer<ClientDto, Client> {
@@ -24,6 +25,7 @@ public class ClientDtoModelTransformer extends AbstractDtoModelTransformer<Clien
 		dto.setNearStreets(e.getNearStreets());
 		dto.setPhone(e.getPhone());
 		dto.setEmail(e.getEmail());
+		dto.setReductionMark(DateUtils.toDate(e.getReductionMark()));
 		
 		return dto;
 	}

@@ -10,6 +10,8 @@ alter table SUPERVISOR_PAYROLL_ITEM_AUD modify column SUBTOTAL_REDUCTION decimal
 
 SET SQL_SAFE_UPDATES = 0;
 
+alter table CLIENT add column REDUCTION_MARK datetime null;
+
 update BILL
 set status = 'REDUCED'
 where status = 'CANCELED';
