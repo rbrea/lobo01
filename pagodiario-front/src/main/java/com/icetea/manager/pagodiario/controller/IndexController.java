@@ -113,6 +113,11 @@ public class IndexController extends ExceptionHandlingController {
 			d.setCountFinalizedInTime(finalizes.size());
 		}
 		
+		List<BillDto> canceledList = this.billService.searchCanceled();
+		if(canceledList != null){
+			d.setCountFinalized(canceledList.size());
+		}
+		
 		return d;
 	}
 

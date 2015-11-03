@@ -397,5 +397,10 @@ public class BillServiceImpl
 		
 		return r;
 	}
+
+	@Override
+	public List<BillDto> searchCanceled(){
+		return this.getTransformer().transformAllTo(this.getDao().findCanceled());
+	}
 	
 }

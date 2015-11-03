@@ -223,4 +223,13 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		return criteria.list();
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> findCanceled(){
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.eq("status", Bill.Status.CANCELED));
+		
+		return criteria.list();
+	}
+	
 }

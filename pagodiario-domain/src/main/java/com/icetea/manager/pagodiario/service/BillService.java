@@ -41,4 +41,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	BillInfoDto setCancelDiscount(Long id);
 
+	List<BillDto> searchCanceled();
+
 }

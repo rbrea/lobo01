@@ -39,4 +39,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findFinalizedInTime();
 
+	List<Bill> findCanceled();
+
 }
