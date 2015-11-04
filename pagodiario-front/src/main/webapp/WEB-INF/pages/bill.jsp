@@ -15,22 +15,42 @@
 			  	<div class="panel-body">
 			    	<div class="form-group">
 						<label for="billClientName">Nombre y Apellido</label>
-					    <input type="text" class="form-control" id="billClientName" name="name" placeholder="Ingrese Nombre y Apellido..." required><!-- &nbsp;<span style="color:RED;font-weight:bold;">*</span> -->
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-pencil-square-o"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientName" name="name" placeholder="Ingrese Nombre y Apellido..." required><!-- &nbsp;<span style="color:RED;font-weight:bold;">*</span> -->
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientDocumentNumber">N&uacute;mero de Documento</label>
-					    <input type="number" class="form-control" id="billClientDocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-user"></span>
+		                    </span>
+					    	<input type="number" class="form-control" id="billClientDocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientEmail">e-mail</label>
-					    <input type="email" class="form-control" id="billClientEmail" name="email" placeholder="Ingrese e-mail...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-envelope-o"></span>
+		                    </span>
+					    	<input type="email" class="form-control" id="billClientEmail" name="email" placeholder="Ingrese e-mail...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientCompanyPhone">Tel&eacute;fono</label>
-					    <input type="text" class="form-control" id="billClientCompanyPhone" name="companyPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-fax"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientCompanyPhone" name="companyPhone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 			  	</div>
@@ -41,22 +61,42 @@
 			  	<div class="panel-body">
 					<div class="form-group">
 						<label for="billClientCompanyAddress">Domicilio</label>
-					    <input type="text" class="form-control" id="billClientCompanyAddress" name="companyAddress" placeholder="Ingrese domicilio..." required>
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-industry"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientCompanyAddress" name="companyAddress" placeholder="Ingrese domicilio..." required>
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientNearStreets">Entre Calles</label>
-					    <input type="text" class="form-control" id="billClientNearStreets" name="nearStreets" placeholder="Ingrese entre calles...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-industry"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientNearStreets" name="nearStreets" placeholder="Ingrese entre calles...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientCompanyCity">Localidad/Barrio</label>
-					    <input type="text" class="form-control" id="billClientCompanyCity" name="companyCity" placeholder="Ingrese localidad/barrio..." required>
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-industry"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientCompanyCity" name="companyCity" placeholder="Ingrese localidad/barrio..." required>
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientCompanyType">Tipo de Comercio</label>
-					    <input type="text" class="form-control" id="billClientCompanyType" name="companyType" placeholder="Ingrese tipo de comercio...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-industry"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientCompanyType" name="companyType" placeholder="Ingrese tipo de comercio...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 			  	</div>
@@ -67,17 +107,32 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label for="billClientPhone">Tel&eacute;fono Particular</label>
-					    <input type="text" class="form-control" id="billClientPhone" name="phone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-phone"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientPhone" name="phone" placeholder="Ingrese N&uacute;mero de tel&eacute;fono...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientAddress">Domicilio Particular</label>
-					    <input type="text" class="form-control" id="billClientAddress" name="address" placeholder="Ingrese domicilio...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-home"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientAddress" name="address" placeholder="Ingrese domicilio...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="billClientCity">Localidad/Barrio Particular</label>
-					    <input type="text" class="form-control" id="billClientCity" name="city" placeholder="Ingrese localidad/barrio...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                        <span class="fa fa-home"></span>
+		                    </span>
+					    	<input type="text" class="form-control" id="billClientCity" name="city" placeholder="Ingrese localidad/barrio...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 			  	</div>

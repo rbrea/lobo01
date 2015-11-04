@@ -19,12 +19,22 @@
   						<input type="hidden" id="productId" name="id" value="">
 						<div class="form-group">
 							<label for="productCode">C&oacute;digo de Producto</label>
-						    <input type="text" class="form-control" id="productCode" name="productCode" placeholder="Ingrese C&oacute;digo de Producto..." data-maxlength="40" required>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                        <span class="fa fa-barcode"></span>
+			                    </span>
+						    	<input type="text" class="form-control" id="productCode" name="productCode" placeholder="Ingrese C&oacute;digo de Producto..." data-maxlength="40" required>
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="productDescription">Descripci&oacute;n</label>
-						    <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Ingrese Descripci&oacute;n..." data-maxlength="140" required>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                        <span class="fa fa-file-text"></span>
+			                    </span>
+						    	<input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Ingrese Descripci&oacute;n..." data-maxlength="140" required>
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">

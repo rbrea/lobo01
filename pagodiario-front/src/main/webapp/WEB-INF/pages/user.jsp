@@ -18,7 +18,12 @@
 			  	<div class="panel-body">
 			    	<div class="form-group">
 						<label for="enusername">Nombre de Usuario</label>
-					    <input type="text" class="form-control" id="enusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
+						<div class='input-group'>
+							<span class="input-group-addon">
+			                	<span class="fa fa-user"></span>
+			                </span>
+					    	<input type="text" class="form-control" id="enusername" name="username" placeholder="Ingrese Nombre de Usuario..." readonly>
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="checkbox">
@@ -28,17 +33,32 @@
 				  	</div>
 			    	<div class="form-group">
 						<label for="ename">Nombre y Apellido</label>
-					    <input type="text" class="form-control" id="ename" name="name" placeholder="Ingrese Nombre y Apellido...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+			                	<span class="fa fa-pencil-square-o"></span>
+			                </span>
+					    	<input type="text" class="form-control" id="ename" name="name" placeholder="Ingrese Nombre y Apellido...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="eemail">e-mail</label>
-					    <input type="email" class="form-control" id="eemail" name="email" placeholder="Ingrese e-mail...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+			                	<span class="fa fa-envelope-o"></span>
+			                </span>
+					    	<input type="email" class="form-control" id="eemail" name="email" placeholder="Ingrese e-mail...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
 						<label for="edocumentNumber">N&uacute;mero de Documento</label>
-					    <input type="number" class="form-control" id="edocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+						<div class='input-group'>
+							<span class="input-group-addon">
+		                    	<span class="fa fa-barcode"></span>
+		                    </span>
+					    	<input type="number" class="form-control" id="edocumentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
 			  	</div>
@@ -67,17 +87,32 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label for="nusername">Nombre de Usuario</label>
-						    <input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." required>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-user"></span>
+			                	</span>
+						    	<input type="text" class="form-control" id="nusername" name="username" placeholder="Ingrese Nombre de Usuario..." required>
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="npassword">Contrase&ntilde;a</label>
-						    <input type="password" class="form-control" id="npassword" name="password" placeholder="Ingrese Contrase&ntilde;a..." data-minlength="6" required>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-expeditedssl"></span>
+			                	</span>
+						    	<input type="password" class="form-control" id="npassword" name="password" placeholder="Ingrese Contrase&ntilde;a..." data-minlength="6" required>
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="rpassword">Re-Ingrese Contrase&ntilde;a</label>
-						    <input type="password" class="form-control" id="rpassword" name="rpassword" placeholder="Re-Ingrese Contrase&ntilde;a..." data-minlength="6" data-match="#npassword" required>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-expeditedssl"></span>
+			                	</span>
+						    	<input type="password" class="form-control" id="rpassword" name="rpassword" placeholder="Re-Ingrese Contrase&ntilde;a..." data-minlength="6" data-match="#npassword" required>
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 				  	</div>
@@ -88,17 +123,32 @@
 				  	<div class="panel-body">
 				    	<div class="form-group">
 							<label for="name">Nombre y Apellido</label>
-						    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido...">
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-pencil-square-o"></span>
+			                	</span>
+						    	<input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y Apellido...">
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="email">e-mail</label>
-						    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
+							<div class='input-group'>
+								<span class="input-group-addon">
+		                        	<span class="fa fa-envelope-o"></span>
+		                    	</span>
+						    	<input type="email" class="form-control" id="email" name="email" placeholder="Ingrese e-mail...">
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="documentNumber">DNI</label>
-						    <input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+							<div class='input-group'>
+								<span class="input-group-addon">
+		                        	<span class="fa fa-barcode"></span>
+		                    	</span>
+						    	<input type="number" class="form-control" id="documentNumber" name="documentNumber" placeholder="Ingrese N&uacute;mero de Documento...">
+						    </div>
 						    <div class="help-block with-errors"></div>
 						</div>
 				  	</div>
