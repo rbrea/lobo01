@@ -40,5 +40,22 @@ public class ErrorTypedConditions {
 		
 		return true;
 	}
+
+	public static boolean checkArgument(boolean condition){
+		if(!condition){
+			throw new ErrorTypedException(ErrorType.VALIDATION_ERRORS);
+		}
+		
+		return true;
+	}
+	
+	public static boolean checkArgument(boolean condition, String message){
+		if(!condition){
+			ErrorTypedException e = new ErrorTypedException(message, ErrorType.VALIDATION_ERRORS);
+			throw e;
+		}
+		
+		return true;
+	}
 	
 }

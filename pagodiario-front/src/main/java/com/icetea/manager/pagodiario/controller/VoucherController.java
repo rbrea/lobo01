@@ -18,17 +18,21 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
+import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.VoucherPojo;
+import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.transformer.jasper.BillToVoucherTransformer;
@@ -56,6 +60,25 @@ public class VoucherController extends ExceptionHandlingController {
 	public String showVoucherForm(){
 		
 		return "voucher";
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<VoucherPojo> getVouchers(@RequestParam String voucherDateValue){
+		ListOutputDto<VoucherPojo> r = new ListOutputDto<VoucherPojo>();
+
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(voucherDateValue), "La fecha de Voucher es requerida");
+		
+		Date date = DateUtils.parseDate(voucherDateValue);
+		
+		List<BillDto> bills = this.billService.searchToMakeVouchers(date);
+		
+		List<VoucherPojo> list = Lists.newArrayList();
+		
+		list.addAll(this.billToVoucherTransformer.transform(bills, date));
+		
+		r.setData(list);
+		
+		return r;
 	}
 
 	@RequestMapping(value = "/export", method = RequestMethod.POST)
