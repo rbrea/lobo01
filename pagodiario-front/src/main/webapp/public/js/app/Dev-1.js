@@ -129,6 +129,13 @@ Dev.init = function(){
 	    return;
 	});
 	
+	$("#btnDevAddRow").on('click', function(e){
+
+		Dev.addProductRow($(this), e);
+		
+		return;
+	});
+	
 	return;
 }
 
@@ -482,6 +489,13 @@ Dev.getProductByCode = function(code){
 		   return false;
 	   }
 	});
+	
+	return;
+}
+
+Dev.addProductRow = function(element, e){
+	
+	
 	
 	return;
 }

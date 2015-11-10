@@ -15,7 +15,7 @@
   					<form id="frmDev">
   						<input type="hidden" id="devBillId" name="devBillId">
   					<div class="row">
-  						<div class="col-md-6">
+  						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devDateValue">Fecha</label>
 				            	<div class='input-group date' id='devDate'>
@@ -27,10 +27,11 @@
 				              	<div class="help-block with-errors"></div>
 					        </div>
   						</div>
-  						<div class="col-md-6">
+  						<div class="col-md-8">
   							&nbsp;
   						</div>
   					</div>
+  					<!-- 
   					<div class="row">
   						<div class="col-md-3">
   							<div class="form-group">
@@ -43,16 +44,24 @@
   							&nbsp;
   						</div>
   					</div>
+  					 -->
   					<div class="row">
 						<input type="hidden" id="devProductId" name="devProductId">
-						<div class="col-md-3">
+						<div class="col-md-2">
+  							<div class="form-group">
+								<label for="devProductCount">Cantidad</label>
+							    <input type="number" class="form-control" id="devProductCount" name="devProductCount" min="1" placeholder="Cantidad" value="1" required>
+							    <div class="help-block with-errors"></div>
+							</div>
+  						</div>
+						<div class="col-md-2">
 		  					<div class="form-group">
 		  						<label for="devProductCode">C&oacute;digo</label>
 					            <input type="text" class="form-control" id="devProductCode" name="devProductCode" placeholder="C&oacute;digo" data-error="Requerido" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 						</div>
-						<div class="col-md-9">
+						<div class="col-md-7">
   							<div class="form-group">
 		  						<label for="devProductDescription">Producto</label>
 		  						<div class="input-group">
@@ -62,9 +71,17 @@
 								<div class="help-block with-errors"></div>
 				            </div>
 						</div>
+						<div class="col-md-1">
+		  					<div class="form-group centered">
+		  						<label for="btnDevAddRow">&nbsp;</label>
+		  						<div class="input-group">
+		  							<button id="btnDevAddRow" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i></button>
+		  						</div>
+				            </div>
+						</div>
 					</div>
 					<div class="row">
-  						<div class="col-md-6">
+  						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devInstallment">Cuota Diaria a Restar</label>
 								<div class="input-group">
@@ -75,12 +92,12 @@
 							    <div class="help-block with-errors"></div>
 							</div>
   						</div>
-  						<div class="col-md-6">
+  						<div class="col-md-8">
   							&nbsp;
   						</div>
   					</div>
   					<div class="row">
-  						<div class="col-md-6">
+  						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devAmount">Importe</label>
 								<div class="input-group">
@@ -91,7 +108,7 @@
 							    <div class="help-block with-errors"></div>
 							</div>
   						</div>
-  						<div class="col-md-6">
+  						<div class="col-md-8">
   							&nbsp;
   						</div>
   					</div>

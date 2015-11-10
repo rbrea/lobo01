@@ -885,7 +885,12 @@ BillHistory.showDev = function(id){
 		return false;
 	}
 	
-	BootstrapDialog.show({
+	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#devProductCount").focus();
+			
+			return;
+		},
 		onhidden:function(){
 			Dev.resetModal();
 			$("#frmDev").validator('destroy');
@@ -893,8 +898,10 @@ BillHistory.showDev = function(id){
 			return;
 		},
 		draggable: true,
+		size: BootstrapDialog.SIZE_LARGE,
 		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Alta de Devoluci&oacute;n',
+		cssClass: 'dialog-dev',
 		autodestroy: false,
         message: function(dialog) {
         	// asigno el dia de hoy
@@ -956,6 +963,9 @@ BillHistory.showDev = function(id){
         	}
         }]
     });
+	
+	dialog.setSize(BootstrapDialog.SIZE_WIDE);
+	dialog.open();
 	
 	return;
 }
