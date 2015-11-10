@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="productReductionDateValue">Fecha</label>
 		            	<div class='input-group date' id='productReductionDate'>
-		                	<input type='text' class="form-control  not-writable" id="productReductionDateValue" name="productReductionDateValue" placeholder="Ingrese fecha..." required/>
+		                	<input type='text' class="form-control" id="productReductionDateValue" name="productReductionDateValue" placeholder="Ingrese fecha..." required/>
 		                  	<span class="input-group-addon">
 		                    	<span class="glyphicon glyphicon-calendar"></span>
 		                  	</span>

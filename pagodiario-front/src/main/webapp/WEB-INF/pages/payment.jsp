@@ -53,7 +53,7 @@
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
-			                    <input type='text' class="form-control not-writable" id="paymentDateValue" name="paymentDateValue" placeholder="Fecha de Pago" data-error="Requerido" required/>
+			                    <input type='text' class="form-control" id="paymentDateValue" name="paymentDateValue" placeholder="Fecha de Pago" data-error="Requerido" required/>
 			                </div>
 							<div class="help-block with-errors"></div>
 						</div>

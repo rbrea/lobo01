@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<label for="payrollCollectDateValue">Fecha a Liquidar</label>
 				                <div class='input-group date' id="payrollCollectDate">
-				                    <input type='text' class="form-control not-writable" id="payrollCollectDateValue" name="payrollCollectDateValue" placeholder="Ingrese fecha" data-error="Requerido" required/>
+				                    <input type='text' class="form-control" id="payrollCollectDateValue" name="payrollCollectDateValue" placeholder="Ingrese fecha" data-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>

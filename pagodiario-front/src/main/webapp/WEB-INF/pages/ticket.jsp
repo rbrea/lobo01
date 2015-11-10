@@ -30,7 +30,7 @@
 		  					<div class="form-group">
 		  						<label for="ticketDateValue">Fecha de Ticket</label>
 				                <div class='input-group date' id='ticketDate'>
-				                    <input type='text' class="form-control not-writable" id="ticketDateValue" name="ticketDateValue" placeholder="Ingrese fecha de Ticket..." data-required-error="Requerido" required/>
+				                    <input type='text' class="form-control" id="ticketDateValue" name="ticketDateValue" placeholder="Ingrese fecha de Ticket..." data-required-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -74,7 +74,7 @@
 						<div class="form-group col-md-3">
 	  						<label for="fecDesdeValue">Fecha desde</label>
 			                <div class='input-group date' id='fecDesde'>
-			                    <input type='text' class="form-control not-writable" id="fecDesdeValue" name="fecDesdeValue" placeholder="Ingrese fecha desde ..."/>
+			                    <input type='text' class="form-control" id="fecDesdeValue" name="fecDesdeValue" placeholder="Ingrese fecha desde ..."/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -83,7 +83,7 @@
 						<div class="form-group col-md-3">
 	  						<label for="fecHastaValue">Fecha hasta</label>
 			                <div class='input-group date' id='fecHasta'>
-			                    <input type='text' class="form-control not-writable" id="fecHastaValue" name="fecHastaValue" placeholder="Ingrese fecha hasta ..."/>
+			                    <input type='text' class="form-control" id="fecHastaValue" name="fecHastaValue" placeholder="Ingrese fecha hasta ..."/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>

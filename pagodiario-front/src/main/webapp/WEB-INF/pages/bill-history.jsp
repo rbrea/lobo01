@@ -67,7 +67,7 @@
 						  				<div class="col-md-4">
 											<div class="form-group">
 						  						<div class="input-group">
-								                	<input type="text" class="form-control not-writable" id="billHistoryCollectorDescription" 
+								                	<input type="text" class="form-control" id="billHistoryCollectorDescription" 
 								                			name="billHistoryCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
 								                	<span id="btnBillHistorySearchCollector" class="input-group-addon lov"><i class="glyphicon glyphicon-search"></i></span>
 												</div>

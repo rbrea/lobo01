@@ -170,7 +170,7 @@
 		  					<div class="form-group">
 		  						<label for="billDateValue">Fecha de Factura</label>
 				                <div class='input-group date' id='billDate'>
-				                    <input type='text' class="form-control  not-writable" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha" data-error="Requerido" required/>
+				                    <input type='text' class="form-control" id="billDateValue" name="billDateValue" placeholder="Ingrese fecha" data-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>

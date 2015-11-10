@@ -19,7 +19,7 @@
 							<div class="form-group">
 								<label for="devDateValue">Fecha</label>
 				            	<div class='input-group date' id='devDate'>
-				                	<input type='text' class="form-control  not-writable" id="devDateValue" name="devDateValue" placeholder="Ingrese fecha..." required/>
+				                	<input type='text' class="form-control" id="devDateValue" name="devDateValue" placeholder="Ingrese fecha..." required/>
 				                  	<span class="input-group-addon">
 				                    	<span class="glyphicon glyphicon-calendar"></span>
 				                  	</span>

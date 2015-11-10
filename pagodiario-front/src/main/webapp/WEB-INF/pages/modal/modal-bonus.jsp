@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="bonusDateValue">Fecha</label>
 		            	<div class='input-group date' id='bonusDate'>
-		                	<input type='text' class="form-control input-sm not-writable" id="bonusDateValue" name="bonusDateValue" placeholder="Ingrese fecha..." required/>
+		                	<input type='text' class="form-control input-sm" id="bonusDateValue" name="bonusDateValue" placeholder="Ingrese fecha..." required/>
 		                  	<span class="input-group-addon">
 		                    	<span class="glyphicon glyphicon-calendar"></span>
 		                  	</span>

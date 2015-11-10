@@ -44,7 +44,7 @@
 		  					<div class="form-group">
 		  						<label for="voucherDateValue">Fecha de voucher</label>
 				                <div class='input-group date' id='voucherDate'>
-				                    <input type='text' class="form-control not-writable" id="voucherDateValue" name="voucherDateValue" placeholder="Ingrese fecha de Voucher..." data-required-error="Requerido" required/>
+				                    <input type='text' class="form-control" id="voucherDateValue" name="voucherDateValue" placeholder="Ingrese fecha de Voucher..." data-required-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
