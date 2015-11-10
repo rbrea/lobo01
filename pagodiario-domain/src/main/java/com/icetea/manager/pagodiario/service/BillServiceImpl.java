@@ -296,6 +296,7 @@ public class BillServiceImpl
 			BillDetailReductionDto r = new BillDetailReductionDto();
 			r.setAmount(NumberUtils.toString(e.getAmount()));
 			r.setDate(DateUtils.toDate(e.getDate()));
+			r.setObservations(e.getObservations());
 			
 			d.getReductions().add(r);
 		}

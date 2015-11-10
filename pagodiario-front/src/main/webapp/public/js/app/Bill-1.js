@@ -1887,7 +1887,11 @@ Bill.initDetail = function(billId){
 					   var td0 = $("<td class=\"centered\"></td>").append(reductions[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(reductions[i].amount);
 					   
-					   tr.append(td0).append(td1);
+					   var detailDiv = $("<button id=\"btnReductionObservation\" onclick='javascript:Bill.showReductionObservations();' type=\"button\" class=\"btn btn-xs btn-success\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + reductions[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
+					   
+					   var td2 = $("<td class=\"centered\"></td>").append(detailDiv);
+					   
+					   tr.append(td0).append(td1).append(td2);
 					   
 					   pBody.append(tr);
 				   }
@@ -2139,4 +2143,20 @@ Bill.translateStatus = function(status){
     }
     
 	return value;
+}
+
+var isReductionObservationToggled = false;
+
+Bill.showReductionObservations = function(){
+
+	if(!isReductionObservationToggled){
+		$("#btnReductionObservation").popover('show');
+		isReductionObservationToggled = true;
+	} else {
+		$("#btnReductionObservation").popover('hide');
+		isReductionObservationToggled = false;
+	}
+	
+	
+	return;
 }

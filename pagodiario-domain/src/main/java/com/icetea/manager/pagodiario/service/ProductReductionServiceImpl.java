@@ -44,9 +44,9 @@ public class ProductReductionServiceImpl
 		
 		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());
 
-		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getTotalAmount()) <= 0, 
-				String.format("El monto ingresado %s no puede ser mayor al total facturado %s", 
-						o.getAmount(), NumberUtils.toString(bill.getTotalAmount())), ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getRemainingAmount()) <= 0, 
+				String.format("El monto ingresado %s no puede ser mayor al saldo restante %s", 
+						o.getAmount(), NumberUtils.toString(bill.getRemainingAmount())), ErrorType.VALIDATION_ERRORS);
 		
 		ProductReduction e = new ProductReduction();
 		e.setAmount(amount);

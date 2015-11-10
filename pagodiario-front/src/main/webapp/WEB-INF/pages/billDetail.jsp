@@ -1,3 +1,12 @@
+<style>
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    width: 320px;
+}
+
+</style>
+
 <div class="col-md-1">
 	&nbsp;
 </div>
@@ -163,16 +172,17 @@
 		  			<table id="tBillReduction" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="2" class="centered">BAJAS</th>
+			  					<th colspan="3" class="centered">BAJAS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
 			  					<th class="centered">IMPORTE</th>
+			  					<th class="centered">DETALLE</th>
 			  				</tr>
 		  				</thead>
 		  				<tbody>
 		  					<tr>
-		  						<td colspan="2" class="centered">No se han encontrado resultados</td>
+		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
 		  					</tr>
 		  				</tbody>
 		  			</table>

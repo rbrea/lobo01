@@ -808,12 +808,13 @@ BillHistory.showProductReduction = function(id){
 	BootstrapDialog.show({
 		onhidden:function(){
 			ProductReduction.resetModal();
+			Message.hideMessages($('#modalProductReductionAlertMessages'), $("#modalProductReductionMessages"));
 			
 			return;
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Baja',
+		title: '<i class="glyphicon glyphicon-chevron-right"></i>&nbsp;Baja',
 		autodestroy: false,
         message: function(dialog) {
         	
