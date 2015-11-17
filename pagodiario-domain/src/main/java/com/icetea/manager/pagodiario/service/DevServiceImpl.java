@@ -2,13 +2,18 @@ package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
+import com.icetea.manager.pagodiario.api.dto.BillProductDto;
+import com.icetea.manager.pagodiario.api.dto.DevAddDto;
 import com.icetea.manager.pagodiario.api.dto.DevDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -147,6 +152,96 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
 		
 		return this.getTransformer().transformAllTo(this.getDao().findByBillId(billId));
+	}
+
+	public DevAddDto insert(DevAddDto o) {
+		Bill bill = this.billDao.findById(o.getBillId());
+		
+		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
+		
+		List<BillProduct> billProducts = bill.getBillProducts();
+		
+		BigDecimal originalTotalAmount = bill.getTotalAmount();
+		BigDecimal originalTotalDailyInstallment = bill.getTotalDailyInstallment();
+		
+		for (final BillProduct bp : billProducts) {
+			BillProductDto bpd = CollectionUtils.find(o.getBillProducts(), new Predicate<BillProductDto>() {
+				@Override
+				public boolean evaluate(BillProductDto e) {
+					return bp.getId().equals(e.getProductId());
+				}
+			});
+			
+			Dev dev = null;
+			if(bpd != null){
+				if(bpd.getCount() != bp.getCount()){
+					Product product = bp.getProduct();
+					bp.setCount(bpd.getCount());
+					bp.setUpdatedDate(new Date());
+					
+					BigDecimal origAmount = bp.getAmount();
+					BigDecimal origInstallmentAmount = bp.getDailyInstallment();
+					
+					bp.setAmount(NumberUtils.multiply(product.getPrice(), new BigDecimal(bpd.getCount())));
+					bp.setDailyInstallment(NumberUtils.multiply(product.getDailyInstallment(), new BigDecimal(bpd.getCount())));
+					// creo una devolucion por los productos que bajaron la cantidad ...
+					dev = new Dev();
+					
+					int count = bp.getCount() - bpd.getCount();
+					BigDecimal diffAmount = NumberUtils.subtract(origAmount, bp.getAmount());
+					BigDecimal diffInstallmentAmount = NumberUtils.subtract(origInstallmentAmount, bp.getDailyInstallment());
+					
+					dev.setAmount(diffAmount);
+					dev.setDate(DateUtils.parseDate(o.getSelectedDate(), "dd/MM/yyyy"));
+					dev.setObservations(StringUtils.abbreviate(StringUtils.trim(o.getObservations()), 250));
+					dev.setBill(bill);
+					dev.setProduct(bp.getProduct());
+					dev.setProductCount(count);
+					dev.setInstallmentAmount(diffInstallmentAmount);
+					
+					this.getDao().saveOrUpdate(dev);
+					
+					bill.getDevList().add(dev);
+				}
+				
+			} else {
+				bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), bp.getDailyInstallment()));
+				bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), bp.getAmount()));
+				// creo una devolucion por los productos quitados de la factura ...
+				dev = new Dev();
+				dev.setAmount(bp.getAmount());
+				dev.setDate(DateUtils.parseDate(o.getSelectedDate(), "dd/MM/yyyy"));
+				dev.setObservations(StringUtils.abbreviate(StringUtils.trim(o.getObservations()), 250));
+				dev.setBill(bill);
+				dev.setProduct(bp.getProduct());
+				dev.setProductCount(bp.getCount());
+				dev.setInstallmentAmount(bp.getDailyInstallment());
+				
+				this.getDao().saveOrUpdate(dev);
+				
+				bill.getDevList().add(dev);
+				
+				billProducts.remove(bp);
+			}
+			if(dev != null){
+				bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), dev.getAmount()));
+				bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), dev.getAmount()));
+				bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), dev.getInstallmentAmount()));
+				// [roher] actualizo los dias de atraso segun el nuevo monto de cuota diaria y el nuevo remanente
+				if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
+					int overdueDays = dev.getAmount().divide(
+							bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
+					bill.decrementOverdueDays(overdueDays);
+				}
+			}
+		}
+		
+		this.billUtils.doBillCancelation(bill);
+		
+		this.billDao.saveOrUpdate(bill);
+		// TODO hacer transformer para el nuevo dto!
+		//return this.getTransformer().transform(e);
+		return null;
 	}
 	
 }

@@ -34,32 +34,25 @@
 					<div class="row">
   						<div class="col-md-4">
 							<div class="form-group">
-								<label for="devInstallment">Cuota Diaria a Restar</label>
+								<label for="devInstallment">Cuota Diaria</label>
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
-							    	<input type="text" class="form-control" id="devInstallment3223" name="devInstallment2323" placeholder="Ingrese Cuota Diaria a restar..." required>
-							    	<span class="input-group-addon">.00</span>
+							    	<input type="text" class="form-control" id="devInstallment" name="devInstallment" readonly>
 							    </div>
 							    <div class="help-block with-errors"></div>
 							</div>
   						</div>
-  						<div class="col-md-8">
-  							&nbsp;
-  						</div>
-  					</div>
-  					<div class="row">
   						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devAmount">Importe</label>
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
-							    	<input type="text" class="form-control" id="devAmount" name="devAmount" placeholder="Ingrese Importe..." required>
-							    	<span class="input-group-addon">.00</span>
+							    	<input type="text" class="form-control" id="devAmount" name="devAmount" readonly>
 							    </div>
 							    <div class="help-block with-errors"></div>
 							</div>
   						</div>
-  						<div class="col-md-8">
+  						<div class="col-md-4">
   							&nbsp;
   						</div>
   					</div>
@@ -68,7 +61,7 @@
 							<div class="form-group">
 								<label for="devObservations">Observaciones</label>
 								<div class="input-group">
-							    	<textarea id="devObservations" name="devObservations" class="form-control" rows="2" cols="240" maxlength="240"></textarea>
+							    	<textarea id="devObservations" name="devObservations" class="form-control" rows="3" cols="240" maxlength="240"></textarea>
 							    </div>
 							    <div class="help-block with-errors"></div>
 							</div>  						

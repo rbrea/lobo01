@@ -22,15 +22,7 @@ Dev.resetModal = function(){
 Dev.add = function(dialog, btn, responseHandler){
 	var billId = $("#devBillId").val();
 
-	var obj = new Object();
-	obj.billId = billId;
-	obj.amount = $("#devAmount").val();
-	obj.observations = $("#devObservations").val();
-	obj.date = $("#devDateValue").val();
-	obj.productCount = $("#devProductCount").val();
-	obj.productId = $("#devProductId").val();
-	obj.productCode = $("#devProductCode").val();
-	obj.productInstallment = $("#devInstallment").val();
+	var obj = Dev.createObject(billId);
 	
 	$.ajax({ 
 	   type    : "POST",
@@ -444,14 +436,43 @@ Dev.PRODUCT_TABLE_CONTAINER = function(){
 	return row;
 }
 
+Dev.blurProductCount = function(idx){
+	
+	var productCountOrigValue = $("#devProductCountAlt_" + idx).val();
+	
+	var productCountNew = $("#devProductCount_" + idx);
+	
+	var productCountNewValue = productCountNew.val();
+	
+	if(productCountNewValue > productCountOrigValue){
+		//productCountNew.
+		
+		return false;
+	}
+	
+	
+	return;
+}
+
+Dev.removeRow = function(idx, productId){
+	
+	
+	
+	return;
+}
+
 Dev.buildRow = function(idx, product){
 	
 	var tr = $('<tr id="productRow_' + idx + '"><input type="hidden" id="devProductId_' + idx + '" name="devProductId_' + idx + '" value="' + product.productId + '"><input type="hidden" id="devProductPrice_' + idx + '" name="devProductPrice_' + idx + '" value="' + product.price + '"><input type="hidden" id="devProductAmount_' + idx + '" name="devProductAmount_' + idx + '" value="' + product.amount + '"><input type="hidden" id="devProductDailyInstallment_' + idx + '" name="devProductDailyInstallment_' + idx + '" value="' + product.dailyInstallment + '"></tr>');
-	var td0 = $('<td class="centered">' + (idx+1) + '</td>');
-	var td1 = $('<td><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '"></td>');
+	
+	var hiddenProductCount = $('<input type="hidden" id="devProductCountAlt_' + idx + '" name="devProductCountAlt_' + idx + '" value="' + product.count + '">');
+	tr.append(hiddenProductCount);
+	
+	var td0 = $('<td class="centered"><div class="form-group">' + (idx+1) + '</div></td>');
+	var td1 = $('<td><div class="form-group"><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '" onblur="javascript:Dev.blurProductCount(' + idx + ');"></div></td>');
 	var td2 = $('<td><input class="form-control input-sm" type="text" id="devProductCode_' + idx + '" name="devProductCode_' + idx + '" value="' + product.productCode + '" readonly></td>');
 	var td3 = $('<td><input class="form-control input-sm" type="text" id="devProductDescription_' + idx + '" name="devProductDescription_' + idx + '" value="' + product.productDescription + '" readonly></td>');
-	var td4 = $('<td class="centered"><button id="btnDevAddRow_X" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></td>');
+	var td4 = $('<td class="centered"><div class="form-group"><button id="btnDevRemoveRow_' + idx + '" onclick="javascript:Dev.removeRow(' + idx + ', ' + product.productId + ');" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></div></td>');
 	
 	tr.append(td0).append(td1).append(td2).append(td3).append(td4);
 	
@@ -501,6 +522,11 @@ Dev.getDevInfo = function(id){
 			   
 			   row.insertAfter($("#devDateRow:last"));
 			   
+			   var elem = data.data[0];
+			   
+			   $("#devInstallment").val(elem.totalDailyInstallment);
+			   $("#devAmount").val(elem.totalAmount);
+			   
 		   } else {
 			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
 		   }
@@ -513,4 +539,44 @@ Dev.getDevInfo = function(id){
 	});
 	
 	return;
+}
+
+Dev.createObject = function(billId){
+
+	var dto = new Object();
+	dto.billId = billId;
+	
+	var products = [];
+	
+	$("tr[id*='productRow_']").each(
+		function(e){
+			
+			var id = $(this).attr("id");
+			
+			var idx = Commons.getIndexFromString(id, '_');
+			
+			var productCount = $("#devProductCount_" + idx).val();
+			var productCountAlt = $("#devProductCountAlt_" + idx).val();
+			
+			if(productCount > productCountAlt){
+				// mostrar error en pantalla
+			}
+			
+			var product = new Object();
+			product.count = productCount;
+			product.productId = $("#devProductId_" + idx).val(); 
+			
+			products.push(product);
+			
+			return;
+		}
+	);
+	
+	dto.billProducts = products;
+	dto.selectedDate = $("#devDateValue").val();
+	dto.observations = $("#devObservations").val();
+	dto.totalAmount = $("#devAmount").val();
+	dto.totalInstallment = $("#devInstallment").val();
+	
+	return dto;
 }

@@ -113,3 +113,15 @@ Commons.removeClonedRow = function(rowGridId){
 Commons.gd = function(year, month, day) {
     return new Date(year, month - 1, day).getTime();
 }
+
+Commons.getIndexFromString = function(input, valueSearched){
+	
+	if(Commons.isNotValid(input) || Commons.isNotValid(valueSearched)){
+		
+		return null;
+	}
+	
+	var resp = input.substring(input.indexOf(valueSearched) + 1);
+	
+	return resp;
+}
