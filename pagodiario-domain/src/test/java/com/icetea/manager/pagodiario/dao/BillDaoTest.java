@@ -136,7 +136,7 @@ public class BillDaoTest {
 		assertThat("error", list != null && !list.isEmpty() && list.size() == 2, is(true));
 		Object[] o = (Object[]) list.get(0);
 		assertThat("error 0", (Long)o[0], is(13L)); // TRADER_ID
-		assertThat("error 1", (Integer)o[1], is(3)); // MONTH
+		assertThat("error 1", (Integer)o[1], is(6)); // MONTH
 		assertThat("error 2", (Integer)o[2], is(2015)); // YEAR
 		assertThat("error 3", ((BigDecimal)o[3]).compareTo(new BigDecimal(11000)), is(0)); // AMOUNT
 	}

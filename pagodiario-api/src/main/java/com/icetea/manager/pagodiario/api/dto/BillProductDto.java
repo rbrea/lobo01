@@ -9,6 +9,8 @@ public class BillProductDto extends BasicDto {
 	private String amount;
 	private String dailyInstallment;
 	private String price;
+	private String productCode;
+	private String productDescription;
 
 	public int getCount() {
 		return count;
@@ -39,6 +41,18 @@ public class BillProductDto extends BasicDto {
 	}
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getProductDescription() {
+		return productDescription;
+	}
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 	
 }

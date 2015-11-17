@@ -19,6 +19,5 @@ alter table CLIENT modify column DOCUMENT_NUMBER bigint null;
 alter table TRADER modify column DOCUMENT_TYPE varchar(100) null;
 alter table TRADER modify column DOCUMENT_NUMBER bigint null;
 
-alter table CLIENT drop index ;
 alter table TRADER drop index UK_kdb6l4k7u1dfs7g85qdnho7oa;
 

@@ -30,11 +30,11 @@ public class SupervisorPayrollItem extends AbstractPayrollItem {
 	private Trader supervisor;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<SupervisorConciliationItem> supervisorConciliationItems = Lists.newArrayList();
-	@Column(name = "SUBTOTAL_BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	@Column(name = "SUBTOTAL_BONUS", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal subtotalBonus = BigDecimal.ZERO;
-	@Column(name = "SUBTOTAL_DEV", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	@Column(name = "SUBTOTAL_DEV", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal subtotalDev = BigDecimal.ZERO;
-	@Column(name = "SUBTOTAL_REDUCTION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	@Column(name = "SUBTOTAL_REDUCTION", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal subtotalReduction = BigDecimal.ZERO;
 
 	public Trader getSupervisor() {

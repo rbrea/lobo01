@@ -426,7 +426,7 @@ public class PayrollServiceImpl extends
 					@Override
 					public boolean evaluate(SupervisorPayrollItem s) {
 						
-						return s.getId().equals(supervisor.getId());
+						return s.getSupervisor().getId().equals(supervisor.getId());
 					}
 				});
 				if(item == null){

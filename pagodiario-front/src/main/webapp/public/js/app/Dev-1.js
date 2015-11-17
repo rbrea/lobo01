@@ -1,140 +1,6 @@
 Dev = function(){}
 
 Dev.init = function(){
-
-	var devProductCountElem = $("#devProductCount");
-	var devProductCodeElem = $("#devProductCode");
-	var devAmountElem = $("#devAmount"); 
-	var devObservationsElem = $('#devObservations');
-	var devInstallment = $("#devInstallment");
-	
-	devProductCountElem.keyup(function(e){
-		if(e.keyCode == 13) {
-			devProductCodeElem.focus();			
-		}
-	    
-	    return;
-	});
-
-	devProductCountElem.keydown(function(e){
-		// 13: enter
-		// 9: tab
-	    if(e.keyCode == 9){
-	    	e.preventDefault();
-	    	devProductCodeElem.focus();			
-	    }
-	    
-	    return;
-	});
-	
-	devProductCodeElem.keyup(function(e){
-		if(e.keyCode == 13) {
-			var value = $(this).val();
-			if(value != null && value != ""){
-				Dev.getProductByCode(value);
-				devInstallment.focus();
-			} else {
-				devInstallment.focus();			
-			}
-		} else {
-			$("#devProductDescription").val("");
-		}
-	    
-	    return;
-	});
-	
-	devProductCodeElem.keydown(function(e){
-		// 13: enter
-		// 9: tab
-	    if(e.keyCode == 9){
-	    	e.preventDefault();
-	    	var value = $(this).val();
-			if(value != null && value != ""){
-				Dev.getProductByCode(value);
-			} else {
-				devInstallment.focus();			
-			}
-	    }
-	    
-	    return;
-	});
-	
-	devProductCountElem.on('blur', function(){
-		var cant = $(this).val();
-		if(cant === undefined || cant == null || cant == ""){
-			cant = 0;
-		}
-		var installmentAmount = devInstallment.val();
-		if(installmentAmount != null && installmentAmount != ""){
-			devInstallment.val(cant * parseFloat(installmentAmount));
-		}
-		
-		return;
-	});
-	
-	devInstallment.keyup(function(e){
-		if(e.keyCode == 13) {
-			devAmountElem.focus();			
-		}
-	    
-	    return;
-	});
-
-	devInstallment.keydown(function(e){
-		// 13: enter
-		// 9: tab
-	    if(e.keyCode == 9){
-	    	e.preventDefault();
-	    	devAmountElem.focus();			
-	    }
-	    
-	    return;
-	});
-	
-	devAmountElem.keyup(function(e){
-		if(e.keyCode == 13) {
-			devObservationsElem.focus();			
-		}
-	    
-	    return;
-	});
-
-	devAmountElem.keydown(function(e){
-		// 13: enter
-		// 9: tab
-	    if(e.keyCode == 9){
-	    	e.preventDefault();
-	    	devObservationsElem.focus();			
-	    }
-	    
-	    return;
-	});
-	
-	devObservationsElem.keyup(function(e){
-		if(e.keyCode == 13) {
-			$("#btnAcceptDev").focus();			
-		}
-	    
-	    return;
-	});
-
-	devObservationsElem.keydown(function(e){
-		// 13: enter
-		// 9: tab
-	    if(e.keyCode == 9){
-	    	e.preventDefault();
-			$("#btnAcceptDev").focus();			
-	    }
-	    
-	    return;
-	});
-	
-	$("#btnDevAddRow").on('click', function(e){
-
-		Dev.addProductRow($(this), e);
-		
-		return;
-	});
 	
 	return;
 }
@@ -493,9 +359,158 @@ Dev.getProductByCode = function(code){
 	return;
 }
 
-Dev.addProductRow = function(element, e){
+Dev.initModalProductRows = function(){
+
+	$("#btnDevAddRow").on("click", function(){
+		
+		var i = $("div[id*='devProduct_']").length;
+		
+		var newRow = $("#modalDevProductRow").clone();
+		
+		newRow.contents().each(function () {
+		    if (this.nodeType === 3) this.nodeValue = $.trim($(this).text()).replace(/_X/g, "_" + i)
+		    if (this.nodeType === 1) $(this).html( $(this).html().replace(/_X/g, "_" + i) )
+		});
+		
+		newRow.find("input[id*='devProductId_']").attr("id", "devProductId_" + i).attr("name", "devProductId_" + i);
+		newRow.find("input[id*='devProductPrice_']").attr("id", "devProductPrice_" + i).attr("name", "devProductPrice_" + i);
+		
+		newRow.attr("id", "devProduct_" + i);
+		newRow.removeClass("hide");
+		
+		newRow.insertAfter($("div[id*='devProduct_']:last"));
+		
+		$("input[id*='bcuotadiaria_']").on('blur', function(){
+			Bill.calculateCuotaDiaria();
+			
+			return;
+		});
+		
+		$("input[id*='bimp_']").on('blur', function(){
+			Bill.calculateImporteTotal();
+			
+			return;
+		});
+		
+		var bcant = newRow.find("input[id*='bcant_']");
+		var bproductcode = newRow.find("input[id*='bProductCode_']");
+		var bcuotadiaria = newRow.find("input[id*='bcuotadiaria_']");
+		var bimp = newRow.find("input[id*='bimp_']");
+		
+		$("input").focus(function() { $(this).select(); } ).end().click(function () {$(this).select();});
+		
+		return;
+	});
 	
+	$("#btnBillRemoveProduct").on("click", function(){
+		var i = $("div[id*='product_']").length;
+		if(i == 1){
+			return false;
+		}
+		$("div[id*='product_']:last").remove();
+		
+		Bill.calculateCuotaDiaria();
+		Bill.calculateImporteTotal();
+		
+		return;
+	});
 	
+	$("input[id*='bcuotadiaria_']").on('blur', function(){
+		Bill.calculateCuotaDiaria();
+		
+		return;
+	});
+	
+	$("input[id*='bimp_']").on('blur', function(){
+		Bill.calculateImporteTotal();
+		
+		return;
+	});
+	
+	return;
+}
+
+Dev.PRODUCT_TABLE_CONTAINER = function(){
+	
+	var row = $('<div id="modalDevProductRow" class="row"></div>');
+	var col0 = $('<div class="col-md-1">&nbsp;</div>')
+	var col1 = $('<div class="col-md-12" style="border: 1px solid #ccc;padding-top: 2%;margin-bottom: 2%;"></div>');
+	var col2 = $('<div class="col-md-1">&nbsp;</div>')
+	var table = $('<table class="table"></table>');
+	var thead = $('<thead><tr><th class="col-md-1 centered">#</th><th class="col-md-2 centered">Cantidad</th><th class="col-md-2 centered">C&oacute;digo</th><th class="col-md-6 centered">Descripci&oacute;n</th><th class="col-md-1 centered">Acciones</th></tr></thead>');
+	
+	row.append(col1.append(table.append(thead)));
+	
+	return row;
+}
+
+Dev.buildRow = function(idx, product){
+	
+	var tr = $('<tr id="productRow_' + idx + '"><input type="hidden" id="devProductId_' + idx + '" name="devProductId_' + idx + '" value="' + product.productId + '"><input type="hidden" id="devProductPrice_' + idx + '" name="devProductPrice_' + idx + '" value="' + product.price + '"><input type="hidden" id="devProductAmount_' + idx + '" name="devProductAmount_' + idx + '" value="' + product.amount + '"><input type="hidden" id="devProductDailyInstallment_' + idx + '" name="devProductDailyInstallment_' + idx + '" value="' + product.dailyInstallment + '"></tr>');
+	var td0 = $('<td class="centered">' + (idx+1) + '</td>');
+	var td1 = $('<td><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '"></td>');
+	var td2 = $('<td><input class="form-control input-sm" type="text" id="devProductCode_' + idx + '" name="devProductCode_' + idx + '" value="' + product.productCode + '" readonly></td>');
+	var td3 = $('<td><input class="form-control input-sm" type="text" id="devProductDescription_' + idx + '" name="devProductDescription_' + idx + '" value="' + product.productDescription + '" readonly></td>');
+	var td4 = $('<td class="centered"><button id="btnDevAddRow_X" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></td>');
+	
+	tr.append(td0).append(td1).append(td2).append(td3).append(td4);
+	
+	return tr;
+}
+
+Dev.PRODUCT_TABLE_ROW_CONTENT = function(list){
+	
+	var tbody = $('<tbody></tbody>');
+	
+	if(list.length > 0){
+		
+		var element = list[0];
+		
+		for(var i=0;i<element.billProducts.length;i++){
+			var tr = Dev.buildRow(i, element.billProducts[i]);
+			tbody.append(tr);
+		}
+
+		return tbody;
+	}
+	
+	var tr = $("<tr><td colspan='5' class='centered'>No se han encontrado elementos</td></tr>");
+	tbody.append(tr);
+	
+	return tbody;
+}
+
+Dev.getDevInfo = function(id){
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/bill?id=" + id,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
+		   if(data != null && data.status == 0){
+			   var row = Dev.PRODUCT_TABLE_CONTAINER();
+			   
+			   var tbody = Dev.PRODUCT_TABLE_ROW_CONTENT(data.data);
+			   
+			   var table = row.find("table");
+			   
+			   table.append(tbody);
+			   
+			   row.insertAfter($("#devDateRow:last"));
+			   
+		   } else {
+			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
 	
 	return;
 }

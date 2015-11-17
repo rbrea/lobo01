@@ -14,7 +14,7 @@
   				<div class="panel-body">
   					<form id="frmDev">
   						<input type="hidden" id="devBillId" name="devBillId">
-  					<div class="row">
+  					<div id="devDateRow" class="row">
   						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devDateValue">Fecha</label>
@@ -31,62 +31,13 @@
   							&nbsp;
   						</div>
   					</div>
-  					<!-- 
-  					<div class="row">
-  						<div class="col-md-3">
-  							<div class="form-group">
-								<label for="devProductCount">Cantidad</label>
-							    <input type="number" class="form-control" id="devProductCount" name="devProductCount" min="1" placeholder="Cantidad" value="1" required>
-							    <div class="help-block with-errors"></div>
-							</div>
-  						</div>
-  						<div class="col-md-9">
-  							&nbsp;
-  						</div>
-  					</div>
-  					 -->
-  					<div class="row">
-						<input type="hidden" id="devProductId" name="devProductId">
-						<div class="col-md-2">
-  							<div class="form-group">
-								<label for="devProductCount">Cantidad</label>
-							    <input type="number" class="form-control" id="devProductCount" name="devProductCount" min="1" placeholder="Cantidad" value="1" required>
-							    <div class="help-block with-errors"></div>
-							</div>
-  						</div>
-						<div class="col-md-2">
-		  					<div class="form-group">
-		  						<label for="devProductCode">C&oacute;digo</label>
-					            <input type="text" class="form-control" id="devProductCode" name="devProductCode" placeholder="C&oacute;digo" data-error="Requerido" required>
-								<div class="help-block with-errors"></div>
-				            </div>
-						</div>
-						<div class="col-md-7">
-  							<div class="form-group">
-		  						<label for="devProductDescription">Producto</label>
-		  						<div class="input-group">
-					                <input type="text" class="form-control not-writable" id="devProductDescription" name="devProductDescription" placeholder="Producto" data-error="Requerido" required>
-									<span id="btnDevSearchProduct" class="input-group-addon lov" onclick="javascript:Dev.showLovProduct();"><i class="glyphicon glyphicon-search"></i></span>		  						
-		  						</div>
-								<div class="help-block with-errors"></div>
-				            </div>
-						</div>
-						<div class="col-md-1">
-		  					<div class="form-group centered">
-		  						<label for="btnDevAddRow">&nbsp;</label>
-		  						<div class="input-group">
-		  							<button id="btnDevAddRow" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i></button>
-		  						</div>
-				            </div>
-						</div>
-					</div>
 					<div class="row">
   						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devInstallment">Cuota Diaria a Restar</label>
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
-							    	<input type="text" class="form-control" id="devInstallment" name="devInstallment" placeholder="Ingrese Cuota Diaria a restar..." required>
+							    	<input type="text" class="form-control" id="devInstallment3223" name="devInstallment2323" placeholder="Ingrese Cuota Diaria a restar..." required>
 							    	<span class="input-group-addon">.00</span>
 							    </div>
 							    <div class="help-block with-errors"></div>
@@ -129,3 +80,16 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+	$(document).ready(
+			
+		function(){
+			Dev.init();
+			
+			return;
+		}
+	);
+
+</script>

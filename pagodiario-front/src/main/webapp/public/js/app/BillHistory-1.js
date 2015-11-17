@@ -887,20 +887,22 @@ BillHistory.showDev = function(id){
 	
 	var dialog = new BootstrapDialog({
 		onshown: function(){
-			$("#devProductCount").focus();
+			$("#devDateValue").focus();
+			Dev.getDevInfo(id);
 			
 			return;
 		},
 		onhidden:function(){
 			Dev.resetModal();
 			$("#frmDev").validator('destroy');
+			$("#modalDevProductRow").remove();
 			
 			return;
 		},
 		draggable: true,
 		size: BootstrapDialog.SIZE_LARGE,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Alta de Devoluci&oacute;n',
+		title: '<i class="glyphicon glyphicon-chevron-right"></i>&nbsp;Alta de Devoluci&oacute;n',
 		cssClass: 'dialog-dev',
 		autodestroy: false,
         message: function(dialog) {
@@ -916,8 +918,6 @@ BillHistory.showDev = function(id){
         	$("#devBillId").val(id);
         	
         	$("#modal-dev-container").css({"display":"block"});
-        	
-        	$("#devProductCount").focus();
         	
         	return $("#modal-dev-container");
         },

@@ -20,6 +20,8 @@ public class BillProductDtoModelTransformer extends AbstractDtoModelTransformer<
 		d.setDailyInstallment(NumberUtils.toString(e.getDailyInstallment()));
 		d.setPrice(NumberUtils.toString(e.getProduct().getPrice()));
 		d.setProductId(e.getProduct().getId());
+		d.setProductCode(e.getProduct().getCode());
+		d.setProductDescription(e.getProduct().getDescription());
 		
 		return d;
 	}
