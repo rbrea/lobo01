@@ -15,6 +15,7 @@ public class BillProductDtoModelTransformer extends AbstractDtoModelTransformer<
 			return null;
 		}
 		BillProductDto d = new BillProductDto();
+		d.setId(e.getId());
 		d.setAmount(NumberUtils.toString(e.getAmount()));
 		d.setCount(e.getCount());
 		d.setDailyInstallment(NumberUtils.toString(e.getDailyInstallment()));

@@ -24,6 +24,15 @@ Dev.add = function(dialog, btn, responseHandler){
 
 	var obj = Dev.createObject(billId);
 	
+	if(obj == null){
+		Message.showMessages($('#modalDevAlertMessages'), $("#modalDevMessages"), "La cantidad no puede ser mayor a la cantidad original. Tampoco negativa.");
+		dialog.enableButtons(true);
+		dialog.setClosable(true);
+		btn.stopSpin();
+		// significa q tuve error ...
+		return false;
+	}
+	
 	$.ajax({ 
 	   type    : "POST",
 	   url     : Constants.contextRoot + "/controller/html/dev",
@@ -464,9 +473,9 @@ Dev.removeRow = function(idx, productId){
 Dev.buildRow = function(idx, product){
 	
 	var tr = $('<tr id="productRow_' + idx + '"><input type="hidden" id="devProductId_' + idx + '" name="devProductId_' + idx + '" value="' + product.productId + '"><input type="hidden" id="devProductPrice_' + idx + '" name="devProductPrice_' + idx + '" value="' + product.price + '"><input type="hidden" id="devProductAmount_' + idx + '" name="devProductAmount_' + idx + '" value="' + product.amount + '"><input type="hidden" id="devProductDailyInstallment_' + idx + '" name="devProductDailyInstallment_' + idx + '" value="' + product.dailyInstallment + '"></tr>');
-	
+	var billProductIdContainer = $('<input type="hidden" id="devBillProductId_' + idx + '" name="devBillProductId_' + idx + '" value="' + product.id + '">');
 	var hiddenProductCount = $('<input type="hidden" id="devProductCountAlt_' + idx + '" name="devProductCountAlt_' + idx + '" value="' + product.count + '">');
-	tr.append(hiddenProductCount);
+	tr.append(hiddenProductCount).append(billProductIdContainer);
 	
 	var td0 = $('<td class="centered"><div class="form-group">' + (idx+1) + '</div></td>');
 	var td1 = $('<td><div class="form-group"><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '" onblur="javascript:Dev.blurProductCount(' + idx + ');"></div></td>');
@@ -548,6 +557,8 @@ Dev.createObject = function(billId){
 	
 	var products = [];
 	
+	var hasError = false;
+	
 	$("tr[id*='productRow_']").each(
 		function(e){
 			
@@ -555,14 +566,22 @@ Dev.createObject = function(billId){
 			
 			var idx = Commons.getIndexFromString(id, '_');
 			
-			var productCount = $("#devProductCount_" + idx).val();
-			var productCountAlt = $("#devProductCountAlt_" + idx).val();
+			var productCountContainer = $("#devProductCount_" + idx);
 			
-			if(productCount > productCountAlt){
+			var productCount = productCountContainer.val();
+			var productCountAlt = $("#devProductCountAlt_" + idx).val();
+			var billProductId = $("#devBillProductId_" + idx).val();
+			
+			if(productCount > productCountAlt || productCount < 0){
 				// mostrar error en pantalla
+				productCountContainer.parent().addClass("has-error");
+				
+				hasError = true;
+				return;
 			}
 			
 			var product = new Object();
+			product.id = billProductId;
 			product.count = productCount;
 			product.productId = $("#devProductId_" + idx).val(); 
 			
@@ -571,6 +590,10 @@ Dev.createObject = function(billId){
 			return;
 		}
 	);
+	
+	if(hasError){
+		return null;
+	}
 	
 	dto.billProducts = products;
 	dto.selectedDate = $("#devDateValue").val();

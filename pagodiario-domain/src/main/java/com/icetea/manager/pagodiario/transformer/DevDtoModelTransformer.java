@@ -1,8 +1,12 @@
 package com.icetea.manager.pagodiario.transformer;
 
+import java.util.List;
+
 import javax.inject.Named;
 
+import com.icetea.manager.pagodiario.api.dto.DevAddDto;
 import com.icetea.manager.pagodiario.api.dto.DevDto;
+import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
@@ -25,4 +29,17 @@ public class DevDtoModelTransformer extends AbstractDtoModelTransformer<DevDto, 
 		return d;
 	}
 
+	public DevAddDto transform(List<Dev> devs, Bill bill){
+		DevAddDto d = new DevAddDto();
+		
+		d.setBillId(bill.getId());
+		d.setBillStatus(bill.getStatus().name());
+		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
+		d.setOverdueDays(bill.getOverdueDays());
+		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
+		d.setTotalAmount(NumberUtils.toString(bill.getTotalAmount()));
+		
+		return d;
+	}
+	
 }

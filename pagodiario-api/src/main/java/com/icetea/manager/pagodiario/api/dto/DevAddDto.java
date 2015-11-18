@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-public class DevAddDto extends BasicIdentifiableDto {
+public class DevAddDto extends BillInfoDto {
 
 	private static final long serialVersionUID = 1L;
 

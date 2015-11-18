@@ -12,6 +12,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.DevAddDto;
 import com.icetea.manager.pagodiario.api.dto.DevDto;
@@ -154,40 +155,50 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		return this.getTransformer().transformAllTo(this.getDao().findByBillId(billId));
 	}
 
+	@Override
 	public DevAddDto insert(DevAddDto o) {
 		Bill bill = this.billDao.findById(o.getBillId());
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getSelectedDate()), "Fecha de Descuento es requerida");
 		
 		List<BillProduct> billProducts = bill.getBillProducts();
 		
-		BigDecimal originalTotalAmount = bill.getTotalAmount();
-		BigDecimal originalTotalDailyInstallment = bill.getTotalDailyInstallment();
+		List<Dev> devs = Lists.newArrayList();
 		
 		for (final BillProduct bp : billProducts) {
 			BillProductDto bpd = CollectionUtils.find(o.getBillProducts(), new Predicate<BillProductDto>() {
 				@Override
 				public boolean evaluate(BillProductDto e) {
-					return bp.getId().equals(e.getProductId());
+					return bp.getId().equals(e.getId());
 				}
 			});
 			
 			Dev dev = null;
 			if(bpd != null){
+				
+				ErrorTypedConditions.checkArgument(bpd.getCount() > 0 && bpd.getCount() <= bp.getCount(), 
+						"La cantidad seleccionada en el descuento no puede ser mayor a la cantidad original o negativa.");
+				
 				if(bpd.getCount() != bp.getCount()){
-					Product product = bp.getProduct();
-					bp.setCount(bpd.getCount());
-					bp.setUpdatedDate(new Date());
-					
 					BigDecimal origAmount = bp.getAmount();
 					BigDecimal origInstallmentAmount = bp.getDailyInstallment();
 					
-					bp.setAmount(NumberUtils.multiply(product.getPrice(), new BigDecimal(bpd.getCount())));
-					bp.setDailyInstallment(NumberUtils.multiply(product.getDailyInstallment(), new BigDecimal(bpd.getCount())));
+					BigDecimal originalPrice = NumberUtils.divide(bp.getAmount(), new BigDecimal(bp.getCount()));
+					BigDecimal originalInstallmentAmount = NumberUtils.divide(bp.getDailyInstallment(), new BigDecimal(bp.getCount()));
+					
+					bp.setAmount(NumberUtils.multiply(originalPrice, new BigDecimal(bpd.getCount())));
+					bp.setDailyInstallment(NumberUtils.multiply(originalInstallmentAmount, new BigDecimal(bpd.getCount())));
+					
+					Integer originalCount = bp.getCount();
+					
+					bp.setCount(bpd.getCount());
+					bp.setUpdatedDate(new Date());
+					
 					// creo una devolucion por los productos que bajaron la cantidad ...
 					dev = new Dev();
 					
-					int count = bp.getCount() - bpd.getCount();
+					int count = originalCount - bpd.getCount();
 					BigDecimal diffAmount = NumberUtils.subtract(origAmount, bp.getAmount());
 					BigDecimal diffInstallmentAmount = NumberUtils.subtract(origInstallmentAmount, bp.getDailyInstallment());
 					
@@ -233,15 +244,15 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 							bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
 					bill.decrementOverdueDays(overdueDays);
 				}
+				devs.add(dev);
 			}
 		}
 		
 		this.billUtils.doBillCancelation(bill);
 		
 		this.billDao.saveOrUpdate(bill);
-		// TODO hacer transformer para el nuevo dto!
-		//return this.getTransformer().transform(e);
-		return null;
+
+		return this.getTransformer().transform(devs, bill);
 	}
 	
 }

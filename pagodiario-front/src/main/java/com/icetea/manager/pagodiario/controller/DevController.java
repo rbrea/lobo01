@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
+import com.icetea.manager.pagodiario.api.dto.DevAddDto;
 import com.icetea.manager.pagodiario.api.dto.DevDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.service.DevService;
@@ -62,14 +63,14 @@ public class DevController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public @ResponseBody ListOutputDto<DevDto> add(@RequestBody DevDto input){
-		ListOutputDto<DevDto> r = new ListOutputDto<DevDto>();
+	public @ResponseBody ListOutputDto<DevAddDto> add(@RequestBody DevAddDto input){
+		ListOutputDto<DevAddDto> r = new ListOutputDto<DevAddDto>();
 
-		List<DevDto> list = Lists.newArrayList();
-		DevDto client = null;
+		List<DevAddDto> list = Lists.newArrayList();
+		DevAddDto client = null;
 		if(input.getId() != null){
-			client = this.devService.update(input);
-			list.add(client);
+//			client = this.devService.update(input);
+//			list.add(client);
 		} else {
 			client = this.devService.insert(input);
 			list.add(client);
