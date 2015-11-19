@@ -45,7 +45,7 @@
   						</div>
   						<div class="col-md-4">
 							<div class="form-group">
-								<label for="devAmount">Importe</label>
+								<label for="devAmount">Total Cr&eacute;dito</label>
 								<input type="hidden" id="originalDevAmount" name="originalDevAmount">
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
@@ -55,7 +55,18 @@
 							</div>
   						</div>
   						<div class="col-md-4">
-  							&nbsp;
+							<!-- 
+							<div class="form-group">
+								<label for="devAmount">Saldo Restante</label>
+								<input type="hidden" id="originalDevRemainingAmount" name="originalDevRemainingAmount">
+								<div class="input-group">
+							    	<span class="input-group-addon">$</span>
+							    	<input type="text" class="form-control" id="devRemainingAmount" name="devRemainingAmount" readonly>
+							    </div>
+							    <div class="help-block with-errors"></div>
+							</div>
+							 -->
+							 &nbsp;
   						</div>
   					</div>
   					<div class="row">

@@ -74,88 +74,6 @@ Dev.add = function(dialog, btn, responseHandler){
 	return;
 }
 
-Dev.show = function(id){
-	
-	$.ajax({ 
-	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/dev?billId=" + id,
-	   dataType: 'json',
-	   contentType: "application/json;",
-	   success:function(data) {
-			
-		   var tbody = $("#tDevResult tbody");
-		   
-		   tbody.children('tr').remove();
-		   
-		   Message.hideMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"));
-		   if(data != null && data.status == 0){
-
-			   var table = $("#tDevResult").dataTable( {
-				   "fnInitComplete": function(){
-						$('#tBillResult tbody tr').each(function(){
-							$(this).find('td:eq(1)').attr('nowrap', 'nowrap');
-							
-							return;
-						});
-						
-						return;
-					},
-			   		"data" : data.data,
-			   		"bDestroy" : true,
-			   		responsive: true,
-			        "columns": [
-						{ 
-							"className": 'centered',
-							"data": "date" 
-						},
-			            { 	
-			            	"className": 'centered',
-			            	"data": "amount" 
-			            }
-			        ],
-			        "order": [[0, 'desc']],
-			        "language": {
-			            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
-			            "zeroRecords": "No se ha encontrado ningun elemento",
-			            "info": "P&aacute;gina _PAGE_ de _PAGES_",
-			            "infoEmpty": "No hay registros disponibles",
-			            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
-			            "search": "Buscar: ",
-			            "paginate": {
-			            	"previous": "Anterior",
-							"next": "Siguiente"
-						}
-			        } 
-			   	});
-			   
-				BootstrapDialog.show({
-					size: BootstrapDialog.SIZE_LARGE,
-					type:BootstrapDialog.TYPE_DANGER,
-					draggable: true,
-					title: 'Devoluciones',
-					autodestroy: false,
-			        message: function(dialog) {
-			        	
-			        	$("#lov-dev-container").css({"display":"block"});
-			        	
-			        	return $("#lov-dev-container");
-			        }
-			    });
-				
-			} else {
-				Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
-			}
-	   },
-	   error:function(data){
-		   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
-	
-	return;
-}
-
 Dev.showLovProduct = function(){
 	
 	var value = $("#devProductCode").val();
@@ -446,47 +364,78 @@ Dev.PRODUCT_TABLE_CONTAINER = function(){
 }
 
 Dev.blurProductCount = function(idx){
+
+	$("#devProductCount_" + idx).parent().removeClass("has-error");
+	Message.hideMessages($('#modalDevAlertMessages'), $("#modalDevMessages"));
+
+	var originalCount = parseInt($("#devProductCountAlt_" + idx).val());
+
+	var count = $("#devProductCount_" + idx).val();
 	
-	var productCountOrigValue = $("#devProductCountAlt_" + idx).val();
-	
-	var productCountNew = $("#devProductCount_" + idx);
-	
-	var productCountNewValue = productCountNew.val();
-	
-	if(productCountNewValue > productCountOrigValue){
-		//productCountNew.
+	if(count < 0 || count > originalCount){
+		$("#devProductCount_" + idx).parent().addClass("has-error");
+		Message.showMessages($('#modalDevAlertMessages'), $("#modalDevMessages"), "La cantidad no puede ser mayor a la cantidad original. Tampoco negativa.");
 		
-		return false;
+		return;
 	}
 	
+	Dev.doTotalAmountsAccounts();
+	
+	return;
+}
+
+Dev.doTotalAmountsAccounts = function(){
+	
+	var devInstallment = 0;
+	var devTotalAmount = 0;
+	var remainingAmount = 0;
+	
+	$("tr[id*='productRow_']").each(
+		function(e){
+			var id = $(this).attr("id");
+			
+			var idx = Commons.getIndexFromString(id, '_');
+			
+			var originalCount = parseInt($("#devProductCountAlt_" + idx).val());
+
+			var count = $("#devProductCount_" + idx).val();
+			
+			var originalTotalInstallmentAmount = parseFloat($("#devProductDailyInstallment_" + idx).val());
+			var originalInstallmentAmount = originalTotalInstallmentAmount / originalCount;
+			var newInstallmentAmount = originalInstallmentAmount * count;
+			
+			devInstallment = devInstallment + newInstallmentAmount;
+			
+			var originalTotalAmount = parseFloat($("#devProductAmount_" + idx).val());
+			var originalAmount = originalTotalAmount / originalCount;
+			var newAmount = originalAmount * count;
+			
+			devTotalAmount = devTotalAmount + newAmount;
+			/*
+			var originalTotalAmount = parseFloat($("#devProductAmount_" + idx).val());
+			var originalAmount = originalTotalAmount / originalCount;
+			var newAmount = originalAmount * count;
+			
+			remainingAmount = remainingAmount + newAmount;
+			*/
+			return;
+		}
+	);
+	
+	$("#devInstallment").val(devInstallment);
+	$("#devAmount").val(devTotalAmount);
+	//$("#devRemainingAmount").val(remainingAmount)
 	
 	return;
 }
 
 Dev.removeRow = function(idx, productId){
-	/*
-	BootstrapDialog.confirm({
-		title: "Confirmación",
-		message: "Esta seguro de eliminar la fila seleccionada?",
-		type: BootstrapDialog.TYPE_DANGER,
-		draggable: true,
-		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
-        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
-        btnOKClass: 'btn-success',
-		callback: function(result){
-			if(result) {
-				var row = $("#productRow_" + idx);
-				
-				row.remove();				
-			}
-			
-			return;
-		}
-	});
-	*/
+	
 	var row = $("#productRow_" + idx);
 	
 	row.remove();
+	
+	Dev.doTotalAmountsAccounts();
 	
 	return;
 }
@@ -505,19 +454,6 @@ Dev.buildRow = function(idx, product){
 	var td4 = $('<td class="centered"><div class="form-group"><button id="btnDevRemoveRow_' + idx + '" onclick="javascript:Dev.removeRow(' + idx + ', ' + product.productId + ');" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></div></td>');
 	
 	tr.append(td0).append(td1).append(td2).append(td3).append(td4);
-	
-	
-	$("#devProductCount_" + idx).on("blur", function(){
-		
-		var originalCount = parseInt(hiddenProductCount.val());
-
-		var count = parseInt($(this).val());
-
-		// lo que hay que hacer es agarrar de la row que se modifica,,, el total de cuota diaria de (billProduct .. NO de product) 
-		// tambien agarra el totalAmount de billProduct y dividir c/u por la cant que quedo teniendo el valor unitario original
-		
-		return;
-	});
 	
 	return tr;
 }
