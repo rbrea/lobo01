@@ -6,15 +6,15 @@ Dev.init = function(){
 }
 
 Dev.resetModal = function(){
+	
+	Message.hideMessages($('#modalDevAlertMessages'), $("#modalDevMessages"));
+	Dev.cleanBillProductError();
 	$("#devBillId").val("");
 	$("#devDateValue").val("");
+	$("#devInstallment").val("");
 	$("#devAmount").val("");
 	$("#devObservations").val("");
-	$("#devProductCount").val("");
-	$("#devProductId").val("");
-	$("#devInstallment").val("");
-	$("#devProductCode").val("");
-	$("#devProductDescription").val("");
+	
 	
 	return;
 }
@@ -464,8 +464,29 @@ Dev.blurProductCount = function(idx){
 }
 
 Dev.removeRow = function(idx, productId){
+	/*
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar la fila seleccionada?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				var row = $("#productRow_" + idx);
+				
+				row.remove();				
+			}
+			
+			return;
+		}
+	});
+	*/
+	var row = $("#productRow_" + idx);
 	
-	
+	row.remove();
 	
 	return;
 }
@@ -484,6 +505,19 @@ Dev.buildRow = function(idx, product){
 	var td4 = $('<td class="centered"><div class="form-group"><button id="btnDevRemoveRow_' + idx + '" onclick="javascript:Dev.removeRow(' + idx + ', ' + product.productId + ');" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></div></td>');
 	
 	tr.append(td0).append(td1).append(td2).append(td3).append(td4);
+	
+	
+	$("#devProductCount_" + idx).on("blur", function(){
+		
+		var originalCount = parseInt(hiddenProductCount.val());
+
+		var count = parseInt($(this).val());
+
+		// lo que hay que hacer es agarrar de la row que se modifica,,, el total de cuota diaria de (billProduct .. NO de product) 
+		// tambien agarra el totalAmount de billProduct y dividir c/u por la cant que quedo teniendo el valor unitario original
+		
+		return;
+	});
 	
 	return tr;
 }
@@ -550,6 +584,25 @@ Dev.getDevInfo = function(id){
 	return;
 }
 
+Dev.cleanBillProductError = function(){
+	
+	$("tr[id*='productRow_']").each(
+		function(e){
+			var id = $(this).attr("id");
+			
+			var idx = Commons.getIndexFromString(id, '_');
+			
+			var productCountContainer = $("#devProductCount_" + idx);
+			
+			productCountContainer.parent().removeClass("has-error");
+
+			return;
+		}
+	);
+	
+	return;
+}
+
 Dev.createObject = function(billId){
 
 	var dto = new Object();
@@ -558,6 +611,8 @@ Dev.createObject = function(billId){
 	var products = [];
 	
 	var hasError = false;
+	
+	Dev.cleanBillProductError();
 	
 	$("tr[id*='productRow_']").each(
 		function(e){

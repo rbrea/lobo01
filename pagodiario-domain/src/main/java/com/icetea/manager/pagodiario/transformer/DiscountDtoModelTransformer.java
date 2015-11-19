@@ -23,6 +23,7 @@ public class DiscountDtoModelTransformer extends
 		d.setRemainingAmount(NumberUtils.toString(e.getBill().getRemainingAmount()));
 		d.setOverdueDays(e.getBill().getOverdueDays());
 		d.setInstallmentAmount(NumberUtils.toString(e.getBill().getTotalDailyInstallment()));
+		d.setTotalAmount(NumberUtils.toString(e.getBill().getTotalAmount()));
 		
 		return d;
 	}

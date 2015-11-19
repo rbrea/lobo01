@@ -12,7 +12,6 @@ public class DevAddDto extends BillInfoDto {
 	private String selectedDate;
 	private List<BillProductDto> billProducts = Lists.newArrayList();
 	private String observations;
-	private String totalAmount;
 	private String totalInstallment;
 
 	public String getSelectedDate() {
@@ -33,23 +32,17 @@ public class DevAddDto extends BillInfoDto {
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
-	public String getTotalAmount() {
-		return totalAmount;
+	public Long getBillId() {
+		return billId;
 	}
-	public void setTotalAmount(String totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setBillId(Long billId) {
+		this.billId = billId;
 	}
 	public String getTotalInstallment() {
 		return totalInstallment;
 	}
 	public void setTotalInstallment(String totalInstallment) {
 		this.totalInstallment = totalInstallment;
-	}
-	public Long getBillId() {
-		return billId;
-	}
-	public void setBillId(Long billId) {
-		this.billId = billId;
 	}
 	
 }

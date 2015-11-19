@@ -9,6 +9,7 @@ public class BillInfoDto extends BasicIdentifiableDto {
 	private String remainingAmount;
 	private String installmentAmount;
 	private int overdueDays;
+	private String totalAmount;
 
 	public String getBillStatus() {
 		return billStatus;
@@ -39,6 +40,12 @@ public class BillInfoDto extends BasicIdentifiableDto {
 	}
 	public void setBillId(Long billId) {
 		this.billId = billId;
+	}
+	public String getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(String totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 	
 }

@@ -166,6 +166,8 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		List<Dev> devs = Lists.newArrayList();
 		
+		List<BillProduct> toRemove = Lists.newArrayList();
+		
 		for (final BillProduct bp : billProducts) {
 			BillProductDto bpd = CollectionUtils.find(o.getBillProducts(), new Predicate<BillProductDto>() {
 				@Override
@@ -216,8 +218,8 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				}
 				
 			} else {
-				bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), bp.getDailyInstallment()));
-				bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), bp.getAmount()));
+//				bill.setTotalDailyInstallment(NumberUtils.subtract(bill.getTotalDailyInstallment(), bp.getDailyInstallment()));
+//				bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), bp.getAmount()));
 				// creo una devolucion por los productos quitados de la factura ...
 				dev = new Dev();
 				dev.setAmount(bp.getAmount());
@@ -232,7 +234,7 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				
 				bill.getDevList().add(dev);
 				
-				billProducts.remove(bp);
+				toRemove.add(bp);
 			}
 			if(dev != null){
 				bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), dev.getAmount()));
@@ -247,6 +249,8 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				devs.add(dev);
 			}
 		}
+		
+		billProducts.removeAll(toRemove);
 		
 		this.billUtils.doBillCancelation(bill);
 		

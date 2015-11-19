@@ -35,6 +35,7 @@
   						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devInstallment">Cuota Diaria</label>
+							    	<input type="hidden" id="originalDevInstallment" name="originalDevInstallment">
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
 							    	<input type="text" class="form-control" id="devInstallment" name="devInstallment" readonly>
@@ -45,6 +46,7 @@
   						<div class="col-md-4">
 							<div class="form-group">
 								<label for="devAmount">Importe</label>
+								<input type="hidden" id="originalDevAmount" name="originalDevAmount">
 								<div class="input-group">
 							    	<span class="input-group-addon">$</span>
 							    	<input type="text" class="form-control" id="devAmount" name="devAmount" readonly>

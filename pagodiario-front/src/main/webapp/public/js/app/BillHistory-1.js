@@ -112,7 +112,10 @@ BillHistory.init = function(){
             { 	
             	"className": 'centered',
             	"orderable": false,
-            	"data": "totalAmount" 
+            	"render": function ( data, type, row ) {
+			        
+			        return "<span id='totalAmount_" + row.id + "'>" + row.totalAmount + "</span>";
+			    } 
             },
             { 	
             	"className": 'centered',
@@ -1365,6 +1368,9 @@ BillHistory.addResponseHandler = function(data){
 	}
 	if(Commons.isValid(element.remainingAmount)){
 		$("#remainingAmount_" + billId).html(element.remainingAmount);
+	}
+	if(Commons.isValid(element.totalAmount)){
+		$("#totalAmount_" + billId).html(element.totalAmount);
 	}
 	
 	return;

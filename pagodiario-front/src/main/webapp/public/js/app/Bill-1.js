@@ -773,7 +773,7 @@ Bill.doFinalize = function(){
 			   
 			   Message.showMessages($('#facturaAlertMessages'), $("#facturaMessages"), 
 					   "Factura creada correctamente. Para mayor informaci&oacute;n vaya a Detalle de Cr&eacute;dito.", "alert-warning", "glyphicon glyphicon-info-sign", "Bien! ");
-			   setTimeout(function(){$("#facturaMessages").addClass("hide");}, 4000);
+			   setTimeout(function(){$("#facturaMessages").addClass("hide");}, 2000);
 			   
 			   return;
 		   }else{
