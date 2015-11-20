@@ -450,7 +450,7 @@ Dev.buildRow = function(idx, product){
 	var td0 = $('<td class="centered"><div class="form-group">' + (idx+1) + '</div></td>');
 	var td1 = $('<td><div class="form-group"><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '" onblur="javascript:Dev.blurProductCount(' + idx + ');"></div></td>');
 	var td2 = $('<td><input class="form-control input-sm" type="text" id="devProductCode_' + idx + '" name="devProductCode_' + idx + '" value="' + product.productCode + '" readonly></td>');
-	var td3 = $('<td><input class="form-control input-sm" type="text" id="devProductDescription_' + idx + '" name="devProductDescription_' + idx + '" value="' + product.productDescription + '" readonly></td>');
+	var td3 = $('<td><input class="form-control input-sm" type="text" id="devProductDescription_' + idx + '" name="devProductDescription_' + idx + '" value="' + "$" + product.dailyInstallment + " - $" + product.amount + " - " + product.productDescription + '" readonly></td>');
 	var td4 = $('<td class="centered"><div class="form-group"><button id="btnDevRemoveRow_' + idx + '" onclick="javascript:Dev.removeRow(' + idx + ', ' + product.productId + ');" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></div></td>');
 	
 	tr.append(td0).append(td1).append(td2).append(td3).append(td4);

@@ -178,8 +178,9 @@ BillHistory.init = function(){
 		var collectorId = $("#billHistoryCollectorId").val();
 		var creditNumber = $("#billHistoryTicketNumber").val();
 		var status = $("#billHistoryStatus").val();
+		var clientId = $("#billClientIdSelected").val();
 		
-		BillHistory.searchByFilter(collectorId, creditNumber, status);
+		BillHistory.searchByFilter(collectorId, creditNumber, status, clientId);
 		
 		return;
 	});
@@ -188,7 +189,7 @@ BillHistory.init = function(){
 		
 		BillHistory.resetFilter(true);
 		
-		BillHistory.searchByFilter(null, null, null);
+		BillHistory.searchByFilter(null, null, null, null);
 		
 		return;
 	});
@@ -1040,7 +1041,7 @@ BillHistory.exportToPdf = function(){
 	return;
 }
 
-BillHistory.searchByFilter = function(collectorId, creditNumber, status){
+BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId){
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
@@ -1065,6 +1066,15 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status){
 		}
 		urlQueryString = urlQueryString + "status=" + status;
 		$("#bhStatus").val(status);
+	}
+	if(clientId != null && clientId != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "clientId=" + clientId;
+		$("#bhClientId").val(clientId);
 	}
 	
 	$.ajax({ 
@@ -1295,6 +1305,7 @@ BillHistory.resetFilter = function(enabled){
 	BillHistory.resetCollectorFilter(enabled);
 	BillHistory.resetTicketNumber(enabled);
 	BillHistory.resetStatus(enabled);
+	BillHistory.resetClient(enabled);
 	
 	return;
 }
@@ -1331,6 +1342,17 @@ BillHistory.resetStatus = function(enabled){
 	$('#billHistoryStatus option:contains("Todos")').prop('selected', true);
 	if(enabled){
 		$("#bhStatus").val("");
+	}
+	
+	return;
+}
+
+BillHistory.resetClient = function(enabled){
+	
+	$("#billClientIdSelected").val("");
+	$("#baddress").val("");
+	if(enabled){
+		$("#bhClientId").val("");
 	}
 	
 	return;

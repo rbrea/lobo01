@@ -21,6 +21,7 @@
 		<input type="hidden" id="bhCollectorId" name="bhCollectorId">
 		<input type="hidden" id="bhCreditNumber" name="bhCreditNumber">
 		<input type="hidden" id="bhStatus" name="bhStatus">
+		<input type="hidden" id="bhClientId" name="bhClientId">
 	</form>
 	<div class="row">
 		<div class="col-md-12">
@@ -54,18 +55,17 @@
 		  					<div class="col-md-12">
 		  						<div class="container-fluid">
 		  							<div class="row">
-						  				<div class="form-group col-md-2">
-											<label for="billHistoryCollectorZone">Zona / Cobrador</label>
-										</div>
 						  				<div class="col-md-1">
 											<input type="hidden" id="billHistoryCollectorId" name="billHistoryCollectorId">
 											<div class="form-group">
+												<label>Zona</label>
 								                <input type="number" class="form-control " id="billHistoryCollectorZone" name="billHistoryCollectorZone" placeholder="ID" min="1" data-error="Requerido" required>
 												<div class="help-block with-errors"></div>
 								            </div>		  					
 						  				</div>
-						  				<div class="col-md-4">
+						  				<div class="col-md-5">
 											<div class="form-group">
+												<label for="billHistoryCollectorZone">Descripci&oacute;n Cobrador</label>
 						  						<div class="input-group">
 								                	<input type="text" class="form-control" id="billHistoryCollectorDescription" 
 								                			name="billHistoryCollectorDescription" placeholder="Zona / Descripci&oacute;n" data-error="Requerido" required>
@@ -74,36 +74,47 @@
 												<div class="help-block with-errors"></div>
 								            </div>		  					
 						  				</div>
-						  				<div class="col-md-1">
-											&nbsp;
-										</div>
-						  				<div class="col-md-1">
-						  					<label for="billHistoryStatus">Estado</label>
-						  				</div>
-						  				<div class="col-md-2">
-						  					<select id="billHistoryStatus" class="form-control">
-						  						<option selected="selected" value="all">Todos</option>
-						  						<option value="ACTIVE">ACTIVO</option>
-						  						<option value="CANCELED">CANCELADO</option>
-						  						<option value="CANCELED_DISCOUNT">CANC C DESCUENTO</option>
-						  						<option value="REDUCED">BAJA</option>
-						  					</select>
-						  				</div>
-										<div class="col-md-1">
-											&nbsp;
-										</div>
-						  			</div>
-						  			<div class="row">
-						  				<div class="form-group col-md-2">
-											<label for="billHistoryTicketNumber">N&uacute;mero de Cr&eacute;dito</label>
-										</div>
-						  				<div class="col-md-2">
+						  				<div class="col-md-3">
 						  					<div class="form-group">
+							  					<label for="billHistoryStatus">Estado</label>
+							  					<select id="billHistoryStatus" class="form-control">
+							  						<option selected="selected" value="all">Todos</option>
+							  						<option value="ACTIVE">ACTIVO</option>
+							  						<option value="CANCELED">CANCELADO</option>
+							  						<option value="CANCELED_DISCOUNT">CANC C DESCUENTO</option>
+							  						<option value="REDUCED">BAJA</option>
+							  					</select>
+							  				</div>
+						  				</div>
+										<div class="col-md-2">
+						  					<div class="form-group">
+												<label for="billHistoryTicketNumber">N&uacute;mero de Cr&eacute;dito</label>
 								                <input type="number" class="form-control" id="billHistoryTicketNumber" name="billHistoryTicketNumber" placeholder="N&uacute;mero de Cr&eacute;dito" min="1">
 												<div class="help-block with-errors"></div>
 								            </div>
 						  				</div>
-						  				<div class="col-md-8">
+						  				<div class="col-md-1">
+						  					&nbsp;
+						  				</div>
+						  			</div>
+						  			<div class="row">
+						  				<div class="col-md-6">
+						  					<div id="bill-client-form-group" class="form-group">
+						  						<label for="baddress">Cliente</label>
+						  						<div class="input-group">
+						  							<input type="hidden" id="billClientIdSelected" name="billClientIdSelected" required>
+									                <input type="text" class="form-control" id="baddress" name="baddress" placeholder="Ingrese nombre de cliente" required>
+													<span id="btnSearchClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
+						  						</div>
+												<div id="billClientErrorMessageDiv" class="help-block with-errors"></div>
+								            </div>
+						  				</div>
+						  				<div class="col-md-6">
+						  					&nbsp;
+						  				</div>
+						  			</div>
+						  			<div class="row">
+						  				<div class="col-md-12">
 						  					&nbsp;
 						  				</div>
 						  			</div>
@@ -167,6 +178,42 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			BillHistory.init();
+			
+			$("#baddress").autocomplete({
+			    paramName: 'q',
+			    serviceUrl: "${pageContext.request.contextPath}/controller/html/client/autocomplete",
+			    transformResult: function(response) {
+			    	
+			    	var list = [];
+			    	
+			    	var parsed = JSON.parse(response);
+
+			    	$.each(parsed, function(){
+			    		
+			    		var obj = new Object();
+			    		obj.data = "" + this.id;
+			    		
+			    		var mark = "";
+			    	   	if(this.reductionMark != null && this.reductionMark != ""){
+			    			mark = " / B";
+			    	   	}
+			    		
+			    		obj.value = this.name + " / " + this.address + " / " + this.companyType + mark;
+			    		list.push(obj);
+			    		
+			    		return;
+			    	});
+			    	
+			        return {
+			            suggestions: list 
+			        };
+			    },
+			    onSelect: function (suggestion) {
+			        $("#billClientIdSelected").val(suggestion.data);
+			        
+			        return;
+			    }
+			});
 
 			return;
 		}	

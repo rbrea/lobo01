@@ -81,7 +81,8 @@ public class BillController extends ExceptionHandlingController {
 	public @ResponseBody ListOutputDto<BillDto> getBills(@RequestParam(required = false) Long id,
 			@RequestParam(required = false) Long creditNumber,
 			@RequestParam(required = false) Long collectorId,
-			@RequestParam(required = false) String status){
+			@RequestParam(required = false) String status,
+			@RequestParam(required = false) Long clientId){
 		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
 
 		List<BillDto> list = Lists.newArrayList();
@@ -96,8 +97,9 @@ public class BillController extends ExceptionHandlingController {
 			if(bill != null){
 				list.add(bill);
 			}
-		} else if(collectorId != null || StringUtils.isNotBlank(status)){
-			List<BillDto> bills = this.billService.searchByFilter(creditNumber, collectorId, status);
+		} else if(collectorId != null || StringUtils.isNotBlank(status)
+				|| clientId != null){
+			List<BillDto> bills = this.billService.searchByFilter(creditNumber, collectorId, status, clientId);
 			if(bills != null){
 				list.addAll(bills);
 			}
@@ -172,10 +174,11 @@ public class BillController extends ExceptionHandlingController {
 			HttpServletResponse response,
 			@RequestParam(required = false) Long bhCollectorId,
 			@RequestParam(required = false, value = "bhCreditNumber") Long creditNumber,
-			@RequestParam(required = false, value = "bhStatus") String status){
+			@RequestParam(required = false, value = "bhStatus") String status,
+			@RequestParam(required = false, value = "bhClientId") Long clientId){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillDto> list = this.billService.searchByFilter(creditNumber, bhCollectorId, status);
+		List<BillDto> list = this.billService.searchByFilter(creditNumber, bhCollectorId, status, clientId);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/billhistory.jasper");
