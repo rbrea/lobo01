@@ -215,6 +215,7 @@ public class PayrollServiceTest {
 		bill.setRemainingAmount(new BigDecimal(2958));
 		bill.setStatus(Status.ACTIVE);
 		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalAmountToLiq(new BigDecimal(3000));
 		bill.setTotalDailyInstallment(new BigDecimal(42));
 		bill.setTrader(t);
 		Payment payment = this.createPayment(bill);
@@ -245,6 +246,7 @@ public class PayrollServiceTest {
 		bill.setRemainingAmount(new BigDecimal(2958));
 		bill.setStatus(Status.ACTIVE);
 		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalAmountToLiq(new BigDecimal(3000));
 		bill.setTotalDailyInstallment(new BigDecimal(42));
 		bill.setTrader(t);
 		payment = this.createPayment(bill);
@@ -268,6 +270,7 @@ public class PayrollServiceTest {
 		bill.setRemainingAmount(new BigDecimal(2958));
 		bill.setStatus(Status.ACTIVE);
 		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalAmountToLiq(new BigDecimal(3000));
 		bill.setTotalDailyInstallment(new BigDecimal(42));
 		bill.setTrader(t2);
 		payment = this.createPayment(bill);
@@ -304,6 +307,7 @@ public class PayrollServiceTest {
 		bill.setRemainingAmount(new BigDecimal(2958));
 		bill.setStatus(Status.ACTIVE);
 		bill.setTotalAmount(new BigDecimal(3000));
+		bill.setTotalAmountToLiq(new BigDecimal(3000));
 		bill.setTotalDailyInstallment(new BigDecimal(42));
 		bill.setTrader(this.traderDao.findById(13L));
 		payment = this.createPayment(bill);
@@ -404,6 +408,7 @@ public class PayrollServiceTest {
 						NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment())));
 		bill.setStatus(Status.ACTIVE);
 		bill.setTotalAmount(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalAmountToLiq(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
 		bill.setTotalDailyInstallment(NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment()));
 		bill.setTrader(t);
 		Payment payment = this.createPayment(bill);

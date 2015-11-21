@@ -21,3 +21,17 @@ update BILL
 set status = 'CANCELED'
 where status = 'FINALIZED';
 
+--------------------------------
+
+alter table BILL add column TOTAL_AMOUNT_TO_LIQ decimal(34,18) null;
+alter table BILL_AUD add column TOTAL_AMOUNT_TO_LIQ decimal(34,18) null;
+
+
+update BILL
+set TOTAL_AMOUNT_TO_LIQ = TOTAL_AMOUNT;
+
+update BILL_AUD
+set TOTAL_AMOUNT_TO_LIQ = TOTAL_AMOUNT;
+
+
+

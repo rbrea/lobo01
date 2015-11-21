@@ -106,7 +106,8 @@ public class PayrollServiceImpl extends
 					payrollItem.setTrader(bill.getTrader());
 				}
 				
-				BigDecimal commission = NumberUtils.calculatePercentage(bill.getTotalAmount(), BigDecimal.TEN);
+				BigDecimal commission = NumberUtils.calculatePercentage(/*bill.getTotalAmount()*/
+						bill.getTotalAmountToLiq(), BigDecimal.TEN);
 				
 				ConciliationItem conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
 				conciliationItem.setCollectAmount(commission);

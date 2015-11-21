@@ -90,6 +90,8 @@ public class Bill extends Identifiable {
 	private Integer month;
 	@Column(name = "YEAR")
 	private Integer year;
+	@Column(name = "TOTAL_AMOUNT_TO_LIQ", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
+	private BigDecimal totalAmountToLiq = BigDecimal.ZERO;
 	
 	public Bill() {
 		super();
@@ -365,6 +367,14 @@ public class Bill extends Identifiable {
 
 	public void setMonth(Integer month) {
 		this.month = month;
+	}
+
+	public BigDecimal getTotalAmountToLiq() {
+		return totalAmountToLiq;
+	}
+
+	public void setTotalAmountToLiq(BigDecimal totalAmountToLiq) {
+		this.totalAmountToLiq = totalAmountToLiq;
 	}
 
 }

@@ -143,11 +143,13 @@ public class BillServiceImpl
 		int year = calendar.get(Calendar.YEAR);
 		e.setYear(year);
 		
-		BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
+		final BigDecimal calculatedTotalAmount = e.calculateTotalAmount();
 //		if(calculatedTotalAmount.compareTo(NumberUtils.toBigDecimal(d.getTotalAmount())) != 0){
 //			throw new ErrorTypedException("Error de validacion de importe total", ErrorType.UNKNOWN_ERROR);
 //		}
 		e.setTotalAmount(calculatedTotalAmount);
+		e.setTotalAmountToLiq(calculatedTotalAmount);
+		
 		BigDecimal calculatedTotalDailyInstallment = e.calculateTotalDailyInstallment();
 //		if(calculatedTotalDailyInstallment.compareTo(NumberUtils.toBigDecimal(d.getTotalDailyInstallment())) != 0){
 //			throw new ErrorTypedException("Error de validacion de total de valor de cuota diaria", ErrorType.UNKNOWN_ERROR);
