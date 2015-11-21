@@ -38,7 +38,7 @@ insert into TRADER_TRADER(TRADER_ID, traders_ID) values (1, 7);
 insert into COLLECTOR (ID, ZONE, DESCRIPTION, created_date) values (1, 8, 'COBRADOR 8', curdate());
 insert into COLLECTOR (ID, ZONE, DESCRIPTION, created_date) values (2, 11, 'COBRADOR 11', curdate());
 
-insert into BILL (ID, CREATED_DATE, COLLECTOR_ID, CREDIT_NUMBER, START_DATE, END_DATE, OVERDUE_DAYS, REMAINING_AMOUNT, STATUS, TOTAL_AMOUNT, TOTAL_DAILY_INSTALLMENT, client_ID, trader_ID, WEEK_OF_YEAR, MONTH, YEAR) values (1, curdate(), 2, '1234', curdate(), curdate() + 20, 0, '190.00', 'ACTIVE', '200.00', '10.00', 1, 1, week(curdate()), month(curdate()), year(curdate()));
+insert into BILL (ID, CREATED_DATE, COLLECTOR_ID, CREDIT_NUMBER, START_DATE, END_DATE, OVERDUE_DAYS, REMAINING_AMOUNT, STATUS, TOTAL_AMOUNT, TOTAL_DAILY_INSTALLMENT, client_ID, trader_ID, WEEK_OF_YEAR, MONTH, YEAR, TOTAL_AMOUNT_TO_LIQ) values (1, curdate(), 2, '1234', curdate(), curdate() + 20, 0, '190.00', 'ACTIVE', '200.00', '10.00', 1, 1, week(curdate()), month(curdate()), year(curdate()), '200.00');
 
 insert into BILL_PRODUCT (ID, CREATED_DATE, AMOUNT, COUNT, DAILY_INSTALLMENT, bill_ID, product_ID) values (1, curdate(), '200.00', 2, '10.00', 1, 1);
 
@@ -48,7 +48,7 @@ insert into PAYMENT (ID, CREATED_DATE, AMOUNT, COLLECTOR_ID, PAYMENT_DATE, bill_
 
 insert into BILL_PAYMENT (BILL_ID, payments_ID) values (1, 1);
 
-insert into BILL (ID, CREATED_DATE, COLLECTOR_ID, CREDIT_NUMBER, START_DATE, END_DATE, OVERDUE_DAYS, REMAINING_AMOUNT, STATUS, TOTAL_AMOUNT, TOTAL_DAILY_INSTALLMENT, client_ID, trader_ID, WEEK_OF_YEAR, MONTH, YEAR) values (2, curdate(), 1, '7789', curdate(), curdate() + 40, 0, '2400.00', 'ACTIVE', '2600.00', '200.00', 2, 2, week(curdate()), month(curdate()), year(curdate()));
+insert into BILL (ID, CREATED_DATE, COLLECTOR_ID, CREDIT_NUMBER, START_DATE, END_DATE, OVERDUE_DAYS, REMAINING_AMOUNT, STATUS, TOTAL_AMOUNT, TOTAL_DAILY_INSTALLMENT, client_ID, trader_ID, WEEK_OF_YEAR, MONTH, YEAR, TOTAL_AMOUNT_TO_LIQ) values (2, curdate(), 1, '7789', curdate(), curdate() + 40, 0, '2400.00', 'ACTIVE', '2600.00', '200.00', 2, 2, week(curdate()), month(curdate()), year(curdate()), '2600.00');
 
 insert into BILL_PRODUCT (ID, CREATED_DATE, AMOUNT, COUNT, DAILY_INSTALLMENT, bill_ID, product_ID) values (2, curdate(), '2600.00', 2, '200.00', 2, 2);
 
