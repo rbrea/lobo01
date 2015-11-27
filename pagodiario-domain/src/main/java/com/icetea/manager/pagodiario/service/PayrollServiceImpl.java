@@ -31,6 +31,7 @@ import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
+import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.Payroll.Status;
 import com.icetea.manager.pagodiario.model.PayrollItem;
@@ -84,7 +85,8 @@ public class PayrollServiceImpl extends
 		payroll.setDateTo(dateTo);
 		
 		BigDecimal totalAmount = BigDecimal.ZERO;
-		 
+		BigDecimal totalDiscount = BigDecimal.ZERO;
+		
 		if(bills != null){
 			for(final Bill bill : bills){
 				// aca busco si ya existe liq de comision para el vendedor, si ya existe no lo vuelvo a crear ... uso el q ya tnia ...
@@ -112,70 +114,30 @@ public class PayrollServiceImpl extends
 				conciliationItem.setDate(bill.getStartDate());
 				conciliationItem.setPayrollItem(payrollItem);
 				conciliationItem.setBill(bill);
-				payrollItem.addItem(conciliationItem);
+
+				BigDecimal firstPaymentAmount = BigDecimal.ZERO;
+				if(bill.getPayments() != null && !bill.getPayments().isEmpty()){
+					// ahora tengo que aplicar el descuento, que es el monto del primer pago que se hace en forma automatica ...
+					Payment firstPayment = bill.getPayments().get(0);
+					if(firstPayment != null){
+						firstPaymentAmount = firstPayment.getAmount();
+						conciliationItem.setDiscountAmount(firstPaymentAmount);
+						payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), firstPaymentAmount));
+						totalDiscount = NumberUtils.add(totalDiscount, firstPaymentAmount);
+					}
+				}
 				
+				payrollItem.addItem(conciliationItem);
 				
 				totalAmount = NumberUtils.add(totalAmount, commission);
 				
 				payrollItem.setItemDate(bill.getStartDate());
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), commission));
-				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), commission));
-				
+				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), NumberUtils.subtract(commission, firstPaymentAmount)));
 			}
 		}
-		List<Discount> discounts = this.discountDao.find(dateFrom, dateTo);
-		BigDecimal totalDiscount = BigDecimal.ZERO;
-		if(discounts != null){
-			for(final Discount e : discounts){
-				
-				ConciliationItem conciliationItem = null;
-				
-				PayrollItem payrollItem = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
-					@Override
-					public boolean evaluate(PayrollItem item) {
-						return item.getTrader().getId().equals(e.getBill().getTrader().getId());
-					}
-				});
-				
-				if(payrollItem == null){
-					payrollItem = new PayrollItem();
-					payrollItem.setItemDate(e.getDate());
-					
-					payrollItem.setTrader(e.getBill().getTrader());
-					
-					payrollItem.setPayroll(payroll);
-					payroll.addPayrollItem(payrollItem);
-				} else {
-					conciliationItem = CollectionUtils.find(payrollItem.getItems(), new Predicate<ConciliationItem>() {
-						@Override
-						public boolean evaluate(ConciliationItem o) {
-							return o.getBill().getId().equals(e.getBill().getId());
-						}
-					});
-				}
-				
-				if(payrollItem.getItems() != null && !payrollItem.getItems().isEmpty()){
-					// pongo el 0 pq a este punto solo voy a tener 1 siempre porque solo tengo el de la factura ...
-					conciliationItem = payrollItem.getItems().get(0);
-				} else {
-					conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
-					conciliationItem.setPayrollItem(payrollItem);
-					conciliationItem.setDate(e.getBill().getStartDate());
-					conciliationItem.setBill(e.getBill());
-					conciliationItem.setDescription("'CREDITO' " 
-							+ conciliationItem.getBill().getCreditNumber() + " FECHA " 
-							+ DateUtils.toDate(conciliationItem.getBill().getStartDate(), "dd/MM/yyyy"));
-					payrollItem.addItem(conciliationItem);
-				}
-				BigDecimal realAmount = NumberUtils.calculatePercentage(e.getAmount(), BigDecimal.TEN);
-				
-				conciliationItem.setDiscountAmount(NumberUtils.add(conciliationItem.getDiscountAmount(), 
-						realAmount));
-				payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), realAmount));
-				payrollItem.setTotalAmount(NumberUtils.subtract(payrollItem.getTotalAmount(), payrollItem.getSubtotalDiscount()));
-				totalDiscount = NumberUtils.add(totalDiscount, realAmount);
-			}
-		}
+		// [roher] x ahora quitamos la liq de descuentos, pq solo usamos como descuento el primer pago automatico ...
+		//totalDiscount = this.manageDiscounts(dateFrom, dateTo, payroll, totalDiscount);
 		
 		List<Dev> devList = this.devDao.find(dateFrom, dateTo);
 		if(devList != null){
@@ -580,6 +542,64 @@ public class PayrollServiceImpl extends
 		this.getDao().saveOrUpdate(payroll);
 		
 		return this.getTransformer().transform(payroll);
+	}
+
+	protected BigDecimal manageDiscounts(Date dateFrom, Date dateTo,
+			final Payroll payroll, BigDecimal totalDiscount) {
+		List<Discount> discounts = this.discountDao.find(dateFrom, dateTo);
+		
+		if(discounts != null){
+			for(final Discount e : discounts){
+				
+				ConciliationItem conciliationItem = null;
+				
+				PayrollItem payrollItem = CollectionUtils.find(payroll.getPayrollItemList(), new Predicate<PayrollItem>() {
+					@Override
+					public boolean evaluate(PayrollItem item) {
+						return item.getTrader().getId().equals(e.getBill().getTrader().getId());
+					}
+				});
+				
+				if(payrollItem == null){
+					payrollItem = new PayrollItem();
+					payrollItem.setItemDate(e.getDate());
+					
+					payrollItem.setTrader(e.getBill().getTrader());
+					
+					payrollItem.setPayroll(payroll);
+					payroll.addPayrollItem(payrollItem);
+				} else {
+					conciliationItem = CollectionUtils.find(payrollItem.getItems(), new Predicate<ConciliationItem>() {
+						@Override
+						public boolean evaluate(ConciliationItem o) {
+							return o.getBill().getId().equals(e.getBill().getId());
+						}
+					});
+				}
+				
+				if(payrollItem.getItems() != null && !payrollItem.getItems().isEmpty()){
+					// pongo el 0 pq a este punto solo voy a tener 1 siempre porque solo tengo el de la factura ...
+					conciliationItem = payrollItem.getItems().get(0);
+				} else {
+					conciliationItem = new ConciliationItem(ConciliationItem.Type.CREDIT);
+					conciliationItem.setPayrollItem(payrollItem);
+					conciliationItem.setDate(e.getBill().getStartDate());
+					conciliationItem.setBill(e.getBill());
+					conciliationItem.setDescription("'CREDITO' " 
+							+ conciliationItem.getBill().getCreditNumber() + " FECHA " 
+							+ DateUtils.toDate(conciliationItem.getBill().getStartDate(), "dd/MM/yyyy"));
+					payrollItem.addItem(conciliationItem);
+				}
+				BigDecimal realAmount = NumberUtils.calculatePercentage(e.getAmount(), BigDecimal.TEN);
+				
+				conciliationItem.setDiscountAmount(NumberUtils.add(conciliationItem.getDiscountAmount(), 
+						realAmount));
+				payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), realAmount));
+				payrollItem.setTotalAmount(NumberUtils.subtract(payrollItem.getTotalAmount(), payrollItem.getSubtotalDiscount()));
+				totalDiscount = NumberUtils.add(totalDiscount, realAmount);
+			}
+		}
+		return totalDiscount;
 	}
 	
 }
