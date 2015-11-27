@@ -19,7 +19,6 @@ import com.icetea.manager.pagodiario.api.dto.PayrollDetailDto;
 import com.icetea.manager.pagodiario.api.dto.PayrollDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
-import com.icetea.manager.pagodiario.dao.BonusDao;
 import com.icetea.manager.pagodiario.dao.DevDao;
 import com.icetea.manager.pagodiario.dao.DiscountDao;
 import com.icetea.manager.pagodiario.dao.PayrollDao;
@@ -50,7 +49,6 @@ public class PayrollServiceImpl extends
 
 	private final BillDao billDao;
 	private final DiscountDao discountDao;
-	private final BonusDao bonusDao;
 	private final ProductReductionDao productReductionDao;
 	private final DevDao devDao;
 	
@@ -59,13 +57,11 @@ public class PayrollServiceImpl extends
 			PayrollDtoModelTransformer transformer,
 			BillDao billDao,
 			DiscountDao discountDao,
-			BonusDao bonusDao,
 			ProductReductionDao productReductionDao,
 			DevDao devDao) {
 		super(dao, transformer);
 		this.billDao = billDao;
 		this.discountDao = discountDao;
-		this.bonusDao = bonusDao;
 		this.productReductionDao = productReductionDao;
 		this.devDao = devDao;
 	}

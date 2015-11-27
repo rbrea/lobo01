@@ -520,6 +520,38 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 			
 			return;
 		},
+		onshown:function(){
+			$("#paymentDateValue").focus();
+			
+			$("#paymentDateValue").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#paymentAmount").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#paymentAmount").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#paymentCollectorId").focus();
+				}
+			    
+			    return;
+			});
+
+			$("#paymentCollectorId").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btnPayementAccept").focus();
+				}
+			    
+			    return;
+			});
+			
+			return;
+		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Cargar Pago',
@@ -555,7 +587,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnPayementAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
@@ -660,6 +692,47 @@ BillHistory.showDiscount = function(id, installmentAmount){
 			
 			return;
 		},
+		onshown:function(){
+			$("#discountDateValue").focus();
+			
+			$("#discountDateValue").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#discountAmount").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#discountAmount").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#discountInstallmentAmount").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#discountInstallmentAmount").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#discountObservations").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#discountObservations").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btnDiscountAccept").focus();
+				}
+			    
+			    return;
+			});
+			
+			return;
+		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Descuentos',
@@ -694,7 +767,7 @@ BillHistory.showDiscount = function(id, installmentAmount){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnDiscountAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
@@ -816,6 +889,38 @@ BillHistory.showProductReduction = function(id){
 			
 			return;
 		},
+		onshown:function(){
+			$("#productReductionDateValue").focus();
+			
+			$("#productReductionDateValue").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#productReductionAmount").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#productReductionAmount").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#productReductionObservations").focus();
+				}
+			    
+			    return;
+			});
+			
+			$("#productReductionObservations").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btnReductionAccept").focus();
+				}
+			    
+			    return;
+			});
+			
+			return;
+		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
 		title: '<i class="glyphicon glyphicon-chevron-right"></i>&nbsp;Baja',
@@ -849,7 +954,7 @@ BillHistory.showProductReduction = function(id){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnReductionAccept',
         	label: 'Guardar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
@@ -893,7 +998,25 @@ BillHistory.showDev = function(id){
 		onshown: function(){
 			$("#devDateValue").focus();
 			Dev.getDevInfo(id);
+
+			$("#devDateValue").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btnAcceptDev").trigger('click');
+				}
+			    
+			    return;
+			});
 			
+			$("#devObservations").keyup(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btnAcceptDev").trigger('click');
+				}
+				
+			    return;
+			});
+
 			return;
 		},
 		onhidden:function(){
@@ -939,6 +1062,7 @@ BillHistory.showDev = function(id){
         {
         	id: 'btnAcceptDev',
         	label: 'Guardar',
+        	hotkey: 13,
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',
         	action: function(dialog){

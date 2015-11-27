@@ -20,6 +20,15 @@ Dev.resetModal = function(){
 }
 
 Dev.add = function(dialog, btn, responseHandler){
+	
+	if(!confirm("Esta usted seguro de aceptar la devolución?")){
+		dialog.enableButtons(true);
+		dialog.setClosable(true);
+		btn.stopSpin();
+		
+		return false;
+	}
+	
 	var billId = $("#devBillId").val();
 
 	var obj = Dev.createObject(billId);
@@ -505,6 +514,35 @@ Dev.getDevInfo = function(id){
 			   
 			   $("#devInstallment").val(elem.totalDailyInstallment);
 			   $("#devAmount").val(elem.totalAmount);
+
+			   var counts = $("input[id*='devProductCount_']");
+			   if(counts.length > 1){
+				   for(var i=0;i<counts.length;i++){
+					   var c = counts.eq(i);
+					   if(i == counts.length-1){
+						   c.keydown(function(e){
+							   if(e.keyCode == 9) {
+								   e.preventDefault();
+								   $("#devObservations").focus();
+							   }
+							    
+							   return;
+						   });
+					   } else {
+						   var idx = i + 1;
+						   c.keydown(function(e){
+							   if(e.keyCode == 9) {
+								   e.preventDefault();
+								   
+								   $("#devProductCount_" + idx).focus();
+							   }
+							   
+							   return;
+						   });
+					   }
+					   
+				   }
+				}
 			   
 		   } else {
 			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);
