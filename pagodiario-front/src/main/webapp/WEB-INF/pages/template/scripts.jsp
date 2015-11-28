@@ -44,11 +44,11 @@
     <script src="${pageContext.request.contextPath}/public/js/Product-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bill-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-3.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Discount-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ProductReduction-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Dev-2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Dev-3.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollDetail-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ConciliationItem-1.js"></script>

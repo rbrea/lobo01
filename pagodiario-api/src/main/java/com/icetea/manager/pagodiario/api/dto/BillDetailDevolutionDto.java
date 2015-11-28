@@ -8,7 +8,9 @@ public class BillDetailDevolutionDto extends BasicIdentifiableDto {
 	private String productDescription;
 	private String amount;
 	private String installmentAmount;
-
+	private String observations;
+	private Integer count;
+	
 	public String getDate() {
 		return date;
 	}
@@ -32,6 +34,18 @@ public class BillDetailDevolutionDto extends BasicIdentifiableDto {
 	}
 	public void setInstallmentAmount(String installmentAmount) {
 		this.installmentAmount = installmentAmount;
+	}
+	public String getObservations() {
+		return observations;
+	}
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 }

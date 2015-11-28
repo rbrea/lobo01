@@ -1807,11 +1807,18 @@ Bill.initDetail = function(billId){
 					   var tr = $("<tr></tr>");
 					   
 					   var td0 = $("<td class=\"centered\"></td>").append(devolutions[i].date);
+					   var td5 = $("<td class=\"centered\"></td>").append(devolutions[i].count);
 					   var td1 = $("<td class=\"centered\"></td>").append(devolutions[i].productDescription);
 					   var td2 = $("<td class=\"centered\"></td>").append(devolutions[i].amount);
 					   var td3 = $("<td class=\"centered\"></td>").append(devolutions[i].installmentAmount);
 					   
-					   tr.append(td0).append(td1).append(td2).append(td3);
+					   var detailDiv = $("<button id='btnDevObservation_" + i + "' type=\"button\" class=\"btn btn-xs btn-info\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + devolutions[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
+					   
+					   var td4 = $("<td class=\"centered\"></td>").append(detailDiv);
+					   
+					   detailDiv.popover();
+					   
+					   tr.append(td0).append(td5).append(td1).append(td2).append(td3).append(td4);
 					   
 					   dBody.append(tr);
 				   }
@@ -1869,7 +1876,13 @@ Bill.initDetail = function(billId){
 					   var td0 = $("<td class=\"centered\"></td>").append(discounts[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(discounts[i].amount);
 					   
-					   tr.append(td0).append(td1);
+					   var detailDiv = $("<button id='btnDiscountObservation_" + i + "' type=\"button\" class=\"btn btn-xs btn-info\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + discounts[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
+					   
+					   var td2 = $("<td class=\"centered\"></td>").append(detailDiv);
+					   
+					   detailDiv.popover();
+					   
+					   tr.append(td0).append(td1).append(td2);
 					   
 					   pBody.append(tr);
 				   }
@@ -1887,9 +1900,11 @@ Bill.initDetail = function(billId){
 					   var td0 = $("<td class=\"centered\"></td>").append(reductions[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(reductions[i].amount);
 					   
-					   var detailDiv = $("<button id=\"btnReductionObservation\" onclick='javascript:Bill.showReductionObservations();' type=\"button\" class=\"btn btn-xs btn-success\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + reductions[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
+					   var detailDiv = $("<button id='btnReductionObservation_" + i + "' type=\"button\" class=\"btn btn-xs btn-info\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + reductions[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
 					   
 					   var td2 = $("<td class=\"centered\"></td>").append(detailDiv);
+					   
+					   detailDiv.popover();
 					   
 					   tr.append(td0).append(td1).append(td2);
 					   
@@ -2157,6 +2172,13 @@ Bill.showReductionObservations = function(){
 		isReductionObservationToggled = false;
 	}
 	
+	
+	return;
+}
+
+Bill.showDiscountObservations = function(idx){
+	
+	$("#btnReductionObservation").popover('show');
 	
 	return;
 }

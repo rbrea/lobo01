@@ -57,8 +57,6 @@ Dev.add = function(dialog, btn, responseHandler){
        		   btn.stopSpin();
 			   dialog.close();
 
-			   //BillHistory.init();
-			   
 			   responseHandler(data);
 			   
 			   return;
@@ -420,20 +418,13 @@ Dev.doTotalAmountsAccounts = function(){
 			var newAmount = originalAmount * count;
 			
 			devTotalAmount = devTotalAmount + newAmount;
-			/*
-			var originalTotalAmount = parseFloat($("#devProductAmount_" + idx).val());
-			var originalAmount = originalTotalAmount / originalCount;
-			var newAmount = originalAmount * count;
-			
-			remainingAmount = remainingAmount + newAmount;
-			*/
+
 			return;
 		}
 	);
 	
 	$("#devInstallment").val(devInstallment);
 	$("#devAmount").val(devTotalAmount);
-	//$("#devRemainingAmount").val(remainingAmount)
 	
 	return;
 }
@@ -446,6 +437,21 @@ Dev.removeRow = function(idx, productId){
 	
 	Dev.doTotalAmountsAccounts();
 	
+	$("#devDateValue").keydown(function(e){
+		if(e.keyCode == 9) {
+			e.preventDefault();
+			
+			var first = $("input[id*=devProductCount_]:first");
+			if(first.length > 0){
+				first.focus();
+			} else {
+				$("#devObservations").focus();
+			}
+		}
+	    
+	    return;
+	});
+	
 	return;
 }
 
@@ -457,7 +463,7 @@ Dev.buildRow = function(idx, product){
 	tr.append(hiddenProductCount).append(billProductIdContainer);
 	
 	var td0 = $('<td class="centered"><div class="form-group">' + (idx+1) + '</div></td>');
-	var td1 = $('<td><div class="form-group"><input class="form-control input-sm" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '" onblur="javascript:Dev.blurProductCount(' + idx + ');"></div></td>');
+	var td1 = $('<td><div class="form-group"><input class="form-control input-sm" tabindex="' + (idx+1) + '" type="number" id="devProductCount_' + idx + '" name="devProductCount_' + idx + '" min="1" value="' + product.count + '" onblur="javascript:Dev.blurProductCount(' + idx + ');"></div></td>');
 	var td2 = $('<td><input class="form-control input-sm" type="text" id="devProductCode_' + idx + '" name="devProductCode_' + idx + '" value="' + product.productCode + '" readonly></td>');
 	var td3 = $('<td><input class="form-control input-sm" type="text" id="devProductDescription_' + idx + '" name="devProductDescription_' + idx + '" value="' + "$" + product.dailyInstallment + " - $" + product.amount + " - " + product.productDescription + '" readonly></td>');
 	var td4 = $('<td class="centered"><div class="form-group"><button id="btnDevRemoveRow_' + idx + '" onclick="javascript:Dev.removeRow(' + idx + ', ' + product.productId + ');" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></button></div></td>');
@@ -471,20 +477,29 @@ Dev.PRODUCT_TABLE_ROW_CONTENT = function(list){
 	
 	var tbody = $('<tbody></tbody>');
 	
+	var lastIdx = 0;
+
 	if(list.length > 0){
 		
 		var element = list[0];
 		
+		
 		for(var i=0;i<element.billProducts.length;i++){
 			var tr = Dev.buildRow(i, element.billProducts[i]);
 			tbody.append(tr);
+			
+			lastIdx = i;
 		}
+		
+		$("#devObservations").attr("tabindex", (lastIdx + 1));
 
 		return tbody;
 	}
 	
 	var tr = $("<tr><td colspan='5' class='centered'>No se han encontrado elementos</td></tr>");
 	tbody.append(tr);
+	
+	$("#devObservations").attr("tabindex", (lastIdx + 1));
 	
 	return tbody;
 }
@@ -514,35 +529,37 @@ Dev.getDevInfo = function(id){
 			   
 			   $("#devInstallment").val(elem.totalDailyInstallment);
 			   $("#devAmount").val(elem.totalAmount);
-
-			   var counts = $("input[id*='devProductCount_']");
-			   if(counts.length > 1){
-				   for(var i=0;i<counts.length;i++){
-					   var c = counts.eq(i);
-					   if(i == counts.length-1){
-						   c.keydown(function(e){
-							   if(e.keyCode == 9) {
-								   e.preventDefault();
-								   $("#devObservations").focus();
-							   }
-							    
-							   return;
-						   });
-					   } else {
-						   var idx = i + 1;
-						   c.keydown(function(e){
-							   if(e.keyCode == 9) {
-								   e.preventDefault();
-								   
-								   $("#devProductCount_" + idx).focus();
-							   }
-							   
-							   return;
-						   });
-					   }
-					   
-				   }
-				}
+			   
+			   
+			   $("input[id*='devProductCount_']").keyup(
+						function(e){
+							if(e.keyCode == 10 || e.keyCode == 13) {
+								e.preventDefault();
+							}
+							
+							return;
+						}
+					);
+			   
+			   $("input[id*='devProductCount_']").keydown(
+					function(e){
+						if(e.keyCode == 10 || e.keyCode == 13) {
+							e.preventDefault();
+						}
+						
+						return;
+					}
+				);
+				
+			   $("[id*='btnDevRemoveRow_']").keyup(
+					function(e){
+						if(e.keyCode == 10 || e.keyCode == 13) {
+							e.preventDefault();
+						}
+						
+						return;
+					}
+				);
 			   
 		   } else {
 			   Message.showMessages($('#billHistoryAlertMessages'), $("#billHistoryMessages"), data.message);

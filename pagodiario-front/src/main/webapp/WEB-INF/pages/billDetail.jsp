@@ -92,7 +92,7 @@
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Estado</td>
-		  					<td id="status"></td>
+		  					<td id="status" style="font-weight:bold;"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Fecha de Pago total</td>
@@ -138,34 +138,37 @@
 		  			<table id="tBillDevolution" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="4" class="centered">DEVOLUCIONES</th>
+			  					<th colspan="6" class="centered">DEVOLUCIONES</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
-			  					<th class="centered">OBSERVACIONES</th>
+			  					<th class="centered">CANT</th>
+			  					<th class="centered">DESCRIPCI&Oacute;N</th>
 			  					<th class="centered">IMPORTE</th>
 			  					<th class="centered">CUOTA</th>
+			  					<th class="centered">DETALLE</th>
 			  				</tr>
 		  				</thead>
 		  				<tbody>
 		  					<tr>
-		  						<td colspan="4" class="centered">No se han encontrado resultados</td>
+		  						<td colspan="6" class="centered">No se han encontrado resultados</td>
 		  					</tr>
 		  				</tbody>
 		  			</table>
 		  			<table id="tBillDiscount" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="2" class="centered">DESCUENTOS</th>
+			  					<th colspan="3" class="centered">DESCUENTOS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
 			  					<th class="centered">IMPORTE</th>
+			  					<th class="centered">DETALLE</th>
 			  				</tr>
 		  				</thead>
 		  				<tbody>
 		  					<tr>
-		  						<td colspan="2" class="centered">No se han encontrado resultados</td>
+		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
 		  					</tr>
 		  				</tbody>
 		  			</table>

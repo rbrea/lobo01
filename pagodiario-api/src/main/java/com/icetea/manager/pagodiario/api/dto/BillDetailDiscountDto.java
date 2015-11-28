@@ -6,6 +6,7 @@ public class BillDetailDiscountDto extends BasicDto {
 
 	private String date;
 	private String amount;
+	private String observations;
 
 	public String getDate() {
 		return date;
@@ -18,6 +19,12 @@ public class BillDetailDiscountDto extends BasicDto {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	public String getObservations() {
+		return observations;
+	}
+	public void setObservations(String observations) {
+		this.observations = observations;
 	}
 	
 }

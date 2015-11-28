@@ -274,6 +274,8 @@ public class BillServiceImpl
 			r.setDate(DateUtils.toDate(p.getDate()));
 			r.setInstallmentAmount(NumberUtils.toString(p.getInstallmentAmount()));
 			r.setProductDescription(p.getProduct().getDescription());
+			r.setObservations(p.getObservations());
+			r.setCount(p.getProductCount());
 			
 			d.getDevolutions().add(r);
 		}
@@ -291,6 +293,7 @@ public class BillServiceImpl
 			BillDetailDiscountDto r = new BillDetailDiscountDto();
 			r.setAmount(NumberUtils.toString(e.getAmount()));
 			r.setDate(DateUtils.toDate(e.getDate()));
+			r.setObservations(e.getObservations());
 			
 			d.getDiscounts().add(r);
 		}

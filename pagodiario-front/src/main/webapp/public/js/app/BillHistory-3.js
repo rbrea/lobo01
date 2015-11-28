@@ -550,6 +550,15 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 			    return;
 			});
 			
+			$("#paymentCollectorId").keydown(function(e){
+				if(e.keyCode == 9) {
+					e.preventDefault();
+					$("#btnPayementAccept").focus();
+				}
+			    
+			    return;
+			});
+			
 			return;
 		},
 		draggable: true,
@@ -722,8 +731,8 @@ BillHistory.showDiscount = function(id, installmentAmount){
 			    return;
 			});
 			
-			$("#discountObservations").keyup(function(e){
-				if(e.keyCode == 13) {
+			$("#discountObservations").keydown(function(e){
+				if(e.keyCode == 9) {
 					e.preventDefault();
 					$("#btnDiscountAccept").focus();
 				}
@@ -910,8 +919,8 @@ BillHistory.showProductReduction = function(id){
 			    return;
 			});
 			
-			$("#productReductionObservations").keyup(function(e){
-				if(e.keyCode == 13) {
+			$("#productReductionObservations").keydown(function(e){
+				if(e.keyCode == 9) {
 					e.preventDefault();
 					$("#btnReductionAccept").focus();
 				}
@@ -998,25 +1007,34 @@ BillHistory.showDev = function(id){
 		onshown: function(){
 			$("#devDateValue").focus();
 			Dev.getDevInfo(id);
+			
+			$("#devDateValue").keydown(function(e){
+				if(e.keyCode == 9) {
+					e.preventDefault();
+					$("#devProductCount_0").focus();
+				}
+			    
+			    return;
+			});
 
 			$("#devDateValue").keyup(function(e){
-				if(e.keyCode == 13) {
+				if(e.keyCode == 10 || e.keyCode == 13) {
 					e.preventDefault();
-					$("#btnAcceptDev").trigger('click');
+					$("#devProductCount_0").focus();
 				}
 			    
 			    return;
 			});
 			
-			$("#devObservations").keyup(function(e){
-				if(e.keyCode == 13) {
+			$("#devObservations").keydown(function(e){
+				if(e.keyCode == 9) {
 					e.preventDefault();
-					$("#btnAcceptDev").trigger('click');
+					$("#btnAcceptDev").focus();
 				}
-				
+			    
 			    return;
 			});
-
+			
 			return;
 		},
 		onhidden:function(){
