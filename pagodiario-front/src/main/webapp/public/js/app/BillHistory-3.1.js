@@ -417,9 +417,17 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li id=\"liReduction_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
 	    "<li id=\"liCancelDiscount_" + id + "\" class=\"" + hideClassDiscount + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.cancelWithDiscount('" + id + "');\">Cancelar/Descuento</a></li>" +
 	    "<li role=\"separator\" class=\"divider\"></li>" +
-	    "<li class=\"dropdown-header\">Otras</li>" +
-	    "<li><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.remove('" + id + "');\"><i class=\"glyphicon glyphicon-remove-circle\"></i>&nbsp;Deshacer</a></li>" +
-	    "</ul></div>";
+	    "<li class=\"dropdown-header\">Otras</li>";
+	
+	    var removeBillOpt = "<li class=\"ROLE_ADMIN\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.remove('" + id + "');\"><i class=\"glyphicon glyphicon-remove-circle\"></i>&nbsp;Deshacer</a></li>";
+
+	    if(Permission.isAdmin){
+	    	div = div + removeBillOpt;
+	    }
+	    
+	    var closeOpt = "</ul></div>";
+	    
+	    div = div + closeOpt;
 	
 	return div;
 }

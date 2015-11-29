@@ -164,7 +164,7 @@ public class ConciliationItemController extends ExceptionHandlingController {
 		
 		params.put("TRADER_NAME", payrollItemDto.getTraderName());
 		params.put("LIQ_DATE", "DESDE " + payrollItemDto.getPayrollDateFrom() 
-				+ " HASTA " + payrollItemDto.getPayrollDateFrom());
+				+ " HASTA " + payrollItemDto.getPayrollDateTo());
 		params.put("SUBTOTAL_COLLECT", payrollItemDto.getSubtotalCollect());
 		params.put("SUBTOTAL_DISCOUNT", payrollItemDto.getSubtotalDiscount());
 		params.put("TOTAL_AMOUNT", payrollItemDto.getTotalAmount());

@@ -516,7 +516,7 @@ public class PayrollServiceImpl extends
 			BigDecimal collectAmount = BigDecimal.ZERO;
 			
 			int count = map.get(trader.getId());
-			if(count > 300){
+			if(count >= 240){
 				collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
 			}
 			bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
