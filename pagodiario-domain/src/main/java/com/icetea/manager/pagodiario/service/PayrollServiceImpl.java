@@ -443,15 +443,16 @@ public class PayrollServiceImpl extends
 					
 					if(pi.hasBonusItem()){
 						BonusConciliationItem bonusItem = pi.getBonusItem();
-						BigDecimal bonusAmount = NumberUtils.calculatePercentage(bonusItem.getCollectAmount(), new BigDecimal(50));
-						supervisorConciliationItem.setBonusAmount(
-								NumberUtils.add(
-										supervisorConciliationItem.getBonusAmount(), bonusAmount));
-						supervisorConciliationItem.setTotalTrader(
-								NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
-						item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
+						if(bonusItem != null){
+							BigDecimal bonusAmount = NumberUtils.calculatePercentage(bonusItem.getCollectAmount(), new BigDecimal(50));
+							supervisorConciliationItem.setBonusAmount(
+									NumberUtils.add(
+											supervisorConciliationItem.getBonusAmount(), bonusAmount));
+							supervisorConciliationItem.setTotalTrader(
+									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
+							item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
+						}
 					}
-					
 					payroll.setTotalSupervisor(NumberUtils.add(
 							payroll.getTotalSupervisor(), supervisorConciliationItem.getTotalTrader()));
 					item.setTotalAmount(NumberUtils.add(item.getTotalAmount(), supervisorConciliationItem.getTotalTrader()));
@@ -491,40 +492,64 @@ public class PayrollServiceImpl extends
 
 	protected boolean processBonusOfTraders(Payroll payroll){
 		Map<Long, Integer> map = Maps.newHashMap();
-
+		
+		List<Trader> tradersToPay = Lists.newArrayList();
+		
 		for (PayrollItem payrollItem : payroll.getPayrollItemList()) {
 			Trader trader = payrollItem.getTrader();
-			map.put(trader.getId(), Integer.valueOf(0));
+			Long id = trader.getId();
+			if(trader.getParent() != null){
+				id = trader.getParent().getId();
+				tradersToPay.add(trader.getParent());
+			} else {
+				tradersToPay.add(trader);
+			}
+			
+			if(!map.containsKey(id)){
+				map.put(id, Integer.valueOf(0));
+			}
+			
 			for (ConciliationItem conciliationItem : payrollItem.getItems()) {
 				Bill bill = conciliationItem.getBill();
 				for (BillProduct billProduct : bill.getBillProducts()) {
-					int count = map.get(trader.getId());
+					int count = map.get(id);
+
 					count += billProduct.getCount();
-					map.put(trader.getId(), count);
+					map.put(id, count);
 				}
 			}
-			
-			BonusConciliationItem bonusItem = payrollItem.getBonusItem();
-			if(bonusItem == null){
-				bonusItem = new BonusConciliationItem();
-				bonusItem.setPayrollItem(payrollItem);
-				bonusItem.setType(AbstractConciliationItem.Type.BONUS);
-				bonusItem.setDate(new Date());
-				payrollItem.setBonusItem(bonusItem);
-			}
+		}
+		
+		// tengo que iterar sobre el map de counts y si este tiene mas del bonus_limit entonces
+		// genero el bonus, lo agrego al payroll ... en donde? a que payroll list?? es un solo bono por liq??? para cada vendedor?
+		// voy a tener q cambiar el modelo?? de que monto es el bono??????
 
-			BigDecimal collectAmount = BigDecimal.ZERO;
-			
-			int count = map.get(trader.getId());
-			if(count >= 240){
-				collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
+		for (PayrollItem payrollItem : payroll.getPayrollItemList()) {
+			Trader trader = payrollItem.getTrader();
+			Long id = trader.getId();
+			if(trader.getParent() != null){
+				id = trader.getParent().getId();
 			}
-			bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
-			bonusItem.setCollectAmount(collectAmount);
-			payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), collectAmount));
-			payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), collectAmount));
-			payroll.setTotalAmount(NumberUtils.add(payroll.getTotalAmount(), collectAmount));
-			payroll.setTotal(NumberUtils.add(payroll.getTotal(), collectAmount));
+			int count = map.get(id);
+			if(count >= BonusConciliationItem.BONUS_LIMIT){
+				BonusConciliationItem bonusItem = payrollItem.getBonusItem();
+				if(bonusItem == null){
+					bonusItem = new BonusConciliationItem();
+					bonusItem.setPayrollItem(payrollItem);
+					bonusItem.setType(AbstractConciliationItem.Type.BONUS);
+					bonusItem.setDate(new Date());
+					payrollItem.setBonusItem(bonusItem);
+				}
+				
+				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
+				
+				bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
+				bonusItem.setCollectAmount(collectAmount);
+				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), collectAmount));
+				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), collectAmount));
+				payroll.setTotalAmount(NumberUtils.add(payroll.getTotalAmount(), collectAmount));
+				payroll.setTotal(NumberUtils.add(payroll.getTotal(), collectAmount));
+			}
 		}
 		
 		return true;

@@ -14,6 +14,8 @@ import org.hibernate.envers.Audited;
 public class BonusConciliationItem extends AbstractConciliationItem {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final int BONUS_LIMIT = 240;
 
 	public BonusConciliationItem() {
 		super(Type.BONUS);

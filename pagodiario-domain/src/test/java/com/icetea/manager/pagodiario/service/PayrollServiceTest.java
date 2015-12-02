@@ -452,4 +452,154 @@ public class PayrollServiceTest {
 		assertThat("bonusItem error", bonusItem.getDescription(), is("PREMIO 2% (productos periodo(301)/Dias Habiles)"));
 	}
 	
+	@Test
+	public void processPeriod_bonus_some_traders_same_supervisor_get_bonus_ok(){
+
+		Bill bill = new Bill();
+		// este si cobrara bono
+		Trader supervisor = this.createTrader(3);
+		supervisor.setSupervisor(true);
+		// este si cobrara bono
+		Trader t = this.createTrader(1);
+		
+		t.setParent(supervisor);
+		this.traderDao.saveOrUpdate(t);
+		// este si cobrara bono
+		Trader t2 = this.createTrader(2);
+		t2.setParent(supervisor);
+		this.traderDao.saveOrUpdate(t2);
+		supervisor.addTrader(t);
+		supervisor.addTrader(t2);
+		
+		this.traderDao.saveOrUpdate(supervisor);
+		
+		// este no cobrara bono
+		Trader t3 = this.createTrader(4);
+		this.traderDao.saveOrUpdate(t3);
+		
+		Client c = this.createClient(1);
+		this.clientDao.saveOrUpdate(c);
+		
+		Product p1 = this.createProduct(1);
+		this.productDao.saveOrUpdate(p1);
+		Product p2 = this.createProduct(2);
+		this.productDao.saveOrUpdate(p2);
+		BillProduct bp1 = this.createBillProductReal(bill, 50, p1);
+		BillProduct bp2 = this.createBillProductReal(bill, 50, p2);
+		
+		bill.addBillProduct(bp1);
+		bill.addBillProduct(bp2);
+		bill.setClient(c);
+		
+		Collector collector = this.createCollector();
+		this.collectorDao.save(collector);
+		
+		bill.setCollector(collector);
+		bill.setCreditNumber(111L);
+		bill.setStartDate(new Date());
+		bill.setEndDate(DateUtils.addDays(new Date(), 30));
+		bill.setOverdueDays(0);
+		bill.setRemainingAmount(
+				NumberUtils.add(bp1.getAmount(), bp2.getAmount()).subtract(
+						NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment())));
+		bill.setStatus(Status.ACTIVE);
+		bill.setTotalAmount(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalAmountToLiq(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalDailyInstallment(NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment()));
+		bill.setTrader(t);
+		Payment payment = this.createPayment(bill);
+		bill.addPayment(payment);
+		
+		this.billDao.saveOrUpdate(bill);
+		
+		// 2 factura
+		bill = new Bill();
+		bp1 = this.createBillProductReal(bill, 100, p1);
+		bp2 = this.createBillProductReal(bill, 50, p2);
+		
+		bill.addBillProduct(bp1);
+		bill.addBillProduct(bp2);
+		bill.setClient(c);
+		
+		bill.setCollector(collector);
+		bill.setCreditNumber(112L);
+		bill.setStartDate(new Date());
+		bill.setEndDate(DateUtils.addDays(new Date(), 30));
+		bill.setOverdueDays(0);
+		bill.setRemainingAmount(
+				NumberUtils.add(bp1.getAmount(), bp2.getAmount()).subtract(
+						NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment())));
+		bill.setStatus(Status.ACTIVE);
+		bill.setTotalAmount(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalAmountToLiq(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalDailyInstallment(NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment()));
+		bill.setTrader(t2);
+		payment = this.createPayment(bill);
+		bill.addPayment(payment);
+		
+		this.billDao.saveOrUpdate(bill);
+		
+		// 3 factura
+		bill = new Bill();
+		bp1 = this.createBillProductReal(bill, 60, p1);
+		bp2 = this.createBillProductReal(bill, 40, p2);
+		
+		bill.addBillProduct(bp1);
+		bill.addBillProduct(bp2);
+		bill.setClient(c);
+		
+		bill.setCollector(collector);
+		bill.setCreditNumber(113L);
+		bill.setStartDate(new Date());
+		bill.setEndDate(DateUtils.addDays(new Date(), 30));
+		bill.setOverdueDays(0);
+		bill.setRemainingAmount(
+				NumberUtils.add(bp1.getAmount(), bp2.getAmount()).subtract(
+						NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment())));
+		bill.setStatus(Status.ACTIVE);
+		bill.setTotalAmount(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalAmountToLiq(NumberUtils.add(bp1.getAmount(), bp2.getAmount()));
+		bill.setTotalDailyInstallment(NumberUtils.add(bp1.getDailyInstallment(), bp2.getDailyInstallment()));
+		bill.setTrader(t3);
+		payment = this.createPayment(bill);
+		bill.addPayment(payment);
+		
+		this.billDao.saveOrUpdate(bill);
+		
+		PayrollDto payrollDto = this.instance.processPeriod(
+				DateUtils.addDays(new Date(), -15), DateUtils.addDays(new Date(), 1));
+		
+		assertThat("error payroll dto null", payrollDto != null, is(true));
+		
+		Payroll payroll = this.payrollDao.findById(payrollDto.getId());
+		
+		assertThat("total Liq error", payroll.getTotal(), is(new BigDecimal("35372.32")));
+		assertThat("total Liq amount error", payroll.getTotalAmount(), is(new BigDecimal("30701.16")));
+		assertThat("total Liq discount error", payroll.getTotalDiscount(), is(new BigDecimal(42)));
+		// FIXME: la liq supervisor es 0 pq no asocie ningun supervisor ...
+		assertThat("total Liq total supervisor error", payroll.getTotalSupervisor(), is(new BigDecimal("15329.58")));
+		
+		List<SupervisorPayrollItem> supervisorPayrollItemList = payroll.getSupervisorPayrollItemList();
+		
+		assertThat("error supervisorPayrollItemList.size() != 1", supervisorPayrollItemList.size(), is(1));
+		SupervisorPayrollItem supervisorPayrollItem = supervisorPayrollItemList.get(0);
+		assertThat("error supervisorPayrollItem totalAmount", supervisorPayrollItem.getTotalAmount(), is(new BigDecimal("15329.58")));
+		
+		assertThat("error payroll null", payroll != null, is(true));
+		// la lista tiene 2 payrollItem, pq en esta liq solo hubo 1 vendedor con 2 facturas vendidas ...
+		assertThat("error lista de payrollitems size", payroll.getPayrollItemList().size(), is(1));
+		
+		PayrollItem payrollItem = payroll.getPayrollItemList().get(0);
+		assertThat("total Liq Item collect error no 600", payrollItem.getSubtotalCollect(), is(new BigDecimal("30701.16")));
+		assertThat("total Liq Item discount error no 100", payrollItem.getSubtotalDiscount(), is(new BigDecimal(42)));
+		assertThat("total Liq Item total error no 500", payrollItem.getTotalAmount(), is(new BigDecimal("30659.16")));
+		
+		assertThat("error payroll items != 2", payrollItem.getItems().size(), is(1));
+		
+		BonusConciliationItem bonusItem = payrollItem.getBonusItem();
+		
+		assertThat("bonusItem error", bonusItem.getCollectAmount(), is(new BigDecimal("601.16")));
+		assertThat("bonusItem error", bonusItem.getDescription(), is("PREMIO 2% (productos periodo(301)/Dias Habiles)"));
+	}
+	
 }
