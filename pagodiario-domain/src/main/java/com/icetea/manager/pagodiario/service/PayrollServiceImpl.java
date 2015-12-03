@@ -48,6 +48,7 @@ public class PayrollServiceImpl extends
 		BasicIdentifiableServiceImpl<Payroll, PayrollDao, PayrollDto, PayrollDtoModelTransformer>
   		implements PayrollService {
 
+	public static final BigDecimal BONUS_PERC_AMOUNT = new BigDecimal(20);
 	private final BillDao billDao;
 	private final DiscountDao discountDao;
 	private final ProductReductionDao productReductionDao;
@@ -133,6 +134,7 @@ public class PayrollServiceImpl extends
 				
 				payrollItem.setItemDate(bill.getStartDate());
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), commission));
+				payrollItem.setSubtotalCollectAvoidReductions(NumberUtils.add(payrollItem.getSubtotalCollectAvoidReductions(), commission));
 				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), NumberUtils.subtract(commission, firstPaymentAmount)));
 			}
 		}
@@ -191,6 +193,8 @@ public class PayrollServiceImpl extends
 				conciliationItem.setCollectAmount(NumberUtils.add(conciliationItem.getCollectAmount(), 
 						realAmount));
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), realAmount));
+				payrollItem.setSubtotalCollectAvoidReductions(NumberUtils.add(payrollItem.getSubtotalCollectAvoidReductions(), realAmount));
+				
 				payrollItem.setTotalAmount( 
 						NumberUtils.subtract(payrollItem.getSubtotalCollect(), payrollItem.getSubtotalDiscount()));
 				
@@ -510,16 +514,17 @@ public class PayrollServiceImpl extends
 			}
 			
 			for (ConciliationItem conciliationItem : payrollItem.getItems()) {
-				Bill bill = conciliationItem.getBill();
-				for (BillProduct billProduct : bill.getBillProducts()) {
-					int count = map.get(id);
-
-					count += billProduct.getCount();
-					map.put(id, count);
+				if(conciliationItem.getType() == AbstractConciliationItem.Type.CREDIT){
+					Bill bill = conciliationItem.getBill();
+					for (BillProduct billProduct : bill.getBillProducts()) {
+						int count = map.get(id);
+						
+						count += billProduct.getCount();
+						map.put(id, count);
+					}
 				}
 			}
 		}
-		
 		// tengo que iterar sobre el map de counts y si este tiene mas del bonus_limit entonces
 		// genero el bonus, lo agrego al payroll ... en donde? a que payroll list?? es un solo bono por liq??? para cada vendedor?
 		// voy a tener q cambiar el modelo?? de que monto es el bono??????
@@ -541,9 +546,9 @@ public class PayrollServiceImpl extends
 					payrollItem.setBonusItem(bonusItem);
 				}
 				
-				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getSubtotalCollect(), new BigDecimal(2));
+				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getSubtotalCollectAvoidReductions(), BONUS_PERC_AMOUNT);
 				
-				bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
+				bonusItem.setDescription("PREMIO 20% (productos periodo(" + count + ")/Dias Hábiles)");
 				bonusItem.setCollectAmount(collectAmount);
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), collectAmount));
 				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), collectAmount));

@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @MappedSuperclass
 public abstract class AbstractPayrollItem extends Identifiable {
@@ -29,6 +30,8 @@ public abstract class AbstractPayrollItem extends Identifiable {
 	private BigDecimal totalAmount = BigDecimal.ZERO;
 	@Column(name = "ITEM_DATE", columnDefinition = "DATETIME", nullable = false)
 	private Date itemDate;
+	@Transient
+	private BigDecimal subtotalCollectAvoidReductions = BigDecimal.ZERO;
 	
 	public AbstractPayrollItem() {
 		super();
@@ -90,6 +93,15 @@ public abstract class AbstractPayrollItem extends Identifiable {
 		return this.bonusItem != null 
 				&& this.bonusItem.getCollectAmount() != null 
 				&& this.bonusItem.getCollectAmount().compareTo(BigDecimal.ZERO) > 0; 
+	}
+
+	public BigDecimal getSubtotalCollectAvoidReductions() {
+		return subtotalCollectAvoidReductions;
+	}
+
+	public void setSubtotalCollectAvoidReductions(
+			BigDecimal subtotalCollectAvoidReductions) {
+		this.subtotalCollectAvoidReductions = subtotalCollectAvoidReductions;
 	}
 	
 }

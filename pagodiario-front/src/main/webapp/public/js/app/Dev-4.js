@@ -614,8 +614,8 @@ Dev.createObject = function(billId){
 			
 			var productCountContainer = $("#devProductCount_" + idx);
 			
-			var productCount = productCountContainer.val();
-			var productCountAlt = $("#devProductCountAlt_" + idx).val();
+			var productCount = parseInt(productCountContainer.val());
+			var productCountAlt = parseInt($("#devProductCountAlt_" + idx).val());
 			var billProductId = $("#devBillProductId_" + idx).val();
 			
 			if(productCount > productCountAlt || productCount < 0){
