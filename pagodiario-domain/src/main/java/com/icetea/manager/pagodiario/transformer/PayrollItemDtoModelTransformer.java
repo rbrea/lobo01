@@ -1,7 +1,5 @@
 package com.icetea.manager.pagodiario.transformer;
 
-import java.math.BigDecimal;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -48,8 +46,7 @@ public class PayrollItemDtoModelTransformer extends
 		
 		BonusConciliationItem bonusItem = e.getBonusItem();
 		
-		if(bonusItem != null && bonusItem.getCollectAmount() != null 
-				&& bonusItem.getCollectAmount().compareTo(BigDecimal.ZERO) > 0){
+		if(bonusItem != null && bonusItem.getCollectAmount() != null){
 			ConciliationItemDto b = new ConciliationItemDto();
 			b.setId(bonusItem.getId());
 			b.setCollectAmount(NumberUtils.toString(bonusItem.getCollectAmount()));

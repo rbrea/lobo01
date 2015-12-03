@@ -450,7 +450,7 @@ public class PayrollServiceImpl extends
 											supervisorConciliationItem.getBonusAmount(), bonusAmount));
 							supervisorConciliationItem.setTotalTrader(
 									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), bonusAmount));
-							item.setSubtotalBonus(NumberUtils.add(item.getSubtotalCollect(), bonusAmount));
+							item.setSubtotalBonus(NumberUtils.add(item.getSubtotalBonus(), bonusAmount));
 						}
 					}
 					payroll.setTotalSupervisor(NumberUtils.add(
@@ -541,7 +541,7 @@ public class PayrollServiceImpl extends
 					payrollItem.setBonusItem(bonusItem);
 				}
 				
-				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getTotalAmount(), new BigDecimal(2));
+				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getSubtotalCollect(), new BigDecimal(2));
 				
 				bonusItem.setDescription("PREMIO 2% (productos periodo(" + count + ")/Dias Habiles)");
 				bonusItem.setCollectAmount(collectAmount);

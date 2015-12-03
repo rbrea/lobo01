@@ -349,12 +349,13 @@
 	  				<div id="baseProductRow" class="row hide">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcant_X" name="bcant_X" placeholder="Cant" min="1">
+				                <input type="number" class="form-control " id="bcant_X" name="bcant_X" placeholder="Cant" min="1" max="200">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_X" name="billProductId_X">
 		  				<input type="hidden" id="billProductPrice_X" name="billProductPrice_X">
+		  				<input type="hidden" id="billInstallmentAmount_X" name="billInstallmentAmount_X">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 					            <input type="text" class="form-control " id="bProductCode_X" name="bProductCode_X" placeholder="C&oacute;digo">
@@ -392,12 +393,13 @@
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bcant_0">Cantidad</label>
-				                <input type="number" class="form-control " id="bcant_0" name="bcant_0" placeholder="Cant" min="1" data-error="Requerido" required>
+				                <input type="number" class="form-control " id="bcant_0" name="bcant_0" placeholder="Cant" min="1" max="200" required>
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_0" name="billProductId_0">
 		  				<input type="hidden" id="billProductPrice_0" name="billProductPrice_0">
+		  				<input type="hidden" id="billInstallmentAmount_0" name="billInstallmentAmount_0">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 		  						<label for="bProductCode_0">C&oacute;digo</label>
@@ -438,12 +440,13 @@
 		  			<div id="product_1" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcant_1" name="bcant_1" placeholder="Cant" min="1">
+				                <input type="number" class="form-control " id="bcant_1" name="bcant_1" placeholder="Cant" min="1" max="200">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_1" name="billProductId_1">
 		  				<input type="hidden" id="billProductPrice_1" name="billProductPrice_1">
+		  				<input type="hidden" id="billInstallmentAmount_1" name="billInstallmentAmount_1">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 					            <input type="text" class="form-control " id="bProductCode_1" name="bProductCode_1" placeholder="C&oacute;digo">
@@ -478,12 +481,13 @@
 		  			<div id="product_2" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcant_2" name="bcant_2" placeholder="Cant" min="1">
+				                <input type="number" class="form-control " id="bcant_2" name="bcant_2" placeholder="Cant" min="1" max="200">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_2" name="billProductId_2">
 		  				<input type="hidden" id="billProductPrice_2" name="billProductPrice_2">
+		  				<input type="hidden" id="billInstallmentAmount_2" name="billInstallmentAmount_2">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 					            <input type="text" class="form-control " id="bProductCode_2" name="bProductCode_2" placeholder="C&oacute;digo">
@@ -518,12 +522,13 @@
 		  			<div id="product_3" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcant_3" name="bcant_3" placeholder="Cant" min="1">
+				                <input type="number" class="form-control " id="bcant_3" name="bcant_3" placeholder="Cant" min="1" max="200">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_3" name="billProductId_3">
 		  				<input type="hidden" id="billProductPrice_3" name="billProductPrice_3">
+		  				<input type="hidden" id="billInstallmentAmount_3" name="billInstallmentAmount_3">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 					            <input type="text" class="form-control " id="bProductCode_3" name="bProductCode_3" placeholder="C&oacute;digo">
@@ -558,12 +563,13 @@
 		  			<div id="product_4" class="row">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
-				                <input type="number" class="form-control " id="bcant_4" name="bcant_4" placeholder="Cant" min="1">
+				                <input type="number" class="form-control " id="bcant_4" name="bcant_4" placeholder="Cant" min="1" max="200">
 								<div class="help-block with-errors"></div>
 				            </div>
 		  				</div>
 		  				<input type="hidden" id="billProductId_4" name="billProductId_4">
 		  				<input type="hidden" id="billProductPrice_4" name="billProductPrice_4">
+		  				<input type="hidden" id="billInstallmentAmount_4" name="billInstallmentAmount_4">
 		  				<div class="col-md-1">
 		  					<div class="form-group centered">
 					            <input type="text" class="form-control " id="bProductCode_4" name="bProductCode_4" placeholder="C&oacute;digo">

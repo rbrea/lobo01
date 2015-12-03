@@ -99,6 +99,7 @@ Bill.init = function(){
 		
 		newRow.find("input[id*='billProductId_']").attr("id", "billProductId_" + i).attr("name", "billProductId_" + i);
 		newRow.find("input[id*='billProductPrice_']").attr("id", "billProductPrice_" + i).attr("name", "billProductPrice_" + i);
+		newRow.find("input[id*='billInstallmentAmount_']").attr("id", "billInstallmentAmount_" + i).attr("name", "billInstallmentAmount_" + i);
 		
 		newRow.attr("id", "product_" + i);
 		newRow.removeClass("hide");
@@ -730,6 +731,8 @@ Bill.doFinalize = function(){
 		var dailyInstallment = $(this).find("#bcuotadiaria_" + i).val();
 		var amount = $(this).find("#bimp_" + i).val();
 		
+		var installmentAmount = $(this).find("#billInstallmentAmount_" + i).val();
+		
 		if(productCant != null && productCant != ""){
 			if(productId != null && productId != ""){
 				if(productPrice != null && productPrice != ""){
@@ -926,6 +929,9 @@ Bill.showLovProduct = function(elementId){
 			            }
 			            
 			            $("#billProductId_" + idValue).val(selectedId);
+			            
+			            $("#billInstallmentAmount_" + idValue).val(dailyInstallment);
+			            
 			            $("#bname_" + idValue).val(selectedCode + " - " + selectedDescription + " - $" + realPrice);
 			            $("#bProductCode_" + idValue).val(selectedCode);
 			            
@@ -1012,7 +1018,7 @@ Bill.calculateImp = function(element){
 	
 	$("#bimp_" + idValue).val(imp.toFixed(2));
 	
-	var installAmountElement = $("#bcuotadiaria_" + idValue);
+	var installAmountElement = $("#billInstallmentAmount_" + idValue);
 	
 	var iAmount = installAmountElement.val();
 	
@@ -1023,7 +1029,7 @@ Bill.calculateImp = function(element){
 		}
 		iAmount = installmentAmount * cant;
 		
-		installAmountElement.val(iAmount);
+		$("#bcuotadiaria_" + idValue).val(iAmount);
 	}
 	
 	return;
@@ -1723,6 +1729,8 @@ Bill.getProductByCode = function(index, code){
 		           if(cant == null || cant == ""){
 		        	   cant = 0;
 		           }
+		           $("#billInstallmentAmount_" + index).val(e.dailyInstallment);
+		           
 		           $("#bcuotadiaria_" + index).val(e.dailyInstallment * cant);
 		           $("#bimp_" + index).val(realPrice * cant);
 		           $("#billProductPrice_" + index).val(realPrice);
