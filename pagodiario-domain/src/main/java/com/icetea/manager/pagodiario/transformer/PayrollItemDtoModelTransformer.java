@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import com.icetea.manager.pagodiario.api.dto.ConciliationItemDto;
 import com.icetea.manager.pagodiario.api.dto.PayrollItemDto;
+import com.icetea.manager.pagodiario.model.AbstractConciliationItem;
 import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Payroll;
@@ -39,13 +40,15 @@ public class PayrollItemDtoModelTransformer extends
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));
 		d.setTraderName(e.getTrader().getName());
 		
-		
+		// primero van todos los items que no sea baja
 		for(ConciliationItem c : e.getItems()){
-			d.addConciliationItem(this.conciliationItemDtoModelTransformer.transform(c));
+			if(c.getType() != AbstractConciliationItem.Type.REDUCTION){
+				d.addConciliationItem(this.conciliationItemDtoModelTransformer.transform(c));
+			}
 		}
 		
 		BonusConciliationItem bonusItem = e.getBonusItem();
-		
+		// luego el premio
 		if(bonusItem != null && bonusItem.getCollectAmount() != null){
 			ConciliationItemDto b = new ConciliationItemDto();
 			b.setId(bonusItem.getId());
@@ -56,6 +59,12 @@ public class PayrollItemDtoModelTransformer extends
 			b.setType(bonusItem.getType().name());
 			
 			d.addConciliationItem(b);
+		}
+		// x ultimo las bajas
+		for(ConciliationItem c : e.getItems()){
+			if(c.getType() == AbstractConciliationItem.Type.REDUCTION){
+				d.addConciliationItem(this.conciliationItemDtoModelTransformer.transform(c));
+			}
 		}
 		
 		return d;

@@ -251,14 +251,14 @@ public class PayrollServiceImpl extends
 				
 				BigDecimal amount = e.getAmount().negate();
 				
-				BigDecimal realAmount = NumberUtils.calculatePercentage(amount, BigDecimal.TEN);
+//				BigDecimal realAmount = NumberUtils.calculatePercentage(amount, BigDecimal.TEN);
 				conciliationItem.setCollectAmount(NumberUtils.add(conciliationItem.getCollectAmount(), 
-						realAmount));
-				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), realAmount));
+						amount));
+				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), amount));
 				payrollItem.setTotalAmount( 
 						NumberUtils.subtract(payrollItem.getSubtotalCollect(), payrollItem.getSubtotalDiscount()));
 				
-				totalAmount = NumberUtils.add(totalAmount, realAmount);
+				totalAmount = NumberUtils.add(totalAmount, amount);
 			}
 		}
 		// finalmente seteo el total de la liquidacion (comisiones + premios - bajas)
@@ -431,7 +431,7 @@ public class PayrollServiceImpl extends
 									NumberUtils.add(
 											supervisorConciliationItem.getDevAmount(), devAmount));
 							supervisorConciliationItem.setTotalTrader(
-									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), devAmount));
+									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), devAmount));
 							item.setSubtotalDev(NumberUtils.add(item.getSubtotalCollect(), devAmount));
 						}
 						if(conciliationItem.getType() == AbstractConciliationItem.Type.REDUCTION){
@@ -440,7 +440,7 @@ public class PayrollServiceImpl extends
 									NumberUtils.add(
 											supervisorConciliationItem.getReductionAmount(), reductionAmount));
 							supervisorConciliationItem.setTotalTrader(
-									NumberUtils.subtract(supervisorConciliationItem.getTotalTrader(), reductionAmount));
+									NumberUtils.add(supervisorConciliationItem.getTotalTrader(), reductionAmount));
 							item.setSubtotalReduction(NumberUtils.add(item.getSubtotalCollect(), reductionAmount));
 						}
 					}
@@ -537,23 +537,25 @@ public class PayrollServiceImpl extends
 			}
 			int count = map.get(id);
 			if(count >= BonusConciliationItem.BONUS_LIMIT){
-				BonusConciliationItem bonusItem = payrollItem.getBonusItem();
-				if(bonusItem == null){
-					bonusItem = new BonusConciliationItem();
-					bonusItem.setPayrollItem(payrollItem);
-					bonusItem.setType(AbstractConciliationItem.Type.BONUS);
-					bonusItem.setDate(new Date());
-					payrollItem.setBonusItem(bonusItem);
+				BigDecimal bonusAmount = NumberUtils.calculatePercentage(payrollItem.getSubtotalCollectAvoidReductions(), BONUS_PERC_AMOUNT);
+				if(!NumberUtils.isNullOrZero(bonusAmount) && !NumberUtils.isNegative(bonusAmount)){
+					BonusConciliationItem bonusItem = payrollItem.getBonusItem();
+					if(bonusItem == null){
+						bonusItem = new BonusConciliationItem();
+						bonusItem.setPayrollItem(payrollItem);
+						bonusItem.setType(AbstractConciliationItem.Type.BONUS);
+						bonusItem.setDate(new Date());
+						payrollItem.setBonusItem(bonusItem);
+					}
+					
+					
+					bonusItem.setDescription("PREMIO 20% (productos periodo(" + count + ")/Dias Hábiles)");
+					bonusItem.setCollectAmount(bonusAmount);
+					payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), bonusAmount));
+					payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), bonusAmount));
+					payroll.setTotalAmount(NumberUtils.add(payroll.getTotalAmount(), bonusAmount));
+					payroll.setTotal(NumberUtils.add(payroll.getTotal(), bonusAmount));
 				}
-				
-				BigDecimal collectAmount = NumberUtils.calculatePercentage(payrollItem.getSubtotalCollectAvoidReductions(), BONUS_PERC_AMOUNT);
-				
-				bonusItem.setDescription("PREMIO 20% (productos periodo(" + count + ")/Dias Hábiles)");
-				bonusItem.setCollectAmount(collectAmount);
-				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), collectAmount));
-				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), collectAmount));
-				payroll.setTotalAmount(NumberUtils.add(payroll.getTotalAmount(), collectAmount));
-				payroll.setTotal(NumberUtils.add(payroll.getTotal(), collectAmount));
 			}
 		}
 		

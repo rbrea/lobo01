@@ -43,6 +43,9 @@ public class ProductReductionServiceImpl
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
 		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());
+		
+		ErrorTypedConditions.checkArgument(!NumberUtils.isNegative(amount), 
+				String.format("El monto ingresado %s no puede ser menor a 0 (cero)", o.getAmount()));
 
 		ErrorTypedConditions.checkArgument(amount.compareTo(bill.getRemainingAmount()) <= 0, 
 				String.format("El monto ingresado %s no puede ser mayor al saldo restante %s", 
