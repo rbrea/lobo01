@@ -27,19 +27,6 @@ BillHistory.init = function(){
 		return;
 	});
 	
-	/*
-	$('#startDate').datetimepicker({
-        locale: 'es',
-        format: 'DD/MM/YYYY',
-        showTodayButton: true
-    });
-	
-	$('#endDate').datetimepicker({
-        locale: 'es',
-        format: 'DD/MM/YYYY',
-        showTodayButton: true
-    });
-	*/
 	var table = $("#tBillResult").dataTable( {
 		/*
 		"fnRowCallback": function(nRow, aData, iDisplayIndex){

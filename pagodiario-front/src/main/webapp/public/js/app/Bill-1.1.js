@@ -1052,16 +1052,12 @@ Bill.resetSecond = function(){
 	$("#bClientId").val("");
 	$("#baddress").val("");
 	
-	//Bill.doPanelDisabled("#pnlClient");
-	
 	return;
 }
 
 Bill.resetThird = function(){
 	$("#btraderid").val("");
 	$("#btradername").val("");
-	
-	//Bill.doPanelDisabled("#pnlTrader");
 	
 	return;
 }
@@ -1132,7 +1128,7 @@ Bill.initControls = function(){
 	});
 	
 	$("#bCollectorId").keyup(function(e){
-		if(e.keyCode == 13) {
+		if(e.keyCode == 10 || e.keyCode == 13) {
 			var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getCollectorById(value);
@@ -1155,6 +1151,7 @@ Bill.initControls = function(){
 	    	var value = $(this).val();
 			if(value != null && value != ""){
 				Bill.getCollectorById(value);
+				$("#baddress").focus();
 			} else {
 				$("#baddress").focus();			
 			}
