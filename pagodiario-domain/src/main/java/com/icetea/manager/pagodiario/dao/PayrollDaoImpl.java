@@ -52,5 +52,5 @@ public class PayrollDaoImpl extends BasicIdentificableDaoImpl<Payroll>
 		
 		return criteria.list();
 	}
-	
+
 }

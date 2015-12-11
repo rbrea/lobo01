@@ -1790,15 +1790,7 @@ Bill.initDetail = function(billId){
 				   
 				   statusElement.append(Bill.translateStatus(d.status));
 				   
-				   if(d.status == 'ACTIVE'){
-					   statusElement.css("background-color", "#f0ad4e");
-				   } else if(d.status == 'CANCELED'){
-					   statusElement.css("background-color", "#5cb85c");
-				   } else if(d.status == 'CANCELED_DISCOUNT'){
-					   statusElement.css("background-color", "#428bca");
-				   } else if(d.status == 'REDUCED'){
-					   statusElement.css("background-color", "#d9534f");
-				   }
+				   Bill.changeColorOnStatusContainer(statusElement, d.status);
 				   
 				   var devolutions = d.devolutions;
 				   
@@ -1900,14 +1892,16 @@ Bill.initDetail = function(billId){
 				   }
 				   
 				   for(var i=0;i<reductions.length;i++){
-					   var tr = $("<tr></tr>");
+					   var tr = $("<tr id=\"reduction-row_" + billId + "\"></tr>");
 					   
 					   var td0 = $("<td class=\"centered\"></td>").append(reductions[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(reductions[i].amount);
 					   
 					   var detailDiv = $("<button id='btnReductionObservation_" + i + "' type=\"button\" class=\"btn btn-xs btn-info\" data-toggle=\"popover\" data-placement=\"left\" title=\"Observaciones\" data-content=\"" + reductions[i].observations + "\"><i class=\"glyphicon glyphicon-zoom-in\"></i></button>");
 					   
-					   var td2 = $("<td class=\"centered\"></td>").append(detailDiv);
+					   var actionDiv = $("<button id='btnRemoveReduction_" + i + "' onclick=\"javascript:Bill.removeReduction('" + reductions[i].id + "', '" + billId + "');\" type=\"button\" class=\"btn btn-xs btn-danger\" title=\"Eliminar Baja\"><i class=\"glyphicon glyphicon-trash\"></i></button>");
+
+					   var td2 = $("<td class=\"centered\"></td>").append(detailDiv).append("&nbsp;").append(actionDiv);
 					   
 					   detailDiv.popover();
 					   
@@ -2184,6 +2178,74 @@ Bill.showReductionObservations = function(){
 Bill.showDiscountObservations = function(idx){
 	
 	$("#btnReductionObservation").popover('show');
+	
+	return;
+}
+
+Bill.removeReduction = function(reductionId, billId){
+	
+	Message.hideMessages($('#billDetailAlertMessages'), $("#billDetailMessages"));
+	
+	
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar la Baja seleccionada?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				$.ajax({ 
+				   type    : "DELETE",
+				   url     : Constants.contextRoot + "/controller/html/productReduction/" + reductionId,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
+
+					   if(data != null && data.status == 0){
+						   
+						   $("#reduction-row_" + billId).children("td").remove();
+						   $("#reduction-row_" + billId).append("<td colspan=\"3\" class=\"centered\">No se han encontrado resultados</td>");
+						   
+						   var statusContainer = $("#status");
+						   
+						   statusContainer.html(Bill.translateStatus("ACTIVE"));
+						   
+						   Bill.changeColorOnStatusContainer(statusContainer, "ACTIVE");
+						   
+					   } else {
+							Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+					   }
+				   },
+				   error:function(data){
+					   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+					   
+					   return false;
+				   }
+				});
+				
+			}
+			
+			return;
+		}
+	});
+	
+	return;
+}
+
+Bill.changeColorOnStatusContainer = function(statusElement, status){
+	
+	if(status == 'ACTIVE'){
+	   statusElement.css("background-color", "#f0ad4e");
+	} else if(status == 'CANCELED'){
+	   statusElement.css("background-color", "#5cb85c");
+	} else if(status == 'CANCELED_DISCOUNT'){
+	   statusElement.css("background-color", "#428bca");
+	} else if(status == 'REDUCED'){
+	   statusElement.css("background-color", "#d9534f");
+	}
 	
 	return;
 }

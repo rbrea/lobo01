@@ -299,6 +299,7 @@ public class BillServiceImpl
 		}
 		for(ProductReduction e : bill.getProductReductionList()){
 			BillDetailReductionDto r = new BillDetailReductionDto();
+			r.setId(e.getId());
 			r.setAmount(NumberUtils.toString(e.getAmount()));
 			r.setDate(DateUtils.toDate(e.getDate()));
 			r.setObservations(e.getObservations());

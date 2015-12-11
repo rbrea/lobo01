@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import com.icetea.manager.pagodiario.api.dto.ProductReductionDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
+import com.icetea.manager.pagodiario.dao.PayrollDao;
 import com.icetea.manager.pagodiario.dao.ProductReductionDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
@@ -26,14 +28,17 @@ public class ProductReductionServiceImpl
 		extends BasicIdentifiableServiceImpl<ProductReduction, ProductReductionDao, 
 			ProductReductionDto, ProductReductionDtoModelTransformer> implements ProductReductionService {
 	
-	private BillDao billDao;
+	private final BillDao billDao;
+	private final PayrollDao payrollDao;
 	
 	@Inject
 	public ProductReductionServiceImpl(ProductReductionDao dao,
 			ProductReductionDtoModelTransformer transformer,
-			BillDao billDao) {
+			BillDao billDao,
+			PayrollDao payrollDao) {
 		super(dao, transformer);
 		this.billDao = billDao;
+		this.payrollDao = payrollDao;
 	}
 
 	@Override
@@ -83,6 +88,29 @@ public class ProductReductionServiceImpl
 		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
 		
 		return this.getTransformer().transformAllTo(this.getDao().findByBillId(billId));
+	}
+
+	@Override
+	public boolean remove(Long id) {
+		
+		ErrorTypedConditions.checkArgument(id != null, "El identificador de la BAJA es requerido");
+		
+		ProductReduction e = this.getDao().findById(id);
+		
+		ErrorTypedConditions.checkArgument(e != null, "No se ha encontrado la BAJA solicitada");
+		
+		ErrorTypedConditions.checkArgument(e.getDate() != null, "La fecha de BAJA no puede estar vacía");
+
+		// FIXME: [roher] hay que evaluar si existe una liq hecha en donde este la baja q se quiere remove?
+		
+		Bill bill = e.getBill();
+		
+		bill.setProductReductionList(new ArrayList<ProductReduction>());
+		bill.setStatus(Status.ACTIVE);
+		
+		this.billDao.saveOrUpdate(bill);
+		
+		return super.remove(id);
 	}
 	
 }
