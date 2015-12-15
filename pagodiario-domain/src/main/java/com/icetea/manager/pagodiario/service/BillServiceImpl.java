@@ -21,6 +21,7 @@ import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.dao.BillDao;
+import com.icetea.manager.pagodiario.dao.BillProductDao;
 import com.icetea.manager.pagodiario.dao.ClientDao;
 import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.ConciliationItemCollectDao;
@@ -59,6 +60,7 @@ public class BillServiceImpl
 	private final ConciliationItemDao conciliationItemDao;
 	private final CollectorDao collectorDao;
 	private final ConciliationItemCollectDao conciliationItemCollectDao;
+	private final BillProductDao billProductDao;
 	
 	@Inject
 	public BillServiceImpl(BillDao dao, BillDtoModelTransformer transformer,
@@ -66,7 +68,8 @@ public class BillServiceImpl
 			BillTicketTransformer billTicketTransformer,
 			ConciliationItemDao conciliationItemDao,
 			CollectorDao collectorDao,
-			ConciliationItemCollectDao conciliationItemCollectDao) {
+			ConciliationItemCollectDao conciliationItemCollectDao,
+			BillProductDao billProductDao) {
 		super(dao, transformer);
 		this.clientDao = clientDao;
 		this.traderDao = traderDao;
@@ -75,6 +78,7 @@ public class BillServiceImpl
 		this.conciliationItemDao = conciliationItemDao;
 		this.collectorDao = collectorDao;
 		this.conciliationItemCollectDao = conciliationItemCollectDao;
+		this.billProductDao = billProductDao;
 	}
 
 	@Override

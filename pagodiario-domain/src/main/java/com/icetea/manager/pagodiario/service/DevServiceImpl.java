@@ -18,6 +18,7 @@ import com.icetea.manager.pagodiario.api.dto.DevAddDto;
 import com.icetea.manager.pagodiario.api.dto.DevDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
+import com.icetea.manager.pagodiario.dao.BillProductDao;
 import com.icetea.manager.pagodiario.dao.DevDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
@@ -37,17 +38,21 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 	private final BillDao billDao;
 	private final ProductDao productDao;
 	private final BillUtils billUtils;
-
+	private final BillProductDao billProductDao;
+	
 	@Inject
 	public DevServiceImpl(DevDao dao, DevDtoModelTransformer transformer,
 			BillDao billDao, ProductDao productDao,
-			BillUtils billUtils) {
+			BillUtils billUtils,
+			BillProductDao billProductDao) {
 		super(dao, transformer);
 		this.billDao = billDao;
 		this.productDao = productDao;
 		this.billUtils = billUtils;
+		this.billProductDao = billProductDao;
 	}
 
+	@Deprecated
 	@Override
 	public DevDto insert(DevDto o) {
 		Bill bill = this.billDao.findById(o.getBillId());
@@ -162,6 +167,11 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getSelectedDate()), "Fecha de Descuento es requerida");
 		
+		Date selectedDate = DateUtils.parseDate(o.getSelectedDate(), "dd/MM/yyyy");
+		
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
+		
 		List<BillProduct> billProducts = bill.getBillProducts();
 		
 		List<Dev> devs = Lists.newArrayList();
@@ -205,7 +215,7 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 					BigDecimal diffInstallmentAmount = NumberUtils.subtract(origInstallmentAmount, bp.getDailyInstallment());
 					
 					dev.setAmount(diffAmount);
-					dev.setDate(DateUtils.parseDate(o.getSelectedDate(), "dd/MM/yyyy"));
+					dev.setDate(selectedDate);
 					dev.setObservations(StringUtils.abbreviate(StringUtils.trim(o.getObservations()), 250));
 					dev.setBill(bill);
 					dev.setProduct(bp.getProduct());
@@ -248,6 +258,12 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				}
 				devs.add(dev);
 			}
+		}
+		
+		for(BillProduct bp : toRemove){
+			bp.setBill(null);
+			this.billProductDao.saveOrUpdate(bp);
+			this.billProductDao.delete(bp);
 		}
 		
 		billProducts.removeAll(toRemove);

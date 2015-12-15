@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,7 +52,6 @@ public class PaymentServiceImpl
 		ErrorTypedConditions.checkArgument(d.getAmount() != null, "importe es requerido", ErrorType.VALIDATION_ERRORS);
 		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "id de cobrador/zona es requerido", ErrorType.VALIDATION_ERRORS);
 		ErrorTypedConditions.checkArgument(d.getDate() != null, "fecha de pago es requerida", ErrorType.VALIDATION_ERRORS);
-		
 
 		BigDecimal amount = NumberUtils.toBigDecimal(d.getAmount());
 		e.setAmount(amount);
@@ -71,6 +71,11 @@ public class PaymentServiceImpl
 				String.format("El monto ingresado: $%s no puede ser mayor al monto restante a pagar de la factura: $%s", 
 						d.getAmount(), NumberUtils.toString(bill.getRemainingAmount())), ErrorType.VALIDATION_ERRORS);
 		
+		Date selectedDate = DateUtils.parseDate(d.getDate(), "dd/MM/yyyy");
+		
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
+
 		e.setBill(bill);
 		
 		ErrorTypedConditions.checkArgument(d.getCollectorId() != null, "nro de zona de cobrador es requerido", ErrorType.VALIDATION_ERRORS);
@@ -81,7 +86,7 @@ public class PaymentServiceImpl
 				String.format("Cobrador no encontrado con nro de zona: %s", d.getCollectorId()), ErrorType.VALIDATION_ERRORS);
 		
 		e.setCollector(collector);
-		e.setDate(DateUtils.parseDate(d.getDate(), "dd/MM/yyyy"));
+		e.setDate(selectedDate);
 		this.getDao().saveOrUpdate(e);
 		
 		bill.addPayment(e);

@@ -2,6 +2,7 @@ package com.icetea.manager.pagodiario.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,6 +47,11 @@ public class DiscountServiceImpl extends
 		
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
+		Date selectedDate = DateUtils.parseDate(o.getDate(), "dd/MM/yyyy");
+		
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
+		
 		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(o.getAmount()), 
 				"El monto de descuento es requerido", ErrorType.VALIDATION_ERRORS);
 		
@@ -67,14 +73,9 @@ public class DiscountServiceImpl extends
 				"El nuevo monto de la cuota diaria no puede ser menor a 0.", 
 				ErrorType.VALIDATION_ERRORS);
 		
-//		ErrorTypedConditions.checkArgument(newInstallmentAmount.compareTo(bill.getRemainingAmount()) <= 0, 
-//				String.format("El nuevo monto de la cuota diaria no puede ser mayor al monto restante: %s", 
-//						NumberUtils.toString(bill.getRemainingAmount())), 
-//				ErrorType.VALIDATION_ERRORS);
-		
 		Discount e = new Discount();
 		e.setAmount(amount);
-		e.setDate(DateUtils.parseDate(o.getDate(), "dd/MM/yyyy"));
+		e.setDate(selectedDate);
 		e.setObservations(o.getObservations());
 		e.setBill(bill);
 		e.setInstallmentAmount(newInstallmentAmount);
