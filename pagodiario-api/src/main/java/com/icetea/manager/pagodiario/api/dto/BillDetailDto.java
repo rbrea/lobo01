@@ -26,6 +26,8 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	
 	private String completedDate;
 	private String status;
+	private String collectorDescription;
+	private String customerCompanyType;
 
 	public String getClientName() {
 		return clientName;
@@ -122,6 +124,18 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getCollectorDescription() {
+		return collectorDescription;
+	}
+	public void setCollectorDescription(String collectorDescription) {
+		this.collectorDescription = collectorDescription;
+	}
+	public String getCustomerCompanyType() {
+		return customerCompanyType;
+	}
+	public void setCustomerCompanyType(String customerCompanyType) {
+		this.customerCompanyType = customerCompanyType;
 	}
 	
 }

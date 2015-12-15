@@ -262,11 +262,13 @@ public class BillServiceImpl
 		d.setCreditNumber(StringUtils.toString(bill.getCreditNumber()));
 		d.setCompletedDate((bill.getCompletedDate() != null) ? DateUtils.toDate(bill.getCompletedDate()) : StringUtils.EMPTY);
 		d.setStatus(bill.getStatus().name());
+		d.setCollectorDescription(String.valueOf(bill.getCollector().getZone()) + " / " + bill.getCollector().getDescription());
+		d.setCustomerCompanyType((StringUtils.isNotBlank(bill.getClient().getCompanyType())) ? bill.getClient().getCompanyType() : StringUtils.EMPTY);
 		
 		for(Payment p : bill.getPayments()){
 			BillDetailPaymentDto r = new BillDetailPaymentDto();
 			r.setAmount(NumberUtils.toString(p.getAmount()));
-			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getZone() + " / " + p.getCollector().getDescription() : ""));
+			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getZone() + " / " + p.getCollector().getDescription() : StringUtils.EMPTY));
 			r.setDate(DateUtils.toDate(p.getDate()));
 			
 			d.getPayments().add(r);

@@ -71,6 +71,14 @@
 		  					<td id="clientAddress"></td>
 		  				</tr>
 		  				<tr>
+		  					<td style="font-weight:bold;">Tipo de Comercio</td>
+		  					<td id="customerCompanyType"></td>
+		  				</tr>
+		  				<tr>
+		  					<td style="font-weight:bold;">Zona / Cobrador</td>
+		  					<td id="collectorDescription"></td>
+		  				</tr>
+		  				<tr>
 		  					<td style="font-weight:bold;">Vendedor</td>
 		  					<td id="traderName"></td>
 		  				</tr>
