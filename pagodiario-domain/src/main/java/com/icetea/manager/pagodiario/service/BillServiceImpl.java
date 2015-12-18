@@ -319,6 +319,9 @@ public class BillServiceImpl
 	@Override
 	public List<BillTicketPojo> searchBillsByCollectorZone(String ticketDateValue, Long collectorZone, String fromDate, String toDate){
 		
+		ErrorTypedConditions.checkArgument(collectorZone != null, 
+				"El cobrador es requerido. Por favor elija uno y vuelva a intentarlo.");
+		
 		Date dateFrom = null;
 		if(StringUtils.isNotBlank(fromDate)){
 			dateFrom = DateUtils.parseDate(fromDate);

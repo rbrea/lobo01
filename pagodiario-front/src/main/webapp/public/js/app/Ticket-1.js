@@ -232,6 +232,12 @@ Ticket.init = function(){
 }
 
 Ticket.generate = function(){
+	Message.hideMessages($('#ticketAlertMessages'), $("#ticketMessages"));
+	var zone = $("#zone").val();
+	if(Commons.isNotValid(zone)){
+		Message.showMessages($('#ticketAlertMessages'), $("#ticketMessages"), "Cobrador no seleccionado. Por favor elija uno.");
+	}
+	
 	$("#frmTicket").submit();
 	
 	return;
