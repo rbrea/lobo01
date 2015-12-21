@@ -110,9 +110,9 @@ User.showEditModal = function(id){
     					   $("#edocumentNumber").val(elem.documentNumber);
     					   $("#enusername").val(elem.username);
     					   if(elem.admin == true){
-    						   $("#admin").attr("checked", true);   
+    						   $("#admin").prop("checked", true);   
     					   } else {
-    						   $("#admin").attr("checked", false);
+    						   $("#admin").prop("checked", false);
     					   }
     					   $("#ename").focus();
     					   

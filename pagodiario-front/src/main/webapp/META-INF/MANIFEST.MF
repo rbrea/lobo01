@@ -14,30 +14,31 @@ Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
  avassist-3.18.0-GA.jar antlr-2.7.7.jar jandex-1.1.0.Final.jar hiberna
  te-envers-4.3.6.Final.jar hibernate-entitymanager-4.3.6.Final.jar mys
  ql-connector-java-5.1.26.jar h2-1.3.174.jar aspectjrt-1.5.4.jar aspec
- tjweaver-1.6.6.jar javax.inject-1.jar jcsv-1.4.0.jar logback-classic-
- 1.1.1.jar logback-core-1.1.1.jar slf4j-api-1.7.6.jar jcl-over-slf4j-1
- .7.6.jar jasypt-1.9.2.jar jasperreports-6.1.0.jar commons-beanutils-1
- .9.0.jar commons-collections-3.2.1.jar commons-digester-2.1.jar jcomm
- on-1.0.15.jar jfreechart-1.0.12.jar ecj-4.3.1.jar castor-xml-1.3.3.ja
- r castor-core-1.3.3.jar commons-lang-2.4.jar stax-1.2.0.jar stax-api-
- 1.0.1.jar stax-api-1.0-2.jar lucene-core-4.5.1.jar lucene-analyzers-c
- ommon-4.5.1.jar lucene-queryparser-4.5.1.jar lucene-queries-4.5.1.jar
-  lucene-sandbox-4.5.1.jar jakarta-regexp-1.4.jar olap4j-0.9.7.309-JS-
- 3.jar core-2.3.0.jar itext-2.1.7.jar bcmail-jdk14-138.jar bcprov-jdk1
- 4-138.jar bctsp-jdk14-1.38.jar bcprov-jdk14-1.38.jar bcmail-jdk14-1.3
- 8.jar HikariCP-2.4.1.jar spring-context-support-4.0.6.RELEASE.jar fre
- emarker-2.3.15.jar tiles-jsp-2.2.2.jar tiles-servlet-2.2.2.jar tiles-
- core-2.2.2.jar tiles-api-2.2.2.jar tiles-template-2.2.2.jar spring-we
- bmvc-4.0.6.RELEASE.jar spring-web-4.0.6.RELEASE.jar jstl-1.2.jar jack
- son-mapper-asl-1.9.13.jar commons-io-1.3.2.jar commons-fileupload-1.2
- .1.jar swagger-springmvc-0.8.5.jar swagger-core_2.10-1.3.5.jar jackso
- n-module-scala_2.10-2.1.5.jar scala-library-2.10.0.jar paranamer-2.3.
- jar scala-reflect-2.10.0.jar jackson-module-jsonSchema-2.1.0.jar jack
- son-jaxrs-json-provider-2.0.0.jar jackson-module-jaxb-annotations-2.0
- .0.jar jsr311-api-1.1.1.jar swagger-annotations-1.3.5.jar json4s-ext_
- 2.10-3.2.5.jar joda-time-2.1.jar joda-convert-1.2.jar json4s-native_2
- .10-3.2.5.jar json4s-core_2.10-3.2.5.jar json4s-ast_2.10-3.2.5.jar sc
- alap-2.10.0.jar scala-compiler-2.10.0.jar json4s-jackson_2.10-3.2.5.j
- ar cglib-2.2.jar asm-3.1.jar swagger-models-0.8.5.jar classmate-1.0.0
- .jar poi-3.10.1.jar commons-codec-1.5.jar
+ tjweaver-1.6.6.jar javax.inject-1.jar mail-1.4.7.jar activation-1.1.j
+ ar jcsv-1.4.0.jar logback-classic-1.1.1.jar logback-core-1.1.1.jar sl
+ f4j-api-1.7.6.jar jcl-over-slf4j-1.7.6.jar jasypt-1.9.2.jar jasperrep
+ orts-6.1.0.jar commons-beanutils-1.9.0.jar commons-collections-3.2.1.
+ jar commons-digester-2.1.jar jcommon-1.0.15.jar jfreechart-1.0.12.jar
+  ecj-4.3.1.jar castor-xml-1.3.3.jar castor-core-1.3.3.jar commons-lan
+ g-2.4.jar stax-1.2.0.jar stax-api-1.0.1.jar stax-api-1.0-2.jar lucene
+ -core-4.5.1.jar lucene-analyzers-common-4.5.1.jar lucene-queryparser-
+ 4.5.1.jar lucene-queries-4.5.1.jar lucene-sandbox-4.5.1.jar jakarta-r
+ egexp-1.4.jar olap4j-0.9.7.309-JS-3.jar core-2.3.0.jar itext-2.1.7.ja
+ r bcmail-jdk14-138.jar bcprov-jdk14-138.jar bctsp-jdk14-1.38.jar bcpr
+ ov-jdk14-1.38.jar bcmail-jdk14-1.38.jar HikariCP-2.4.1.jar spring-con
+ text-support-4.0.6.RELEASE.jar freemarker-2.3.15.jar tiles-jsp-2.2.2.
+ jar tiles-servlet-2.2.2.jar tiles-core-2.2.2.jar tiles-api-2.2.2.jar 
+ tiles-template-2.2.2.jar spring-webmvc-4.0.6.RELEASE.jar spring-web-4
+ .0.6.RELEASE.jar jstl-1.2.jar jackson-mapper-asl-1.9.13.jar commons-i
+ o-1.3.2.jar commons-fileupload-1.2.1.jar swagger-springmvc-0.8.5.jar 
+ swagger-core_2.10-1.3.5.jar jackson-module-scala_2.10-2.1.5.jar scala
+ -library-2.10.0.jar paranamer-2.3.jar scala-reflect-2.10.0.jar jackso
+ n-module-jsonSchema-2.1.0.jar jackson-jaxrs-json-provider-2.0.0.jar j
+ ackson-module-jaxb-annotations-2.0.0.jar jsr311-api-1.1.1.jar swagger
+ -annotations-1.3.5.jar json4s-ext_2.10-3.2.5.jar joda-time-2.1.jar jo
+ da-convert-1.2.jar json4s-native_2.10-3.2.5.jar json4s-core_2.10-3.2.
+ 5.jar json4s-ast_2.10-3.2.5.jar scalap-2.10.0.jar scala-compiler-2.10
+ .0.jar json4s-jackson_2.10-3.2.5.jar cglib-2.2.jar asm-3.1.jar swagge
+ r-models-0.8.5.jar classmate-1.0.0.jar poi-3.10.1.jar commons-codec-1
+ .5.jar
 

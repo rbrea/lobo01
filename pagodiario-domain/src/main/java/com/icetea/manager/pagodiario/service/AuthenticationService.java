@@ -20,5 +20,11 @@ public interface AuthenticationService extends BasicService {
 	boolean removeUser(Long id);
 
 	UserDto search(String username);
+
+	UserRegistrationDto resetPassword(Long id);
+
+	UserRegistrationDto resetPassword(String username);
+
+	UserRegistrationDto checkVerificationCode(String verificationCode, String newPassword);
 	
 }

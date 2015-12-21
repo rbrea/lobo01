@@ -49,7 +49,7 @@ public class ProductReductionServiceImpl
 		
 		Date selectedDate = DateUtils.parseDate(o.getDate(), "dd/MM/yyyy");
 		
-		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getStartDate()), 
 				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
 		
 		BigDecimal amount = NumberUtils.toBigDecimal(o.getAmount());

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,9 @@ import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.LoginDto;
 import com.icetea.manager.pagodiario.api.dto.UserDto;
 import com.icetea.manager.pagodiario.api.dto.UserRegistrationDto;
+import com.icetea.manager.pagodiario.api.dto.VerificationCodeDto;
 import com.icetea.manager.pagodiario.cache.Cache;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.exception.IncorrectUserLoginException;
 import com.icetea.manager.pagodiario.exception.PasswordIncorrectException;
 import com.icetea.manager.pagodiario.security.AuthenticationConstants;
@@ -195,6 +198,42 @@ public class LoginController extends ExceptionHandlingController {
 		
 		BasicOutputDto r = new BasicOutputDto();
 
+		return r;
+	}
+
+	@RequestMapping(value = "/html/forgot/forgotPassword", method = RequestMethod.POST)
+	public @ResponseBody BasicOutputDto doForgotPasswordAction(@RequestBody VerificationCodeDto verificationCodeDto)
+				throws JsonParseException, JsonMappingException, IOException {
+
+		BasicOutputDto r = new BasicOutputDto();
+		
+		try {
+			this.authenticationService.checkVerificationCode(verificationCodeDto.getVerificationCode(), 
+					verificationCodeDto.getNewPassword());
+		} catch (ErrorTypedException e) {
+			r.setStatus(-1);
+			r.setMessage(e.getMessage());
+			r.setCause(e.getMessage());
+		}
+		
+		return r;
+	}
+
+	@RequestMapping(value = "/html/forgot/send/email", method = RequestMethod.POST)
+	public @ResponseBody BasicOutputDto doEmailSent(@RequestBody VerificationCodeDto verificationCodeDto)
+				throws JsonParseException, JsonMappingException, IOException {
+
+		BasicOutputDto r = new BasicOutputDto();
+		
+		try {
+			this.authenticationService.resetPassword(verificationCodeDto.getUsername());
+			
+		} catch (ErrorTypedException e) {
+			r.setStatus(-1);
+			r.setMessage(e.getMessage());
+			r.setCause(e.getMessage());
+		}
+		
 		return r;
 	}
 	

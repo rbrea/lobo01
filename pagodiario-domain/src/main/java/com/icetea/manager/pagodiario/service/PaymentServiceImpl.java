@@ -73,7 +73,7 @@ public class PaymentServiceImpl
 		
 		Date selectedDate = DateUtils.parseDate(d.getDate(), "dd/MM/yyyy");
 		
-		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getStartDate()), 
 				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
 
 		e.setBill(bill);

@@ -77,6 +77,93 @@
 }
 
 </style>
+<div id="modal-forgot-email-container" class="container-fluid" style="display:none;">
+	<div id="modalForgotEmailMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalForgotEmailAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalForgotEmailAlertMessages').children('span').eq(0).html('');$('#modalForgotEmailMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+  					<form id="frmForgotEmail">
+					<div class="form-group">
+						<label for="forgotEmail">Nombre de Usuario</label>
+						<div class='input-group'>
+							<span class="input-group-addon">
+			               		<span class="fa fa-user"></span>
+			               	</span>
+					    	<input type="text" class="form-control" id="forgotUsername" name="forgotUsername" placeholder="Ingrese nombre de usuario ..." required>
+					    </div>
+					    <div class="help-block with-errors"></div>
+					</div>
+					</form>
+					<div class="form-group">
+						<div class="well">
+							<i class="fa fa-exclamation-triangle"></i>&nbsp;Se enviar&aacute; un <i class="fa fa-envelope-o"></i>&nbsp;e-mail a la direcci&oacute;n ingresada con el c&oacute;digo de verificaci&oacute;n necesario para seguir con el proceso.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modal-forgot-password-container" class="container-fluid" style="display:none;">
+	<div id="modalForgotMessages" class="row hide">
+	    <div class="col-md-12">
+	        <div id="modalForgotAlertMessages" class="alert alert-danger alert-dismissible" role="alert">
+	          <button type="button" class="close" 
+	                    onclick="javascript:$('#modalForgotAlertMessages').children('span').eq(0).html('');$('#modalForgotMessages').addClass('hide');"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	              <span></span>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+  					<form id="frmForgotPassword">
+  						<div class="form-group">
+							<label for="verificationCode">C&oacute;digo de Verificaci&oacute;n</label>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-barcode"></span>
+			                	</span>
+						    	<input type="text" class="form-control" id="verificationCode" name="verificationCode" placeholder="Ingrese C&oacute;digo de Verificaci&oacute;n ..." required>
+						    </div>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="newpassword">Nueva Contrase&ntilde;a</label>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-expeditedssl"></span>
+			                	</span>
+						    	<input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="Ingrese nueva Contrase&ntilde;a..." data-minlength="6" required>
+						    </div>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="rnewpassword">Re-Ingrese Nueva Contrase&ntilde;a</label>
+							<div class='input-group'>
+								<span class="input-group-addon">
+			                		<span class="fa fa-expeditedssl"></span>
+			                	</span>
+						    	<input type="password" class="form-control" id="rnewpassword" name="rnewpassword" placeholder="Re-Ingrese Nueva Contrase&ntilde;a..." data-minlength="6" data-match="#newpassword" required>
+						    </div>
+						    <div class="help-block with-errors"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="modalRegistration" tabindex="-1" role="dialog" aria-labelledby="modalRegistrationLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -127,11 +214,6 @@
     </div>
   </div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		&nbsp;
-	</div>
-</div>
 <div id="loginMessages" class="row hide">
     <div class="col-md-2">
         &nbsp;
@@ -166,18 +248,29 @@
 	            <button id="btnLogin" class="btn btn-lg btn-success btn-block" type="submit">
 	                Iniciar Sesi&oacute;n</button>
 	            <br>
+	            <div class="pull-left">
+            		<a href="javascript:void(0);" onclick="javascript:Login.showMailModal();">Olvid&oacute; su contrase&ntilde;a?</a>
+            	</div>
 	            <div class="pull-right">
             		<a href="#" data-toggle="modal" data-target="#modalRegistration">Registrarse</a>
             	</div>
-	            <label class="checkbox pull-left">
-	            <!--
-	                <input type="checkbox" name="rememberMe" value="remember-me">
-	                Remember me -->
-	            </label>
+            	<div class="pull-left">
+            		<a href="javascript:void(0);" onclick="javascript:Login.showForgetPasswordModal();">Ingresar c&oacute;digo de verificaci&oacute;n</a>
+            	</div>
             </form>
+            <div class="row">
+            	&nbsp;
+            </div>
         </div>
     </div>
 </div>
+<div class="row">
+            	&nbsp;
+            </div>
+            
+            <div class="row">
+            	&nbsp;
+            </div>
 <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -212,6 +305,8 @@
             		
             		return;
             	});
+            	
+            	Login.init();
             	
                 return;
             }

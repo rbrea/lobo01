@@ -10,4 +10,6 @@ public interface UserDao extends BasicIdentificableDao<User> {
 
 	User findByAccessToken(String accessToken);
 
+	User findByVerificationCode(String verificationCode);
+
 }

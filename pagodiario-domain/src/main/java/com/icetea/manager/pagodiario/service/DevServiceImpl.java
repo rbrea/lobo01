@@ -169,7 +169,7 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 		
 		Date selectedDate = DateUtils.parseDate(o.getSelectedDate(), "dd/MM/yyyy");
 		
-		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getCreatedDate()), 
+		ErrorTypedConditions.checkArgument(!selectedDate.before(bill.getStartDate()), 
 				"La fecha elegida no puede ser menor a la fecha de inicio de Factura");
 		
 		List<BillProduct> billProducts = bill.getBillProducts();

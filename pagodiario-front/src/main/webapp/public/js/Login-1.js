@@ -1,5 +1,86 @@
 Login = function(){}
 
+Login.init = function(){
+	
+	$("#verificationCode").keyup(function(e){
+		if(e.keyCode == 10 || e.keyCode == 13) {
+			$("#newpassword").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#verificationCode').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#newpassword").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#newpassword").keyup(function(e){
+		if(e.keyCode == 10 || e.keyCode == 13) {
+			$("#rnewpassword").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#newpassword').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#rnewpassword").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#rnewpassword").keyup(function(e){
+		if(e.keyCode == 10 || e.keyCode == 13) {
+			$("#btnAcceptVerification").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#rnewpassword').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnAcceptVerification").focus();			
+	    }
+	    
+	    return;
+	});
+
+	$("#forgotUsername").keyup(function(e){
+		if(e.keyCode == 10 || e.keyCode == 13) {
+			$("#btnSendEmail").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#forgotUsername').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#btnSendEmail").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	return;
+}
+
 Login.initDataTable = function(dataTableUrl, imgCheckUrl){
 	
 	var table = $("#tResult").dataTable( {
@@ -57,7 +138,7 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
                 "render": function ( data, type, row ) {
                     //return data +' ('+ row[3]+')';
                     return "<a href=\"javascript:User.showEditModal('" + row.id + "');\" class=\"btn btn-xs btn-warning\"><i class=\"glyphicon glyphicon-pencil\"></i></a>" 
-                        + "&nbsp;<a href=\"javascript:Login.removeUser('" + row.id + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
+                        + "&nbsp;<a href=\"javascript:Login.removeUser('" + row.id + "', '" + row.username + "');\" class=\"btn btn-xs btn-danger\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
          	}
         ],
@@ -75,36 +156,7 @@ Login.initDataTable = function(dataTableUrl, imgCheckUrl){
 			}
         } 
     });
-    /*
-	$('#tResult tbody').on( 'mouseover', 'tr', function () {
-		$(this).css({"cursor": "pointer"});	
-		
-		return;
-	});
-	
-	$('#tResult tbody').on( 'click', 'tr', function () {
-		
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            $("#btnUpdate").addClass("disabled");
-            $("#btnRemove").addClass("disabled");
-            $(this).children("td:first").children("img").addClass("hide");
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            $("#btnUpdate").removeClass("disabled");
-            $("#btnRemove").removeClass("disabled");
-            table.$('tr.selected').children("td:first").children("img").removeClass("hide");
-            
-        }
-    } );
-	*/
- 
-    /*$('#button').click( function () {
-        table.row('.selected').remove().draw( false );
-    } );*/
-	
+   	
 	return;
 }
 
@@ -157,7 +209,14 @@ Login.registrationReset = function(){
 	return;
 }
 
-Login.removeUser = function(id){
+Login.removeUser = function(id, username){
+	
+	if(Permission.username == username){
+		Message.showMessages($('#userAlertMessages'), $("#userMessages"), "Error. No se puede borrar el usuario seleccionado" +
+				", porque ya esta logueado al sistema.");
+		
+		return false;
+	}
 	
 	BootstrapDialog.confirm({
 		title: "Confirmación",
@@ -169,7 +228,6 @@ Login.removeUser = function(id){
         btnOKClass: 'btn-success',
 		callback: function(result){
 			if(result) {
-				// TODO: Hacer logica para q no pueda borrarse a si mismo ...
 				
 				$.ajax({ 
 				   type    : "DELETE",
@@ -212,6 +270,260 @@ Login.editUserReset = function(){
 	$("#admin").attr("checked", false);
 	$("#nusername").val("");
 	$("#frmEditUser").validator('destroy');
+	
+	return;
+}
+
+Login.showMailModal = function(){
+	
+	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#forgotUsername").focus();
+			
+			return;
+		},
+		onhidden:function(){
+			Login.resetForgotModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_DANGER,
+		title: 'Olvid&oacute; su contrase&ntilde;a?',
+		autodestroy: false,
+        message: function(dialog) {
+        	
+        	$("#modal-forgot-email-container").css({"display":"block"});
+        	
+        	return $("#modal-forgot-email-container");
+        },
+        buttons: [{
+        	id: 'btnCancelEmail',
+        	label: '&nbsp;Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		Message.hideMessages($('#modalForgotEmailAlertMessages'), $("#modalForgotEmailMessages"));
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnSendEmail',
+        	label: '&nbsp;Env&iacute;ar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-success',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmForgotEmail").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmForgotEmail").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Login.doEmailSent(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	dialog.open();
+	
+	return;
+}
+
+Login.showForgetPasswordModal = function(){
+
+	var dialog = new BootstrapDialog({
+		onshown: function(){
+			$("#verificationCode").focus();
+			
+			return;
+		},
+		onhidden:function(){
+			Login.resetForgotModal();
+			
+			return;
+		},
+		draggable: true,
+		type:BootstrapDialog.TYPE_DANGER,
+		title: 'Olvid&oacute; su contrase&ntilde;a?',
+		autodestroy: false,
+        message: function(dialog) {
+        	
+        	$("#modal-forgot-password-container").css({"display":"block"});
+        	
+        	return $("#modal-forgot-password-container");
+        },
+        buttons: [{
+        	id: 'btnCancelVerification',
+        	label: '&nbsp;Cancelar',
+        	icon: 'glyphicon glyphicon-remove-sign',
+        	action: function(dialog){
+        		var btn = this;
+        		Message.hideMessages($('#modalForgotAlertMessages'), $("#modalForgotMessages"));
+        		dialog.close();
+        		
+        		return;
+        	}
+        },
+        {
+        	id: 'btnAcceptVerification',
+        	label: '&nbsp;Aceptar',
+        	icon: 'glyphicon glyphicon-ok-sign',
+        	cssClass: 'btn-success',
+        	action: function(dialog){
+        		var btn = this;
+        		var c = 0;
+				
+				$("#frmForgotPassword").on('invalid.bs.validator', 
+					function(e){
+					    c++;
+						
+						return;
+				});
+				
+				$("#frmForgotPassword").validator('validate');
+				
+				if(c == 0){
+					dialog.enableButtons(false);
+					dialog.setClosable(false);
+	        		btn.spin();
+	        		
+					// si esta todo ok entonces doy de alta ...
+					Login.doCodeVerification(dialog, btn);
+				}
+        		
+        		return;
+        	}
+        }]
+    });
+	dialog.open();
+	
+	return;
+}
+
+Login.resetForgotModal = function(){
+
+	$("#verificationCode").val("");
+	$("#newpassword").val("");
+	$("#rnewpassword").val("");
+	$("#forgotUsername").val("");
+	
+	return;
+}
+
+Login.doCodeVerification = function(dialog, btn){
+
+	var obj = new Object();
+	obj.verificationCode = $("#verificationCode").val();
+	obj.newPassword = $("#newpassword").val();
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/forgot/forgotPassword",
+	   async:false,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   data: JSON.stringify(obj),
+	   success:function(data) {
+		   Message.hideMessages($('#modalForgotAlertMessages'), $("#modalForgotMessages"));
+		   if(data != null && data.status == 0){
+			
+			   BootstrapDialog.alert({
+					title: "Confirmación",
+					message: "Se ha modificado satisfactoriamente su contrase&ntilde;a.",
+					type: BootstrapDialog.TYPE_DANGER,
+					draggable: true,
+			        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+			        btnOKClass: 'btn-success'
+				});
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+	   		   btn.stopSpin();
+			   dialog.close();
+		   } else {
+			   Message.showMessages($('#modalForgotAlertMessages'), $("#modalForgotMessages"), data.message);
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+	   		   btn.stopSpin();
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#modalForgotAlertMessages'), $("#modalForgotMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}
+
+Login.doEmailSent = function(dialog, btn){
+	var obj = new Object();
+	obj.username = $("#forgotUsername").val();
+	
+	var url = Constants.contextRoot + "/controller/html/forgot/send/email";
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : url,
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   data: JSON.stringify(obj),
+	   success:function(data) {
+		   Message.hideMessages($('#modalForgotEmailAlertMessages'), $("#modalForgotEmailMessages"));
+		   if(data != null && data.status == 0){
+			
+			   BootstrapDialog.alert({
+					title: "Alerta",
+					message: "Se ha enviado satisfactoriamente el email con el c&oacute;digo de verificaci&oacute;n.",
+					type: BootstrapDialog.TYPE_DANGER,
+					draggable: true,
+			        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+			        btnOKClass: 'btn-success'
+				});
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+	   		   btn.stopSpin();
+			   dialog.close();
+			   
+			   // finalmente lanzo el modal para confirmar el cod de verificacion e ingresar el nuevo password ----
+			   Login.showForgetPasswordModal();
+		   } else {
+			   Message.showMessages($('#modalForgotEmailAlertMessages'), $("#modalForgotEmailMessages"), data.message);
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+	   		   btn.stopSpin();
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#modalForgotEmailAlertMessages'), $("#modalForgotEmailMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   
+		   return;
+	   }
+	});
 	
 	return;
 }

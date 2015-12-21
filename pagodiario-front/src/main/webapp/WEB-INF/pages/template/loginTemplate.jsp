@@ -20,6 +20,9 @@
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/public/css/dashboard.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/css/main.css" rel="stylesheet">
+<!-- FONT AWESOME STYLES -->
+<link href="${pageContext.request.contextPath}/public/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="${pageContext.request.contextPath}/public/js/ie-emulation-modes-warning.js"></script>
@@ -46,6 +49,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath}/public/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="${pageContext.request.contextPath}/public/js/ie10-viewport-bug-workaround.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->

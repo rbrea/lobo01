@@ -2,6 +2,7 @@ Permission = function(){}
 
 Permission.userPermissions = [];
 Permission.isAdmin = false;
+Permission.username = "";
 
 Permission.fill = function(user){
 
@@ -12,6 +13,7 @@ Permission.fill = function(user){
 	}
 	
 	Permission.isAdmin = user.admin;
+	Permission.username = user.username;
 	
 	return;
 }

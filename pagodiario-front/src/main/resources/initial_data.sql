@@ -1,4 +1,4 @@
-insert into USUARIO(ID, USERNAME, PASSWORD, TOKEN, CREATED_DATE, IS_ADMIN) values (1, 'roher', 'WObWhK1hy5l9ywFauZDTJtYYg5IwSc9O', '11e3ab48-01e9-4994-b7d0-aaa31662864c', curdate(), true);
+insert into USUARIO(ID, USERNAME, PASSWORD, TOKEN, CREATED_DATE, IS_ADMIN, EMAIL) values (1, 'roher', 'WObWhK1hy5l9ywFauZDTJtYYg5IwSc9O', '11e3ab48-01e9-4994-b7d0-aaa31662864c', curdate(), true, 'rodrigo.hernandez.brea@gmail.com');
 
 insert into CLIENT(ID, CREATED_DATE, ADDRESS, CITY, DOCUMENT_NUMBER, DOCUMENT_TYPE, EMAIL, NAME, PHONE, COMPANY_ADDRESS, COMPANY_CITY, COMPANY_PHONE, COMPANY_TYPE) values (1, curdate(), 'francia 3444', 'Castelar', 24777677, 'DNI', 'elianadel@fdsa.com', 'Eliana Delgado', '3243-4322', 'saraza 1234', 'Castelar', '15-6789-5434', 'Comercio');
 insert into CLIENT (ID, CREATED_DATE, ADDRESS, CITY, DOCUMENT_NUMBER, DOCUMENT_TYPE, EMAIL, NAME, NEAR_STREETS, PHONE, COMPANY_ADDRESS, COMPANY_CITY, COMPANY_PHONE, COMPANY_TYPE) values (2, curdate(), 'francia 3445', 'Moron', 24777673, 'DNI', 'fra234@fdsa.com', 'Francisco Delgado', 'entre saraza y martin co.', '3246-4322', 'arriba 11234', 'Moron', '15-6783-5134', 'Particular');

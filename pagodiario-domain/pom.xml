@@ -79,6 +79,11 @@
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+
 		<!-- APACHE-COMMONS -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

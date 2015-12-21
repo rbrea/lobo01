@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,6 +32,10 @@ public class User extends Identifiable {
 	private String documentType;
 	@Column(name = "IS_ADMIN")
 	private boolean admin = false;
+	@Column(name = "RESET_PASSWORD_VERIFICATION_CODE", length = 50)
+	private String resetPasswordVerificationCode;
+	@Column(name = "RESET_PASSWORD_EXPIRATION", columnDefinition = "DATETIME")
+	private Date resetPasswordExpiration;
 	
 	public User() {
 		super();
@@ -97,6 +103,23 @@ public class User extends Identifiable {
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public String getResetPasswordVerificationCode() {
+		return resetPasswordVerificationCode;
+	}
+
+	public void setResetPasswordVerificationCode(
+			String resetPasswordVerificationCode) {
+		this.resetPasswordVerificationCode = resetPasswordVerificationCode;
+	}
+
+	public Date getResetPasswordExpiration() {
+		return resetPasswordExpiration;
+	}
+
+	public void setResetPasswordExpiration(Date resetPasswordExpiration) {
+		this.resetPasswordExpiration = resetPasswordExpiration;
 	}
 
 }

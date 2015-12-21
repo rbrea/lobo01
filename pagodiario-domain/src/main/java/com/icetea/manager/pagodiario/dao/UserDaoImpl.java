@@ -44,4 +44,13 @@ public class UserDaoImpl extends BasicIdentificableDaoImpl<User> implements
 		return (User) criteria.uniqueResult();
 	}
 	
+	@Override
+	public User findByVerificationCode(String verificationCode) {
+		Criteria criteria = super.createCriteria();
+		
+		criteria.add(Restrictions.eq("resetPasswordVerificationCode", verificationCode));
+		
+		return (User) criteria.uniqueResult();
+	}
+	
 }
