@@ -107,11 +107,17 @@ public class AuthenticationServiceImpl extends BasicServiceImpl implements
 	}
 
 	@Override
-	public List<UserRegistrationDto> getUserRegistration(Long id){
-		if(id == null){
+	public List<UserRegistrationDto> getUserRegistration(Long id, String username){
+		if(id == null && StringUtils.isBlank(username)){
 			return this.userRegistrationDtoModelTransformer.transformAllTo(this.userDao.findAll());
 		}
-		return Lists.newArrayList(this.userRegistrationDtoModelTransformer.transform(this.userDao.findById(id)));
+		User user = null;
+		if(id != null){
+			user = this.userDao.findById(id);
+		} else if(StringUtils.isNotBlank(username)){
+			user = this.userDao.find(username); 
+		}
+		return Lists.newArrayList(this.userRegistrationDtoModelTransformer.transform(user));
 	}
 
 	@Override

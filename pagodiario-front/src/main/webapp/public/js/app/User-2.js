@@ -10,8 +10,12 @@ User.printUsername = function(){
 	   success:function(data) {
 			
 		   if(data != null){
-				   
-			   $("#userLogged").html(data.username);
+			
+			   var userLoggedValue = data.username;
+			   if(data.name != null && data.name != ""){
+				   userLoggedValue = data.name;
+			   }
+			   $("#userLogged").html(userLoggedValue);
 			   // completo la lista de perfiles ...
 			   Permission.fill(data);
 			   
@@ -85,17 +89,30 @@ User.showModal = function(){
 	return;
 }
 
-User.showEditModal = function(id){
+User.showEditModal = function(id, username){
 	BootstrapDialog.show({
 		onshow: function(){
 			
 			return;
 		},
 		onshown: function(){
-			if(id != null && id != ""){
+			if((id != null && id != "") || (username != null && username != "")){
+				
+				var args = "";
+				if(id != null && id != ""){
+					args += "?id=" + id; 
+				}
+				if(username != null && username != ""){
+					if(args == ""){
+						args += "?username=" + username;
+					} else {
+						args += "&username=" + username;
+					}
+				}
+				
         		$.ajax({ 
     			   type    : "GET",
-    			   url     : Constants.contextRoot + "/controller/service/registration?id=" + id,
+    			   url     : Constants.contextRoot + "/controller/service/registration" + args,
     			   dataType: 'json',
     			   contentType: "application/json;",
     			   success:function(data) {
@@ -114,6 +131,7 @@ User.showEditModal = function(id){
     					   } else {
     						   $("#admin").prop("checked", false);
     					   }
+    					   $("#admin").prop("disabled", !Permission.isAdmin);   
     					   $("#ename").focus();
     					   
     					   return;

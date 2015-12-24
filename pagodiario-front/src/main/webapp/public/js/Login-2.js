@@ -61,6 +61,7 @@ Login.init = function(){
 
 	$("#forgotUsername").keyup(function(e){
 		if(e.keyCode == 10 || e.keyCode == 13) {
+			e.preventDefault();
 			$("#btnSendEmail").focus();			
 		}
 	    
@@ -289,7 +290,7 @@ Login.showMailModal = function(){
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Olvid&oacute; su contrase&ntilde;a?',
+		title: '<i class="fa fa-exclamation-circle"></i>&nbsp;Olvid&oacute; su contrase&ntilde;a?',
 		autodestroy: false,
         message: function(dialog) {
         	
@@ -360,7 +361,7 @@ Login.showForgetPasswordModal = function(){
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Olvid&oacute; su contrase&ntilde;a?',
+		title: '<i class="fa fa-exclamation-circle"></i>&nbsp;Por favor ingrese el c&oacute;digo de verificaci&oacute;n y su nueva contrase&ntilde;a',
 		autodestroy: false,
         message: function(dialog) {
         	

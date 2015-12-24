@@ -17,6 +17,7 @@ public class UserDtoModelTransformer extends AbstractDtoModelTransformer<UserDto
 		if(e.isAdmin()){
 			d.getRoles().add("ROLE_ADMIN");
 		}
+		d.setName(e.getName());
 		
 		return d;
 	}

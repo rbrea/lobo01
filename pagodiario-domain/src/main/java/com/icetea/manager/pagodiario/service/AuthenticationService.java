@@ -13,7 +13,7 @@ public interface AuthenticationService extends BasicService {
 
 	UserDto register(UserRegistrationDto userRegistration);
 
-	List<UserRegistrationDto> getUserRegistration(Long id);
+	List<UserRegistrationDto> getUserRegistration(Long id, String username);
 	
 	UserDto editUser(UserRegistrationDto userRegistration);
 	

@@ -1,3 +1,11 @@
+<style>
+/* The max width is dependant on the container (more info below) */
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    white-space: nowrap;
+}
+</style>
+
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-grad" role="navigation">
 	<div class="container-fluid">
@@ -8,13 +16,17 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/controller/html/index">
-				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;SGPD - Sistema de Gesti&oacute;n de Pago Diario - versi&oacute;n 1.0
+			<a id="brandNavbar" class="navbar-brand" href="javascript:void(0);" 
+						data-toggle="popover" data-placement="bottom" data-trigger="focus">
+				<img src="${pageContext.request.contextPath}/public/images/ice-tea-logo50x50.png">&nbsp;Sistema de Gesti&oacute;n de Pago Diario
 			</a>
 		</div>
 		<form id="frmLogout" action="${pageContext.request.contextPath}/controller/html/logout"></form>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right" style="padding-top: 1.2%;">
+				<li class="dropdown icon-circle">
+	              <a id="home" href="${pageContext.request.contextPath}/controller/html/index" role="button"><i class="fa fa-home fgrey"></i>&nbsp;&nbsp;Inicio</a>
+	            </li>
 				<li class="dropdown icon-circle">
 	              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-balance-scale fgrey"></i>&nbsp;&nbsp;Cr&eacute;ditos <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
@@ -117,6 +129,8 @@
 	              	<i class="glyphicon glyphicon-user fgrey"></i>&nbsp;&nbsp;<span id="userLogged"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
 	              </a>
 	              <ul class="dropdown-menu" role="menu" aria-labelledby="dropUser">
+	              
+	              	<li><a id="btnMenuEditUser" href="javascript:void(0);"><i class="glyphicon glyphicon-user"></i>&nbsp;Editar Usuario</a></li>
 	              	<li><a id="btnLogout" href="javascript:void(0);"><i class="glyphicon glyphicon-off"></i>&nbsp;Cerrar sesi&oacute;n</a></li>
 	              </ul>
 	            </li>
@@ -178,6 +192,25 @@
     	    	});
     	        
     	        User.printUsername();
+    	        
+    	        
+    	        $("#btnMenuEditUser").on('click', function(){
+    	        	
+    	        	var username = Permission.username;
+    	        	
+    	        	User.showEditModal(null, username);       	
+    	        	
+    	        	return;
+    	        });
+    	        
+    	        $("#brandNavbar").popover(
+	    	        {
+	    	        	"title": "Autor",
+	    	        	"content": "Dise&ntilde;o y programaci&oacute;n: <a href=\"mailto:rodrigo.hernandez.brea@gmail.com\">Rodrigo Hernandez Brea</a>",
+	    	        	"html" : true
+	    	        	
+	    	        }		
+    	        );
     	        
     			return;
     		}

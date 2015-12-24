@@ -128,9 +128,10 @@ public class LoginController extends ExceptionHandlingController {
 
 	@RequestMapping(value = "/service/registration", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody ListOutputDto<UserRegistrationDto> getUsers(
-			@RequestParam(required = false) Long id) {
+			@RequestParam(required = false) Long id, 
+			@RequestParam(required = false) String username) {
 		ListOutputDto<UserRegistrationDto> r = new ListOutputDto<UserRegistrationDto>();
-		List<UserRegistrationDto> list = this.authenticationService.getUserRegistration(id);
+		List<UserRegistrationDto> list = this.authenticationService.getUserRegistration(id, username);
 		r.setData(list);
 		
 		return r;

@@ -61,7 +61,7 @@
     <script src="${pageContext.request.contextPath}/public/js/raphael-min.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/morris.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/Login-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Login-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/validator.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
@@ -79,9 +79,9 @@
 	
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
-	<script src="${pageContext.request.contextPath}/public/js/app/User-1.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/app/User-2.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
-	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 	
 </body>
 </html>
