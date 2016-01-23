@@ -27,7 +27,7 @@ public class Dev extends Identifiable {
 	private Bill bill;
 	@ManyToOne
 	private Product product;
-	@Column(name = "PRODUCT_COUNT")
+	@Column(name = "PRODUCT_COUNT", nullable = false)
 	private int productCount = 0;
 	@Column(name = "INSTALLMENT_AMOUNT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal installmentAmount = BigDecimal.ZERO;
