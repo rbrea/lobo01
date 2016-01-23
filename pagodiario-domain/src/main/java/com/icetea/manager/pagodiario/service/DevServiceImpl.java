@@ -237,7 +237,7 @@ public class DevServiceImpl extends BasicIdentifiableServiceImpl<Dev, DevDao, De
 				dev.setObservations(StringUtils.abbreviate(StringUtils.trim(o.getObservations()), 250));
 				dev.setBill(bill);
 				dev.setProduct(bp.getProduct());
-				dev.setProductCount(bp.getCount());
+				dev.setProductCount((bp.getCount() != null) ? bp.getCount() : 0);
 				dev.setInstallmentAmount(bp.getDailyInstallment());
 				
 				this.getDao().saveOrUpdate(dev);

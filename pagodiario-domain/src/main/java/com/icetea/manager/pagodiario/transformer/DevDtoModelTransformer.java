@@ -25,6 +25,7 @@ public class DevDtoModelTransformer extends AbstractDtoModelTransformer<DevDto, 
 		d.setRemainingAmount(NumberUtils.toString(e.getBill().getRemainingAmount()));
 		d.setOverdueDays(e.getBill().getOverdueDays());
 		d.setInstallmentAmount(NumberUtils.toString(e.getBill().getTotalDailyInstallment()));
+		d.setProductCount(e.getProductCount());
 		
 		return d;
 	}
