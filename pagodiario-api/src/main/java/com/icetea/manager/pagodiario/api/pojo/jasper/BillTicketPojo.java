@@ -29,6 +29,7 @@ public class BillTicketPojo extends BasicDto {
 	private String creditNumber = "";
 	private String currentDate = "";
 	private String remainingDays = "";
+	private String zone = "";
 	
 	private String ticketNumber2 = "";
 	private String traderName2 = "";
@@ -47,7 +48,8 @@ public class BillTicketPojo extends BasicDto {
 	private String remainingAmount2 = "";
 	private String creditNumber2 = "";
 	private String remainingDays2 = "";
-
+	private String zone2 = "";
+	
 	public String getTicketNumber() {
 		return ticketNumber;
 	}
@@ -287,6 +289,18 @@ public class BillTicketPojo extends BasicDto {
 	}
 	public void setRemainingDays2(String remainingDays2) {
 		this.remainingDays2 = remainingDays2;
+	}
+	public String getZone() {
+		return zone;
+	}
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+	public String getZone2() {
+		return zone2;
+	}
+	public void setZone2(String zone2) {
+		this.zone2 = zone2;
 	}
 	
 }

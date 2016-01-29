@@ -28,7 +28,7 @@
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 		<jasperreport.version>6.1.0</jasperreport.version>
-    		<jasperreport.font-version>6.1.0</jasperreport.font-version>
+    		<jasperreport.font-version>6.0.0</jasperreport.font-version>
     	</properties>
 
 	<scm>
@@ -341,6 +341,11 @@
 			    <groupId>commons-digester</groupId>
 			    <artifactId>commons-digester</artifactId>
 			    <version>2.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>net.sf.jasperreports</groupId>
+			    <artifactId>jasperreports-fonts</artifactId>
+			    <version>${jasperreport.font-version}</version>
 			</dependency>
         	</dependencies>
     	</dependencyManagement>

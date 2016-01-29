@@ -12,6 +12,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -69,6 +71,11 @@ public class TicketController extends ExceptionHandlingController {
 //			JasperDesign jasperDesign = JRXmlLoader.load(fullpath);
 //			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			InputStream is = new FileInputStream(fullpath);
+			
+			DefaultJasperReportsContext context = DefaultJasperReportsContext.getInstance();
+			JRPropertiesUtil.getInstance(context).setProperty("net.sf.jasperreports.default.font.name", "Arial");
+			JRPropertiesUtil.getInstance(context).setProperty("net.sf.jasperreports.default.pdf.embedded", "true");
+			JRPropertiesUtil.getInstance(context).setProperty("net.sf.jasperreports.default.pdf.font.name", "Arial");
 			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(is, params, 
 					new JRBeanCollectionDataSource(list));

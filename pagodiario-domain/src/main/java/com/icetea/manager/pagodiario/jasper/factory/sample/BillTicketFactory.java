@@ -61,6 +61,8 @@ public class BillTicketFactory {
 		p.setTraderPhone2("1165778890");
 		p.setTotalAmount("2500.00");
 		p.setTotalAmount2("1000.00");
+		p.setZone("1");
+		p.setZone2("2");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
@@ -116,6 +118,9 @@ public class BillTicketFactory {
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
+		p.setZone("3");
+		p.setZone2("4");
+		
 		list.add(p);
 		
 		p = new BillTicketPojo();
@@ -165,6 +170,9 @@ public class BillTicketFactory {
 		p.setTraderPhone2("31165778890");
 		p.setTotalAmount("Total Compra: 22500.00");
 		p.setTotalAmount("Total Compra: 21000.00");
+		
+		p.setZone("5");
+		p.setZone2("6");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
@@ -220,6 +228,9 @@ public class BillTicketFactory {
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
+		p.setZone("88");
+		p.setZone2("99");
+		
 		list.add(p);
 
 		p = new BillTicketPojo();
@@ -271,6 +282,9 @@ public class BillTicketFactory {
 		p.setTotalAmount("Total Compra: 21000.00");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+		
+		p.setZone("9");
+		p.setZone2("34");
 		
 		list.add(p);
 		

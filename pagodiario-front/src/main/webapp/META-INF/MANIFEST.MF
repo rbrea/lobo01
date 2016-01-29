@@ -40,5 +40,5 @@ Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
  5.jar json4s-ast_2.10-3.2.5.jar scalap-2.10.0.jar scala-compiler-2.10
  .0.jar json4s-jackson_2.10-3.2.5.jar cglib-2.2.jar asm-3.1.jar swagge
  r-models-0.8.5.jar classmate-1.0.0.jar poi-3.10.1.jar commons-codec-1
- .5.jar
+ .5.jar jasperreports-fonts-6.0.0.jar
 
