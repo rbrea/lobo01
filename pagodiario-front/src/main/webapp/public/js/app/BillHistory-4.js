@@ -627,31 +627,78 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 
 BillHistory.addPayment = function(dialog, btn, responseHandler){
 	var billId = $("#paymentBillId").val();
-
-	var obj = new Object();
-	obj.billId = billId;
-	obj.amount = $("#paymentAmount").val();
-	obj.collectorId = $("#paymentCollectorId").val();
-	obj.date = $("#paymentDateValue").val();
+	
+	var paymentDateValue = "";
+	
+	var paymentDate = $("#paymentDateValue").val();
+	if(Commons.isValid(paymentDate)){
+		paymentDateValue += "&paymentDate=" + paymentDate;
+	}
 	
 	$.ajax({ 
-	   type    : "POST",
-	   url     : Constants.contextRoot + "/controller/html/payment",
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/payment?billId=" + billId + paymentDateValue,
 	   dataType: 'json',
-	   data: JSON.stringify(obj),
 	   contentType: "application/json;",
 	   success:function(data) {
 		   Message.hideMessages($('#modalPaymentAlertMessages'), $("#modalPaymentMessages"));
 		   if(data != null && data.status == 0){
-
-			   dialog.enableButtons(true);
-			   dialog.setClosable(true);
-       		   btn.stopSpin();
-			   dialog.close();
-
-			   //BillHistory.init();
-			   responseHandler(data);
 			   
+			   var enabled = true;
+			   
+			   if(data.data.length > 0){
+				   enabled = confirm("Esta factura ya tiene 1 o más pagos hechos para el dia seleccionado. Quiere continuar?");
+			   }
+			   
+			   if(enabled){
+				   var obj = new Object();
+					obj.billId = billId;
+					obj.amount = $("#paymentAmount").val();
+					obj.collectorId = $("#paymentCollectorId").val();
+					obj.date = $("#paymentDateValue").val();
+					
+					$.ajax({ 
+					   type    : "POST",
+					   url     : Constants.contextRoot + "/controller/html/payment",
+					   dataType: 'json',
+					   data: JSON.stringify(obj),
+					   contentType: "application/json;",
+					   success:function(data) {
+						   Message.hideMessages($('#modalPaymentAlertMessages'), $("#modalPaymentMessages"));
+						   if(data != null && data.status == 0){
+		
+							   dialog.enableButtons(true);
+							   dialog.setClosable(true);
+				       		   btn.stopSpin();
+							   dialog.close();
+		
+							   //BillHistory.init();
+							   responseHandler(data);
+							   
+							   return;
+						   }else{
+							   Message.showMessages($('#modalPaymentAlertMessages'), $("#modalPaymentMessages"), data.message);
+							   
+							   dialog.enableButtons(true);
+							   dialog.setClosable(true);
+				       		   btn.stopSpin();
+						   }
+					   },
+					   error:function(data){
+						   Message.showMessages($('#modalPaymentAlertMessages'), $("#modalPaymentMessages"), data.responseJSON.message);
+						   dialog.enableButtons(true);
+						   dialog.setClosable(true);
+				   		   btn.stopSpin();
+						   
+						   return;
+					   }
+					});
+			   } else {
+				   dialog.enableButtons(true);
+				   dialog.setClosable(true);
+		   		   btn.stopSpin();
+			   }
+
 			   return;
 		   }else{
 			   Message.showMessages($('#modalPaymentAlertMessages'), $("#modalPaymentMessages"), data.message);

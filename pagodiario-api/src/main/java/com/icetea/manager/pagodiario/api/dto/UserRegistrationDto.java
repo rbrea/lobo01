@@ -6,11 +6,9 @@ public class UserRegistrationDto extends UserDto {
 
 	private Long id;
 	private String password;
-	private String name;
 	private String documentNumber;
 	private String documentType = "DNI";
 	private String email;
-	private boolean admin;
 	private String pageFrom;
 	
 	public String getEmail() {
@@ -29,14 +27,6 @@ public class UserRegistrationDto extends UserDto {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDocumentNumber() {
 		return documentNumber;
 	}
@@ -51,14 +41,6 @@ public class UserRegistrationDto extends UserDto {
 
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
 	}
 
 	public Long getId() {

@@ -52,7 +52,8 @@ public class PaymentController extends ExceptionHandlingController {
 	public @ResponseBody ListOutputDto<PaymentDto> getPayments(
 			@RequestParam(required = false) Long id, 
 			@RequestParam(required = false) Long billId,
-			@RequestParam(required = false) Long collectorId){
+			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false) String paymentDate){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
 		List<PaymentDto> payments = Lists.newArrayList();
@@ -63,7 +64,11 @@ public class PaymentController extends ExceptionHandlingController {
 			payments = this.paymentService.transform(bills);
 			
 		} else if(billId != null){
-			payments = this.paymentService.search(billId);
+			if(StringUtils.isNotBlank(paymentDate)){
+				payments = this.paymentService.search(billId, paymentDate);
+			} else {
+				payments = this.paymentService.search(billId);
+			}
 		} else if(id != null){
 			payments.add(this.paymentService.searchById(id));
 		} else {

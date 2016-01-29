@@ -79,7 +79,7 @@
 	
 	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
-	<script src="${pageContext.request.contextPath}/public/js/app/User-2.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/app/User-3.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
 	

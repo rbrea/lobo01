@@ -8,6 +8,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.PaymentDto;
@@ -146,6 +148,18 @@ public class PaymentServiceImpl
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<PaymentDto> search(Long billId, String paymentDate){
+		
+		ErrorTypedConditions.checkArgument(billId != null, ErrorType.BILL_REQUIRED);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(paymentDate), ErrorType.VALIDATION_ERRORS);
+		
+		Date from = DateUtils.truncate(DateUtils.parseDate(paymentDate));
+		Date to = DateUtils.normalizeTo(from);
+		
+		return this.getTransformer().transformAllTo(this.getDao().find(billId, from, to));
 	}
 
 }

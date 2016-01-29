@@ -16,4 +16,6 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 
 	List<PaymentDto> transform(List<BillDto> bills);
 
+	List<PaymentDto> search(Long billId, String paymentDate);
+
 }

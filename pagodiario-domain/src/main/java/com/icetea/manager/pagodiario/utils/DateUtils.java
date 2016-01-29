@@ -113,4 +113,48 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		return new Date();
 	}
 	
+	public static Date normalizeTo(Date enddate){
+    	if(enddate == null){
+    		enddate = new Date();
+    	}
+    	// llevo la fecha hasta a 23:59:59 para tomar todo lo q este durante ese dia ...
+    	enddate = DateUtils.lastSecondOfDay(enddate);
+		
+		return enddate;
+	}
+
+	/**
+	 * It wants to take hour of the date to 00:00:00. <br>e.g. 30/04/1982 13:00:00 to 30/04/1982 00:00:00. 
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date truncate(Date date){
+		return truncate(date, Calendar.DAY_OF_MONTH);
+	}
+
+	public static Date nowTruncated(){
+		return truncate(new Date());
+	}
+
+	public static String nowString(){
+		return toDate(now());
+	}
+	
+	public static String nowTruncatedString(){
+		return toDate(nowTruncated());
+	}
+
+	public static long millisToSeconds(long millis){
+		return (millis / 1000);
+	}
+	
+	public static long secondsToMinutes(long seconds){
+		return (seconds / 60);
+	}
+	
+	public static long millisToMinutes(long millis){
+		return secondsToMinutes(millisToSeconds(millis));
+	}
+	
 }

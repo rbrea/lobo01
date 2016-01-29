@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -25,6 +26,18 @@ public class PaymentDaoImpl extends BasicIdentificableDaoImpl<Payment>
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("bill", "bill");
 		criteria.add(Restrictions.eq("bill.id", billId));
+		
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Payment> find(Long billId, Date paymentDateFrom, Date paymentDateTo){
+		
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("bill", "bill");
+		criteria.add(Restrictions.eq("bill.id", billId));
+		criteria.add(Restrictions.between("date", paymentDateFrom, paymentDateTo));
 		
 		return criteria.list();
 	}

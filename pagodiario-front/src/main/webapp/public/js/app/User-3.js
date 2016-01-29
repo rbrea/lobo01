@@ -96,7 +96,8 @@ User.showEditModal = function(id, username){
 			return;
 		},
 		onshown: function(){
-			if((id != null && id != "") || (username != null && username != "")){
+			
+if((id != null && id != "") || (username != null && username != "")){
 				
 				var args = "";
 				if(id != null && id != ""){
@@ -115,24 +116,23 @@ User.showEditModal = function(id, username){
     			   url     : Constants.contextRoot + "/controller/service/registration" + args,
     			   dataType: 'json',
     			   contentType: "application/json;",
+    			   async:false,
     			   success:function(data) {
     				   Message.hideMessages($('#modalEditUserAlertMessages'), $("#modalEditUserMessages"));
     				   if(data != null && data.status == 0){
     					   
     					   var elem = data.data[0];
     					   
-    					   $("#userId").val(elem.id);
-    					   $("#ename").val(elem.name);
-    					   $("#eemail").val(elem.email);
-    					   $("#edocumentNumber").val(elem.documentNumber);
-    					   $("#enusername").val(elem.username);
-    					   if(elem.admin == true){
-    						   $("#admin").prop("checked", true);   
-    					   } else {
-    						   $("#admin").prop("checked", false);
-    					   }
-    					   $("#admin").prop("disabled", !Permission.isAdmin);   
-    					   $("#ename").focus();
+    					   $("#euuserId").val(elem.id);
+    					   $("#euname").val(elem.name);
+    					   $("#euemail").val(elem.email);
+    					   $("#eudocumentNumber").val(elem.documentNumber);
+    					   $("#enuusername").val(elem.username);
+    					   
+    					   $("#euadmin").prop("checked", elem.admin == true);
+    					   
+    					   $("#euadmin").prop("disabled", !Permission.isAdmin);   
+    					   $("#euname").focus();
     					   
     					   return;
     				   }else{
@@ -150,7 +150,7 @@ User.showEditModal = function(id, username){
 			return;
 		},
 		onhidden:function(){
-			Login.editUserReset();
+			User.editUserReset();
 			
 			return;
 		},
@@ -365,6 +365,18 @@ User.initControls = function(){
 	    
 	    return;
 	});
+	
+	return;
+}
+
+User.editUserReset = function(){
+	$("#euuserId").val("");
+	$("#euname").val("");
+	$("#euemail").val("");
+	$("#eudocumentNumber").val("");
+	$("#euadmin").prop("checked", false);
+	$("#enuusername").val("");
+	$("#frmEditUser").validator('destroy');
 	
 	return;
 }
