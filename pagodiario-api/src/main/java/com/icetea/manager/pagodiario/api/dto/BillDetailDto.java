@@ -26,6 +26,7 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	
 	private String completedDate;
 	private String status;
+	private Long collectorId;
 	private String collectorDescription;
 	private String customerCompanyType;
 
@@ -136,6 +137,12 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setCustomerCompanyType(String customerCompanyType) {
 		this.customerCompanyType = customerCompanyType;
+	}
+	public Long getCollectorId() {
+		return collectorId;
+	}
+	public void setCollectorId(Long collectorId) {
+		this.collectorId = collectorId;
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -75,4 +77,8 @@ public class CollectorServiceImpl
 		return this.getTransformer().transform(this.getDao().findByZone(zone));
 	}
 	
+	@Override
+	public List<CollectorDto> searchByDescription(String q){
+		return this.getTransformer().transformAllTo(this.getDao().findByDescription(q));
+	}
 }

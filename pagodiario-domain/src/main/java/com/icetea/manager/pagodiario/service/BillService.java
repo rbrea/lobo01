@@ -43,4 +43,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	List<BillDto> searchCanceled();
 
+	BillDto updateCollector(Long billId, Long collectorId);
+
 }

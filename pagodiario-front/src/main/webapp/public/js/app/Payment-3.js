@@ -448,6 +448,11 @@ Payment.showConfirmModal = function(){
 			
 			return;
 		},
+		onshown:function(){
+			$("#btnAccept").focus();
+			
+			return;
+		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
 		title: 'Confirmar Pagos?',
@@ -536,7 +541,7 @@ Payment.showConfirmModal = function(){
         	}
         },
         {
-        	id: 'btnAccept',
+        	id: 'btnAcceptAllPayment',
         	label: 'Aceptar',
         	icon: 'glyphicon glyphicon-ok-sign',
         	cssClass: 'btn-success',

@@ -62,49 +62,63 @@
 		  		</div>
 		  		<div class="panel-body">
 		  			<table id="tCreditDetail" class="table table-bordered table-striped">
+		  				<col style="width:40%">
 		  				<tr>
 		  					<td style="font-weight:bold;">Cliente</td>
-		  					<td id="clientName"></td>
+		  					<td colspan="2" id="clientName"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Direcci&oacute;n</td>
-		  					<td id="clientAddress"></td>
+		  					<td colspan="2"  id="clientAddress"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Tipo de Comercio</td>
-		  					<td id="customerCompanyType"></td>
+		  					<td colspan="2"  id="customerCompanyType"></td>
 		  				</tr>
 		  				<tr>
-		  					<td style="font-weight:bold;">Zona / Cobrador</td>
-		  					<td id="collectorDescription"></td>
+		  					<td style="font-weight:bold;padding-top: 3%;">Zona / Cobrador</td>
+		  					<td>
+		  						<div class="input-group" style="margin-top: 2%;">
+		  							<input type="hidden" id="billCollectorIdSelected" name="billCollectorIdSelected" required>
+					                <input type="text" class="form-control" id="collectorDescription" name="collectorDescription" placeholder="Ingrese cobrador" required>
+									<span id="btnSearchCollectorDetail" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
+		  						</div>
+								<div id="billDetailCollectorErrorMessageDiv" class="help-block with-errors"></div>
+		  					</td>
+		  					<td id="billDetailCollectorActionCol" class="centered">
+		  						<button id="btnBillDetailCollectorChange" class="btn btn-xs btn-primary" data-toggle="tooltip" 
+		  								data-placement="top" title="Modificar Cobrador">
+		  							<i class="fa fa-pencil"></i>
+		  						</button>
+		  					</td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Vendedor</td>
-		  					<td id="traderName"></td>
+		  					<td colspan="2"  id="traderName"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Fecha Cr&eacute;dito</td>
-		  					<td id="creditDate"></td>
+		  					<td colspan="2"  id="creditDate"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Importe Cr&eacute;dito</td>
-		  					<td id="creditAmount"></td>
+		  					<td colspan="2"  id="creditAmount"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Cuota</td>
-		  					<td id="installment"></td>
+		  					<td colspan="2"  id="installment"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Pago Primer Cuota</td>
-		  					<td id="firstInstallment"></td>
+		  					<td colspan="2"  id="firstInstallment"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Estado</td>
-		  					<td id="status" style="font-weight:bold;"></td>
+		  					<td colspan="2"  id="status" style="font-weight:bold;"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Fecha de Pago total</td>
-		  					<td id="completedDate"></td>
+		  					<td colspan="2"  id="completedDate"></td>
 		  				</tr>
 		  			</table>
 		  			<table id="tBillProducts" class="table table-bordered table-striped">
@@ -228,7 +242,89 @@
 				input = billId;
 			}
 			
+			$("#btnBillDetailCollectorChange").on('click', function(){
+				
+				var collectorId = $("#billCollectorIdSelected").val();
+				if(Commons.isNotValid(collectorId)){
+					collectorId = -1;
+				}
+				var billId = $("#billId").val();
+				if(Commons.isNotValid(billId)){
+					billId = -1;
+				}
+				
+				$.ajax({ 
+				   type    : "PUT",
+				   url     : Constants.contextRoot + "/controller/html/bill/collector/" + billId + "/" + collectorId,
+				   dataType: 'json',
+				   contentType: "application/json;",
+				   success:function(data) {
+					   Message.hideMessages($('#billDetailAlertMessages'), $("#billDetailMessages"));
+					   if(data != null && data.status == 0){
+						   
+						   var list = data.data;
+
+						   if(list.length > 0){
+							   
+							   var r = list[0];
+							   
+							   var selectedId = r.collectorZone;
+							   var selectedDescription = r.collectorId + " / " + r.collectorDescription;
+							   
+							   $("#billCollectorIdSelected").val(selectedId);
+							   $("#collectorDescription").val(selectedDescription);
+							   
+						   }
+						   
+						   return;
+					   }else{
+						   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+					   }
+				   },
+				   error:function(data){
+					   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+					   
+					   return;
+				   }
+				});
+				
+				
+				
+				return;
+			});
+			
 			Bill.initDetail(input);
+			
+			$("#collectorDescription").autocomplete({
+			    paramName: 'q',
+			    serviceUrl: "${pageContext.request.contextPath}/controller/html/collector/autocomplete",
+			    transformResult: function(response) {
+			    	
+			    	var list = [];
+			    	
+			    	var parsed = JSON.parse(response);
+
+			    	$.each(parsed, function(){
+			    		
+			    		var obj = new Object();
+			    		obj.data = "" + this.id;
+			    		
+			    		obj.value = this.zone + " / " + this.description;
+			    		list.push(obj);
+			    		
+			    		return;
+			    	});
+			    	
+			        return {
+			            suggestions: list 
+			        };
+			    },
+			    onSelect: function (suggestion) {
+			        $("#billCollectorIdSelected").val(suggestion.data);
+			        
+			        return;
+			    }
+			});
 		    
 			return;
 		}

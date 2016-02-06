@@ -19,6 +19,8 @@ public class BillDto extends BasicIdentifiableDto {
 	private String status;
 	private Long creditNumber;
 	private Long collectorId;
+	private Long collectorZone;
+	private String collectorDescription;
 	private String remainingAmount;
 	private Integer weekOfYear;
 	private Integer month;
@@ -29,6 +31,10 @@ public class BillDto extends BasicIdentifiableDto {
 	private String clientAddress;
 	private String clientCompanyType;
 	private String clientDocumentNumber;
+	
+	public BillDto() {
+		super();
+	}
 
 	public Long getTraderId() {
 		return traderId;
@@ -155,6 +161,20 @@ public class BillDto extends BasicIdentifiableDto {
 	}
 	public void setClientDocumentNumber(String clientDocumentNumber) {
 		this.clientDocumentNumber = clientDocumentNumber;
+	}
+	public String getCollectorDescription() {
+		return collectorDescription;
+	}
+	public void setCollectorDescription(String collectorDescription) {
+		this.collectorDescription = collectorDescription;
+	}
+
+	public Long getCollectorZone() {
+		return collectorZone;
+	}
+
+	public void setCollectorZone(Long collectorZone) {
+		this.collectorZone = collectorZone;
 	}
 	
 }

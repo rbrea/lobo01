@@ -262,6 +262,7 @@ public class BillServiceImpl
 		d.setCreditNumber(StringUtils.toString(bill.getCreditNumber()));
 		d.setCompletedDate((bill.getCompletedDate() != null) ? DateUtils.toDate(bill.getCompletedDate()) : StringUtils.EMPTY);
 		d.setStatus(bill.getStatus().name());
+		d.setCollectorId(bill.getCollector().getId());
 		d.setCollectorDescription(String.valueOf(bill.getCollector().getZone()) + " / " + bill.getCollector().getDescription());
 		d.setCustomerCompanyType((StringUtils.isNotBlank(bill.getClient().getCompanyType())) ? bill.getClient().getCompanyType() : StringUtils.EMPTY);
 		
@@ -417,6 +418,27 @@ public class BillServiceImpl
 	@Override
 	public List<BillDto> searchCanceled(){
 		return this.getTransformer().transformAllTo(this.getDao().findCanceled());
+	}
+
+	@Override
+	public BillDto updateCollector(Long billId, Long collectorId){
+		
+		ErrorTypedConditions.checkArgument(billId != null, "ID Factura es requerido");
+		ErrorTypedConditions.checkArgument(collectorId != null, "ID Cobrador es requerido");
+		
+		Bill bill = this.getDao().findById(billId);
+		
+		ErrorTypedConditions.checkArgument(bill != null, "Factura no encontrada con nro: " + billId);
+		
+		Collector collector = this.collectorDao.findById(collectorId);
+		
+		ErrorTypedConditions.checkArgument(collector != null, "Cobrador no encontrado con nro: " + collectorId);
+		
+		bill.setCollector(collector);
+		
+		this.getDao().saveOrUpdate(bill);
+		
+		return this.getTransformer().transform(bill);
 	}
 	
 }

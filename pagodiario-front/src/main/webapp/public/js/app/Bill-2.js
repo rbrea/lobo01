@@ -1786,7 +1786,8 @@ Bill.initDetail = function(billId){
 				   $("#remainingAmount").append(d.remainingAmount);
 				   $("#completedDate").append(d.completedDate);
 				   $("#customerCompanyType").append(d.customerCompanyType);
-				   $("#collectorDescription").append(d.collectorDescription);
+				   $("#billCollectorIdSelected").val(d.collectorId);
+				   $("#collectorDescription").val(d.collectorDescription);
 				   
 				   var statusElement = $("#status");
 				   

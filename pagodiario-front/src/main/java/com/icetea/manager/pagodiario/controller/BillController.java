@@ -281,4 +281,18 @@ public class BillController extends ExceptionHandlingController {
 		return r;
 	}
 	
+	@RequestMapping(value = "/collector/{billId}/{collectorId}", method = RequestMethod.PUT)
+	public @ResponseBody ListOutputDto<BillDto> changeCollector(@PathVariable Long billId,
+			@PathVariable Long collectorId){
+		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
+		
+		BillDto bill = this.billService.updateCollector(billId, collectorId);
+
+		r.add(bill);
+		
+		r.setStatus(0);
+		
+		return r;
+	}
+	
 }

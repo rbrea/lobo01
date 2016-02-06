@@ -19,6 +19,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -171,6 +172,23 @@ public class CollectorController extends ExceptionHandlingController {
 					ErrorType.UNKNOWN_ERROR);
 		}
 		
+	}
+
+	@RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
+	public @ResponseBody List<CollectorDto> getAutocomplete(@RequestParam(required = false) String q){
+
+		List<CollectorDto> list = Lists.newArrayList();
+		
+		if(StringUtils.isNotBlank(q)){
+			list = this.collectorService.searchByDescription(q);
+		} else {
+			list = this.collectorService.searchAll();
+		}
+		if(list == null){
+			return Lists.newArrayList();
+		}
+		
+		return list;
 	}
 	
 }
