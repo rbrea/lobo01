@@ -258,15 +258,18 @@ Ticket.validate = function(){
 	
 	if(c == 0){
 		var collectorId = $("#zone").val();
-		var dateFrom = $("#fecDesdeValue").val();
-		var dateTo = $("#fecHastaValue").val();
+		var dateFromInput = $("#fecDesdeValue").val();
+		var dateToInput = $("#fecHastaValue").val();
 		
-		if(dateFrom != null && dateFrom != ""){
-			dateFrom = "&fecDesdeValue=" + dateFrom;
+		var dateFrom = "";
+		var dateTo = "";
+		
+		if(Commons.isValid(dateFromInput)){
+			dateFrom = "&fecDesdeValue=" + dateFromInput;
 		}
 		
-		if(dateTo != null && dateTo != ""){
-			dateTo = "&fecHastaValue=" + dateTo;
+		if(Commons.isValid(dateToInput)){
+			dateTo = "&fecHastaValue=" + dateToInput;
 		}
 		
 		$.ajax({ 

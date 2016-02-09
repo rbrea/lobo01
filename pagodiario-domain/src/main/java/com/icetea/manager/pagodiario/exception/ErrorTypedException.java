@@ -13,6 +13,27 @@ public class ErrorTypedException extends RuntimeException {
 	private final ErrorType errorType;
 	private final List<FormErrorDto> formErrors = Lists.newArrayList();
 
+	public ErrorTypedException() {
+		super();
+		this.errorType = ErrorType.VALIDATION_ERRORS;
+	}
+
+	public ErrorTypedException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+		this.errorType = ErrorType.VALIDATION_ERRORS;
+	}
+
+	public ErrorTypedException(String message, Throwable cause) {
+		super(message, cause);
+		this.errorType = ErrorType.VALIDATION_ERRORS;
+	}
+
+	public ErrorTypedException(Throwable cause) {
+		super(cause);
+		this.errorType = ErrorType.VALIDATION_ERRORS;
+	}
+
 	public ErrorTypedException(ErrorType errorType) {
 		super();
 		this.errorType = errorType;

@@ -9,6 +9,8 @@ public class FileResponseDto extends BasicOutputDto {
 	private static final long serialVersionUID = 1L;
 
 	private LinkedList<FileMeta> files = Lists.newLinkedList();
+	private String error;
+	private String printKey;
 
 	public FileResponseDto() {
 		super();
@@ -33,6 +35,22 @@ public class FileResponseDto extends BasicOutputDto {
 
 	public void setFiles(LinkedList<FileMeta> files) {
 		this.files = files;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getPrintKey() {
+		return printKey;
+	}
+
+	public void setPrintKey(String printKey) {
+		this.printKey = printKey;
 	}
 	
 }

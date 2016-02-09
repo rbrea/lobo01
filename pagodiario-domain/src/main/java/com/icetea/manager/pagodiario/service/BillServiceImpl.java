@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDiscountDto;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
@@ -29,6 +30,7 @@ import com.icetea.manager.pagodiario.dao.ConciliationItemDao;
 import com.icetea.manager.pagodiario.dao.ProductDao;
 import com.icetea.manager.pagodiario.dao.TraderDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.BillProduct;
@@ -439,6 +441,39 @@ public class BillServiceImpl
 		this.getDao().saveOrUpdate(bill);
 		
 		return this.getTransformer().transform(bill);
+	}
+
+	@Override
+	public List<BillTicketPojo> searchBillsByCreditNumber(List<Long> creditNumbers){
+		
+		ErrorTypedConditions.checkArgument(creditNumbers != null, "Lista de Números de crédito vacía.");
+		
+		List<Bill> bills = Lists.newArrayList();
+		
+		List<String> notFoundList = Lists.newArrayList();
+		
+		for(Long creditNumber : creditNumbers){
+			
+			Bill bill = this.getDao().findByCreditNumber(creditNumber);
+			
+			if(bill == null){
+				notFoundList.add(String.valueOf(creditNumber));
+			} else {
+				bills.add(bill);
+			}
+		}
+		if(!notFoundList.isEmpty()){
+			throw new ErrorTypedException("No se han encontrado los siguientes nros de credito: "
+					+ StringUtils.join(notFoundList, ", "));
+		}
+		
+		List<BillTicketPojo> result = Lists.newArrayList();
+		
+		for(Bill bill : bills){
+			result.add(this.billTicketTransformer.transform(bill));
+		}
+		
+		return result;
 	}
 	
 }

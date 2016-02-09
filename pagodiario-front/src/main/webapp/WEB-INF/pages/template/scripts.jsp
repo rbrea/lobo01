@@ -60,3 +60,16 @@
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Voucher-1.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/public/js/load-image.all.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/canvas-to-blob.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.iframe-transport.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload-process.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload-image.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload-audio.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload-video.js"></script>
+    <script src="${pageContext.request.contextPath}/public/jquery-fileupload/js/jquery.fileupload-validate.js"></script>
+    
+    

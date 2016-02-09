@@ -25,6 +25,8 @@
 
 <link href="${pageContext.request.contextPath}/public/c3/c3.min.css" rel="stylesheet" type="text/css">
 
+<link href="${pageContext.request.contextPath}/public/jquery-fileupload/css/jquery.fileupload.css" rel="stylesheet" type="text/css">
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="${pageContext.request.contextPath}/public/js/ie-emulation-modes-warning.js"></script>

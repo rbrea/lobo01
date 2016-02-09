@@ -10,6 +10,7 @@ public class FileMeta extends BasicDto {
 	private String fileName;
 	private String fileSize;
 	private String fileType;
+	private String error;
 
 	private byte[] bytes;
 
@@ -43,6 +44,14 @@ public class FileMeta extends BasicDto {
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 
 }

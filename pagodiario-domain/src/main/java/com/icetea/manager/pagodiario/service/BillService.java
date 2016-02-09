@@ -45,4 +45,6 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 
 	BillDto updateCollector(Long billId, Long collectorId);
 
+	List<BillTicketPojo> searchBillsByCreditNumber(List<Long> creditNumbers);
+
 }
