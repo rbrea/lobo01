@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.transformer;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -56,6 +57,11 @@ public class BillTicketTransformer {
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
 			installment = NumberUtils.toString(d.getTotalDailyInstallment());
+			
+			String weekAmount = NumberUtils.toString(
+					NumberUtils.multiply(
+							d.getTotalDailyInstallment(), NumberUtils.toBigDecimal("7")));
+			p.setWeekAmount(weekAmount);
 		}
 		p.setInstallmentAmount(installment);
 		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -96,6 +102,9 @@ public class BillTicketTransformer {
 		if(d.getCollector() != null){
 			p.setZone(String.valueOf(d.getCollector().getZone()));
 		}
+		
+		BigDecimal currentAmount = NumberUtils.subtract(totalAmount, remainingAmount);
+		p.setCurrentAmount(NumberUtils.toString(currentAmount));
 		
 		return p;
 	}
@@ -144,6 +153,11 @@ public class BillTicketTransformer {
 		String installment = "";
 		if(d.getTotalDailyInstallment() != null){
 			installment = NumberUtils.toString(d.getTotalDailyInstallment());
+			
+			String weekAmount = NumberUtils.toString(
+					NumberUtils.multiply(
+							d.getTotalDailyInstallment(), NumberUtils.toBigDecimal("7")));
+			p.setWeekAmount2(weekAmount);
 		}
 		p.setInstallmentAmount2(installment);
 		p.setOverdueDays2("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
@@ -185,6 +199,9 @@ public class BillTicketTransformer {
 			p.setZone2(String.valueOf(d.getCollector().getZone()));
 		}
 		
+		BigDecimal currentAmount = NumberUtils.subtract(totalAmount, remainingAmount);
+		p.setCurrentAmount2(NumberUtils.toString(currentAmount));
+		
 		return p;
 	}
 	
@@ -193,18 +210,18 @@ public class BillTicketTransformer {
 			return null;
 		}
 		List<BillTicketPojo> r = Lists.newArrayList();
-		boolean change = true;
+//		boolean change = true;
 		BillTicketPojo billTicket = null;
 		for(Bill b : list){
-			if(change){
+//			if(change){
 				billTicket = this.transform(b);
 				billTicket.setCurrentDate(ticketDateValue);
 				r.add(billTicket);
-				change = false;
-			} else {
-				this.transform(billTicket, b);
-				change = true;
-			}
+//				change = false;
+//			} else {
+//				this.transform(billTicket, b);
+//				change = true;
+//			}
 		}
 		
 		return r;

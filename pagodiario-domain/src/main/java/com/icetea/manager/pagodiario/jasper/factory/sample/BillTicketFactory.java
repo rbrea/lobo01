@@ -63,6 +63,10 @@ public class BillTicketFactory {
 		p.setTotalAmount2("1000.00");
 		p.setZone("1");
 		p.setZone2("2");
+		p.setWeekAmount("196");
+		p.setWeekAmount2("154");
+		p.setCurrentAmount("1000");
+		p.setCurrentAmount2("1100");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
@@ -120,6 +124,10 @@ public class BillTicketFactory {
 		
 		p.setZone("3");
 		p.setZone2("4");
+		p.setWeekAmount("210");
+		p.setWeekAmount2("250");
+		p.setCurrentAmount("1500");
+		p.setCurrentAmount2("1700");
 		
 		list.add(p);
 		
@@ -176,6 +184,11 @@ public class BillTicketFactory {
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
+		p.setWeekAmount("400");
+		p.setWeekAmount2("345");
+		p.setCurrentAmount("2100");
+		p.setCurrentAmount2("1600");
+		
 		list.add(p);
 		
 		p = new BillTicketPojo();
@@ -231,6 +244,11 @@ public class BillTicketFactory {
 		p.setZone("88");
 		p.setZone2("99");
 		
+		p.setWeekAmount("78");
+		p.setWeekAmount2("452");
+		p.setCurrentAmount("2900");
+		p.setCurrentAmount2("890");
+		
 		list.add(p);
 
 		p = new BillTicketPojo();
@@ -285,6 +303,11 @@ public class BillTicketFactory {
 		
 		p.setZone("9");
 		p.setZone2("34");
+		
+		p.setWeekAmount("123");
+		p.setWeekAmount2("321");
+		p.setCurrentAmount("1456");
+		p.setCurrentAmount2("1234");
 		
 		list.add(p);
 		
