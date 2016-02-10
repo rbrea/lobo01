@@ -1789,6 +1789,9 @@ Bill.initDetail = function(billId){
 				   $("#billCollectorIdSelected").val(d.collectorId);
 				   $("#collectorDescription").val(d.collectorDescription);
 				   
+				   $("#weekAmountContainer").append(d.weekAmount);
+				   $("#currentAmountContainer").append(d.currentAmount);
+				   
 				   var statusElement = $("#status");
 				   
 				   statusElement.append(Bill.translateStatus(d.status));

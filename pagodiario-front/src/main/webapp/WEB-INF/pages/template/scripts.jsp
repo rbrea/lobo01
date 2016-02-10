@@ -43,7 +43,7 @@
     <script src="${pageContext.request.contextPath}/public/js/Client-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Product-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-2.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Bill-2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Bill-3.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-4.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Discount-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>

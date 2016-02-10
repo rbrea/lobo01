@@ -29,7 +29,14 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	private Long collectorId;
 	private String collectorDescription;
 	private String customerCompanyType;
-
+	
+	private String weekAmount;
+	private String currentAmount;
+	
+	public BillDetailDto() {
+		super();
+	}
+	
 	public String getClientName() {
 		return clientName;
 	}
@@ -143,6 +150,18 @@ public class BillDetailDto extends BasicIdentifiableDto {
 	}
 	public void setCollectorId(Long collectorId) {
 		this.collectorId = collectorId;
+	}
+	public String getWeekAmount() {
+		return weekAmount;
+	}
+	public void setWeekAmount(String weekAmount) {
+		this.weekAmount = weekAmount;
+	}
+	public String getCurrentAmount() {
+		return currentAmount;
+	}
+	public void setCurrentAmount(String currentAmount) {
+		this.currentAmount = currentAmount;
 	}
 	
 }

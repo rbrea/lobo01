@@ -259,6 +259,11 @@ public class BillServiceImpl
 		d.setFirstInstallmentAmount(
 				NumberUtils.toString(bill.getPayments().get(0).getAmount()));
 		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
+		
+		d.setWeekAmount(NumberUtils.toString(NumberUtils.multiply(bill.getTotalDailyInstallment(), new BigDecimal(7))));
+		
+		d.setCurrentAmount(NumberUtils.toString(NumberUtils.subtract(bill.getTotalAmount(), bill.getRemainingAmount())));
+		
 		d.setRemainingAmount(NumberUtils.toString(bill.getRemainingAmount()));
 		d.setTraderName(bill.getTrader().getName());
 		d.setCreditNumber(StringUtils.toString(bill.getCreditNumber()));

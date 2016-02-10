@@ -105,8 +105,16 @@
 		  					<td colspan="2"  id="creditAmount"></td>
 		  				</tr>
 		  				<tr>
+		  					<td style="font-weight:bold;">Total Abonado</td>
+		  					<td colspan="2"  id="currentAmountContainer"></td>
+		  				</tr>
+		  				<tr>
 		  					<td style="font-weight:bold;">Cuota</td>
 		  					<td colspan="2"  id="installment"></td>
+		  				</tr>
+		  				<tr>
+		  					<td style="font-weight:bold;">Pago Semanal</td>
+		  					<td colspan="2"  id="weekAmountContainer"></td>
 		  				</tr>
 		  				<tr>
 		  					<td style="font-weight:bold;">Pago Primer Cuota</td>
