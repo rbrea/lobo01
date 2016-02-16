@@ -272,9 +272,11 @@ Ticket.validate = function(){
 			dateTo = "&fecHastaValue=" + dateToInput;
 		}
 		
+		var ticketDateValue = $("#ticketDateValue").val();
+		
 		$.ajax({ 
 		   type    : "GET",
-		   url     : Constants.contextRoot + "/controller/html/ticket/validate?collectorId=" + collectorId + dateFrom + dateTo,
+		   url     : Constants.contextRoot + "/controller/html/ticket/validate?collectorId=" + collectorId + "&ticketDateValue=" + ticketDateValue + dateFrom + dateTo,
 		   dataType: 'json',
 		   contentType: "application/json;",
 		   success:function(data) {

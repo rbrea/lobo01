@@ -338,8 +338,14 @@ public class BillServiceImpl
 		if(StringUtils.isNotBlank(toDate)){
 			dateTo = DateUtils.parseDate(toDate);
 		}
+		
+		Date selectedDate = DateUtils.parseDate(ticketDateValue);
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(selectedDate);
+		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 	
-		List<Bill> bills = this.getDao().find(collectorZone, dateFrom, dateTo);
+		List<Bill> bills = this.getDao().find(collectorZone, dateFrom, dateTo, dayOfWeek);
 		
 		return this.billTicketTransformer.transform(ticketDateValue, bills);
 	}

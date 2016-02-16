@@ -56,6 +56,13 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 		d.setClientCompanyType(StringUtils.emptyWhenNull(e.getClient().getCompanyType()));
 		d.setClientDocumentNumber((e.getClient().getDocumentNumber() != null) 
 				? e.getClient().getDocumentNumber().toString() : StringUtils.EMPTY);
+		d.setWeekFriday(e.isWeekFriday());
+		d.setWeekMonday(e.isWeekMonday());
+		d.setWeekSaturday(e.isWeekSaturday());
+		d.setWeekSunday(e.isWeekSunday());
+		d.setWeekThursday(e.isWeekThursday());
+		d.setWeekTuesday(e.isWeekTuesday());
+		d.setWeekWednesday(e.isWeekWednesday());
 		
 		return d;
 	}

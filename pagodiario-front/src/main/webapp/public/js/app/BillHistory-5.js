@@ -140,7 +140,14 @@ BillHistory.init = function(){
                 		"collectorId" : row.collectorId,
                 		"detailClazzDisabled": clazzDisabled,
                 		"creditNumber" : row.creditNumber,
-                		"status" : row.status
+                		"status" : row.status,
+                		"weekSunday": row.weekSunday,
+                		"weekMonday": row.weekMonday,
+                		"weekTuesday": row.weekTuesday,
+                		"weekWednesday": row.weekWednesday,
+                		"weekThursday": row.weekThursday,
+                		"weekFriday": row.weekFriday,
+                		"weekSaturday": row.weekSaturday
                 	});
                 } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
          	}
@@ -398,7 +405,9 @@ BillHistory.getActionSelectElement = function(id, map){
 	    "<li><a href=\"" + Constants.contextRoot + "/controller/html/bill/detail/index?billId=" + id + "&creditNumber=" + map.creditNumber + "\" \"><i class=\"glyphicon glyphicon-zoom-in\"></i>&nbsp;Detalle</a></li>" +
 	    "<li id=\"liSeparatorCreation_" + id + "\" role=\"separator " + hideClass + "\" class=\"divider\"></li>" +
 	    "<li id=\"liTitleCreation_" + id + "\" class=\"dropdown-header " + hideClass + "\">Altas</li>" +
-	    "<li id=\"liPayment_" + id + "\" class=\"" + map.detailClazzDisabled + " " + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "');\">Pago</a></li>" +
+	    "<li id=\"liPayment_" + id + "\" data-weekSunday='" + map.weekSunday + "' data-weekMonday='" + map.weekMonday + "' data-weekTuesday='" + map.weekTuesday + "' data-weekWednesday='" + map.weekWednesday + "' data-weekThursday='" + map.weekThursday + "' data-weekFriday='" + map.weekFriday + "' data-weekSaturday='" + map.weekSaturday + "' class=\"" + map.detailClazzDisabled + " " + hideClass + "\">" +
+	    	"<a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showModalPayment('" + id + "', '" + map.totalDailyInstallment + "', '" + map.collectorId + "', '" + map.creditNumber + "');\">Pago</a>" + 
+	    "</li>" +
 	    "<li id=\"liDiscount_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDiscount('" + id + "', '" + map.totalDailyInstallment + "');\">Descuento</a></li>" +
 	    "<li id=\"liDev_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showDev('" + id + "');\">Devoluci&oacute;n</a></li>" +
 	    "<li id=\"liReduction_" + id + "\" class=\"" + hideClass + "\"><a href=\"javascript:void(0);\" onclick=\"javascript:BillHistory.showProductReduction('" + id + "');\">Baja</a></li>" +
@@ -504,7 +513,7 @@ BillHistory.showPayments = function(id){
 	return;
 }
 
-BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
+BillHistory.showModalPayment = function(id, paymentAmount, collectorId, creditNumber){
 	if($(this).hasClass('disabled')){
 		return false;
 	}
@@ -512,6 +521,8 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 	BootstrapDialog.show({
 		onhidden:function(){
 			BillHistory.resetModal();
+			
+			$("#creditNumberSpan").html("");
 			
 			return;
 		},
@@ -554,11 +565,13 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
 			    return;
 			});
 			
+			$("#creditNumberSpan").html(""+creditNumber);
+			
 			return;
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Cargar Pago',
+		title: '<i class="fa fa-chevron-right"></i>&nbsp;Cargar Pago',
 		autodestroy: false,
         message: function(dialog) {
         	
@@ -574,6 +587,24 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId){
         	$("#paymentBillId").val(id);
         	$("#paymentAmount").val(paymentAmount);
         	$("#paymentCollectorId").val(collectorId);
+        	
+        	var liPayment = $("#liPayment_" + id);
+        	
+        	var weekSunday = liPayment.data("weeksunday");
+        	var weekMonday = liPayment.data("weekmonday");
+        	var weekTuesday = liPayment.data("weektuesday");
+        	var weekWednesday = liPayment.data("weekwednesday");
+        	var weekThursday = liPayment.data("weekthursday");
+        	var weekFriday = liPayment.data("weekfriday");
+        	var weekSaturday = liPayment.data("weeksaturday");
+        	
+        	Commons.selectDayOfWeek($("#weekSunday"), weekSunday);
+        	Commons.selectDayOfWeek($("#weekMonday"), weekMonday);
+        	Commons.selectDayOfWeek($("#weekTuesday"), weekTuesday);
+        	Commons.selectDayOfWeek($("#weekWednesday"), weekWednesday);
+        	Commons.selectDayOfWeek($("#weekThursday"), weekThursday);
+        	Commons.selectDayOfWeek($("#weekFriday"), weekFriday);
+        	Commons.selectDayOfWeek($("#weekSaturday"), weekSaturday);
         	
         	$("#modal-payment-container").css({"display":"block"});
         	
@@ -657,7 +688,15 @@ BillHistory.addPayment = function(dialog, btn, responseHandler){
 					obj.collectorId = $("#paymentCollectorId").val();
 					obj.date = $("#paymentDateValue").val();
 					
-					$.ajax({ 
+					obj.weekSunday = $("#weekSunday").prop("checked");
+					obj.weekMonday = $("#weekMonday").prop("checked");
+					obj.weekTuesday = $("#weekTuesday").prop("checked");
+					obj.weekWednesday = $("#weekWednesday").prop("checked");
+					obj.weekThursday = $("#weekThursday").prop("checked");
+					obj.weekFriday = $("#weekFriday").prop("checked");
+					obj.weekSaturday = $("#weekSaturday").prop("checked");
+					
+					$.ajax({
 					   type    : "POST",
 					   url     : Constants.contextRoot + "/controller/html/payment",
 					   dataType: 'json',
@@ -786,7 +825,7 @@ BillHistory.showDiscount = function(id, installmentAmount){
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Descuentos',
+		title: '<i class="fa fa-chevron-right"></i>&nbsp;Descuentos',
 		autodestroy: false,
         message: function(dialog) {
         	
@@ -1578,6 +1617,16 @@ BillHistory.addResponseHandler = function(data){
 	if(Commons.isValid(element.totalAmount)){
 		$("#totalAmount_" + billId).html(element.totalAmount);
 	}
+	
+	var liPayment = $("#liPayment_" + element.billId);
+	
+	liPayment.data("weeksunday", element.weekSunday);
+	liPayment.data("weekmonday", element.weekMonday);
+	liPayment.data("weektuesday", element.weekTuesday);
+	liPayment.data("weekwednesday", element.weekWednesday);
+	liPayment.data("weekthursday", element.weekThursday);
+	liPayment.data("weekfriday", element.weekFriday);
+	liPayment.data("weeksaturday", element.weekSaturday);
 	
 	return;
 }

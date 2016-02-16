@@ -104,6 +104,14 @@ public class PaymentServiceImpl
 
 		this.billUtils.doBillCancelation(bill);
 		
+		bill.setWeekFriday(d.isWeekFriday());
+		bill.setWeekMonday(d.isWeekMonday());
+		bill.setWeekSaturday(d.isWeekSaturday());
+		bill.setWeekSunday(d.isWeekSunday());
+		bill.setWeekThursday(d.isWeekThursday());
+		bill.setWeekTuesday(d.isWeekTuesday());
+		bill.setWeekWednesday(d.isWeekWednesday());
+		
 		this.billDao.saveOrUpdate(bill);
 		
 		d.setBillStatus(bill.getStatus().name());
@@ -144,6 +152,15 @@ public class PaymentServiceImpl
 			p.setAmount(b.getTotalDailyInstallment());
 			p.setBillId(b.getId());
 			p.setCollectorId(b.getCollectorId());
+			
+			p.setWeekFriday(b.isWeekFriday());
+			p.setWeekMonday(b.isWeekMonday());
+			p.setWeekSaturday(b.isWeekSaturday());
+			p.setWeekSunday(b.isWeekSunday());
+			p.setWeekThursday(b.isWeekThursday());
+			p.setWeekTuesday(b.isWeekTuesday());
+			p.setWeekWednesday(b.isWeekWednesday());
+			
 			list.add(p);
 		}
 		

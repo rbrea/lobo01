@@ -125,3 +125,28 @@ Commons.getIndexFromString = function(input, valueSearched){
 	
 	return resp;
 }
+
+Commons.isTrue = function(value){
+	return (value == true || value == "true" || value == "checked");
+}
+
+Commons.isFalse = function(value){
+	return !Commons.isTrue(value);
+}
+
+Commons.selectDayOfWeek = function(jElement, value){
+
+	value = Commons.isTrue(value);
+	if(value == null){
+		return false;
+	}
+	
+	jElement.prop('checked', value);
+	if(value){
+		jElement.parent().addClass("active");
+	} else {
+		jElement.parent().removeClass("active");
+	}
+	
+	return;
+}

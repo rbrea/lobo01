@@ -92,6 +92,20 @@ public class Bill extends Identifiable {
 	private Integer year;
 	@Column(name = "TOTAL_AMOUNT_TO_LIQ", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
 	private BigDecimal totalAmountToLiq = BigDecimal.ZERO;
+	@Column(name = "WEEK_SUNDAY", nullable = false)
+	private boolean weekSunday = true;
+	@Column(name = "WEEK_MONDAY", nullable = false)
+	private boolean weekMonday = true;
+	@Column(name = "WEEK_TUESDAY", nullable = false)
+	private boolean weekTuesday = true;
+	@Column(name = "WEEK_WEDNESDAY", nullable = false)
+	private boolean weekWednesday = true;
+	@Column(name = "WEEK_THURSDAY", nullable = false)
+	private boolean weekThursday = true;
+	@Column(name = "WEEK_FRIDAY", nullable = false)
+	private boolean weekFriday = true;
+	@Column(name = "WEEK_SATURDAY", nullable = false)
+	private boolean weekSaturday = true;
 	
 	public Bill() {
 		super();
@@ -375,6 +389,62 @@ public class Bill extends Identifiable {
 
 	public void setTotalAmountToLiq(BigDecimal totalAmountToLiq) {
 		this.totalAmountToLiq = totalAmountToLiq;
+	}
+
+	public boolean isWeekSunday() {
+		return weekSunday;
+	}
+
+	public void setWeekSunday(boolean weekSunday) {
+		this.weekSunday = weekSunday;
+	}
+
+	public boolean isWeekMonday() {
+		return weekMonday;
+	}
+
+	public void setWeekMonday(boolean weekMonday) {
+		this.weekMonday = weekMonday;
+	}
+
+	public boolean isWeekTuesday() {
+		return weekTuesday;
+	}
+
+	public void setWeekTuesday(boolean weekTuesday) {
+		this.weekTuesday = weekTuesday;
+	}
+
+	public boolean isWeekWednesday() {
+		return weekWednesday;
+	}
+
+	public void setWeekWednesday(boolean weekWednesday) {
+		this.weekWednesday = weekWednesday;
+	}
+
+	public boolean isWeekThursday() {
+		return weekThursday;
+	}
+
+	public void setWeekThursday(boolean weekThursday) {
+		this.weekThursday = weekThursday;
+	}
+
+	public boolean isWeekFriday() {
+		return weekFriday;
+	}
+
+	public void setWeekFriday(boolean weekFriday) {
+		this.weekFriday = weekFriday;
+	}
+
+	public boolean isWeekSaturday() {
+		return weekSaturday;
+	}
+
+	public void setWeekSaturday(boolean weekSaturday) {
+		this.weekSaturday = weekSaturday;
 	}
 
 }

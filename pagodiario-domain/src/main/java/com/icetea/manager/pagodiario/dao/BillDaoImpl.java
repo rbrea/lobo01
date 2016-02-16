@@ -73,7 +73,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Bill> find(Long collectorZone, Date dateFrom, Date dateTo){
+	public List<Bill> find(Long collectorZone, Date dateFrom, Date dateTo, int dayOfWeek){
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("collector", "collector");
 		if(dateFrom != null && dateTo != null){
@@ -81,6 +81,32 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		}
 		criteria.add(Restrictions.eq("collector.zone", collectorZone));
 		criteria.add(Restrictions.eq("status", Bill.Status.ACTIVE));
+		
+		switch(dayOfWeek){
+			case 1:
+				criteria.add(Restrictions.eq("weekSunday", true));
+				break;
+			case 2:
+				criteria.add(Restrictions.eq("weekMonday", true));
+				break;
+			case 3:
+				criteria.add(Restrictions.eq("weekTuesday", true));
+				break;
+			case 4:
+				criteria.add(Restrictions.eq("weekWednesday", true));
+				break;
+			case 5:
+				criteria.add(Restrictions.eq("weekThursday", true));
+				break;
+			case 6:
+				criteria.add(Restrictions.eq("weekFriday", true));
+				break;
+			case 7:
+				criteria.add(Restrictions.eq("weekSaturday", true));
+				break;
+			default:
+				break;
+		}
 		
 		return criteria.list();
 	}
