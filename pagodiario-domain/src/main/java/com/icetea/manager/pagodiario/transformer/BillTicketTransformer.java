@@ -43,7 +43,7 @@ public class BillTicketTransformer {
 			}
 			p.setClientAddress(address);
 			p.setClientCity(d.getClient().getCity());
-			String companyAddress = this.buildCompanyAddress(d);
+			String companyAddress = this.buildAddress(d.getClient().getCompanyAddress(), d.getClient().getCompanyCity()); //this.buildCompanyAddress(d);
 			p.setClientCompanyAddress(companyAddress);
 			p.setClientName(d.getClient().getName());
 			p.setClientPhone((StringUtils.isNotBlank(d.getClient().getCompanyPhone())) ? d.getClient().getCompanyPhone() : " - ");
@@ -106,9 +106,12 @@ public class BillTicketTransformer {
 		BigDecimal currentAmount = NumberUtils.subtract(totalAmount, remainingAmount);
 		p.setCurrentAmount(NumberUtils.toString(currentAmount));
 		
+		p.setCustomerAddress(this.buildAddress(d.getClient().getAddress(), d.getClient().getCity()));
+		
 		return p;
 	}
 
+	@SuppressWarnings("unused")
 	private String buildCompanyAddress(Bill d) {
 		String companyAddress = "";
 		if(StringUtils.isNotBlank(d.getClient().getCompanyAddress())){
@@ -122,87 +125,17 @@ public class BillTicketTransformer {
 		return companyAddress;
 	}
 	
-	public BillTicketPojo transform(BillTicketPojo p, Bill d){
-		if(d.getClient() != null){
-			String address = "";
-//			if(StringUtils.isNotBlank(d.getClient().getAddress())){
-//				address += d.getClient().getAddress();
-//				if(StringUtils.isNotBlank(d.getClient().getCity())){
-//					address += " / " + d.getClient().getCity();
-//				}
-//			}
-			if(StringUtils.isNotBlank(d.getClient().getCompanyType())){
-				address = d.getClient().getCompanyType(); 
+	private String buildAddress(String address, String city) {
+		String r = "";
+		if(StringUtils.isNotBlank(address)){
+			r = address;
+			if(StringUtils.isNotBlank(city)){
+				r += " / " + city;
 			} else {
-				address = " - "; 
+				r += " / " + " - ";
 			}
-			
-			
-			p.setClientAddress2(address);
-			p.setClientCity2(d.getClient().getCity());
-			String companyAddress = this.buildCompanyAddress(d);
-			p.setClientCompanyAddress2(companyAddress);
-			p.setClientName2(d.getClient().getName());
-			p.setClientPhone2((StringUtils.isNotBlank(d.getClient().getCompanyPhone())) ? d.getClient().getCompanyPhone() : " - ");
-			p.setCompanyType2(d.getClient().getCompanyType());
 		}
-		if(d.getCreditNumber() != null){
-			String creditNumber = "*" + String.valueOf(d.getCreditNumber()) + "*";
-			p.setCreditNumber2(creditNumber);
-		}
-		String installment = "";
-		if(d.getTotalDailyInstallment() != null){
-			installment = NumberUtils.toString(d.getTotalDailyInstallment());
-			
-			String weekAmount = NumberUtils.toString(
-					NumberUtils.multiply(
-							d.getTotalDailyInstallment(), NumberUtils.toBigDecimal("7")));
-			p.setWeekAmount2(weekAmount);
-		}
-		p.setInstallmentAmount2(installment);
-		p.setOverdueDays2("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
-		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
-		if(list != null){
-			p.setProducts2(list);
-		}
-		String purchaseDate = "";
-		if(d.getStartDate() != null){
-			purchaseDate = DateUtils.toDate(d.getStartDate());
-		}
-		p.setPurchaseDate2(purchaseDate);
-		String remainingAmount = "";
-		if(d.getRemainingAmount() != null){
-			remainingAmount = NumberUtils.toString(d.getRemainingAmount());
-		}
-		p.setRemainingAmount2(remainingAmount);
-		
-		if(d.getId() != null){
-			String ticketNumber = "NRO TCK: " + String.valueOf(d.getId());
-			p.setTicketNumber2(ticketNumber);
-		}
-		String totalAmount = "";
-		if(d.getTotalAmount() != null){
-			totalAmount = NumberUtils.toString(d.getTotalAmount());
-		}
-		p.setTotalAmount2(totalAmount);
-		if(d.getTrader() != null){
-			String traderName = StringUtils.emptyWhenNull(d.getTrader().getName());
-			if(StringUtils.isNotBlank(traderName) 
-					&& StringUtils.isNotBlank(d.getTrader().getPhone())){
-				traderName += "(" + d.getTrader().getPhone() + ")";
-			}
-			p.setTraderName2(traderName);
-			p.setTraderPhone2(d.getTrader().getPhone());
-		}
-		p.setRemainingDays2("DR: " + String.valueOf(d.remainingDays()));
-		if(d.getCollector() != null){
-			p.setZone2(String.valueOf(d.getCollector().getZone()));
-		}
-		
-		BigDecimal currentAmount = NumberUtils.subtract(totalAmount, remainingAmount);
-		p.setCurrentAmount2(NumberUtils.toString(currentAmount));
-		
-		return p;
+		return r;
 	}
 	
 	public List<BillTicketPojo> transform(String ticketDateValue, List<Bill> list){
