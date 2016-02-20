@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2016-02-10T01:33:33 -->
+<!-- 2016-02-20T12:11:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sgpd_ticket" columnCount="2" pageWidth="612" pageHeight="1008" columnWidth="306" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8152241-3996-49af-9f8c-f8848f0cabb6">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BillTicketDs"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
+	<field name="remainingDays" class="java.lang.String">
+		<fieldDescription><![CDATA[remainingDays]]></fieldDescription>
+	</field>
+	<field name="remainingAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[remainingAmount]]></fieldDescription>
+	</field>
+	<field name="weekAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[weekAmount]]></fieldDescription>
+	</field>
 	<field name="overdueDays" class="java.lang.String">
 		<fieldDescription><![CDATA[overdueDays]]></fieldDescription>
-	</field>
-	<field name="totalAmount2" class="java.lang.String">
-		<fieldDescription><![CDATA[totalAmount2]]></fieldDescription>
-	</field>
-	<field name="clientCity" class="java.lang.String">
-		<fieldDescription><![CDATA[clientCity]]></fieldDescription>
 	</field>
 	<field name="productList" class="java.lang.String">
 		<fieldDescription><![CDATA[productList]]></fieldDescription>
 	</field>
+	<field name="clientCity" class="java.lang.String">
+		<fieldDescription><![CDATA[clientCity]]></fieldDescription>
+	</field>
 	<field name="clientPhone" class="java.lang.String">
 		<fieldDescription><![CDATA[clientPhone]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
 	</field>
 	<field name="ticketNumber" class="java.lang.String">
 		<fieldDescription><![CDATA[ticketNumber]]></fieldDescription>
@@ -28,20 +37,23 @@
 	<field name="clientCompanyAddress" class="java.lang.String">
 		<fieldDescription><![CDATA[clientCompanyAddress]]></fieldDescription>
 	</field>
-	<field name="traderPhone2" class="java.lang.String">
-		<fieldDescription><![CDATA[traderPhone2]]></fieldDescription>
+	<field name="traderName" class="java.lang.String">
+		<fieldDescription><![CDATA[traderName]]></fieldDescription>
 	</field>
-	<field name="clientAddress2" class="java.lang.String">
-		<fieldDescription><![CDATA[clientAddress2]]></fieldDescription>
+	<field name="clientAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[clientAddress]]></fieldDescription>
 	</field>
-	<field name="clientName2" class="java.lang.String">
-		<fieldDescription><![CDATA[clientName2]]></fieldDescription>
+	<field name="currentAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[currentAmount]]></fieldDescription>
 	</field>
-	<field name="productList2" class="java.lang.String">
-		<fieldDescription><![CDATA[productList2]]></fieldDescription>
+	<field name="currentDate" class="java.lang.String">
+		<fieldDescription><![CDATA[currentDate]]></fieldDescription>
 	</field>
-	<field name="ticketNumber2" class="java.lang.String">
-		<fieldDescription><![CDATA[ticketNumber2]]></fieldDescription>
+	<field name="creditNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[creditNumber]]></fieldDescription>
+	</field>
+	<field name="purchaseDate" class="java.lang.String">
+		<fieldDescription><![CDATA[purchaseDate]]></fieldDescription>
 	</field>
 	<field name="clientName" class="java.lang.String">
 		<fieldDescription><![CDATA[clientName]]></fieldDescription>
@@ -49,50 +61,11 @@
 	<field name="totalAmount" class="java.lang.String">
 		<fieldDescription><![CDATA[totalAmount]]></fieldDescription>
 	</field>
+	<field name="customerAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[customerAddress]]></fieldDescription>
+	</field>
 	<field name="installmentAmount" class="java.lang.String">
 		<fieldDescription><![CDATA[installmentAmount]]></fieldDescription>
-	</field>
-	<field name="clientCity2" class="java.lang.String">
-		<fieldDescription><![CDATA[clientCity2]]></fieldDescription>
-	</field>
-	<field name="purchaseDate2" class="java.lang.String">
-		<fieldDescription><![CDATA[purchaseDate2]]></fieldDescription>
-	</field>
-	<field name="companyType2" class="java.lang.String">
-		<fieldDescription><![CDATA[companyType2]]></fieldDescription>
-	</field>
-	<field name="remainingAmount" class="java.lang.String">
-		<fieldDescription><![CDATA[remainingAmount]]></fieldDescription>
-	</field>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
-	<field name="traderName" class="java.lang.String">
-		<fieldDescription><![CDATA[traderName]]></fieldDescription>
-	</field>
-	<field name="clientAddress" class="java.lang.String">
-		<fieldDescription><![CDATA[clientAddress]]></fieldDescription>
-	</field>
-	<field name="clientCompanyAddress2" class="java.lang.String">
-		<fieldDescription><![CDATA[clientCompanyAddress2]]></fieldDescription>
-	</field>
-	<field name="clientPhone2" class="java.lang.String">
-		<fieldDescription><![CDATA[clientPhone2]]></fieldDescription>
-	</field>
-	<field name="overdueDays2" class="java.lang.String">
-		<fieldDescription><![CDATA[overdueDays2]]></fieldDescription>
-	</field>
-	<field name="creditNumber" class="java.lang.String">
-		<fieldDescription><![CDATA[creditNumber]]></fieldDescription>
-	</field>
-	<field name="creditNumber2" class="java.lang.String">
-		<fieldDescription><![CDATA[creditNumber2]]></fieldDescription>
-	</field>
-	<field name="purchaseDate" class="java.lang.String">
-		<fieldDescription><![CDATA[purchaseDate]]></fieldDescription>
-	</field>
-	<field name="traderName2" class="java.lang.String">
-		<fieldDescription><![CDATA[traderName2]]></fieldDescription>
 	</field>
 	<field name="traderPhone" class="java.lang.String">
 		<fieldDescription><![CDATA[traderPhone]]></fieldDescription>
@@ -100,34 +73,11 @@
 	<field name="companyType" class="java.lang.String">
 		<fieldDescription><![CDATA[companyType]]></fieldDescription>
 	</field>
-	<field name="installmentAmount2" class="java.lang.String">
-		<fieldDescription><![CDATA[installmentAmount2]]></fieldDescription>
-	</field>
-	<field name="remainingAmount2" class="java.lang.String">
-		<fieldDescription><![CDATA[remainingAmount2]]></fieldDescription>
-	</field>
-	<field name="currentDate" class="java.lang.String">
-		<fieldDescription><![CDATA[currentDate]]></fieldDescription>
-	</field>
-	<field name="remainingDays" class="java.lang.String"/>
-	<field name="remainingDays2" class="java.lang.String"/>
-	<field name="zone2" class="java.lang.String">
-		<fieldDescription><![CDATA[zone2]]></fieldDescription>
+	<field name="products" class="java.util.List">
+		<fieldDescription><![CDATA[products]]></fieldDescription>
 	</field>
 	<field name="zone" class="java.lang.String">
 		<fieldDescription><![CDATA[zone]]></fieldDescription>
-	</field>
-	<field name="currentAmount" class="java.lang.String">
-		<fieldDescription><![CDATA[currentAmount]]></fieldDescription>
-	</field>
-	<field name="weekAmount2" class="java.lang.String">
-		<fieldDescription><![CDATA[weekAmount2]]></fieldDescription>
-	</field>
-	<field name="weekAmount" class="java.lang.String">
-		<fieldDescription><![CDATA[weekAmount]]></fieldDescription>
-	</field>
-	<field name="currentAmount2" class="java.lang.String">
-		<fieldDescription><![CDATA[currentAmount2]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -140,21 +90,14 @@
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textField>
-					<reportElement positionType="FixRelativeToBottom" x="10" y="18" width="110" height="10" uuid="09e81610-dd03-4e52-be42-c6ba942638c1"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="10" y="28" width="110" height="16" uuid="71e5c8cd-3717-41fa-8a57-7f283beeca9e"/>
+					<reportElement x="10" y="18" width="110" height="16" uuid="71e5c8cd-3717-41fa-8a57-7f283beeca9e"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial Black" size="9" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="45" width="130" height="14" uuid="292d5e5c-6f8c-4058-abaf-b2b8eeb84594">
+					<reportElement x="10" y="34" width="130" height="14" uuid="292d5e5c-6f8c-4058-abaf-b2b8eeb84594">
 						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -163,7 +106,7 @@
 					<textFieldExpression><![CDATA[$F{clientCompanyAddress}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="59" width="130" height="11" uuid="f7c7d007-b630-4ccf-b41f-cb01cd460552"/>
+					<reportElement x="10" y="48" width="130" height="11" uuid="f7c7d007-b630-4ccf-b41f-cb01cd460552"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="6"/>
 					</textElement>
@@ -329,7 +272,7 @@
 					<text><![CDATA[  Total Pagado]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="120" y="18" width="20" height="26" uuid="aa8f4116-c4ce-4750-ab3d-717da12e5986"/>
+					<reportElement x="120" y="18" width="20" height="16" uuid="aa8f4116-c4ce-4750-ab3d-717da12e5986"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="11" isBold="true"/>
 					</textElement>
@@ -340,7 +283,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="6"/>
 					</textElement>
-					<textFieldExpression><![CDATA[   $F{traderName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{traderName}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="10" y="151" width="70" height="10" uuid="db00f0b0-2de4-4a06-b392-7a3f54384f84">
@@ -398,6 +341,13 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{remainingAmount}]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="10" y="60" width="130" height="10" uuid="db9ba8d2-7b48-4d66-9c03-486164b77a5d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="6" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="160" y="0" width="150" height="248" uuid="7f7c07ed-5ca9-47e3-a0b4-5ac98d77c64f">
@@ -411,28 +361,21 @@
 					<textFieldExpression><![CDATA[$F{creditNumber}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement positionType="FixRelativeToBottom" x="10" y="18" width="110" height="10" uuid="9e71b378-71fe-4c3e-91d8-8badc36b1801"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{ticketNumber}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="120" y="18" width="19" height="26" uuid="60cf7b51-dcf5-42f6-b640-4be5a3d7dfa6"/>
+					<reportElement x="120" y="18" width="19" height="16" uuid="60cf7b51-dcf5-42f6-b640-4be5a3d7dfa6"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{zone}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="28" width="110" height="16" uuid="750b5427-64c6-4bfe-a3b2-29f89a8635da"/>
+					<reportElement x="10" y="18" width="110" height="16" uuid="750b5427-64c6-4bfe-a3b2-29f89a8635da"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial Black" size="9" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="45" width="130" height="14" uuid="2124594d-0b1f-421e-9bf4-5c322080adbf">
+					<reportElement x="10" y="34" width="130" height="14" uuid="2124594d-0b1f-421e-9bf4-5c322080adbf">
 						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -441,7 +384,7 @@
 					<textFieldExpression><![CDATA[$F{clientCompanyAddress}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="59" width="130" height="11" uuid="13139962-536f-456c-bd08-81308752cdcb"/>
+					<reportElement x="10" y="48" width="130" height="11" uuid="13139962-536f-456c-bd08-81308752cdcb"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="6"/>
 					</textElement>
@@ -653,7 +596,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="6"/>
 					</textElement>
-					<textFieldExpression><![CDATA[   $F{traderName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{traderName}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="10" y="204" width="130" height="14" uuid="becc9af8-6e9a-43ce-b7ad-1c1371edb740"/>
@@ -662,6 +605,13 @@
 					</textElement>
 					<text><![CDATA[Exija y Conserve su cupón como comprobante de pago]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="10" y="60" width="130" height="10" uuid="dfd2aecf-dc85-485e-9974-3e610e79bbba"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="6" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>

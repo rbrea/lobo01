@@ -368,7 +368,7 @@ public class BillServiceImpl
 		List<ConciliationItem> conciliationItemList = this.conciliationItemDao.findByBillId(id);
 		
 		ErrorTypedConditions.checkArgument(conciliationItemList == null || conciliationItemList.isEmpty(), 
-				String.format("La factura con nro de ticket: %s esta asociada a una liquidacion. No puede ser borrada.", id), 
+				String.format("La factura con nro de ticket: %s esta asociada a una liquidacion de vendedor. No puede ser borrada.", id), 
 				ErrorType.VALIDATION_ERRORS);
 		
 		List<ConciliationItemCollect> conciliationItemCollectList = this.conciliationItemCollectDao.findByBillId(id);
