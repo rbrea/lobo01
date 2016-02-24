@@ -18,6 +18,7 @@ import com.icetea.manager.pagodiario.dao.BillDao;
 import com.icetea.manager.pagodiario.dao.CollectorDao;
 import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
+import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Payment;
@@ -48,7 +49,7 @@ public class PaymentServiceImpl
 	}
 	
 	@Override
-	public PaymentDto insert(PaymentDto d) {
+	public PaymentDto insert(PaymentDto d, boolean bulk) {
 		Payment e = new Payment();
 		
 		ErrorTypedConditions.checkArgument(d.getAmount() != null, "importe es requerido", ErrorType.VALIDATION_ERRORS);
@@ -104,13 +105,15 @@ public class PaymentServiceImpl
 
 		this.billUtils.doBillCancelation(bill);
 		
-		bill.setWeekFriday(d.isWeekFriday());
-		bill.setWeekMonday(d.isWeekMonday());
-		bill.setWeekSaturday(d.isWeekSaturday());
-		bill.setWeekSunday(d.isWeekSunday());
-		bill.setWeekThursday(d.isWeekThursday());
-		bill.setWeekTuesday(d.isWeekTuesday());
-		bill.setWeekWednesday(d.isWeekWednesday());
+		if(!bulk){
+			bill.setWeekFriday(d.isWeekFriday());
+			bill.setWeekMonday(d.isWeekMonday());
+			bill.setWeekSaturday(d.isWeekSaturday());
+			bill.setWeekSunday(d.isWeekSunday());
+			bill.setWeekThursday(d.isWeekThursday());
+			bill.setWeekTuesday(d.isWeekTuesday());
+			bill.setWeekWednesday(d.isWeekWednesday());
+		}
 		
 		this.billDao.saveOrUpdate(bill);
 		
@@ -177,6 +180,11 @@ public class PaymentServiceImpl
 		Date to = DateUtils.normalizeTo(from);
 		
 		return this.getTransformer().transformAllTo(this.getDao().find(billId, from, to));
+	}
+
+	@Override
+	public PaymentDto insert(PaymentDto o) {
+		throw new ErrorTypedException("ERROR NO DEBE USARSE");
 	}
 
 }

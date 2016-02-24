@@ -77,7 +77,7 @@
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.symbol.min.js"></script>
 	<script src="${pageContext.request.contextPath}/public/flot/jquery.flot.axislabels.js"></script>
 	
-	<script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
+	<script src="${pageContext.request.contextPath}/public/js/Commons-1.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/User-3.js"></script>
 	<script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>

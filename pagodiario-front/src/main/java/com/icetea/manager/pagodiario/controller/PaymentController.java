@@ -85,7 +85,7 @@ public class PaymentController extends ExceptionHandlingController {
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
 		List<PaymentDto> payments = Lists.newArrayList();
-		PaymentDto payment = this.paymentService.insert(input);
+		PaymentDto payment = this.paymentService.insert(input, false);
 		if(payment != null){
 			payments.add(payment);
 		}
@@ -125,7 +125,7 @@ public class PaymentController extends ExceptionHandlingController {
 			PaymentResponseDto d = new PaymentResponseDto();
 			d.setIdx(p.getIdx());
 			try {
-				PaymentDto payment = this.paymentService.insert(p);
+				PaymentDto payment = this.paymentService.insert(p, true);
 				if(payment != null){
 					d.setPayment(payment);
 				}

@@ -33,7 +33,7 @@
 	<script src="${pageContext.request.contextPath}/public/js/jquery.autocomplete.min.js"></script>
 	
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="${pageContext.request.contextPath}/public/js/Commons.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Commons-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Message-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Login-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/validator.min.js"></script>

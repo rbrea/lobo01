@@ -10,7 +10,7 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 
 	PaymentDto update(PaymentDto input);
 
-	PaymentDto insert(PaymentDto input);
+	PaymentDto insert(PaymentDto input, boolean bulk);
 
 	List<PaymentDto> search(Long billId);
 
