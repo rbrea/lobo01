@@ -3,8 +3,11 @@ package com.icetea.manager.pagodiario.transformer;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.BooleanUtils;
+
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
+import com.icetea.manager.pagodiario.api.dto.PaydayDto;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.utils.DateUtils;
@@ -56,13 +59,29 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 		d.setClientCompanyType(StringUtils.emptyWhenNull(e.getClient().getCompanyType()));
 		d.setClientDocumentNumber((e.getClient().getDocumentNumber() != null) 
 				? e.getClient().getDocumentNumber().toString() : StringUtils.EMPTY);
-		d.setWeekFriday(e.isWeekFriday());
-		d.setWeekMonday(e.isWeekMonday());
-		d.setWeekSaturday(e.isWeekSaturday());
-		d.setWeekSunday(e.isWeekSunday());
-		d.setWeekThursday(e.isWeekThursday());
-		d.setWeekTuesday(e.isWeekTuesday());
-		d.setWeekWednesday(e.isWeekWednesday());
+		
+		d.setWeekFriday(BooleanUtils.toBoolean(e.getWeekFriday(), "S", "N"));
+		d.setWeekMonday(BooleanUtils.toBoolean(e.getWeekMonday(), "S", "N"));
+		d.setWeekSaturday(BooleanUtils.toBoolean(e.getWeekSaturday(), "S", "N"));
+		d.setWeekSunday(BooleanUtils.toBoolean(e.getWeekSunday(), "S", "N"));
+		d.setWeekThursday(BooleanUtils.toBoolean(e.getWeekThursday(), "S", "N"));
+		d.setWeekTuesday(BooleanUtils.toBoolean(e.getWeekTuesday(), "S", "N"));
+		d.setWeekWednesday(BooleanUtils.toBoolean(e.getWeekWednesday(), "S", "N"));
+		
+		return d;
+	}
+	
+	public PaydayDto transformToPayday(Bill bill){
+		PaydayDto d = new PaydayDto();
+		
+		d.setBillId(bill.getId());
+		d.setWeekFriday(BooleanUtils.toBoolean(bill.getWeekFriday(), "S", "N"));
+		d.setWeekMonday(BooleanUtils.toBoolean(bill.getWeekMonday(), "S", "N"));
+		d.setWeekSaturday(BooleanUtils.toBoolean(bill.getWeekSaturday(), "S", "N"));
+		d.setWeekSunday(BooleanUtils.toBoolean(bill.getWeekSunday(), "S", "N"));
+		d.setWeekThursday(BooleanUtils.toBoolean(bill.getWeekThursday(), "S", "N"));
+		d.setWeekTuesday(BooleanUtils.toBoolean(bill.getWeekTuesday(), "S", "N"));
+		d.setWeekWednesday(BooleanUtils.toBoolean(bill.getWeekWednesday(), "S", "N"));
 		
 		return d;
 	}

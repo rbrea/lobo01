@@ -40,6 +40,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
+import com.icetea.manager.pagodiario.api.dto.PaydayDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.CreditDetailPojo;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
@@ -289,6 +290,28 @@ public class BillController extends ExceptionHandlingController {
 		BillDto bill = this.billService.updateCollector(billId, collectorId);
 
 		r.add(bill);
+		
+		r.setStatus(0);
+		
+		return r;
+	}
+	
+	@RequestMapping(value = "/payday", method = RequestMethod.GET)
+	public @ResponseBody PaydayDto getPayday(@RequestParam(required = false) Long billId){
+		
+		PaydayDto r = this.billService.searchPayday(billId);
+
+		r.setStatus(0);
+		
+		return r;
+	}
+
+	@RequestMapping(value = "/payday/{billId}", method = RequestMethod.POST)
+	public @ResponseBody BasicOutputDto changePayday(@PathVariable Long billId,
+			@RequestBody PaydayDto paydayDto){
+		BasicOutputDto r = new BasicOutputDto();
+		
+		this.billService.updateBillWithPayday(paydayDto);
 		
 		r.setStatus(0);
 		

@@ -6,6 +6,7 @@ import java.util.List;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
+import com.icetea.manager.pagodiario.api.dto.PaydayDto;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.model.Bill;
 
@@ -46,5 +47,9 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 	BillDto updateCollector(Long billId, Long collectorId);
 
 	List<BillTicketPojo> searchBillsByCreditNumber(List<Long> creditNumbers);
+
+	PaydayDto searchPayday(Long billId);
+
+	boolean updateBillWithPayday(PaydayDto paydayDto);
 
 }

@@ -2255,3 +2255,147 @@ Bill.changeColorOnStatusContainer = function(statusElement, status){
 	
 	return;
 }
+
+Bill.showPaydays = function(){
+
+	var billId = $("#billId").val();
+	
+	$.ajax({ 
+		   type    : "GET",
+		   url     : Constants.contextRoot + "/controller/html/bill/payday?billId=" + billId,
+		   dataType: 'json',
+		   contentType: "application/json;",
+		   success:function(data) {
+				
+			   Message.hideMessages($('#billDetailAlertMessages'), $("#billDetailMessages"));
+			   if(data != null && data.status == 0){
+				   
+				   var dialog = new BootstrapDialog({
+						onshown: function(){
+							
+							$("#creditNumberPaydaySpan").append($("#creditNumber").val());
+							
+							Commons.selectDayOfWeek($("#weekSunday"), data.weekSunday);
+				        	Commons.selectDayOfWeek($("#weekMonday"), data.weekMonday);
+				        	Commons.selectDayOfWeek($("#weekTuesday"), data.weekTuesday);
+				        	Commons.selectDayOfWeek($("#weekWednesday"), data.weekWednesday);
+				        	Commons.selectDayOfWeek($("#weekThursday"), data.weekThursday);
+				        	Commons.selectDayOfWeek($("#weekFriday"), data.weekFriday);
+				        	Commons.selectDayOfWeek($("#weekSaturday"), data.weekSaturday);
+							
+							return;
+						},
+						onhidden:function(){
+							
+							$("#creditNumberPaydaySpan").html("");
+							
+							return;
+						},
+						draggable: true,
+						type:BootstrapDialog.TYPE_DANGER,
+						title: '<i class="fa fa-calendar-o"></i>&nbsp;D&iacute;as de Cobro',
+						autodestroy: false,
+				        message: function(dialog) {
+				        	
+				        	$("#modal-payday-container").css({"display":"block"});
+				        	
+				        	return $("#modal-payday-container");
+				        },
+				        buttons: [{
+				        	id: 'btnCancelPayday',
+				        	label: 'Cancelar',
+				        	icon: 'glyphicon glyphicon-remove-sign',
+				        	action: function(dialog){
+				        		var btn = this;
+				        		Message.hideMessages($('#modalClientAlertMessages'), $("#modalClientMessages"));
+				        		dialog.close();
+				        		
+				        		return;
+				        	}
+				        },
+				        {
+				        	id: 'btnAcceptPayday',
+				        	label: 'Guardar',
+				        	icon: 'glyphicon glyphicon-ok-sign',
+				        	cssClass: 'btn-success',
+				        	action: function(dialog){
+				        		var btn = this;
+								dialog.enableButtons(false);
+								dialog.setClosable(false);
+				        		btn.spin();
+				        		
+								// si esta todo ok entonces doy de alta ...
+				        		Bill.updatePayday(billId, dialog, btn);
+				        		
+				        		return;
+				        	}
+				        }]
+				    });
+					dialog.open();
+				   
+				   
+				   
+				   
+			   } else {
+				   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+			   }
+		   },
+		   error:function(data){
+			   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+			   
+			   return;
+		   }
+	});
+	
+	return;
+}
+
+Bill.updatePayday = function(billId, dialog, btn){
+	
+	var obj = new Object();
+	obj.billId = billId;
+	obj.weekSunday = $("#weekSunday").prop("checked");
+	obj.weekMonday = $("#weekMonday").prop("checked");
+	obj.weekTuesday = $("#weekTuesday").prop("checked");
+	obj.weekWednesday = $("#weekWednesday").prop("checked");
+	obj.weekThursday = $("#weekThursday").prop("checked");
+	obj.weekFriday = $("#weekFriday").prop("checked");
+	obj.weekSaturday = $("#weekSaturday").prop("checked");
+	
+	$.ajax({ 
+	   type    : "POST",
+	   url     : Constants.contextRoot + "/controller/html/bill/payday/" + billId,
+	   dataType: 'json',
+	   data: JSON.stringify(obj),
+	   contentType: "application/json;",
+	   success:function(data) {
+		   Message.hideMessages($('#modalPaydayAlertMessages'), $("#modalPaydayMessages"));
+		   if(data != null && data.status == 0){
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+			   dialog.close();
+			   
+			   return;
+		   }else{
+			   Message.showMessages($('#modalPaydayAlertMessages'), $("#modalPaydayMessages"), data.message);
+			   
+			   dialog.enableButtons(true);
+			   dialog.setClosable(true);
+       		   btn.stopSpin();
+		   }
+	   },
+	   error:function(data){
+		   Message.showMessages($('#modalPaydayAlertMessages'), $("#modalPaydayMessages"), data.responseJSON.message);
+		   
+		   dialog.enableButtons(true);
+		   dialog.setClosable(true);
+   		   btn.stopSpin();
+		   
+		   return;
+	   }
+	});
+	
+	return;
+}

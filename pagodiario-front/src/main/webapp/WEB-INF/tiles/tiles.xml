@@ -145,6 +145,7 @@
     	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Credito" />
         <put-attribute name="body" value="/WEB-INF/pages/billDetail.jsp" />
         <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/modal/modal-payday.jsp" />
     	</put-list-attribute>
     </definition>
 

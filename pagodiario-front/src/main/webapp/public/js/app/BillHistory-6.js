@@ -156,9 +156,9 @@ BillHistory.init = function(){
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
             "zeroRecords": "No se ha encontrado ningun elemento",
-            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ facturas)</b>",
             "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+            "infoFiltered": /*"(filtrados de un total de _MAX_ registros)"*/"",
             "search": "Buscar: ",
             "paginate": {
             	"previous": "Anterior",
@@ -597,7 +597,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId, creditNu
         	var weekThursday = liPayment.data("weekthursday");
         	var weekFriday = liPayment.data("weekfriday");
         	var weekSaturday = liPayment.data("weeksaturday");
-        	
+        	/*
         	Commons.selectDayOfWeek($("#weekSunday"), weekSunday);
         	Commons.selectDayOfWeek($("#weekMonday"), weekMonday);
         	Commons.selectDayOfWeek($("#weekTuesday"), weekTuesday);
@@ -605,7 +605,7 @@ BillHistory.showModalPayment = function(id, paymentAmount, collectorId, creditNu
         	Commons.selectDayOfWeek($("#weekThursday"), weekThursday);
         	Commons.selectDayOfWeek($("#weekFriday"), weekFriday);
         	Commons.selectDayOfWeek($("#weekSaturday"), weekSaturday);
-        	
+        	*/
         	$("#modal-payment-container").css({"display":"block"});
         	
         	return $("#modal-payment-container");
@@ -687,7 +687,7 @@ BillHistory.addPayment = function(dialog, btn, responseHandler){
 					obj.amount = $("#paymentAmount").val();
 					obj.collectorId = $("#paymentCollectorId").val();
 					obj.date = $("#paymentDateValue").val();
-					
+					/*
 					obj.weekSunday = $("#weekSunday").prop("checked");
 					obj.weekMonday = $("#weekMonday").prop("checked");
 					obj.weekTuesday = $("#weekTuesday").prop("checked");
@@ -695,7 +695,7 @@ BillHistory.addPayment = function(dialog, btn, responseHandler){
 					obj.weekThursday = $("#weekThursday").prop("checked");
 					obj.weekFriday = $("#weekFriday").prop("checked");
 					obj.weekSaturday = $("#weekSaturday").prop("checked");
-					
+					*/
 					$.ajax({
 					   type    : "POST",
 					   url     : Constants.contextRoot + "/controller/html/payment",
@@ -1434,9 +1434,9 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		        "language": {
 		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
 		            "zeroRecords": "No se ha encontrado ningun elemento",
-		            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+		            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ facturas)</b>",
 		            "infoEmpty": "No hay registros disponibles",
-		            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+		            "infoFiltered": /*"(filtrados de un total de _MAX_ registros)"*/"",
 		            "search": "Buscar: ",
 		            "paginate": {
 		            	"previous": "Anterior",

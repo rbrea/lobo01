@@ -105,16 +105,6 @@ public class PaymentServiceImpl
 
 		this.billUtils.doBillCancelation(bill);
 		
-		if(!bulk){
-			bill.setWeekFriday(d.isWeekFriday());
-			bill.setWeekMonday(d.isWeekMonday());
-			bill.setWeekSaturday(d.isWeekSaturday());
-			bill.setWeekSunday(d.isWeekSunday());
-			bill.setWeekThursday(d.isWeekThursday());
-			bill.setWeekTuesday(d.isWeekTuesday());
-			bill.setWeekWednesday(d.isWeekWednesday());
-		}
-		
 		this.billDao.saveOrUpdate(bill);
 		
 		d.setBillStatus(bill.getStatus().name());

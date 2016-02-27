@@ -34,4 +34,39 @@ update BILL_AUD
 set TOTAL_AMOUNT_TO_LIQ = TOTAL_AMOUNT;
 
 
+-- ---------------------------------------------------------
+
+alter table BILL drop column WEEK_SUNDAY;
+alter table BILL drop column WEEK_MONDAY;
+alter table BILL drop column WEEK_TUESDAY;
+alter table BILL drop column WEEK_WEDNESDAY;
+alter table BILL drop column WEEK_THURSDAY;
+alter table BILL drop column WEEK_FRIDAY;
+alter table BILL drop column WEEK_SATURDAY;
+
+alter table BILL_AUD drop column WEEK_SUNDAY;
+alter table BILL_AUD drop column WEEK_MONDAY;
+alter table BILL_AUD drop column WEEK_TUESDAY;
+alter table BILL_AUD drop column WEEK_WEDNESDAY;
+alter table BILL_AUD drop column WEEK_THURSDAY;
+alter table BILL_AUD drop column WEEK_FRIDAY;
+alter table BILL_AUD drop column WEEK_SATURDAY;
+
+alter table BILL add column WEEK_SUNDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_MONDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_TUESDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_WEDNESDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_THURSDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_FRIDAY varchar(1) not null default 'S';
+alter table BILL add column WEEK_SATURDAY varchar(1) not null default 'S';
+
+alter table BILL_AUD add column WEEK_SUNDAY varchar(1);
+alter table BILL_AUD add column WEEK_MONDAY varchar(1);
+alter table BILL_AUD add column WEEK_TUESDAY varchar(1);
+alter table BILL_AUD add column WEEK_WEDNESDAY varchar(1);
+alter table BILL_AUD add column WEEK_THURSDAY varchar(1);
+alter table BILL_AUD add column WEEK_FRIDAY varchar(1);
+alter table BILL_AUD add column WEEK_SATURDAY varchar(1);
+
+
 

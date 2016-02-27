@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.utils.DateUtils;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Named
 public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill> 
@@ -84,25 +85,25 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		switch(dayOfWeek){
 			case 1:
-				criteria.add(Restrictions.eq("weekSunday", true));
+				criteria.add(Restrictions.eq("weekSunday", StringUtils.S));
 				break;
 			case 2:
-				criteria.add(Restrictions.eq("weekMonday", true));
+				criteria.add(Restrictions.eq("weekMonday", StringUtils.S));
 				break;
 			case 3:
-				criteria.add(Restrictions.eq("weekTuesday", true));
+				criteria.add(Restrictions.eq("weekTuesday", StringUtils.S));
 				break;
 			case 4:
-				criteria.add(Restrictions.eq("weekWednesday", true));
+				criteria.add(Restrictions.eq("weekWednesday", StringUtils.S));
 				break;
 			case 5:
-				criteria.add(Restrictions.eq("weekThursday", true));
+				criteria.add(Restrictions.eq("weekThursday", StringUtils.S));
 				break;
 			case 6:
-				criteria.add(Restrictions.eq("weekFriday", true));
+				criteria.add(Restrictions.eq("weekFriday", StringUtils.S));
 				break;
 			case 7:
-				criteria.add(Restrictions.eq("weekSaturday", true));
+				criteria.add(Restrictions.eq("weekSaturday", StringUtils.S));
 				break;
 			default:
 				break;

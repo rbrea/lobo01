@@ -8,6 +8,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.BooleanUtils;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BillDetailDevolutionDto;
@@ -19,6 +21,7 @@ import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.api.dto.BillInfoDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDetailDto;
 import com.icetea.manager.pagodiario.api.dto.BillProductDto;
+import com.icetea.manager.pagodiario.api.dto.PaydayDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -376,7 +379,7 @@ public class BillServiceImpl
 		ErrorTypedConditions.checkArgument(conciliationItemCollectList == null || conciliationItemCollectList.isEmpty(), 
 				String.format("La factura con nro de ticket: %s esta asociada a una liquidacion de cobrador. No puede ser borrada.", id), 
 				ErrorType.VALIDATION_ERRORS);
-		
+
 		return this.getDao().delete(bill);
 	}
 
@@ -485,6 +488,38 @@ public class BillServiceImpl
 		}
 		
 		return result;
+	}
+
+	@Override
+	public PaydayDto searchPayday(Long billId){
+	
+		Bill bill = this.getDao().findById(billId);
+		
+		ErrorTypedConditions.checkArgument(bill != null, "Factura no encontrada con nro: " + billId);
+		
+		PaydayDto d = this.getTransformer().transformToPayday(bill);
+		
+		return d;
+	}
+	
+	@Override
+	public boolean updateBillWithPayday(PaydayDto paydayDto){
+		
+		ErrorTypedConditions.checkArgument(paydayDto != null, "Error al querer procesar la modificación de Fechas de Cobro");
+		
+		Bill bill = this.getDao().findById(paydayDto.getBillId());
+		
+		ErrorTypedConditions.checkArgument(bill != null, "Factura no encontrada con nro: " + paydayDto.getBillId());
+		
+		bill.setWeekSunday(BooleanUtils.toString(paydayDto.isWeekSunday(), "S", "N", "N"));
+		bill.setWeekMonday(BooleanUtils.toString(paydayDto.isWeekMonday(), "S", "N", "N"));
+		bill.setWeekTuesday(BooleanUtils.toString(paydayDto.isWeekTuesday(), "S", "N", "N"));
+		bill.setWeekWednesday(BooleanUtils.toString(paydayDto.isWeekWednesday(), "S", "N", "N"));
+		bill.setWeekThursday(BooleanUtils.toString(paydayDto.isWeekThursday(), "S", "N", "N"));
+		bill.setWeekFriday(BooleanUtils.toString(paydayDto.isWeekFriday(), "S", "N", "N"));
+		bill.setWeekSaturday(BooleanUtils.toString(paydayDto.isWeekSaturday(), "S", "N", "N"));
+		
+		return this.getDao().saveOrUpdate(bill);
 	}
 	
 }

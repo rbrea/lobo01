@@ -92,20 +92,20 @@ public class Bill extends Identifiable {
 	private Integer year;
 	@Column(name = "TOTAL_AMOUNT_TO_LIQ", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE, nullable = false)
 	private BigDecimal totalAmountToLiq = BigDecimal.ZERO;
-	@Column(name = "WEEK_SUNDAY", nullable = false)
-	private boolean weekSunday = true;
-	@Column(name = "WEEK_MONDAY", nullable = false)
-	private boolean weekMonday = true;
-	@Column(name = "WEEK_TUESDAY", nullable = false)
-	private boolean weekTuesday = true;
-	@Column(name = "WEEK_WEDNESDAY", nullable = false)
-	private boolean weekWednesday = true;
-	@Column(name = "WEEK_THURSDAY", nullable = false)
-	private boolean weekThursday = true;
-	@Column(name = "WEEK_FRIDAY", nullable = false)
-	private boolean weekFriday = true;
-	@Column(name = "WEEK_SATURDAY", nullable = false)
-	private boolean weekSaturday = true;
+	@Column(name = "WEEK_SUNDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekSunday = "S";
+	@Column(name = "WEEK_MONDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekMonday = "S";
+	@Column(name = "WEEK_TUESDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekTuesday = "S";
+	@Column(name = "WEEK_WEDNESDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekWednesday = "S";
+	@Column(name = "WEEK_THURSDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekThursday = "S";
+	@Column(name = "WEEK_FRIDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekFriday = "S";
+	@Column(name = "WEEK_SATURDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
+	private String weekSaturday = "S";
 	
 	public Bill() {
 		super();
@@ -391,60 +391,61 @@ public class Bill extends Identifiable {
 		this.totalAmountToLiq = totalAmountToLiq;
 	}
 
-	public boolean isWeekSunday() {
+	public String getWeekSunday() {
 		return weekSunday;
 	}
 
-	public void setWeekSunday(boolean weekSunday) {
+	public void setWeekSunday(String weekSunday) {
 		this.weekSunday = weekSunday;
 	}
 
-	public boolean isWeekMonday() {
+	public String getWeekMonday() {
 		return weekMonday;
 	}
 
-	public void setWeekMonday(boolean weekMonday) {
+	public void setWeekMonday(String weekMonday) {
 		this.weekMonday = weekMonday;
 	}
 
-	public boolean isWeekTuesday() {
+	public String getWeekTuesday() {
 		return weekTuesday;
 	}
 
-	public void setWeekTuesday(boolean weekTuesday) {
+	public void setWeekTuesday(String weekTuesday) {
 		this.weekTuesday = weekTuesday;
 	}
 
-	public boolean isWeekWednesday() {
+	public String getWeekWednesday() {
 		return weekWednesday;
 	}
 
-	public void setWeekWednesday(boolean weekWednesday) {
+	public void setWeekWednesday(String weekWednesday) {
 		this.weekWednesday = weekWednesday;
 	}
 
-	public boolean isWeekThursday() {
+	public String getWeekThursday() {
 		return weekThursday;
 	}
 
-	public void setWeekThursday(boolean weekThursday) {
+	public void setWeekThursday(String weekThursday) {
 		this.weekThursday = weekThursday;
 	}
 
-	public boolean isWeekFriday() {
+	public String getWeekFriday() {
 		return weekFriday;
 	}
 
-	public void setWeekFriday(boolean weekFriday) {
+	public void setWeekFriday(String weekFriday) {
 		this.weekFriday = weekFriday;
 	}
 
-	public boolean isWeekSaturday() {
+	public String getWeekSaturday() {
 		return weekSaturday;
 	}
 
-	public void setWeekSaturday(boolean weekSaturday) {
+	public void setWeekSaturday(String weekSaturday) {
 		this.weekSaturday = weekSaturday;
 	}
+
 
 }

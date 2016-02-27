@@ -36,6 +36,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	public static final String ZERO = "0";
 	public static final String ONE = "1";
 	
+	public static final String S = "S";
+	public static final String N = "N";
+	
 	public static String convertIfNegative(final String value) {
 		//StringUtils.defaultString(str, defaultStr)
 		String target = value;

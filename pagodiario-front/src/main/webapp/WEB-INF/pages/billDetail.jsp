@@ -36,6 +36,7 @@
 	</div>
 	<form id="frmCreditDetailExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/detail/export/pdf">
 		<input type="hidden" id="billId" name="billId" value="${billId}">
+		<input type="hidden" id="creditNumber" name="creditNumber" value="${creditNumber}">
 	</form>
 	<div class="row">
 		<div class="col-md-2">
@@ -51,6 +52,11 @@
                             	<i class="fa fa-chevron-down"></i>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
+                            	<li>
+                                	<a href="javascript:void(0);" onclick="javascript:Bill.showPaydays();">
+                                    	<i class="fa fa-calendar-o"></i>&nbsp;&nbsp;D&iacute;as de Cobro
+                                    </a>
+                                </li>
                                 <li>
                                 	<a href="javascript:void(0);" onclick="javascript:Bill.exportDetailToPdf();">
                                     	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
@@ -282,6 +288,9 @@
 							   $("#billCollectorIdSelected").val(selectedId);
 							   $("#collectorDescription").val(selectedDescription);
 							   
+							   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), 
+									   "El cobrador se ha modificado correctamente.", "alert-warning", "glyphicon glyphicon-info-sign", "Bien! ");
+							   setTimeout(function(){$("#billDetailMessages").addClass("hide");}, 2500);
 						   }
 						   
 						   return;
