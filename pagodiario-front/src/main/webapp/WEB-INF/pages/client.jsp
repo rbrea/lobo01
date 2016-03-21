@@ -23,7 +23,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<i class="glyphicon glyphicon-briefcase"></i>&nbsp;ABM de Clientes
+		    		<i class="fa fa-chevron-right"></i>&nbsp;ABM de Clientes
 		    		<div class="pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">

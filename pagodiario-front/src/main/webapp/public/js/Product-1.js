@@ -20,12 +20,6 @@ Product.initDataTable = function(imgCheckUrl){
 			        return "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
 			    }
 			},
-            /*{
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },*/
             { 	
             	"className": 'centered',
             	"data": "code" 
@@ -41,6 +35,14 @@ Product.initDataTable = function(imgCheckUrl){
             { 	
             	"className": 'centered',
             	"data": "dailyInstallment" 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "weekInstallment" 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "twoWeeksInstallment" 
             },
             {
             	"className":      'centered',

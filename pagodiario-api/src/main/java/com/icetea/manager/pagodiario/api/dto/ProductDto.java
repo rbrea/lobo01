@@ -10,6 +10,8 @@ public class ProductDto extends BasicDto {
 	private String description;
 	private String price;
 	private String dailyInstallment;
+	private String weekInstallment;
+	private String twoWeeksInstallment;
 
 	public Long getId() {
 		return id;
@@ -40,6 +42,18 @@ public class ProductDto extends BasicDto {
 	}
 	public void setDailyInstallment(String dailyInstallment) {
 		this.dailyInstallment = dailyInstallment;
+	}
+	public String getWeekInstallment() {
+		return weekInstallment;
+	}
+	public void setWeekInstallment(String weekInstallment) {
+		this.weekInstallment = weekInstallment;
+	}
+	public String getTwoWeeksInstallment() {
+		return twoWeeksInstallment;
+	}
+	public void setTwoWeeksInstallment(String twoWeeksInstallment) {
+		this.twoWeeksInstallment = twoWeeksInstallment;
 	}
 	
 }

@@ -156,7 +156,7 @@ if((id != null && id != "") || (username != null && username != "")){
 		},
 		draggable: true,
 		type:BootstrapDialog.TYPE_DANGER,
-		title: 'Editar Usuario',
+		title: '<i class="fa fa-chevron-right"></i>&nbsp;Editar Usuario',
 		autodestroy: false,
         message: function(dialog) {
         	

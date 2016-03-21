@@ -26,7 +26,7 @@
 		<div class="col-md-10">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-			    	<h3 class="panel-title"><i class="fa fa-area-chart"></i>&nbsp;&nbsp;Dashboard</h3>
+			    	<h3 class="panel-title"><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Tablero de Control</h3>
 			  	</div>
 			  	<div class="panel-body">
 			    	<div class="container-fluid">

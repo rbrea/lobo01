@@ -21,7 +21,7 @@
 		<div class="col-md-12">
 			<div id="pnlTicket" class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><i class="fa fa-file-text-o fa-fw"></i> Buscar tickets de cobro</h3>
+		    		<h3 class="panel-title"><i class="fa fa-chevron-right"></i> Buscar tickets de cobro</h3>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="row">

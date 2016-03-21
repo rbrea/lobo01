@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
+import com.icetea.manager.pagodiario.utils.NumberUtils;
+
 @Entity
 @Table(name = "PRODUCT", 
 	indexes = {@Index(name = "IDX_PRODUCT", columnList = "CODE", unique = true)})
@@ -51,4 +53,12 @@ public class Product extends Identifiable {
 		this.dailyInstallment = dailyInstallment;
 	}
 
+	public BigDecimal weekInstallment(){
+		return NumberUtils.multiply(this.dailyInstallment, new BigDecimal(7));
+	}
+	
+	public BigDecimal twoWeeksInstallment(){
+		return NumberUtils.multiply(this.dailyInstallment, new BigDecimal(14));
+	}
+	
 }

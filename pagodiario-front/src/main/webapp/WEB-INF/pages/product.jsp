@@ -23,7 +23,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-default">
 		  		<div class="panel-heading">
-		    		<i class="fa fa-money fa-fw"></i>&nbsp;ABM de Productos
+		    		<i class="fa fa-chevron-right fa-fw"></i>&nbsp;ABM de Productos
 		    		<div class="pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -65,6 +65,8 @@
 							                <th>Descripci&oacute;n</th>
 							                <th>Precio Unitario</th>
 							                <th>Cuota Diaria</th>
+							                <th>Cuota Semanal</th>
+							                <th>Cuota Quincenal</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

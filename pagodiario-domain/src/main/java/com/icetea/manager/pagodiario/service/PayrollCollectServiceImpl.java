@@ -54,7 +54,7 @@ public class PayrollCollectServiceImpl extends
 		PayrollCollect payrollCollect = this.getDao().findByDate(date);
 		
 		ErrorTypedConditions.checkArgument(payrollCollect == null,
-				String.format("Ya existe una liquidación de cobrador con fecha: ", inputDate), 
+				String.format("Ya existe una liquidación de cobrador con fecha: %s", inputDate), 
 				ErrorType.VALIDATION_ERRORS);
 		
 		List<Bill> bills = this.billDao.findActivesByDate(date);
