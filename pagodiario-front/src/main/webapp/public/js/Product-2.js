@@ -34,6 +34,10 @@ Product.initDataTable = function(imgCheckUrl){
             },
             { 	
             	"className": 'centered',
+            	"data": "priceWithDiscount" 
+            },
+            { 	
+            	"className": 'centered',
             	"data": "dailyInstallment" 
             },
             { 	

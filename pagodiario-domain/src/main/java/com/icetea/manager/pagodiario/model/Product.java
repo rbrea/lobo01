@@ -61,4 +61,10 @@ public class Product extends Identifiable {
 		return NumberUtils.multiply(this.dailyInstallment, new BigDecimal(14));
 	}
 	
+	public BigDecimal priceWithDiscount(){
+		BigDecimal perc = NumberUtils.calculatePercentage(this.price, new BigDecimal(20));
+		
+		return NumberUtils.subtract(this.price, perc);
+	}
+	
 }

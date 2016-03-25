@@ -64,6 +64,7 @@
 							                <th>C&oacute;digo de Producto</th>
 							                <th>Descripci&oacute;n</th>
 							                <th>Precio Unitario</th>
+							                <th>Precio c/descuento 20%</th>
 							                <th>Cuota Diaria</th>
 							                <th>Cuota Semanal</th>
 							                <th>Cuota Quincenal</th>
