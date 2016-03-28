@@ -21,6 +21,10 @@ public class PayrollCollectDaoImpl extends
 	@Override
 	public PayrollCollect findByDate(Date date){
 		Criteria criteria = super.createCriteria();
+//		criteria.createAlias("payrollItemCollectList", "payrollItemCollectList");
+//		criteria.createAlias("payrollItemCollectList.conciliationItemCollectList", "conciliationItemCollectList");
+//		criteria.createAlias("conciliationItemCollectList.bill", "bill");
+//		criteria.add(Restrictions.eq("bill.status", Bill.Status.ACTIVE));
 		criteria.add(Restrictions.eq("payrollDate", date));
 		
 		return (PayrollCollect) criteria.uniqueResult();

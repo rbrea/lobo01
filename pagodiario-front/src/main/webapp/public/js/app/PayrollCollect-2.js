@@ -3,7 +3,8 @@ PayrollCollect = function(){}
 PayrollCollect.init = function(){
 	
 	$("#btnAcceptPayrollCollect").on('click', function(){
-		PayrollCollect.processPeriod();
+		$(this).addClass("disabled");
+		PayrollCollect.processPeriod($(this));
 		
 		return;
 	});
@@ -127,7 +128,7 @@ PayrollCollect.initDataTable = function(imgCheckUrl){
 	return;
 }
 
-PayrollCollect.processPeriod = function(){
+PayrollCollect.processPeriod = function(btn){
 
 	var obj = new Object();
 	obj.payrollDate = $("#payrollCollectDateValue").val();
@@ -139,6 +140,7 @@ PayrollCollect.processPeriod = function(){
 	   data: JSON.stringify(obj),
 	   contentType: "application/json;",
 	   success:function(data) {
+		   btn.removeClass("disabled");
 		   Message.hideMessages($('#payrollCollectAlertMessages'), $("#payrollCollectMessages"));
 		   if(data != null && data.status == 0){
 			   var table = $('#tPayrollCollectResult').dataTable();
@@ -152,6 +154,7 @@ PayrollCollect.processPeriod = function(){
 	   },
 	   error:function(data){
 		   Message.showMessages($('#payrollCollectAlertMessages'), $("#payrollCollectMessages"), data.responseJSON.message);
+		   btn.removeClass("disabled");
 		   
 		   return;
 	   }

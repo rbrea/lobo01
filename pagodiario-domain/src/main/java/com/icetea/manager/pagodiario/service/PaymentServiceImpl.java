@@ -177,4 +177,15 @@ public class PaymentServiceImpl
 		throw new ErrorTypedException("ERROR NO DEBE USARSE");
 	}
 
+	@Override
+	public List<PaymentDto> searchByDate(String paymentDate){
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(paymentDate), ErrorType.VALIDATION_ERRORS);
+		
+		Date from = DateUtils.truncate(DateUtils.parseDate(paymentDate));
+		Date to = DateUtils.normalizeTo(from);
+		
+		return this.getTransformer().transformAllTo(this.getDao().find(from, to));
+	}
+	
 }

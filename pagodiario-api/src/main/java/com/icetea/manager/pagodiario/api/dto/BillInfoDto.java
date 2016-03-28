@@ -17,6 +17,7 @@ public class BillInfoDto extends BasicIdentifiableDto {
 	private boolean weekThursday;
 	private boolean weekFriday;
 	private boolean weekSaturday;
+	private Long collectorId;
 
 	public String getBillStatus() {
 		return billStatus;
@@ -95,6 +96,12 @@ public class BillInfoDto extends BasicIdentifiableDto {
 	}
 	public void setWeekSaturday(boolean weekSaturday) {
 		this.weekSaturday = weekSaturday;
+	}
+	public Long getCollectorId() {
+		return collectorId;
+	}
+	public void setCollectorId(Long collectorId) {
+		this.collectorId = collectorId;
 	}
 	
 }
