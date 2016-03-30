@@ -17,6 +17,7 @@ public class PayrollItemCollectDtoModelTransformer extends
 		d.setId(e.getId());
 		d.setAmountToPay(NumberUtils.toString(e.getAmountToPay()));
 		d.setCardsCount(e.getCardsCount());
+		d.setCardsCountReal(e.getCardsCountReal());
 		d.setCollectorDescription(e.getCollector().getDescription());
 		d.setCollectorZone(e.getCollector().getZone());
 		d.setCommission(NumberUtils.toString(e.getCommission()));

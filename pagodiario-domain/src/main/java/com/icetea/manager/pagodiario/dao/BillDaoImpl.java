@@ -147,8 +147,15 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	public List<Bill> findActivesByDate(Date date){
 		Criteria criteria = super.createCriteria();
 		Date dateToVerify = DateUtils.lastSecondOfDay(date);
-		criteria.add(Restrictions.eq("status", Status.ACTIVE));
-//		criteria.add(Restrictions.le("completedDate", dateToVerify));
+		criteria.add(
+			Restrictions.or(
+				Restrictions.eq("status", Status.ACTIVE),
+				Restrictions.and(
+					Restrictions.not(Restrictions.eq("status", Status.ACTIVE)),	
+					Restrictions.ge("completedDate", dateToVerify)			
+				)
+			)
+		);
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dateToVerify);

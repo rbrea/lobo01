@@ -64,7 +64,8 @@
 							            <tr>
 							            	<th>ID</th>
 							                <th>Fecha</th>
-							                <th>Cantidad de tarjetas</th>
+							                <th>Cant tarjetas</th>
+							                <th>Cant tarjetas Cobradas</th>
 							                <th>Total Facturado</th>
 							                <th>Total Cobrado</th>
 							                <th>Total Comisiones</th>

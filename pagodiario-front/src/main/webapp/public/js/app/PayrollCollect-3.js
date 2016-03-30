@@ -48,6 +48,10 @@ PayrollCollect.initDataTable = function(imgCheckUrl){
             	"className": 'centered',
             	"data": "totalCards" 
             },
+            { 
+            	"className": 'centered',
+            	"data": "totalCardsReal" 
+            },
             { 	
             	"className": 'centered',
             	"data": "totalAmount" 
@@ -293,6 +297,10 @@ PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
             { 
             	"className": 'centered',
             	"data": "cardsCount" 
+            },
+            { 
+            	"className": 'centered',
+            	"data": "cardsCountReal" 
             },
             { 
             	"className": 'centered',

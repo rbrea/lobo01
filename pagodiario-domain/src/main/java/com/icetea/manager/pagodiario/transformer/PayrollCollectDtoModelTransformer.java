@@ -28,6 +28,7 @@ public class PayrollCollectDtoModelTransformer extends
 		d.setId(e.getId());
 		d.setPayrollDate(DateUtils.toDate(e.getPayrollDate()));
 		d.setTotalCards(e.getTotalCardsCount());
+		d.setTotalCardsReal(e.getCardsCountReal());
 		d.setTotalAmount(NumberUtils.toString(e.getTotalAmount()));
 		d.setTotalPayment(NumberUtils.toString(e.getTotalPayment()));
 		d.setTotalAmountToPay(NumberUtils.toString(e.getTotalAmountToPay()));

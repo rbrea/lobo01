@@ -61,7 +61,8 @@
 							            	<th>ID</th>
 							                <th>Zona</th>
 							                <th>Cobrador</th>
-							                <th>Cantidad de tarjetas</th>
+							                <th>Cant tarjetas</th>
+							                <th>Cant tarjetas Cobradas</th>
 							                <th>Total a Cobrar</th>
 							                <th>Cobrado Bruto</th>
 							                <th>Comisi&oacute;n</th>
@@ -72,6 +73,7 @@
 							            <tr class="odd">
 							                <th colspan="3" style="text-align:left">TOTAL</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalCards}</th>
+							                <th style="background-color:#f2dede;text-align:center">${totalCardsReal}</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalToCollect}</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalCollectedGross}</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalCommission}</th>

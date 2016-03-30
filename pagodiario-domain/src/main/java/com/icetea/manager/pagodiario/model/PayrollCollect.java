@@ -43,6 +43,8 @@ public class PayrollCollect extends Identifiable {
 	private Status status = Status.INITIALIZED;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PayrollItemCollect> payrollItemCollectList = Lists.newArrayList();
+	@Column(name = "TOTAL_CARDS_COUNT_REAL", nullable = false)
+	private int cardsCountReal = 0;
 
 	public Date getPayrollDate() {
 		return payrollDate;
@@ -114,5 +116,16 @@ public class PayrollCollect extends Identifiable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
+	
+	public int getCardsCountReal() {
+		return cardsCountReal;
+	}
+	
+	public void setCardsCountReal(int cardsCountReal) {
+		this.cardsCountReal = cardsCountReal;
+	}
+	
+	public int incrementCardsReal(){
+		return ++this.cardsCountReal;
+	}
 }

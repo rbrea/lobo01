@@ -43,6 +43,8 @@ public class PayrollItemCollect extends Identifiable {
 	private PayrollCollect payrollCollect;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ConciliationItemCollect> conciliationItemCollectList = Lists.newArrayList();
+	@Column(name = "CARDS_COUNT_REAL", nullable = false)
+	private int cardsCountReal = 0;
 
 	public Collector getCollector() {
 		return collector;
@@ -167,4 +169,16 @@ public class PayrollItemCollect extends Identifiable {
 		this.amountToPay = amountToPay;
 	}
 
+	public int getCardsCountReal() {
+		return cardsCountReal;
+	}
+
+	public void setCardsCountReal(int cardsCountReal) {
+		this.cardsCountReal = cardsCountReal;
+	}
+
+	public int incrementCardsReal(){
+		return ++this.cardsCountReal;
+	}
+	
 }

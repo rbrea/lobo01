@@ -57,6 +57,7 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 		PayrollCollectDto p = this.payrollCollectService.searchById(payrollId);
 		if(p != null){
 			modelMap.addAttribute("totalCards", p.getTotalCards());
+			modelMap.addAttribute("totalCardsReal", p.getTotalCardsReal());
 			modelMap.addAttribute("totalToCollect", p.getTotalAmount());
 			modelMap.addAttribute("totalCollectedGross", p.getTotalPayment());
 			modelMap.addAttribute("totalCommission", p.getTotalAmountToPay());
