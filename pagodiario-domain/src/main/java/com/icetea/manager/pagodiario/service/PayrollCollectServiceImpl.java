@@ -99,7 +99,7 @@ public class PayrollCollectServiceImpl extends
 				@Override
 				public boolean evaluate(Payment p) {
 					
-					return p.getDate().compareTo(date) == 0;
+					return DateUtils.truncate(p.getDate()).compareTo(DateUtils.truncate(date)) == 0;
 				}
 			});
 			
