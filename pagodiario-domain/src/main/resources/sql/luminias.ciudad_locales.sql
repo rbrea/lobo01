@@ -25,3 +25,19 @@ insert into ciudad_locales (city_id, locales_id, fecha)
 	values (68, 12, curdate()); -- Barrio Norte
 	
 	
+	
+	
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
+insert into ciudad_locales (city_id, locales_id) values (, ,);
