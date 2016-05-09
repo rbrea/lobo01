@@ -59,8 +59,8 @@ public class PayrollCollectServiceImpl extends
 				String.format("Ya existe una liquidación de cobrador con fecha: %s", inputDate), 
 				ErrorType.VALIDATION_ERRORS);
 		
-		List<Bill> bills = this.billDao.findActivesByDate(date);
-
+		List<Bill> bills = this.billDao.findActivesByDateWithoutDayOfWeek(date);
+		
 		if(bills == null || bills.isEmpty()){
 			
 			return null;
@@ -70,6 +70,12 @@ public class PayrollCollectServiceImpl extends
 		payrollCollect.setPayrollDate(date);
 		
 		List<PayrollItemCollect> payrollItemCollectList = payrollCollect.getPayrollItemCollectList();
+		
+		List<Bill> billsActiveByDate = this.billDao.findActivesByDate(date);
+		int billsCount = 0;
+		if(billsActiveByDate != null){
+			billsCount = billsActiveByDate.size();
+		}
 		
 		for(final Bill bill : bills){
 			
@@ -85,6 +91,7 @@ public class PayrollCollectServiceImpl extends
 				payrollItemCollect = new PayrollItemCollect();
 				payrollItemCollect.setCollector(bill.getCollector());
 				payrollItemCollect.setPayrollCollect(payrollCollect);
+				payrollItemCollect.setCardsCount(billsCount);
 				payrollItemCollectList.add(payrollItemCollect);
 			}
 			
@@ -92,8 +99,8 @@ public class PayrollCollectServiceImpl extends
 			
 			payrollItemCollect.acumTotalAmount(amount);
 			
-			payrollItemCollect.incrementCards();
-			payrollCollect.incrementCards();
+//			payrollItemCollect.incrementCards();
+//			payrollCollect.incrementCards();
 			
 			List<Payment> payments = ListUtils.select(bill.getPayments(), new Predicate<Payment>() {
 				@Override
@@ -132,7 +139,9 @@ public class PayrollCollectServiceImpl extends
 			payrollCollect.acumTotalAmountToPay(amountToPay);
 		}
 		payrollCollect.setStatus(Status.FINISHED);
-
+		
+		payrollCollect.setTotalCardsCount(billsCount); // agrego el total de tarjetas a cobrar en un dia ...
+		
 		this.getDao().saveOrUpdate(payrollCollect);
 		
 		return this.getTransformer().transform(payrollCollect);

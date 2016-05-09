@@ -41,4 +41,6 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findCanceled();
 
+	List<Bill> findActivesByDateWithoutDayOfWeek(Date date);
+
 }
