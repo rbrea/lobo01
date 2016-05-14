@@ -33,6 +33,7 @@ import com.icetea.manager.pagodiario.api.dto.PayrollItemCollectDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.PayrollCollectService;
+import com.icetea.manager.pagodiario.service.PayrollItemCollectService;
 import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Controller
@@ -50,6 +51,8 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 	private PayrollCollectService payrollCollectService;
 	@Inject
 	private ServletContext servletContext;
+	@Inject
+	private PayrollItemCollectService payrollItemCollectService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showFormCollect(@RequestParam(required = false) Long payrollId, ModelMap modelMap){
@@ -121,5 +124,20 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 		}
 		
 	}
-	
+
+	@RequestMapping(value = "/detail/payrollItemCollect", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<PayrollItemCollectDto> getPayrollItemCollect(@RequestParam(required = false) Long id){
+		ListOutputDto<PayrollItemCollectDto> r = new ListOutputDto<PayrollItemCollectDto>();
+
+		List<PayrollItemCollectDto> list = Lists.newArrayList();
+
+		PayrollItemCollectDto p = this.payrollItemCollectService.searchById(id);
+		if(p != null){
+			list.add(p);
+		}
+		r.setData(list);
+		
+		return r;
+	}
+
 }

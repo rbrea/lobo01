@@ -146,13 +146,17 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findActivesByDate(Date date){
 		Criteria criteria = super.createCriteria();
+		
+		Date dateAtStart = DateUtils.truncate(date);
 		Date dateToVerify = DateUtils.lastSecondOfDay(date);
+		
 		criteria.add(
 			Restrictions.or(
 				Restrictions.eq("status", Status.ACTIVE),
 				Restrictions.and(
 					Restrictions.not(Restrictions.eq("status", Status.ACTIVE)),	
-					Restrictions.ge("completedDate", dateToVerify)			
+					//Restrictions.ge("completedDate", dateToVerify)
+					Restrictions.between("completedDate", dateAtStart, dateToVerify)
 				)
 			)
 		);
@@ -300,13 +304,16 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	@SuppressWarnings("unchecked")
 	public List<Bill> findActivesByDateWithoutDayOfWeek(Date date){
 		Criteria criteria = super.createCriteria();
+		
+		Date dateAtStart = DateUtils.truncate(date);
 		Date dateToVerify = DateUtils.lastSecondOfDay(date);
+
 		criteria.add(
 			Restrictions.or(
 				Restrictions.eq("status", Status.ACTIVE),
 				Restrictions.and(
 					Restrictions.not(Restrictions.eq("status", Status.ACTIVE)),	
-					Restrictions.ge("completedDate", dateToVerify)			
+					Restrictions.between("completedDate", dateAtStart, dateToVerify)			
 				)
 			)
 		);

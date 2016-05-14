@@ -67,6 +67,7 @@
 							                <th>Cobrado Bruto</th>
 							                <th>Comisi&oacute;n</th>
 							                <th>Cobrado Neto</th>
+							                <th>&nbsp;</th>
 							            </tr>
 							        </thead>
 							        <tfoot>
@@ -78,6 +79,7 @@
 							                <th style="background-color:#f2dede;text-align:center">${totalCollectedGross}</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalCommission}</th>
 							                <th style="background-color:#f2dede;text-align:center">${totalCollectedNet}</th>
+							                <th style="background-color:#f2dede;text-align:center">&nbsp;</th>
 							            </tr>
 							        </tfoot>
 								</table>							

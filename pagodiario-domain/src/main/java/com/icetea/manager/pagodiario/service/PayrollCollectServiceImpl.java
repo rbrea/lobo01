@@ -91,9 +91,10 @@ public class PayrollCollectServiceImpl extends
 				payrollItemCollect = new PayrollItemCollect();
 				payrollItemCollect.setCollector(bill.getCollector());
 				payrollItemCollect.setPayrollCollect(payrollCollect);
-				payrollItemCollect.setCardsCount(billsCount);
 				payrollItemCollectList.add(payrollItemCollect);
 			}
+			// x cada factura incremento una tarjeta a cobrar, q no quiere decir, q esa tarj haya sido cobrada ...
+			payrollItemCollect.incrementCards();
 			
 			BigDecimal amount = bill.getTotalDailyInstallment();
 			
@@ -116,16 +117,15 @@ public class PayrollCollectServiceImpl extends
 					payrollCollect.acumTotalPayment(p.getAmount());
 					payrollItemCollect.incrementCardsReal();
 					payrollCollect.incrementCardsReal();
+
+					ConciliationItemCollect cic = new ConciliationItemCollect();
+					cic.setAmount(amount);
+					cic.setBill(bill);
+					cic.setDescription("");
+					cic.setPayrollItemCollect(payrollItemCollect);
+					payrollItemCollect.addConciliationItemCollect(cic);
 				}
 			}
-			
-			ConciliationItemCollect cic = new ConciliationItemCollect();
-			cic.setAmount(amount);
-			cic.setBill(bill);
-			cic.setDescription("");
-			cic.setPayrollItemCollect(payrollItemCollect);
-			payrollItemCollect.addConciliationItemCollect(cic);
-			
 			payrollCollect.acumTotalAmount(amount);
 		}
 		

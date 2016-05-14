@@ -317,6 +317,15 @@ PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
             {
             	"className": 'centered',
             	"data": "totalToCollect"
+         	},
+            {
+            	"className": 'centered',
+            	"render": function (data, type, row) {
+			        
+			        return "<span id='collectDetail_" + row.id 
+			        	+ "'><a href='javascript:void(0)' onclick='javascript:PayrollCollect.showPayrollCollectDetail(" + row.id 
+			        		+ ")'><i class='glyphicon glyphicon-zoom-in'></i></a></span>";
+			    }
          	}
         ],
         "order": [[0, 'asc']],
@@ -340,6 +349,107 @@ PayrollCollect.initItemDataTable = function(imgCheckUrl, id){
 PayrollCollect.exportToPdf = function(){
 
 	$("#frmPayrollItemCollectExportPdf").submit();
+	
+	return;
+}
+
+PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
+	
+	BootstrapDialog.show({
+		onshown: function(){
+			
+			return;
+		},
+		onhidden:function(){
+			//$("#txtInputContainer").html("");
+			//$("#txtOutputContainer").html("");
+			
+			return;
+		},
+		draggable: true,
+		type: BootstrapDialog.TYPE_DANGER,
+		title: "Detalle de Liquidaci&oacute;n de Cobrador",
+		autodestroy: true,
+		closable: true,
+		//cssClass: 'dialog-large dialog-flow-detail',
+        message: function(dialog) {
+
+        	var tbody = $("<tbody></tbody>");
+        	
+        	$.ajax({ 
+    		   type    : "GET",
+    		   url     : Constants.contextRoot + "/controller/html/payrollcollectitem/detail/payrollItemCollect?id=" + payrollCollectItemId,
+    		   dataType: 'json',
+    		   contentType: "application/json;",
+    		   async : false,
+    		   success:function(data) {
+    				
+    			   Message.hideMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"));
+    				
+    			   if(data != null){
+    	
+    				   var payrollItemCollectList = data.data;
+    				   
+    				   if(payrollItemCollectList.length > 0){
+    					   var detail = payrollItemCollectList[0];
+    					   
+    					   var items = detail.items;
+    					   
+    					   $.each(items, function(){
+    						   
+    						   var tr = $("<tr></tr>");
+    						   var td1 = $("<td class='centered'></td>").append(this.creditNumber);
+    						   var td2 = $("<td class='centered'></td>").append(this.amount);
+    						   
+    						   tr.append(td1).append(td2);
+    						   tbody.append(tr);
+    						   
+    						   return;
+    					   });
+    				   }
+    	
+    			   } else {
+    				   Message.showMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"), data.message);
+    			   }
+    		   },
+    		   error:function(data){
+    			   Message.showMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"), data.responseJSON.message);
+			   
+    			   return;
+    		   }
+			});
+        
+	        var divContainer = '<div class="row"><div class="col-md-12"><div class="panel panel-default">' +
+	        	'<div class="panel-heading">Detalle</div>' +
+	        		'<div class="panel-body">' +
+	        		'<table class="table table-striped">' +
+	        		'<tr>' +
+	        		'<th class="centered">Nro Cr&eacute;dito</th>' +
+	        		'<th class="centered">Monto</th>' +
+	        		'</tr>' +
+	        		tbody.html() +
+	        		'</table>' +
+	        		'</div>' + 
+	        		'</div></div></div>';
+        
+        	return divContainer;
+        },
+        buttons: [
+            {
+	        	id: 'btnPayrollCollectDetailClose',
+	        	label: 'Cerrar',
+	        	icon: 'glyphicon glyphicon-ok-sign',
+	        	cssClass: 'btn-primary',
+	        	action: function(dialog){
+	        		var btn = this;
+	        		
+	        		dialog.close();
+					
+	        		return;
+	        	}
+            }
+        ]
+    });
 	
 	return;
 }

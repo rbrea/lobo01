@@ -1,5 +1,9 @@
 package com.icetea.manager.pagodiario.api.dto;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 public class PayrollItemCollectDto extends BasicIdentifiableDto {
 
 	private static final long serialVersionUID = 1L;
@@ -14,7 +18,12 @@ public class PayrollItemCollectDto extends BasicIdentifiableDto {
 	private String amountToPay;
 	private String totalToCollect;
 	private int cardsCountReal;
+	private List<ConciliationItemCollectDto> items = Lists.newArrayList();
 	
+	public PayrollItemCollectDto() {
+		super();
+	}
+
 	public Long getCollectorZone() {
 		return collectorZone;
 	}
@@ -75,5 +84,13 @@ public class PayrollItemCollectDto extends BasicIdentifiableDto {
 	public void setCardsCountReal(int cardsCountReal) {
 		this.cardsCountReal = cardsCountReal;
 	}
-	
+
+	public List<ConciliationItemCollectDto> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ConciliationItemCollectDto> items) {
+		this.items = items;
+	}
+
 }
