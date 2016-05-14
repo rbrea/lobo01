@@ -218,6 +218,13 @@ Payment.init = function(){
 				    return;
 				});
 				
+				paymentAmountInput.on('blur', function(e){
+					
+					Payment.doAmountToPay();
+					
+					return;
+				});
+				
 				var creditNumberInput = row.find("input[id*='creditNumber_']");
 				
 				creditNumberInput.keyup(function(e){
@@ -239,13 +246,14 @@ Payment.init = function(){
 	
 	$("#btnPaymentRemove").on('click', function(){
 		Commons.removeClonedRow('paymentRow_');
+		Payment.doAmountToPay();
 		
 		return;
 	});
 	
 	Payment.addInputs();
 	
-	$("#btnReset").on('click', function(){
+	$("#btnPaymentScreenReset").on('click', function(){
 		
 		var idxList = [];
 		var paymentRows = $("div[id*='paymentRow_']");
@@ -272,6 +280,8 @@ Payment.init = function(){
 		errorSpan.html("");
 		errorSpan.addClass("hide");
 		$("#paymentRow_0").children("div[class*='form-group']").removeClass("has-error");
+		
+		$("#totalToPay").val("0.00");
 		
 		Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
 		
@@ -322,6 +332,13 @@ Payment.addInputs = function(){
 	    }
 	    
 	    return;
+	});
+	
+	$("input[id*='paymentAmount_']").on('blur', function(e){
+		
+		Payment.doAmountToPay();
+		
+		return;
 	});
 	
 	return;
@@ -396,7 +413,6 @@ Payment.add = function(dialog){
 						   $("#paymentRow_" + p.idx).children("div[class*='form-group']").addClass("has-error");
 					   } else {
 						   // si no tuvimos errores entonces reseteamos ...
-						   //$("#btnReset").trigger('click');
 						   if(p.idx == 0){
 							   $("#creditNumber_0").val("");
 							   $("#paymentAmount_0").val("");
@@ -555,6 +571,29 @@ Payment.showConfirmModal = function(){
         }]
     });
 	
+	
+	return;
+}
+
+Payment.doAmountToPay = function(){
+	
+	var amountList = $("input[id*='paymentAmount_']");
+	
+	var totalAmount = parseFloat("0.00");
+	
+	$.each(amountList, function(){
+		
+		var value = $(this).val();
+		
+		if(value != null && value != "" && value != undefined){
+			var amount = parseFloat(value.replace(",", "."));
+			totalAmount = totalAmount + amount;
+		}
+		
+		return;
+	});
+	
+	$("#totalToPay").val(totalAmount.toFixed(2));
 	
 	return;
 }

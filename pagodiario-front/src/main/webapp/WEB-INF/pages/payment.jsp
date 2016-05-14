@@ -111,7 +111,7 @@
 								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control " id="paymentAmount_X" placeholder="$ Importe" required>
+										<input type="number" style="text-align: right;" class="form-control " id="paymentAmount_X" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
@@ -134,7 +134,7 @@
 								<div class="form-group col-md-2">
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control " id="paymentAmount_0" placeholder="$ Importe" required>
+										<input type="number" style="text-align: right;" class="form-control " id="paymentAmount_0" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
@@ -150,6 +150,21 @@
 						</div>
 					</div>
 		  			</form>
+		  			<div class="row">
+						<div class="col-md-8">
+							&nbsp;
+						</div>
+						<div class="col-md-2">
+							<label for="totalToPay">Total a Pagar</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+    							<input type="text" style="text-align: right;" class="form-control" id="totalToPay" placeholder="0.00" value="0.00" readonly>
+    						</div>
+						</div>
+						<div class="col-md-2">
+							&nbsp;
+						</div>
+					</div>
 		  		</div>
 			</div>	
 		</div>
@@ -160,7 +175,7 @@
 		</div>
 		<div class="col-md-4">
 			<button id="btnAccept" type="button" data-loading-text="Espere..." class="btn btn-success"><i class="glyphicon glyphicon-play-circle"></i>&nbsp;Aceptar</button>&nbsp;
-			<button id="btnReset" type="button" data-loading-text="Espere..." class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i>&nbsp;Limpiar</button>
+			<button id="btnPaymentScreenReset" type="button" data-loading-text="Espere..." class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i>&nbsp;Limpiar</button>
 		</div>
 	</div>
 </div>
