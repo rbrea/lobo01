@@ -144,14 +144,15 @@
 								            <tr>
 								            	<th>Nro. de Ticket</th>
 								                <th>Fecha Inicio</th>
-								                <th>Fecha Fin</th>
+								                <th>Fecha Estimado Fin</th>
 								                <th>Nro. de Cr&eacute;dito</th>
 								                <th>Cobrador/Zona</th>
-								                <th>D&iacute;as de atraso</th>
+								                <th>D&iacute;as atraso</th>
 								                <th>$ Cuota Diaria</th>
 								                <th>$ Importe Total</th>
 								                <th>$ Saldo Restante</th>
 								                <th>Estado</th>
+								                <th>Fec Liq</th>
 								                <th>Acciones</th>
 								            </tr>
 								        </thead>

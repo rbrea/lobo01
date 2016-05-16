@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.transformer;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -10,6 +12,7 @@ import com.icetea.manager.pagodiario.api.dto.BillProductDto;
 import com.icetea.manager.pagodiario.api.dto.PaydayDto;
 import com.icetea.manager.pagodiario.model.Bill;
 import com.icetea.manager.pagodiario.model.BillProduct;
+import com.icetea.manager.pagodiario.service.ConciliationItemService;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 import com.icetea.manager.pagodiario.utils.StringUtils;
@@ -18,12 +21,15 @@ import com.icetea.manager.pagodiario.utils.StringUtils;
 public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto, Bill> {
 
 	private final BillProductDtoModelTransformer billProductDtoModelTransformer;
+	private final ConciliationItemService conciliationItemService;
 	
 	@Inject
 	public BillDtoModelTransformer(
-			BillProductDtoModelTransformer billProductDtoModelTransformer) {
+			BillProductDtoModelTransformer billProductDtoModelTransformer,
+			ConciliationItemService conciliationItemService) {
 		super();
 		this.billProductDtoModelTransformer = billProductDtoModelTransformer;
+		this.conciliationItemService = conciliationItemService;
 	}
 
 	@Override
@@ -67,6 +73,9 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 		d.setWeekThursday(BooleanUtils.toBoolean(e.getWeekThursday(), "S", "N"));
 		d.setWeekTuesday(BooleanUtils.toBoolean(e.getWeekTuesday(), "S", "N"));
 		d.setWeekWednesday(BooleanUtils.toBoolean(e.getWeekWednesday(), "S", "N"));
+		
+		Date payrollDate = this.conciliationItemService.searchPayrollDateFromBillId(e.getId());
+		d.setPayrollDate(DateUtils.toDate(payrollDate));
 		
 		return d;
 	}

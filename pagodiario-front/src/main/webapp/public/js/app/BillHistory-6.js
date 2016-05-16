@@ -118,9 +118,15 @@ BillHistory.init = function(){
             	"render": function ( data, type, row ) {
 			        
 			        var value = Bill.translateStatus(row.status);
+			        var label = BillHistory.selectLabel(value);
 			        
-			        return "<span id='status_" + row.id + "'>" + value + "</span>";
+			        return "<span id='status_" + row.id + "' class='label " + label + "'>" + value + "</span>";
 			    } 
+            },
+            { 	
+            	"className": 'centered',
+            	"orderable": false,
+            	"data": "payrollDate" 
             },
             {
             	"className":      'centered',
@@ -1403,9 +1409,15 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		            	"render": function ( data, type, row ) {
 					        
 					        var value = Bill.translateStatus(row.status);
+					        var label = BillHistory.selectLabel(value);
 					        
-					        return "<span id='status_" + row.id + "'>" + value + "</span>";
+					        return "<span id='status_" + row.id + "' class='label " + label + "'>" + value + "</span>";
 					    } 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"data": "payrollDate" 
 		            },
 		            {
 		            	"className":      'centered',
@@ -1657,4 +1669,20 @@ BillHistory.cancelWithDiscount = function(id){
 	});
 	
 	return;
+}
+
+BillHistory.selectLabel = function(status){
+	var labelClass = "label-default";
+    
+	if(status == 'ACTIVO'){
+    	labelClass = "label-warning";
+    } else if(status == 'CANCELADO'){
+    	labelClass = "label-success";
+    } else if(status == 'CANC/DESC'){
+    	labelClass = "label-info";
+    } else if(status == 'BAJA'){
+    	labelClass = "label-danger";
+    }
+    
+	return labelClass;
 }

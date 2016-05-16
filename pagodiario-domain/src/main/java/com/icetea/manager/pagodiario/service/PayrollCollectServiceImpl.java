@@ -119,7 +119,7 @@ public class PayrollCollectServiceImpl extends
 					payrollCollect.incrementCardsReal();
 
 					ConciliationItemCollect cic = new ConciliationItemCollect();
-					cic.setAmount(amount);
+					cic.setAmount(p.getAmount());
 					cic.setBill(bill);
 					cic.setDescription("");
 					cic.setPayrollItemCollect(payrollItemCollect);

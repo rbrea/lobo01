@@ -38,6 +38,7 @@ public class BillDto extends BasicIdentifiableDto {
 	private boolean weekThursday;
 	private boolean weekFriday;
 	private boolean weekSaturday;
+	private String payrollDate;
 	
 	public BillDto() {
 		super();
@@ -238,6 +239,14 @@ public class BillDto extends BasicIdentifiableDto {
 
 	public void setWeekSaturday(boolean weekSaturday) {
 		this.weekSaturday = weekSaturday;
+	}
+
+	public String getPayrollDate() {
+		return payrollDate;
+	}
+
+	public void setPayrollDate(String payrollDate) {
+		this.payrollDate = payrollDate;
 	}
 	
 }
