@@ -6,12 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 
 @Entity
-@Table(name = "USUARIO")
-@Audited
+@Table(name = "usuario")
 public class User extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

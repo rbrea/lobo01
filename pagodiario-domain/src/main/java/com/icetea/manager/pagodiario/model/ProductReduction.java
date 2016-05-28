@@ -8,11 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 @Entity
-@Table(name = "PRODUCT_REDUCTION")
-@Audited
+@Table(name = "product_reduction")
 public class ProductReduction extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

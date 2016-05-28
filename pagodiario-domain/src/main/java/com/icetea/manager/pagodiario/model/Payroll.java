@@ -12,13 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.google.common.collect.Lists;
 
 @Entity
-@Table(name = "PAYROLL")
-@Audited
+@Table(name = "payroll")
 public class Payroll extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

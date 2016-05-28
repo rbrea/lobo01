@@ -17,10 +17,9 @@ import org.hibernate.envers.Audited;
 import com.google.common.collect.Lists;
 
 @Entity
-@Table(name = "SUPERVISOR_PAYROLL_ITEM", 
+@Table(name = "supervisor_payroll_item", 
 	uniqueConstraints = {@UniqueConstraint(name = "IDX_LIQ_SUPERVISOR", 
 		columnNames = {"PAYROLL_ID", "SUPERVISOR_ID"})})
-@Audited
 public class SupervisorPayrollItem extends AbstractPayrollItem {
 
 	private static final long serialVersionUID = 1L;

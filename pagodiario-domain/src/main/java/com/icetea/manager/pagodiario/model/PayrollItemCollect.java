@@ -17,8 +17,7 @@ import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
-@Table(name = "PAYROLL_ITEM_COLLECT")
-@Audited
+@Table(name = "payroll_item_collect")
 public class PayrollItemCollect extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

@@ -11,13 +11,11 @@ import javax.persistence.Table;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
-import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
 
 @Entity
-@Table(name = "TRADER")
-@Audited
+@Table(name = "trader")
 public class Trader extends Person {
 
 	private static final long serialVersionUID = 1L;

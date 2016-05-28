@@ -8,11 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 @Entity
-@Table(name = "SUPERVISOR_CONCILIATION_ITEM")
-@Audited
+@Table(name = "supervisor_conciliation_item")
 public class SupervisorConciliationItem extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

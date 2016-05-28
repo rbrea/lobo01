@@ -86,7 +86,9 @@ public class PayrollController extends ExceptionHandlingController {
 
 		List<PayrollDto> list = Lists.newArrayList();
 		
-		String[] periods = StringUtils.split(input.getPeriod(), " a ");
+		String[] first = input.getPeriod().split(" -> ");
+		
+		String[] periods = StringUtils.split(first[0], " a ");
 		
 		Date from = DateUtils.parseDate(periods[0]);
 		Date to = DateUtils.parseDate(periods[1]);
@@ -119,7 +121,7 @@ public class PayrollController extends ExceptionHandlingController {
 	    Date start = c.getTime();
 	    
 	    // [roher] aca es donde esta la papa!! depende el nro que le ponga aca es d donde empieza ...
-	    Date before = DateUtils.addMonths(now, -12);
+	    Date before = DateUtils.addMonths(now, -28);
 	    c.setTime(before);
 	    
 	    c.set(Calendar.DAY_OF_MONTH, 15);
@@ -132,7 +134,7 @@ public class PayrollController extends ExceptionHandlingController {
 
 	    Date end = middle;
 	    start = middle;
-	    for(int i=0;i<28;i++){
+	    for(int i=0;i<62;i++){
 	    	if(!first){
 	    		end = DateUtils.addMonths(start, 1);
 	    		c.setTime(end);
@@ -143,7 +145,21 @@ public class PayrollController extends ExceptionHandlingController {
 	    		end = DateUtils.addDays(start, 14);
 	    	}
 	    	
-	    	String period = DateUtils.toDate(start) + " a " + DateUtils.toDate(end);
+	    	Calendar calendar = Calendar.getInstance();
+	    	calendar.setTime(end);
+	    	int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+	    	if(dayOfMonth > 15){
+	    		calendar.set(Calendar.DAY_OF_MONTH, 15);
+	    		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
+	    	} else {
+	    		calendar.set(Calendar.DAY_OF_MONTH, 1);
+	    		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
+	    	}
+	    	
+	    	Date periodDate = calendar.getTime();
+	    	
+	    	String period = DateUtils.toDate(start) 
+	    			+ " a " + DateUtils.toDate(end) + " -> " + DateUtils.toDate(periodDate);
 
 	    	if(now.before(end) && now.after(start)){
 	    		period += "--CURRENT";

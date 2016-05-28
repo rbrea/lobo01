@@ -10,15 +10,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.envers.Audited;
-
 import com.google.common.collect.Lists;
 
 @Entity
-@Table(name = "PAYROLL_ITEM", 
+@Table(name = "payroll_item", 
 	uniqueConstraints = {@UniqueConstraint(name = "IDX_LIQ_VEND", 
 		columnNames = {"PAYROLL_ID", "TRADER_ID"})})
-@Audited
 public class PayrollItem extends AbstractPayrollItem {
 
 	private static final long serialVersionUID = 1L;

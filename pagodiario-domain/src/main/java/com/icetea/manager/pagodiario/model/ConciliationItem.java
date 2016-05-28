@@ -6,13 +6,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.envers.Audited;
-
 @Entity
-@Table(name = "CONCILIATION_ITEM", 
+@Table(name = "conciliation_item", 
 	uniqueConstraints = {@UniqueConstraint(name = "IDX_CONCILIATION_ITEM", 
 		columnNames = {"PAYROLL_ITEM_ID", "BILL_ID", "TYPE"})})
-@Audited
 public class ConciliationItem extends AbstractConciliationItem {
 
 	private static final long serialVersionUID = 1L;

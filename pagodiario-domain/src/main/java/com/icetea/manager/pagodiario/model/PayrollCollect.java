@@ -12,14 +12,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
-@Table(name = "PAYROLL_COLLECT")
-@Audited
+@Table(name = "payroll_collect")
 public class PayrollCollect extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

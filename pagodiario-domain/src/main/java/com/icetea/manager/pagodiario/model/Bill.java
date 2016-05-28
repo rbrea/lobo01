@@ -23,8 +23,7 @@ import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
-@Table(name = "BILL")
-@Audited
+@Table(name = "bill")
 public class Bill extends Identifiable {
 
 	private static final long serialVersionUID = 1L;

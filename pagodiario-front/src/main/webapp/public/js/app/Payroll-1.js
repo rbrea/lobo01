@@ -45,8 +45,22 @@ Payroll.fillPeriodSelector = function(){
 				   var idx = value.indexOf("--CURRENT");
 				   if(idx > -1){
 					   value = value.substring(0, idx);
+					   /*
+					   var pos = value.indexOf('a ');
+					   
+					   var fec = value.substring(pos+2);
+					   
+					   var fecAdded = moment(fec, 'DD/MM/YYYY').add(16, 'days').format('DD/MM/YYYY');
+					   */
 					   periodSelect.append("<option selected='selected'>" + value + "</option>");
 				   } else {
+					   /*
+					   var pos = value.indexOf('a ');
+					   
+					   var fec = value.substring(pos+2);
+					   
+					   var fecAdded = moment(fec, 'DD/MM/YYYY').add(16, 'days').format('DD/MM/YYYY');
+					   */
 					   periodSelect.append("<option>" + value + "</option>");
 				   }
 			   }
