@@ -187,5 +187,19 @@ public class PaymentServiceImpl
 		
 		return this.getTransformer().transformAllTo(this.getDao().find(from, to));
 	}
+
+	@Override
+	public boolean remove(Long id) {
+		
+		Payment payment = super.getDao().findById(id);
+		if(payment != null){
+			Bill bill = payment.getBill();
+			bill.getPayments().remove(payment);
+			bill.setUpdatedDate(new Date());
+			this.billDao.saveOrUpdate(bill);
+		}
+		
+		return super.remove(id);
+	}
 	
 }

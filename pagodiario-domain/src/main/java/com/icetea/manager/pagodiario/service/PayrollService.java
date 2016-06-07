@@ -17,4 +17,6 @@ public interface PayrollService extends BasicIdentifiableService<Payroll, Payrol
 
 	PayrollDto commitPayroll(Long id);
 
+	boolean existsByPaymentId(Long paymentId);
+
 }

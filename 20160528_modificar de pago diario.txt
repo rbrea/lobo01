@@ -1,0 +1,8 @@
+- cuando imprime ticket para una fecha q no corresponde por el modulo alternativo no le sale la fecha impresa en el ticket
+- dias de atraso,,, no se restaura al valor q deberia ser,, por ej si tenia 3 dias de atras, y luego paga una semana completa los dias de atraso deberian quedar negativos,, 
+   y no esta quedando asi,, le quedan 6 dias de atraso!??!??
+
+- ver de agregar boton para borrar pago erroneo ...
+LISTO - cant de tarj en liq de cobradores sigue mostrando la cant total ,, cdo deberia mostrar las tarj del dia!!
+- Muy lenta la pantalla de consulta de creditos,, voy a tner q paginar!
+

@@ -597,3 +597,45 @@ Payment.doAmountToPay = function(){
 	
 	return;
 }
+
+Payment.remove = function(id, paymentDate){
+	
+	BootstrapDialog.confirm({
+		title: "Confirmación",
+		message: "Esta seguro de eliminar el pago seleccionado con fecha: " + paymentDate + "?",
+		type: BootstrapDialog.TYPE_DANGER,
+		draggable: true,
+		btnCancelLabel: '<i class="glyphicon glyphicon-remove-sign"></i>&nbsp;NO', // <-- Default value is 'Cancel',
+        btnOKLabel: '<i class="glyphicon glyphicon-ok-sign"></i>&nbsp;SI', // <-- Default value is 'OK',
+        btnOKClass: 'btn-success',
+		callback: function(result){
+			if(result) {
+				var url = "/controller/html/payment/" + id;
+				
+				$.ajax({ 
+				   type    : "DELETE",
+				   url     : Constants.contextRoot + url,
+				   success:function(data) {
+
+					   if(data.status == 0){
+						   $("#paymentRow_" + id).remove();
+					   } else {
+						   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
+					   }
+					   
+					   return;
+				   },
+				   error:function(data){
+					   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.responseJSON.message);
+					   
+					   return;
+				   }
+				});
+			}
+			
+			return;
+		}
+	});
+	
+	return;
+}

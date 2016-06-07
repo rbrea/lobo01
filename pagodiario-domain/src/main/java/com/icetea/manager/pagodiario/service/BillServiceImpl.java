@@ -281,6 +281,7 @@ public class BillServiceImpl
 			r.setAmount(NumberUtils.toString(p.getAmount()));
 			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getZone() + " / " + p.getCollector().getDescription() : StringUtils.EMPTY));
 			r.setDate(DateUtils.toDate(p.getDate()));
+			r.setId(p.getId());
 			
 			d.getPayments().add(r);
 		}

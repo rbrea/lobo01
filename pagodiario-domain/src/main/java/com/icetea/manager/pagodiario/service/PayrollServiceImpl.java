@@ -633,5 +633,10 @@ public class PayrollServiceImpl extends
 		}
 		return totalDiscount;
 	}
+
+	@Override
+	public boolean existsByPaymentId(Long paymentId){
+		return this.getDao().findByPaymentId(paymentId) != null;
+	}
 	
 }

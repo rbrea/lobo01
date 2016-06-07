@@ -157,12 +157,13 @@
 		  			<table id="tBillPayment" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="3" class="centered">PAGOS</th>
+			  					<th colspan="4" class="centered">PAGOS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
 			  					<th class="centered">COBRADOR</th>
 			  					<th class="centered">IMPORTE</th>
+			  					<th class="centered">ACCIONES</th>
 			  				</tr>
 		  				</thead>
 		  				<tbody>

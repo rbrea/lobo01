@@ -53,4 +53,18 @@ public class PayrollDaoImpl extends BasicIdentificableDaoImpl<Payroll>
 		return criteria.list();
 	}
 
+	@Override
+	public Payroll findByPaymentId(Long paymentId){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("payrollItemList", "payrollItem");
+		criteria.createAlias("payrollItem.items", "item");
+		criteria.createAlias("item.bill", "bill");
+		criteria.createAlias("bill.payments", "payment");
+		criteria.add(Restrictions.eq("payment.id", paymentId));
+		
+		List<?> list = criteria.list();
+		
+		return (Payroll) ((list != null && !list.isEmpty()) ? list.get(0) : null);
+	}
+	
 }

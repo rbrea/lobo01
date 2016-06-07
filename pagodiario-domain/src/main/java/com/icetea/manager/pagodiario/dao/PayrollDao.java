@@ -13,4 +13,6 @@ public interface PayrollDao extends BasicIdentificableDao<Payroll> {
 
 	List<Payroll> findLast(Integer maxResults);
 
+	Payroll findByPaymentId(Long paymentId);
+
 }

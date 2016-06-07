@@ -32,7 +32,7 @@ public abstract class AbstractDtoModelTransformer<D extends BasicDto, E extends 
     @Override
     public final List<D> transformAllTo(List<E> entities, int depth) {
         if (entities == null) {
-            return null;
+            return Lists.newArrayList();
         }
         List<D> result = Lists.newArrayList();
         

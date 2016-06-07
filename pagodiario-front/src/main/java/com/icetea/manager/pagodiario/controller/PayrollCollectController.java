@@ -82,7 +82,7 @@ public class PayrollCollectController extends ExceptionHandlingController {
 
 		List<PayrollCollectDto> list = Lists.newArrayList();
 		
-		PayrollCollectDto p = this.payrollCollectService.processPayroll(input.getPayrollDate());
+		PayrollCollectDto p = this.payrollCollectService.processPayrollAlternative(input.getPayrollDate());
 		
 		list.add(p);
 		r.setData(list);

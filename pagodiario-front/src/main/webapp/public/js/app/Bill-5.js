@@ -1834,13 +1834,21 @@ Bill.initDetail = function(billId){
 				   }
 				   
 				   for(var i=0;i<payments.length;i++){
-					   var tr = $("<tr></tr>");
+					   var tr = $("<tr id='paymentRow_" + payments[i].id + "'></tr>");
 					   
 					   var td0 = $("<td class=\"centered\"></td>").append(payments[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(payments[i].collector);
 					   var td2 = $("<td class=\"centered\"></td>").append(payments[i].amount);
 					   
-					   tr.append(td0).append(td1).append(td2);
+					   var removeBtn = $("<a href='javascript:void(0);' class='btn btn-xs btn-danger' data-paymentid='" + payments[i].id + "' onclick='javascript:Payment.remove(" + payments[i].id + ", \"" + payments[i].date + "\")'><i class='fa fa-trash'></i></a>");
+
+					   if(i==0){
+						   removeBtn = "";
+					   }
+						   
+					   var td3 = $("<td class=\"centered\"></td>").append(removeBtn);
+					   
+					   tr.append(td0).append(td1).append(td2).append(td3);
 					   
 					   pBody.append(tr);
 				   }

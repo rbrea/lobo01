@@ -25,6 +25,8 @@ import com.icetea.manager.pagodiario.api.dto.PaymentResponseDto;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.service.PaymentService;
+import com.icetea.manager.pagodiario.service.PayrollCollectService;
+import com.icetea.manager.pagodiario.service.PayrollService;
 
 @Controller
 @RequestMapping(value = "/html/payment")
@@ -41,6 +43,10 @@ public class PaymentController extends ExceptionHandlingController {
 	private PaymentService paymentService;
 	@Inject
 	private BillService billService;
+	@Inject
+	private PayrollCollectService payrollCollectService;
+	@Inject
+	private PayrollService payrollService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(){
@@ -98,6 +104,14 @@ public class PaymentController extends ExceptionHandlingController {
 	public @ResponseBody BasicOutputDto deletePayment(@PathVariable Long id){
 		BasicOutputDto r = new BasicOutputDto();
 
+//		boolean existsPayrollCollect = this.payrollCollectService.existsByPaymentId(id);
+//		boolean existsPayroll = this.payrollService.existsByPaymentId(id);
+//		
+//		ErrorTypedConditions.checkArgument(!existsPayrollCollect,
+//				String.format("No se puede borrar el pago id: %s, porque ya existe una liq de cobrador asociada.", id));
+//		ErrorTypedConditions.checkArgument(!existsPayroll,
+//				String.format("No se puede borrar el pago id: %s, porque ya existe una liq de vendedor asociada.", id));
+		
 		this.paymentService.remove(id);
 		
 		return r;

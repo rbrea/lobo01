@@ -4,6 +4,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +13,6 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -35,6 +32,11 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.PayrollCollectService;
 import com.icetea.manager.pagodiario.service.PayrollItemCollectService;
 import com.icetea.manager.pagodiario.utils.StringUtils;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping(value = "/html/payrollcollectitem")
@@ -79,6 +81,12 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 		PayrollCollectDto p = this.payrollCollectService.searchById(id);
 		if(p != null){
 			list.addAll(p.getItems());
+			Collections.sort(list, new Comparator<PayrollItemCollectDto>() {
+				@Override
+				public int compare(PayrollItemCollectDto o1, PayrollItemCollectDto o2) {
+					return o1.getCollectorZone().compareTo(o2.getCollectorZone());
+				}
+			});
 		}
 		
 		r.setData(list);

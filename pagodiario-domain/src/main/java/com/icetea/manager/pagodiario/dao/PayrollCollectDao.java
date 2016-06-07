@@ -9,4 +9,6 @@ public interface PayrollCollectDao extends
 
 	PayrollCollect findByDate(Date date);
 
+	PayrollCollect findByPaymentId(Long paymentId);
+
 }

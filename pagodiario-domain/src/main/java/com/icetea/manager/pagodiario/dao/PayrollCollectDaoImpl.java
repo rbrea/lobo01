@@ -1,6 +1,7 @@
 package com.icetea.manager.pagodiario.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -28,6 +29,20 @@ public class PayrollCollectDaoImpl extends
 		criteria.add(Restrictions.eq("payrollDate", date));
 		
 		return (PayrollCollect) criteria.uniqueResult();
+	}
+
+	@Override
+	public PayrollCollect findByPaymentId(Long paymentId){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("payrollItemCollectList", "payrollItemCollect");
+		criteria.createAlias("payrollItemCollect.conciliationItemCollectList", "conciliationItemCollect");
+		criteria.createAlias("conciliationItemCollect.bill", "bill");
+		criteria.createAlias("bill.payments", "payment");
+		criteria.add(Restrictions.eq("payment.id", paymentId));
+		
+		List<?> list = criteria.list();
+		
+		return (PayrollCollect) ((list != null && !list.isEmpty()) ? list.get(0) : null);
 	}
 	
 }
