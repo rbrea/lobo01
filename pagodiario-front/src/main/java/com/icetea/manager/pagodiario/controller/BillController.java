@@ -13,15 +13,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
-import net.sf.jasperreports.engine.util.FileResolver;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -47,6 +38,15 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.transformer.jasper.CreditDetailTransformer;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
+import net.sf.jasperreports.engine.util.FileResolver;
 
 @Controller
 @RequestMapping(value = "/html/bill")
@@ -83,7 +83,9 @@ public class BillController extends ExceptionHandlingController {
 			@RequestParam(required = false) Long creditNumber,
 			@RequestParam(required = false) Long collectorId,
 			@RequestParam(required = false) String status,
-			@RequestParam(required = false) Long clientId){
+			@RequestParam(required = false) Long clientId,
+			@RequestParam(required = false) String dateFrom,
+			@RequestParam(required = false) String dateTo){
 		ListOutputDto<BillDto> r = new ListOutputDto<BillDto>();
 
 		List<BillDto> list = Lists.newArrayList();
@@ -100,7 +102,8 @@ public class BillController extends ExceptionHandlingController {
 			}
 		} else if(collectorId != null || StringUtils.isNotBlank(status)
 				|| clientId != null){
-			List<BillDto> bills = this.billService.searchByFilter(creditNumber, collectorId, status, clientId);
+			List<BillDto> bills = this.billService.searchByFilter(
+					creditNumber, collectorId, status, clientId, dateFrom, dateTo);
 			if(bills != null){
 				list.addAll(bills);
 			}
@@ -176,10 +179,12 @@ public class BillController extends ExceptionHandlingController {
 			@RequestParam(required = false) Long bhCollectorId,
 			@RequestParam(required = false, value = "bhCreditNumber") Long creditNumber,
 			@RequestParam(required = false, value = "bhStatus") String status,
-			@RequestParam(required = false, value = "bhClientId") Long clientId){
+			@RequestParam(required = false, value = "bhClientId") Long clientId,
+			@RequestParam(required = false, value = "bhDateFrom") String dateFrom,
+			@RequestParam(required = false, value = "bhDateTo") String dateTo){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		List<BillDto> list = this.billService.searchByFilter(creditNumber, bhCollectorId, status, clientId);
+		List<BillDto> list = this.billService.searchByFilter(creditNumber, bhCollectorId, status, clientId, dateFrom, dateTo);
 		
 		try {
 			String fullpath = this.servletContext.getRealPath("/WEB-INF/jasper/billhistory.jasper");

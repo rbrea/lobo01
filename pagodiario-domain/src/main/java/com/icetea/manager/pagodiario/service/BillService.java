@@ -34,7 +34,8 @@ public interface BillService extends BasicIdentifiableService<Bill, BillDto> {
 	BillDto searchByCreditNumber(Long creditNumber);
 
 	List<BillDto> searchByFilter(Long creditNumber, Long collectorId,
-			String statusArg, Long clientId);
+			String statusArg, Long clientId,
+			String dateFromValue, String dateToValue);
 
 	List<BillDto> searchToMakeVouchers(Date date);
 

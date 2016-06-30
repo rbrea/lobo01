@@ -131,6 +131,9 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	 * @return
 	 */
 	public static Date truncate(Date date){
+		if(date == null){
+			return null;
+		}
 		return truncate(date, Calendar.DAY_OF_MONTH);
 	}
 

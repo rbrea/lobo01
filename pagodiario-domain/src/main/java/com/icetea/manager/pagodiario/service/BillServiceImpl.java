@@ -391,11 +391,24 @@ public class BillServiceImpl
 	}
 
 	@Override
-	public List<BillDto> searchByFilter(Long creditNumber, Long collectorId, String statusArg, Long clientId){
+	public List<BillDto> searchByFilter(Long creditNumber, Long collectorId, String statusArg, Long clientId,
+			String dateFromValue, String dateToValue){
 	
 		Bill.Status status = Bill.Status.getValueOf(statusArg);
 		
-		return this.getTransformer().transformAllTo(this.getDao().findByFilter(creditNumber, collectorId, status, clientId));
+		Date dateFrom = null;
+		if(StringUtils.isNotEmpty(dateFromValue)){
+			dateFrom = DateUtils.parseDate(dateFromValue, DateUtils.DEFAULT_PATTERN);
+		}
+		Date dateTo = null;
+		if(StringUtils.isNotEmpty(dateToValue)){
+			dateTo = DateUtils.parseDate(dateToValue, DateUtils.DEFAULT_PATTERN);
+		}
+		dateFrom = DateUtils.truncate(dateFrom);
+		dateTo = DateUtils.lastSecondOfDay(dateTo);
+		
+		return this.getTransformer().transformAllTo(this.getDao().findByFilter(
+				creditNumber, collectorId, status, clientId, dateFrom, dateTo));
 	}
 
 	@Override

@@ -227,7 +227,8 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Bill> findByFilter(Long creditNumber, Long collectorId, Bill.Status status, Long clientId){
+	public List<Bill> findByFilter(Long creditNumber, Long collectorId, Bill.Status status, Long clientId,
+			Date dateFrom, Date dateTo){
 		Criteria criteria = super.createCriteria();
 		if(creditNumber != null){
 			criteria.add(Restrictions.eq("creditNumber", creditNumber));
@@ -242,6 +243,12 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		if(clientId != null){
 			criteria.createAlias("client", "client");
 			criteria.add(Restrictions.eq("client.id", clientId));
+		}
+		if(dateFrom != null){
+			criteria.add(Restrictions.gt("startDate", dateFrom));
+		}
+		if(dateTo != null){
+			criteria.add(Restrictions.lt("startDate", dateTo));
 		}
 		
 		return criteria.list();

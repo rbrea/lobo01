@@ -22,6 +22,8 @@
 		<input type="hidden" id="bhCreditNumber" name="bhCreditNumber">
 		<input type="hidden" id="bhStatus" name="bhStatus">
 		<input type="hidden" id="bhClientId" name="bhClientId">
+		<input type="hidden" id="bhDateFrom" name="bhDateFrom">
+		<input type="hidden" id="bhDateTo" name="bhDateTo">
 	</form>
 	<div class="row">
 		<div class="col-md-12">
@@ -44,14 +46,14 @@
                     </div>
                     <div class="widget-icons pull-right">
                  		<a id="billHistoryCollapseButton" class="wminimize" data-toggle="collapse" href="#bill-history-filter" 
-                 			 aria-expanded="false" aria-controls="bill-history-filter">
-                 			<i class="fa fa-chevron-down"></i>
+                 			 aria-expanded="true" aria-controls="bill-history-filter">
+                 			<i class="fa fa-chevron-up"></i>
                  		</a>&nbsp;&nbsp; 
                		</div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="container-fluid">
-		  				<div id="bill-history-filter" class="row collapse">
+		  				<div id="bill-history-filter" class="row">
 		  					<div class="col-md-12">
 		  						<div class="container-fluid">
 		  							<div class="row">
@@ -109,8 +111,29 @@
 												<div id="billClientErrorMessageDiv" class="help-block with-errors"></div>
 								            </div>
 						  				</div>
-						  				<div class="col-md-6">
-						  					&nbsp;
+						  				<div class="col-md-3">
+						  					<div class="form-group">
+												<label for="billDateFromValue">Fecha Desde</label>
+								                <div class='input-group date' id="billDateFrom">
+								                    <input type='text' class="form-control" id="billDateFromValue" name="billDateFromValue" placeholder="Fecha Desde"/>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+								              	<div class="help-block with-errors"></div>
+									        </div>
+						  				</div>
+						  				<div class="col-md-3">
+						  					<div class="form-group">
+												<label for="billDateToValue">Fecha Desde</label>
+								                <div class='input-group date' id="billDateTo">
+								                    <input type='text' class="form-control" id="billDateToValue" name="billDateToValue" placeholder="Fecha Hasta"/>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+								              	<div class="help-block with-errors"></div>
+									        </div>
 						  				</div>
 						  			</div>
 						  			<div class="row">
@@ -142,10 +165,9 @@
 									<table id="tBillResult" class="table table-condensed display">
 										<thead>
 								            <tr>
-								            	<th>Nro. de Ticket</th>
+								            	<th>Nro. de Cr&eacute;dito</th>
 								                <th>Fecha Inicio</th>
 								                <th>Fecha Estimado Fin</th>
-								                <th>Nro. de Cr&eacute;dito</th>
 								                <th>Cobrador/Zona</th>
 								                <th>D&iacute;as atraso</th>
 								                <th>$ Cuota Diaria</th>
@@ -156,7 +178,17 @@
 								                <th>Acciones</th>
 								            </tr>
 								        </thead>
-								 
+								        <tfoot>
+									        <tr>
+									            <th style="text-align:right" colspan="5"><b>Totales:</b></th>
+									            <th id="totInstallment"></th>
+									            <th id="totImpTotal"></th>
+									            <th id="totSaldoRestante"></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+									        </tr>
+									    </tfoot>
 									</table>							
 								</div>
 							</div>

@@ -1,8 +1,18 @@
 - cuando imprime ticket para una fecha q no corresponde por el modulo alternativo no le sale la fecha impresa en el ticket
-- dias de atraso,,, no se restaura al valor q deberia ser,, por ej si tenia 3 dias de atras, y luego paga una semana completa los dias de atraso deberian quedar negativos,, 
-   y no esta quedando asi,, le quedan 6 dias de atraso!??!??
+NO APLICA - dias de atraso,,, no se restaura al valor q deberia ser,, por ej si tenia 3 dias de atras, y luego paga una semana completa los dias de atraso deberian quedar negativos,, 
+   y no esta quedando asi,, le quedan 6 dias de atraso!??!?? NO LO PUDE REPRODUCIR
 
-- ver de agregar boton para borrar pago erroneo ...
+LISTO - ver de agregar boton para borrar pago erroneo ...
 LISTO - cant de tarj en liq de cobradores sigue mostrando la cant total ,, cdo deberia mostrar las tarj del dia!!
-- Muy lenta la pantalla de consulta de creditos,, voy a tner q paginar!
+LISTO - Muy lenta la pantalla de consulta de creditos,, voy a sacar q se cargue todo de una.
+  LISTO -- Incluir boton de buscar todo ...
+  LISTO -- Incluir filtro de fecha desde hasta
+  LISTO -- Sacar columna de Nro de ticket
+- Hacer pantalla de auditoria, viendo q acciones incluir
 
+
+
+
+
+
+http://localhost:8080/pagodiario-front/controller/html/bill/detail/index?billId=1134&creditNumber=995

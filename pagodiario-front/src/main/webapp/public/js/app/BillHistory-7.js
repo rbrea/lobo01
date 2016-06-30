@@ -26,14 +26,14 @@ BillHistory.init = function(){
 		
 		return;
 	});
-	
+	/*
 	var table = $("#tBillResult").dataTable( {
 		/*
-		"fnRowCallback": function(nRow, aData, iDisplayIndex){
-			$('td', nRow).attr('nowrap', 'nowrap');
-			
-			return nRow;
-		},*/
+		//"fnRowCallback": function(nRow, aData, iDisplayIndex){
+		//	$('td', nRow).attr('nowrap', 'nowrap');
+		//	
+		//	return nRow;
+		//},
 		"fnInitComplete": function(){
 			$('#tBillResult tbody tr').each(function(){
 				$(this).find('td:eq(1)').attr('nowrap', 'nowrap');
@@ -45,7 +45,7 @@ BillHistory.init = function(){
 			
 			return;
 		},
-		/*"bAutoWidth": false,*/
+		//"bAutoWidth": false,
 		"bDestroy" : true,
 		responsive: false,
 		"createdRow": function ( row, data, index ) {
@@ -164,14 +164,14 @@ BillHistory.init = function(){
             "zeroRecords": "No se ha encontrado ningun elemento",
             "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ facturas)</b>",
             "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": /*"(filtrados de un total de _MAX_ registros)"*/"",
+            "infoFiltered": "", //"(filtrados de un total de _MAX_ registros)"
             "search": "Buscar: ",
             "paginate": {
             	"previous": "Anterior",
 				"next": "Siguiente"
 			}
         } 
-    });
+    });*/
 	
 	$("#btnBillHistorySearch").on('click', function(){
 		
@@ -179,8 +179,10 @@ BillHistory.init = function(){
 		var creditNumber = $("#billHistoryTicketNumber").val();
 		var status = $("#billHistoryStatus").val();
 		var clientId = $("#billClientIdSelected").val();
+		var dateFrom = $("#billDateFromValue").val();
+		var dateTo = $("#billDateToValue").val();
 		
-		BillHistory.searchByFilter(collectorId, creditNumber, status, clientId);
+		BillHistory.searchByFilter(collectorId, creditNumber, status, clientId, dateFrom, dateTo);
 		
 		return;
 	});
@@ -189,7 +191,11 @@ BillHistory.init = function(){
 		
 		BillHistory.resetFilter(true);
 		
-		BillHistory.searchByFilter(null, null, null, null);
+		var table = $('#tBillResult').DataTable();
+		 
+		table
+		    .clear()
+		    .draw();
 		
 		return;
 	});
@@ -380,7 +386,28 @@ BillHistory.init = function(){
 		
 		return;
 	});
+	
+	
 
+	$('#billDateFrom').datetimepicker({
+        locale: 'es',
+        showTodayButton: true,
+        format: 'DD/MM/YYYY'
+    });
+	
+	$('#billDateTo').datetimepicker({
+        locale: 'es',
+        showTodayButton: true,
+        format: 'DD/MM/YYYY'
+    });
+	
+	$("#billDateFromValue").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
+	// asigno el dia de hoy
+	$("#billDateToValue").val(moment().format('DD/MM/YYYY'));
+	
+	$("#bhDateFrom").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
+	// asigno el dia de hoy
+	$("#bhDateTo").val(moment().format('DD/MM/YYYY'));
 	
 	return;
 }
@@ -1270,7 +1297,7 @@ BillHistory.exportToPdf = function(){
 	return;
 }
 
-BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId){
+BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId, dateFrom, dateTo){
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
@@ -1305,6 +1332,24 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		urlQueryString = urlQueryString + "clientId=" + clientId;
 		$("#bhClientId").val(clientId);
 	}
+	if(dateFrom != null && dateFrom != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "dateFrom=" + dateFrom;
+		$("#bhDateFrom").val(dateFrom);
+	}
+	if(dateTo != null && dateTo != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "dateTo=" + dateTo;
+		$("#bhDateTo").val(dateTo);
+	}
 	
 	$.ajax({ 
 	   type    : "GET",
@@ -1328,6 +1373,24 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 					
 					return nRow;
 				},*/
+				"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+					
+					var totalAmountAcum = 0;
+					var remainingAmountAcum = 0;
+					var totInstallment = 0;
+					
+					for ( var i=0 ; i<aaData.length ; i++ ){
+						totInstallment += parseFloat(aaData[i].totalDailyInstallment);
+						totalAmountAcum += parseFloat(aaData[i].totalAmount);
+						remainingAmountAcum += parseFloat(aaData[i].remainingAmount);
+					}
+					
+					$("#totInstallment").html("$ " + totInstallment.toFixed(2));
+                    $("#totImpTotal").html("$ " + totalAmountAcum.toFixed(2));
+                    $("#totSaldoRestante").html("$ " + remainingAmountAcum.toFixed(2));
+                    
+                    return;
+                },
 				"fnInitComplete": function(){
 					$('#tBillResult tbody tr').each(function(){
 						$(this).find('td:eq(1)').attr('nowrap', 'nowrap');
@@ -1350,10 +1413,11 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		        },
 		        "data": data.data,
 		        "columns": [
-		            { 	
-		            	"className": 'centered',
-		            	"data": "id" 
-		            },
+					{ 	
+						"className": 'centered',
+						"orderable": true,
+						"data": "creditNumber" 
+					},        
 		            { 
 		            	"className": 'centered',
 		            	"orderable": false,
@@ -1363,11 +1427,6 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		            	"className": 'centered',
 		            	"orderable": false,
 		            	"data": "endDate" 
-		            },
-		            { 	
-		            	"className": 'centered',
-		            	"orderable": true,
-		            	"data": "creditNumber" 
 		            },
 		            { 
 		            	"className": 'centered',
@@ -1390,8 +1449,8 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 					        return "<span id='installmentAmount_" + row.id + "'>" + row.totalDailyInstallment + "</span>";
 					    } 
 		            },
-		            { 	
-		            	"className": 'centered',
+		            {
+		            	"className": "centered", 
 		            	"orderable": false,
 		            	"data": "totalAmount" 
 		            },
@@ -1442,7 +1501,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		                } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
 		         	}
 		        ],
-		        "order": [[3, 'desc']],
+		        "order": [[0, 'desc']],
 		        "language": {
 		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
 		            "zeroRecords": "No se ha encontrado ningun elemento",
@@ -1541,6 +1600,7 @@ BillHistory.resetFilter = function(enabled){
 	BillHistory.resetTicketNumber(enabled);
 	BillHistory.resetStatus(enabled);
 	BillHistory.resetClient(enabled);
+	BillHistory.resetDates(enabled);
 	
 	return;
 }
@@ -1685,4 +1745,21 @@ BillHistory.selectLabel = function(status){
     }
     
 	return labelClass;
+}
+
+BillHistory.resetDates = function(enabled){
+
+	$("#billDateFromValue").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
+	// asigno el dia de hoy
+	$("#billDateToValue").val(moment().format('DD/MM/YYYY'));
+	
+	//$("#billDateFromValue").val("");
+	//$("#billDateToValue").val("");
+	if(enabled){
+		$("#bhDateFrom").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
+		// asigno el dia de hoy
+		$("#bhDateTo").val(moment().format('DD/MM/YYYY'));
+	}
+	
+	return;
 }
