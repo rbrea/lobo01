@@ -33,6 +33,7 @@ public class BillTicketPojo extends BasicDto {
 	private String weekAmount;
 	private String currentAmount;
 	private String customerAddress;
+	private String lastPayday;
 	
 	public String getTicketNumber() {
 		return ticketNumber;
@@ -182,5 +183,10 @@ public class BillTicketPojo extends BasicDto {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-	
+	public String getLastPayday() {
+		return lastPayday;
+	}
+	public void setLastPayday(String lastPayday) {
+		this.lastPayday = lastPayday;
+	}	
 }

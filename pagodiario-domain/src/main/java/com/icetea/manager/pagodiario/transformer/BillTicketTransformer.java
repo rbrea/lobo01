@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.pojo.jasper.BillTicketPojo;
 import com.icetea.manager.pagodiario.api.pojo.jasper.ProductPojo;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 import com.icetea.manager.pagodiario.utils.StringUtils;
@@ -25,10 +26,10 @@ public class BillTicketTransformer {
 		this.productPojoTransformer = productPojoTransformer;
 	}
 
-	public BillTicketPojo transform(Bill d){
+	public BillTicketPojo transform(Bill bill){
 		BillTicketPojo p = new BillTicketPojo();
 		
-		if(d.getClient() != null){
+		if(bill.getClient() != null){
 			String address = "";
 //			if(StringUtils.isNotBlank(d.getClient().getAddress())){
 //				address += d.getClient().getAddress();
@@ -36,77 +37,93 @@ public class BillTicketTransformer {
 //					address += " / " + d.getClient().getCity();
 //				}
 //			}
-			if(StringUtils.isNotBlank(d.getClient().getCompanyType())){
-				address = d.getClient().getCompanyType(); 
+			if(StringUtils.isNotBlank(bill.getClient().getCompanyType())){
+				address = bill.getClient().getCompanyType(); 
 			} else {
 				address = " - "; 
 			}
 			p.setClientAddress(address);
-			p.setClientCity(d.getClient().getCity());
-			String companyAddress = this.buildAddress(d.getClient().getCompanyAddress(), d.getClient().getCompanyCity()); //this.buildCompanyAddress(d);
+			p.setClientCity(bill.getClient().getCity());
+			String companyAddress = this.buildAddress(bill.getClient().getCompanyAddress(), bill.getClient().getCompanyCity()); //this.buildCompanyAddress(d);
 			p.setClientCompanyAddress(companyAddress);
-			p.setClientName(d.getClient().getName());
-			p.setClientPhone((StringUtils.isNotBlank(d.getClient().getCompanyPhone())) ? d.getClient().getCompanyPhone() : " - ");
-			p.setCompanyType(d.getClient().getCompanyType());
+			p.setClientName(bill.getClient().getName());
+			p.setClientPhone((StringUtils.isNotBlank(bill.getClient().getCompanyPhone())) ? bill.getClient().getCompanyPhone() : " - ");
+			p.setCompanyType(bill.getClient().getCompanyType());
 		}
 		String creditNumber = "";
-		if(d.getCreditNumber() != null){
-			creditNumber = "*" + String.valueOf(d.getCreditNumber()) + "*";
+		if(bill.getCreditNumber() != null){
+			creditNumber = "*" + String.valueOf(bill.getCreditNumber()) + "*";
 			p.setCreditNumber(creditNumber);
 		}
 		String installment = "";
-		if(d.getTotalDailyInstallment() != null){
-			installment = NumberUtils.toString(d.getTotalDailyInstallment());
+		if(bill.getTotalDailyInstallment() != null){
+			installment = NumberUtils.toString(bill.getTotalDailyInstallment());
 			
 			String weekAmount = NumberUtils.toString(
 					NumberUtils.multiply(
-							d.getTotalDailyInstallment(), NumberUtils.toBigDecimal("7")));
+							bill.getTotalDailyInstallment(), NumberUtils.toBigDecimal("7")));
 			p.setWeekAmount(weekAmount);
 		}
 		p.setInstallmentAmount(installment);
-		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(d.getOverdueDays()));
-		List<ProductPojo> list = this.productPojoTransformer.transform(d.getBillProducts());
+		p.setOverdueDays("DÍAS DE ATRASO: " + String.valueOf(bill.getOverdueDays()));
+		List<ProductPojo> list = this.productPojoTransformer.transform(bill.getBillProducts());
 		if(list != null){
 			p.setProducts(list);
 		}
 		String purchaseDate = "";
-		if(d.getStartDate() != null){
-			purchaseDate = DateUtils.toDate(d.getStartDate());
+		if(bill.getStartDate() != null){
+			purchaseDate = DateUtils.toDate(bill.getStartDate());
 		}
 		p.setPurchaseDate(purchaseDate);
 		String remainingAmount = "";
-		if(d.getRemainingAmount() != null){
-			remainingAmount = NumberUtils.toString(d.getRemainingAmount());
+		if(bill.getRemainingAmount() != null){
+			remainingAmount = NumberUtils.toString(bill.getRemainingAmount());
 		}
 		p.setRemainingAmount(remainingAmount);
 		String ticketNumber = "";
-		if(d.getId() != null){
-			ticketNumber = "NRO TCK: " + String.valueOf(d.getId());
+		if(bill.getId() != null){
+			ticketNumber = "NRO TCK: " + String.valueOf(bill.getId());
 		}
 		p.setTicketNumber(ticketNumber);
 		String totalAmount = "";
-		if(d.getTotalAmount() != null){
-			totalAmount = NumberUtils.toString(d.getTotalAmount());
+		if(bill.getTotalAmount() != null){
+			totalAmount = NumberUtils.toString(bill.getTotalAmount());
 		}
 		p.setTotalAmount(totalAmount);
-		if(d.getTrader() != null){
-			String traderName = StringUtils.emptyWhenNull(d.getTrader().getName());
+		if(bill.getTrader() != null){
+			String traderName = StringUtils.emptyWhenNull(bill.getTrader().getName());
 			if(StringUtils.isNotBlank(traderName) 
-					&& StringUtils.isNotBlank(d.getTrader().getPhone())){
-				traderName += "(" + d.getTrader().getPhone() + ")";
+					&& StringUtils.isNotBlank(bill.getTrader().getPhone())){
+				traderName += "(" + bill.getTrader().getPhone() + ")";
 			}
 			p.setTraderName(traderName);
-			p.setTraderPhone(d.getTrader().getPhone());
+			p.setTraderPhone(bill.getTrader().getPhone());
 		}
-		p.setRemainingDays("DR: " + String.valueOf(d.remainingDays()));
-		if(d.getCollector() != null){
-			p.setZone(String.valueOf(d.getCollector().getZone()));
+		p.setRemainingDays("DR: " + String.valueOf(bill.remainingDays()));
+		if(bill.getCollector() != null){
+			p.setZone(String.valueOf(bill.getCollector().getZone()));
 		}
 		
 		BigDecimal currentAmount = NumberUtils.subtract(totalAmount, remainingAmount);
 		p.setCurrentAmount(NumberUtils.toString(currentAmount));
 		
-		p.setCustomerAddress(this.buildAddress(d.getClient().getAddress(), d.getClient().getCity()));
+		p.setCustomerAddress(this.buildAddress(bill.getClient().getAddress(), bill.getClient().getCity()));
+		
+		List<Payment> payments = bill.getPayments();
+		if(payments != null){
+			Payment max = null;
+			for (int i = 0; i < payments.size(); i++) {
+				Payment payment = payments.get(i);
+				if(max == null){
+					max = payment;
+				} else {
+					if(max.getDate().before(payment.getDate())){
+						max = payment;
+					}
+				}
+			}
+			p.setLastPayday(DateUtils.toDate(max.getDate()));
+		}
 		
 		return p;
 	}
@@ -143,18 +160,11 @@ public class BillTicketTransformer {
 			return null;
 		}
 		List<BillTicketPojo> r = Lists.newArrayList();
-//		boolean change = true;
 		BillTicketPojo billTicket = null;
 		for(Bill b : list){
-//			if(change){
-				billTicket = this.transform(b);
-				billTicket.setCurrentDate(ticketDateValue);
-				r.add(billTicket);
-//				change = false;
-//			} else {
-//				this.transform(billTicket, b);
-//				change = true;
-//			}
+			billTicket = this.transform(b);
+			billTicket.setCurrentDate(ticketDateValue);
+			r.add(billTicket);
 		}
 		
 		return r;

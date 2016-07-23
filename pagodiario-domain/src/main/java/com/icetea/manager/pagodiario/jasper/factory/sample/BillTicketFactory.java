@@ -47,6 +47,7 @@ public class BillTicketFactory {
 		p.setZone("1");
 		p.setWeekAmount("196");
 		p.setCurrentAmount("1000");
+		p.setLastPayday("10/07/2016");
 		
 		p.setCurrentDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		
@@ -92,6 +93,7 @@ public class BillTicketFactory {
 		p.setCurrentAmount("1500");
 		
 		p.setCustomerAddress("1saraza C 1234 / 1city C");
+		p.setLastPayday("10/07/2016");
 		
 		list.add(p);
 		
@@ -134,6 +136,7 @@ public class BillTicketFactory {
 		p.setCurrentAmount("2100");
 		
 		p.setCustomerAddress("2saraza C 1234 / 2city C");
+		p.setLastPayday("10/07/2016");
 		
 		list.add(p);
 		
@@ -176,6 +179,7 @@ public class BillTicketFactory {
 		p.setCurrentAmount("2900");
 		
 		p.setCustomerAddress("3saraza C 1234 / 3city C");
+		p.setLastPayday("10/07/2016");
 		
 		list.add(p);
 
@@ -218,6 +222,7 @@ public class BillTicketFactory {
 		p.setCurrentAmount("1456");
 		
 		p.setCustomerAddress("4saraza C 1234 / 4city C");
+		p.setLastPayday("10/07/2016");
 		
 		list.add(p);
 		
