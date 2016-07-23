@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2016-07-23T01:58:21 -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2016-02-20T12:11:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sgpd_ticket" columnCount="2" pageWidth="612" pageHeight="1008" columnWidth="306" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8152241-3996-49af-9f8c-f8848f0cabb6">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BillTicketDs"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -78,9 +78,6 @@
 	</field>
 	<field name="zone" class="java.lang.String">
 		<fieldDescription><![CDATA[zone]]></fieldDescription>
-	</field>
-	<field name="lastPayday" class="java.lang.String">
-		<fieldDescription><![CDATA[lastPayday]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -201,14 +198,14 @@
 					<textFieldExpression><![CDATA[$F{currentDate}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="10" y="218" width="130" height="12" uuid="1681e88b-e896-4de6-8c89-6d602a540c97"/>
+					<reportElement x="10" y="204" width="130" height="14" uuid="1681e88b-e896-4de6-8c89-6d602a540c97"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="4"/>
+						<font fontName="Arial" size="6"/>
 					</textElement>
 					<text><![CDATA[Exija y Conserve su cupón como comprobante de pago]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="10" y="230" width="130" height="14" uuid="d1963345-5866-4910-b282-3c4e6d5771c4"/>
+					<reportElement x="10" y="218" width="130" height="14" uuid="d1963345-5866-4910-b282-3c4e6d5771c4"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial Black" size="8" isBold="true"/>
 					</textElement>
@@ -351,20 +348,13 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="10" y="204" width="130" height="14" uuid="6a2c5724-8f5e-4e37-b0d5-72159ffffbca"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="6"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Fec.Ult.Pago: " + $F{lastPayday}]]></textFieldExpression>
-				</textField>
 			</frame>
 			<frame>
 				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="160" y="0" width="150" height="248" uuid="7f7c07ed-5ca9-47e3-a0b4-5ac98d77c64f">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textField>
-					<reportElement x="10" y="230" width="130" height="14" uuid="43b24f0f-3714-4a26-a9c5-cae498d1a45f"/>
+					<reportElement x="10" y="218" width="130" height="14" uuid="43b24f0f-3714-4a26-a9c5-cae498d1a45f"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial Black" size="8" isBold="true"/>
 					</textElement>
@@ -608,6 +598,13 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{traderName}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="10" y="204" width="130" height="14" uuid="becc9af8-6e9a-43ce-b7ad-1c1371edb740"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="6"/>
+					</textElement>
+					<text><![CDATA[Exija y Conserve su cupón como comprobante de pago]]></text>
+				</staticText>
 				<textField>
 					<reportElement x="10" y="60" width="130" height="10" uuid="dfd2aecf-dc85-485e-9974-3e610e79bbba"/>
 					<textElement verticalAlignment="Middle">
@@ -615,20 +612,6 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="10" y="204" width="130" height="14" uuid="a1db7dd9-9287-4d59-aed4-4c40a0cb1030"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="6"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Fec.Ult.Pago: " + $F{lastPayday}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="10" y="218" width="130" height="12" uuid="15e7c7f1-a5a4-4907-9aff-90f1f4922f56"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="4"/>
-					</textElement>
-					<text><![CDATA[Exija y Conserve su cupón como comprobante de pago]]></text>
-				</staticText>
 			</frame>
 		</band>
 	</detail>
