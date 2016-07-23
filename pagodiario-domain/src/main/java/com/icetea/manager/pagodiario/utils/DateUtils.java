@@ -61,7 +61,7 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 	
 	public static String currentDate(){
-		return toDate(new Date());
+		return toDate(now());
 	}
 	
 	public static int daysBetween(Date startDate, Date endDate){

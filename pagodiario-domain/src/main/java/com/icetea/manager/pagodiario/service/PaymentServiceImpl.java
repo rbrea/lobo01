@@ -95,14 +95,12 @@ public class PaymentServiceImpl
 		bill.addPayment(e);
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
 		// tengo q restar el monto (calculando los dias de atraso)
-		
 		if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
 			int overdueDays = e.getAmount().divide(
 					bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
 			
 			bill.decrementOverdueDays(overdueDays);
 		}
-
 		this.billUtils.doBillCancelation(bill);
 		
 		this.billDao.saveOrUpdate(bill);
@@ -193,9 +191,21 @@ public class PaymentServiceImpl
 		
 		Payment payment = super.getDao().findById(id);
 		if(payment != null){
+			Date now = DateUtils.now();
 			Bill bill = payment.getBill();
 			bill.getPayments().remove(payment);
-			bill.setUpdatedDate(new Date());
+			bill.setUpdatedDate(now);
+			// como estoy quitando el pago tengo q sumarle el pago q elimino a saldo restante para q se incremente...
+			bill.setRemainingAmount(NumberUtils.add(bill.getRemainingAmount(), payment.getAmount()));
+			if(!NumberUtils.isNullOrZero(bill.getTotalDailyInstallment())){
+				int overdueDays = payment.getAmount().divide(
+						bill.getTotalDailyInstallment(), RoundingMode.DOWN).intValue();
+				// como estoy quitando el pago entonces incremento los dias d atraso para q vuelvan a estar como si el pago no hubiera sido hecho ...
+				bill.setOverdueDays(overdueDays + bill.getOverdueDays());
+				bill.setOverdueDaysFlag(now);
+			}
+			
+			
 			this.billDao.saveOrUpdate(bill);
 		}
 		

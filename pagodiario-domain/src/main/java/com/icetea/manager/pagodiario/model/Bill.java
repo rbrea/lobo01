@@ -17,9 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.envers.Audited;
 
 import com.google.common.collect.Lists;
+import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
@@ -258,8 +258,12 @@ public class Bill extends Identifiable {
 	}
 
 	public void incrementOverdueDays(){
-		this.overdueDays++;
-		this.overdueDaysFlag = new Date();
+		this.incrementOverdueDays(1);
+	}
+	
+	public void incrementOverdueDays(int days){
+		this.overdueDays = this.overdueDays + days;
+		this.overdueDaysFlag = DateUtils.now();
 	}
 	
 	public void decrementOverdueDays(){
@@ -268,6 +272,7 @@ public class Bill extends Identifiable {
 	
 	public void decrementOverdueDays(int days){
 		this.overdueDays = this.overdueDays - days;
+		this.overdueDaysFlag = DateUtils.now();
 	}
 
 	public List<Discount> getDiscounts() {

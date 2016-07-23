@@ -236,7 +236,14 @@ public class BillServiceImpl
 
 		ErrorTypedConditions.checkArgument(bill != null, ErrorType.BILL_NOT_FOUND);
 		
-		bill.incrementOverdueDays();
+		Date overdueDaysFlag = bill.getOverdueDaysFlag();
+		Date now = DateUtils.now();
+		
+		int daysBetween = DateUtils.daysBetween(now, overdueDaysFlag);
+		if(daysBetween <= 0){
+			daysBetween = 1;
+		}
+		bill.incrementOverdueDays(daysBetween);
 		bill.audit();
 		
 		return this.getDao().saveOrUpdate(bill);
