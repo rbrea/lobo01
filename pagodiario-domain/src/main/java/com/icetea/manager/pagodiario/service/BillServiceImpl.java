@@ -1,5 +1,7 @@
 package com.icetea.manager.pagodiario.service;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.slf4j.Logger;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
@@ -57,6 +60,8 @@ import com.icetea.manager.pagodiario.utils.StringUtils;
 public class BillServiceImpl 
 	extends BasicIdentifiableServiceImpl<Bill, BillDao, BillDto, BillDtoModelTransformer>
 		implements BillService {
+	
+	private static final Logger LOGGER = getLogger(BillServiceImpl.class);
 
 	private final ClientDao clientDao;
 	private final TraderDao traderDao;
@@ -239,12 +244,18 @@ public class BillServiceImpl
 		Date overdueDaysFlag = bill.getOverdueDaysFlag();
 		Date now = DateUtils.now();
 		
-		int daysBetween = DateUtils.daysBetween(now, overdueDaysFlag);
-		if(daysBetween <= 0){
-			daysBetween = 1;
+		int daysBetween = DateUtils.daysBetween(overdueDaysFlag, now);
+//		if(daysBetween <= 0){
+//			daysBetween = 1;
+//		}
+		LOGGER.debug(String.format("dias de atraso calculados: %s", daysBetween));
+		
+		if(daysBetween > 0){
+			LOGGER.info(String.format("dias de atraso a actualizar: %s, para billId = %s", daysBetween, billId));
+			
+			bill.incrementOverdueDays(daysBetween);
+			bill.audit();
 		}
-		bill.incrementOverdueDays(daysBetween);
-		bill.audit();
 		
 		return this.getDao().saveOrUpdate(bill);
 	}
