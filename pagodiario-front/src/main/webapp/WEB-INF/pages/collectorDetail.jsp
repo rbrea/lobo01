@@ -98,6 +98,15 @@
 							        </thead>
 							        <tbody>
 							        </tbody>
+							        <tfoot>
+								        <tr>
+								            <th style="text-align:right" colspan="3"><b>Totales:</b></th>
+								            <th id="totalAmount"></th>
+								            <th id="collectedAmount"></th>
+								            <th id="remainingAmount"></th>
+								            <th></th>
+								        </tr>
+								    </tfoot>
 								</table>							
 							</div>
 						</div>

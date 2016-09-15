@@ -346,6 +346,25 @@ Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
 	Message.hideMessages($("#collectorDetailAlertMessages"), $("#collectorDetailMessages"));
 	
 	var table = $("#tCollectorDetailResult").dataTable( {
+		
+		"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+			
+			var totalAmountAcum = 0;
+			var remainingAmountAcum = 0;
+			var collectedAmountAcum = 0;
+			
+			for ( var i=0 ; i<aaData.length ; i++ ){
+				totalAmountAcum += parseFloat(aaData[i].amountToCollect);
+				collectedAmountAcum += parseFloat(aaData[i].amountCollected);
+				remainingAmountAcum += parseFloat(aaData[i].remainingAmount);
+			}
+			
+			$("#totalAmount").html("$ " + totalAmountAcum.toFixed(2));
+            $("#collectedAmount").html("$ " + collectedAmountAcum.toFixed(2));
+            $("#remainingAmount").html("$ " + remainingAmountAcum.toFixed(2));
+            
+            return;
+        },
 		"bDestroy" : true,
         "ajax": Constants.contextRoot + "/controller/html/collector/detail?from=" + fromDate + "&to=" + toDate,
         "columns": [
