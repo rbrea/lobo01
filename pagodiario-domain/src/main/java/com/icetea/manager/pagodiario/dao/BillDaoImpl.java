@@ -256,11 +256,11 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Bill> findToMakeVouchers(Date date){
+	public List<Bill> findToMakeVouchers(Date fromDate, Date toDate){
 		Criteria criteria = super.createCriteria();
 		criteria.add(Restrictions.eq("status", Bill.Status.CANCELED));
-		criteria.add(Restrictions.between("completedDate", date, DateUtils.addDays(date, 1)));
-		criteria.add(Restrictions.le("overdueDays", 0));
+		criteria.add(Restrictions.between("completedDate", fromDate, toDate));
+		criteria.add(Restrictions.le("overdueDays", 1));
 		
 		return criteria.list();
 	}

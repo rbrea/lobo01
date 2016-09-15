@@ -32,7 +32,7 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 	List<Bill> findByFilter(Long creditNumber, Long collectorId, Status status, Long clientId,
 			Date dateFrom, Date dateTo);
 
-	List<Bill> findToMakeVouchers(Date date);
+	List<Bill> findToMakeVouchers(Date fromDate, Date toDate);
 
 	List<Bill> findLastYear();
 

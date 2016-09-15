@@ -4,7 +4,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +11,6 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,6 +31,11 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.transformer.jasper.BillToVoucherTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping(value = "/html/voucher")
@@ -63,18 +62,19 @@ public class VoucherController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ListOutputDto<VoucherPojo> getVouchers(@RequestParam String voucherDateValue){
+	public @ResponseBody ListOutputDto<VoucherPojo> getVouchers(
+			@RequestParam(required = false) String voucherDateFromValue,
+			@RequestParam(required = false) String voucherDateToValue){
 		ListOutputDto<VoucherPojo> r = new ListOutputDto<VoucherPojo>();
 
-		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(voucherDateValue), "La fecha de Voucher es requerida");
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(voucherDateFromValue), "La fecha de Voucher desde es requerida");
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(voucherDateFromValue), "La fecha de Voucher hasta es requerida");
 		
-		Date date = DateUtils.parseDate(voucherDateValue);
-		
-		List<BillDto> bills = this.billService.searchToMakeVouchers(date);
+		List<BillDto> bills = this.billService.searchToMakeVouchers(voucherDateFromValue, voucherDateToValue);
 		
 		List<VoucherPojo> list = Lists.newArrayList();
 		
-		list.addAll(this.billToVoucherTransformer.transform(bills, date));
+		list.addAll(this.billToVoucherTransformer.transform(bills, DateUtils.parseDate(voucherDateToValue)));
 		
 		r.setData(list);
 		
@@ -84,16 +84,15 @@ public class VoucherController extends ExceptionHandlingController {
 	@RequestMapping(value = "/export", method = RequestMethod.POST)
 	public void exportVouchers(HttpServletRequest request,
 			HttpServletResponse response, 
-			@RequestParam String voucherDateValue){
+			@RequestParam(required = false) String voucherDateFromValue,
+			@RequestParam(required = false) String voucherDateToValue){
 		Map<String, Object> params = Maps.newHashMap();
 		
-		Date date = DateUtils.parseDate(voucherDateValue);
-		
-		List<BillDto> bills = this.billService.searchToMakeVouchers(date);
+		List<BillDto> bills = this.billService.searchToMakeVouchers(voucherDateFromValue, voucherDateToValue);
 		
 		List<VoucherPojo> list = Lists.newArrayList();
 		
-		list.addAll(this.billToVoucherTransformer.transform(bills, date));
+		list.addAll(this.billToVoucherTransformer.transform(bills, DateUtils.parseDate(voucherDateToValue)));
 		
 		// TODO [roher] tngo q hacer el transformer de bill -> a voucher 
 		try {

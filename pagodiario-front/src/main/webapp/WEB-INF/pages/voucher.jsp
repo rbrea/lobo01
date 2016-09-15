@@ -40,11 +40,22 @@
 		  		<div class="panel-body">
 		  			<form id="frmVoucher" action="${pageContext.request.contextPath}/controller/html/voucher/export" method="post">
 		  			<div class="row">
-		  				<div class="form-group col-md-3">
+		  				<div class="form-group col-md-2">
 		  					<div class="form-group">
-		  						<label for="voucherDateValue">Fecha de voucher</label>
-				                <div class='input-group date' id='voucherDate'>
-				                    <input type='text' class="form-control" id="voucherDateValue" name="voucherDateValue" placeholder="Ingrese fecha de Voucher..." data-required-error="Requerido" required/>
+		  						<label for="voucherDateFromValue">Fecha de Cancelaci&oacute;n de Cr&eacute;dito</label>
+				                <div class='input-group date' id='voucherFromDate'>
+				                    <input type='text' class="form-control" id="voucherDateFromValue" name="voucherDateFromValue" placeholder="Fecha Desde" data-required-error="Requerido" required/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+		  				</div>
+		  				<div class="form-group col-md-2">
+		  					<div class="form-group">
+		  						<label for="voucherDateToValue">&nbsp;</label>
+				                <div class='input-group date' id='voucherToDate'>
+				                    <input type='text' class="form-control" id="voucherDateToValue" name="voucherDateToValue" placeholder="Fecha Hasta" data-required-error="Requerido" required/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>

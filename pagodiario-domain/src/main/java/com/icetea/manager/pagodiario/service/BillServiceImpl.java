@@ -430,12 +430,20 @@ public class BillServiceImpl
 	}
 
 	@Override
-	public List<BillDto> searchToMakeVouchers(Date date){
+	public List<BillDto> searchToMakeVouchers(String fromDate, String toDate){
 	
-		ErrorTypedConditions.checkArgument(date != null, 
-				"La fecha de finalizado es requerida.", ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(fromDate), 
+				"La fecha de cancelacion de credito desde es requerida.", ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(toDate), 
+				"La fecha de cancelacion de credito hasta es requerida.", ErrorType.VALIDATION_ERRORS);
 		
-		return this.getTransformer().transformAllTo(this.getDao().findToMakeVouchers(date));
+		Date from = DateUtils.parseDate(fromDate);
+		Date to = DateUtils.lastSecondOfDay(DateUtils.parseDate(toDate));
+		
+		ErrorTypedConditions.checkArgument(from.before(to) || from.equals(to), 
+				"La fecha de cancelación de crédito desde debe ser anterior o igual a la fecha de cancelación de crédito hasta", ErrorType.VALIDATION_ERRORS);
+
+		return this.getTransformer().transformAllTo(this.getDao().findToMakeVouchers(from, to));
 	}
 
 	@Override

@@ -3,9 +3,15 @@ Voucher = function(){}
 Voucher.init = function(){
 	
 	// asigno el dia de hoy
-	$("#voucherDateValue").val(moment().add(-1, 'days').format('DD/MM/YYYY'));
+	//$("#voucherDateValue").val(moment().add(-1, 'days').format('DD/MM/YYYY'));
 	
-	$('#voucherDate').datetimepicker({
+	$('#voucherFromDate').datetimepicker({
+        locale: 'es',
+        showTodayButton: true,
+        format: 'DD/MM/YYYY'
+    });
+	
+	$('#voucherToDate').datetimepicker({
         locale: 'es',
         showTodayButton: true,
         format: 'DD/MM/YYYY'
@@ -61,11 +67,29 @@ Voucher.reset = function(){
 
 Voucher.search = function(){
 	
-	var voucherDateValue = $("#voucherDateValue").val();
+	var alterMessagesElement = $('#voucherAlertMessages');
+	var messagesElement = $("#voucherMessages");
+	   
+	Message.hideMessages(alterMessagesElement, messagesElement);
+	
+	var voucherDateFromValue = $("#voucherDateFromValue").val();
+	var voucherDateToValue = $("#voucherDateToValue").val();
+	
+	if(voucherDateFromValue == null || voucherDateFromValue == "" || voucherDateFromValue === undefined){
+		Message.showMessages(alterMessagesElement, messagesElement, "Fecha desde es requerido");
+		
+		return false;
+	}
+	
+	if(voucherDateToValue == null || voucherDateToValue == "" || voucherDateToValue === undefined){
+		Message.showMessages(alterMessagesElement, messagesElement, "Fecha desde es requerido");
+		
+		return false;
+	}
 	
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/voucher?voucherDateValue=" + voucherDateValue,
+	   url     : Constants.contextRoot + "/controller/html/voucher?voucherDateFromValue=" + voucherDateFromValue + "&voucherDateToValue=" + voucherDateToValue,
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
@@ -74,8 +98,7 @@ Voucher.search = function(){
 		   
 		   tbody.children('tr').remove();
 		   
-		   var alterMessagesElement = $('#voucherAlertMessages');
-		   var messagesElement = $("#voucherMessages");
+		   
 		   
 		   Message.hideMessages(alterMessagesElement, messagesElement);
 		   if(data != null && data.status == 0){
