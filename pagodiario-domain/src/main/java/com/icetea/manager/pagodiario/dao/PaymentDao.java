@@ -12,5 +12,7 @@ public interface PaymentDao extends BasicIdentificableDao<Payment> {
 	List<Payment> find(Long billId, Date paymentDateFrom, Date paymentDateTo);
 	
 	List<Payment> find(Date paymentDateFrom, Date paymentDateTo);
+	
+	List<Payment> findToCollect(Date paymentDateFrom, Date paymentDateTo);
 
 }

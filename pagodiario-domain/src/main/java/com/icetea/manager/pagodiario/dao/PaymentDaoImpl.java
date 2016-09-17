@@ -50,5 +50,15 @@ public class PaymentDaoImpl extends BasicIdentificableDaoImpl<Payment>
 		
 		return criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Payment> findToCollect(Date paymentDateFrom, Date paymentDateTo) {
+		Criteria criteria = super.createCriteria();
+		criteria.add(Restrictions.between("date", paymentDateFrom, paymentDateTo));
+		criteria.add(Restrictions.eq("traderPayment", false));
+		
+		return criteria.list();
+	}
 
 }

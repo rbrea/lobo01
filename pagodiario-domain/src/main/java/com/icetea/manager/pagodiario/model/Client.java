@@ -22,6 +22,8 @@ public class Client extends Person {
 	private String companyPhone;
 	@Column(name = "REDUCTION_MARK", columnDefinition = "DATETIME")
 	private Date reductionMark;
+	@Column(name = "CANCELATION_MARK", columnDefinition = "DATETIME")
+	private Date cancelationMark;
 
 	public Client() {
 		super();
@@ -71,4 +73,12 @@ public class Client extends Person {
 		this.reductionMark = reductionMark;
 	}
 
+	public Date getCancelationMark() {
+		return cancelationMark;
+	}
+
+	public void setCancelationMark(Date cancelationMark) {
+		this.cancelationMark = cancelationMark;
+	}
+	
 }

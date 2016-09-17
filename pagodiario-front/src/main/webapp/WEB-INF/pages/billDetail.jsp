@@ -163,6 +163,7 @@
 			  					<th class="centered">FECHA</th>
 			  					<th class="centered">COBRADOR</th>
 			  					<th class="centered">IMPORTE</th>
+			  					<th class="centered">PAGO VENDEDOR?</th>
 			  					<th class="centered">ACCIONES</th>
 			  				</tr>
 		  				</thead>

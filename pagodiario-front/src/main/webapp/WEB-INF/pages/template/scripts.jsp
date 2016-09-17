@@ -40,11 +40,11 @@
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/Client-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Client-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Product-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-2.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Bill-5.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-7.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Bill-6.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-8.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Discount-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ProductReduction-1.js"></script>
@@ -52,7 +52,7 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollDetail-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ConciliationItem-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Payment-5.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Payment-6.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Ticket-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/User-3.js"></script>

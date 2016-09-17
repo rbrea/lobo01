@@ -116,6 +116,9 @@
 									</div>
 									<div class="help-block with-errors"></div>
 								</div>
+								<div class="form-group col-md-2">
+									Pago Vendedor?&nbsp;<input type="checkbox" id="traderPayment_X" name="traderPayment_X" style="cursor:pointer;">
+								</div>
 								<div class="form-group col-md-5">
 									<span id="paymentMessageError_X" class="hide" style="color:RED;">&nbsp;</span>
 									<div class="help-block with-errors"></div>
@@ -138,6 +141,9 @@
 										<input type="number" style="text-align: right;" class="form-control " id="paymentAmount_0" placeholder="$ Importe" required>
 									</div>
 									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group col-md-2">
+									Pago Vendedor?&nbsp;<input type="checkbox" id="traderPayment_0" name="traderPayment_0" style="cursor:pointer;">
 								</div>
 								<div class="form-group col-md-5">
 									<span id="paymentMessageError_0" class="hide" style="color:RED;">&nbsp;</span>

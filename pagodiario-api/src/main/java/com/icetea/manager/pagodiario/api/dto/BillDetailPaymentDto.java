@@ -7,6 +7,7 @@ public class BillDetailPaymentDto extends BasicIdentifiableDto {
 	private String date;
 	private String collector;
 	private String amount;
+	private String traderPayment;
 
 	public String getDate() {
 		return date;
@@ -25,6 +26,12 @@ public class BillDetailPaymentDto extends BasicIdentifiableDto {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	public String getTraderPayment() {
+		return traderPayment;
+	}
+	public void setTraderPayment(String traderPayment) {
+		this.traderPayment = traderPayment;
 	}
 	
 }

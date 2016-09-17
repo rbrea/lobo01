@@ -90,6 +90,7 @@ public class PaymentServiceImpl
 		
 		e.setCollector(collector);
 		e.setDate(selectedDate);
+		e.setTraderPayment(d.isTraderPayment());
 		this.getDao().saveOrUpdate(e);
 		
 		bill.addPayment(e);

@@ -230,8 +230,13 @@
 			    	   	if(this.reductionMark != null && this.reductionMark != ""){
 			    			mark = " / B";
 			    	   	}
+			    	   	
+			    	   	var cancelationMark = "";
+			    	   	if(this.cancelationMark != null && this.cancelationMark != ""){
+			    	   		cancelationMark = " / C";
+			    	   	}
 			    		
-			    		obj.value = this.name + " / " + this.address + " / " + this.companyType + mark;
+			    		obj.value = this.name + " / " + this.address + " / " + this.companyType + mark + cancelationMark;
 			    		list.push(obj);
 			    		
 			    		return;

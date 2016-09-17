@@ -9,6 +9,7 @@ public class PaymentDto extends BillInfoDto {
 	private String date;
 	private Long collectorId;
 	private Long creditNumber;
+	private boolean traderPayment;
 	
 	public String getAmount() {
 		return amount;
@@ -48,6 +49,14 @@ public class PaymentDto extends BillInfoDto {
 
 	public void setIdx(Integer idx) {
 		this.idx = idx;
+	}
+
+	public boolean isTraderPayment() {
+		return traderPayment;
+	}
+
+	public void setTraderPayment(boolean traderPayment) {
+		this.traderPayment = traderPayment;
 	}
 
 }

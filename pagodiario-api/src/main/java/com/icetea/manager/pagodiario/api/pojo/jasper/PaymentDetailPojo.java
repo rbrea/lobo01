@@ -9,6 +9,7 @@ public class PaymentDetailPojo extends BasicDto {
 	private String paymentDate = "";
 	private String collector = "";
 	private String amount = "";
+	private String traderPayment;
 
 	public String getPaymentDate() {
 		return paymentDate;
@@ -27,6 +28,12 @@ public class PaymentDetailPojo extends BasicDto {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	public String getTraderPayment() {
+		return traderPayment;
+	}
+	public void setTraderPayment(String traderPayment) {
+		this.traderPayment = traderPayment;
 	}
 	
 }

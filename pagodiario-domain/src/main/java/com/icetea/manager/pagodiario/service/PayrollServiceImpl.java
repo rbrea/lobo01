@@ -31,7 +31,6 @@ import com.icetea.manager.pagodiario.model.BonusConciliationItem;
 import com.icetea.manager.pagodiario.model.ConciliationItem;
 import com.icetea.manager.pagodiario.model.Dev;
 import com.icetea.manager.pagodiario.model.Discount;
-import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.model.Payroll;
 import com.icetea.manager.pagodiario.model.Payroll.Status;
 import com.icetea.manager.pagodiario.model.PayrollItem;
@@ -115,18 +114,12 @@ public class PayrollServiceImpl extends
 				conciliationItem.setDate(bill.getStartDate());
 				conciliationItem.setPayrollItem(payrollItem);
 				conciliationItem.setBill(bill);
-
-				BigDecimal firstPaymentAmount = BigDecimal.ZERO;
-				if(bill.getPayments() != null && !bill.getPayments().isEmpty()){
-					// ahora tengo que aplicar el descuento, que es el monto del primer pago que se hace en forma automatica ...
-					Payment firstPayment = bill.getPayments().get(0);
-					if(firstPayment != null){
-						firstPaymentAmount = firstPayment.getAmount();
-						conciliationItem.setDiscountAmount(firstPaymentAmount);
-						payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), firstPaymentAmount));
-						totalDiscount = NumberUtils.add(totalDiscount, firstPaymentAmount);
-					}
-				}
+				
+				BigDecimal totalDailyInstallment = bill.getTotalDailyInstallment();
+				
+				conciliationItem.setDiscountAmount(totalDailyInstallment);
+				payrollItem.setSubtotalDiscount(NumberUtils.add(payrollItem.getSubtotalDiscount(), totalDailyInstallment));
+				totalDiscount = NumberUtils.add(totalDiscount, totalDailyInstallment);
 				
 				payrollItem.addItem(conciliationItem);
 				
@@ -135,7 +128,7 @@ public class PayrollServiceImpl extends
 				payrollItem.setItemDate(bill.getStartDate());
 				payrollItem.setSubtotalCollect(NumberUtils.add(payrollItem.getSubtotalCollect(), commission));
 				payrollItem.setSubtotalCollectAvoidReductions(NumberUtils.add(payrollItem.getSubtotalCollectAvoidReductions(), commission));
-				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), NumberUtils.subtract(commission, firstPaymentAmount)));
+				payrollItem.setTotalAmount(NumberUtils.add(payrollItem.getTotalAmount(), NumberUtils.subtract(commission, totalDailyInstallment)));
 			}
 		}
 		// [roher] x ahora quitamos la liq de descuentos, pq solo usamos como descuento el primer pago automatico ...

@@ -26,6 +26,7 @@ public class ClientDtoModelTransformer extends AbstractDtoModelTransformer<Clien
 		dto.setPhone(e.getPhone());
 		dto.setEmail(e.getEmail());
 		dto.setReductionMark(DateUtils.toDate(e.getReductionMark()));
+		dto.setCancelationMark(DateUtils.toDate(e.getCancelationMark()));
 		
 		return dto;
 	}

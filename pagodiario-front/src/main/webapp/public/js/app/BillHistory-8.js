@@ -697,7 +697,7 @@ BillHistory.addPayment = function(dialog, btn, responseHandler){
 	var paymentDate = $("#paymentDateValue").val();
 	if(Commons.isValid(paymentDate)){
 		paymentDateValue += "&paymentDate=" + paymentDate;
-	}
+	}	
 	
 	$.ajax({ 
 	   type    : "GET",
@@ -720,6 +720,9 @@ BillHistory.addPayment = function(dialog, btn, responseHandler){
 					obj.amount = $("#paymentAmount").val();
 					obj.collectorId = $("#paymentCollectorId").val();
 					obj.date = $("#paymentDateValue").val();
+					
+					var isTraderPaymentEnabled = $("#traderPayment:checked") != null && $("#traderPayment:checked").length > 0;
+					obj.traderPayment = isTraderPaymentEnabled;
 					/*
 					obj.weekSunday = $("#weekSunday").prop("checked");
 					obj.weekMonday = $("#weekMonday").prop("checked");
@@ -798,6 +801,7 @@ BillHistory.resetModal = function(){
 	$("#paymentAmount").val("");
 	$("#paymentCollectorId").val("");
 	$("#paymentDateValue").val("");
+	$("#traderPayment").prop("checked", false);
 
 	return;
 }

@@ -309,7 +309,7 @@ public class PayrollCollectServiceImpl extends
 		Date from = DateUtils.truncate(DateUtils.parseDate(paymentDate));
 		Date to = DateUtils.normalizeTo(from);
 		
-		return this.paymentDao.find(from, to);
+		return this.paymentDao.findToCollect(from, to);
 	}
 
 	@Override

@@ -83,6 +83,7 @@ public class CreditDetailTransformer {
 				pa.setAmount(p.getAmount());
 				pa.setCollector(p.getCollector());
 				pa.setPaymentDate(p.getDate());
+				pa.setTraderPayment(p.getTraderPayment());
 				
 				c.getPayments().add(pa);
 			}

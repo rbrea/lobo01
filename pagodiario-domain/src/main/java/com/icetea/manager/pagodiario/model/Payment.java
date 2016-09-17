@@ -24,6 +24,8 @@ public class Payment extends Identifiable {
 	@ManyToOne
 	@JoinColumn(name = "COLLECTOR_ID")
 	private Collector collector;
+	@Column(name = "TRADER_PAYMENT", columnDefinition = "BIT", nullable = false)
+	private boolean traderPayment = false;
 	
 	public Bill getBill() {
 		return bill;
@@ -55,6 +57,14 @@ public class Payment extends Identifiable {
 
 	public void setCollector(Collector collector) {
 		this.collector = collector;
+	}
+
+	public boolean isTraderPayment() {
+		return traderPayment;
+	}
+
+	public void setTraderPayment(boolean traderPayment) {
+		this.traderPayment = traderPayment;
 	}
 
 }

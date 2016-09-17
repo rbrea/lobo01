@@ -85,6 +85,18 @@ Client.initDataTable = function(imgCheckUrl){
                     return "<span id='reductionMark_'" + row.id + " style='font-weight:bold;'>" + mark + "</span>"; 
                 }
             },
+            { 	
+            	"className": 'centered',
+            	"render": function ( data, type, row ) {
+                    //return data +' ('+ row[3]+')';
+            		var mark = "<i class=\"fa fa-square-o fa-4\"></i>";
+            		if(row.cancelationMark != null && row.cancelationMark != ""){
+            			mark = "<i class=\"fa fa-check-square-o fa-4\"></i>";
+            		}
+            		
+                    return "<span id='cancelationMark_'" + row.id + " style='font-weight:bold;'>" + mark + "</span>"; 
+                }
+            },
             {
             	"className":      'centered',
 	         	// The `data` parameter refers to the data for the cell (defined by the

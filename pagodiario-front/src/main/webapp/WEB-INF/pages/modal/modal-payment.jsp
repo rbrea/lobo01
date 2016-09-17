@@ -65,6 +65,10 @@
 					    <input type="number" class="form-control" id="paymentCollectorId" name="paymentCollectorId" placeholder="Ingrese cobrador/zona..." min="1" required>
 					    <div class="help-block with-errors"></div>
 					</div>
+					<div class="form-group">
+						<label for="paymentCollectorId">Es pago de Vendedor?</label>
+					    <input type="checkbox" id="traderPayment" name="traderPayment" style="cursor:pointer;">
+					</div>
 					</form>
 				</div>
 			</div>

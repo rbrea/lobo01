@@ -282,6 +282,7 @@ Payment.init = function(){
 		$("#paymentRow_0").children("div[class*='form-group']").removeClass("has-error");
 		
 		$("#totalToPay").val("0.00");
+		$("#traderPayment_0").prop("checked", false);
 		
 		Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
 		
@@ -386,6 +387,7 @@ Payment.add = function(dialog){
 		obj.amount = $("#paymentAmount_" + idxList[i]).val();
 		obj.collectorId = $("#zone").val();
 		obj.date = $("#paymentDateValue").val();
+		obj.traderPayment = $("#traderPayment_" + idxList[i] + ":checked") != null && $("#traderPayment_" + idxList[i] + ":checked").length > 0;
 		
 		list.push(obj);
 	}
@@ -416,6 +418,8 @@ Payment.add = function(dialog){
 						   if(p.idx == 0){
 							   $("#creditNumber_0").val("");
 							   $("#paymentAmount_0").val("");
+							   $("#traderPayment_0").prop("checked", false);
+							   $("#totalToPay").val("0.00");
 						   } else {
 							   $("#paymentRow_" + p.idx).remove();
 						   }

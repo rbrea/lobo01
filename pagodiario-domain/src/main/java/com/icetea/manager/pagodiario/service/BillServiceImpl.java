@@ -189,7 +189,7 @@ public class BillServiceImpl
 		e.setCollector(collector);
 		e.setCreditNumber(Long.valueOf(d.getCreditNumber()));
 		this.getDao().saveOrUpdate(e);
-		
+		/*
 		Payment payment = new Payment();
 		payment.setAmount(calculatedTotalDailyInstallment);
 		
@@ -200,7 +200,7 @@ public class BillServiceImpl
 		e.addPayment(payment);
 		// le resto el 1er pago ...
 		e.setRemainingAmount(NumberUtils.subtract(calculatedTotalAmount, calculatedTotalDailyInstallment));
-		
+		*/
 		e.setStatus(Status.ACTIVE);
 		
 		this.getDao().saveOrUpdate(e);
@@ -300,6 +300,7 @@ public class BillServiceImpl
 			r.setCollector(String.valueOf((p.getCollector() != null) ? p.getCollector().getZone() + " / " + p.getCollector().getDescription() : StringUtils.EMPTY));
 			r.setDate(DateUtils.toDate(p.getDate()));
 			r.setId(p.getId());
+			r.setTraderPayment(p.isTraderPayment() ? "SI" : " - ");
 			
 			d.getPayments().add(r);
 		}

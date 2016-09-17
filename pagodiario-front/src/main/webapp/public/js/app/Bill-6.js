@@ -1839,6 +1839,7 @@ Bill.initDetail = function(billId){
 					   var td0 = $("<td class=\"centered\"></td>").append(payments[i].date);
 					   var td1 = $("<td class=\"centered\"></td>").append(payments[i].collector);
 					   var td2 = $("<td class=\"centered\"></td>").append(payments[i].amount);
+					   var td3 = $("<td class=\"centered\"></td>").append(payments[i].traderPayment);
 					   
 					   var removeBtn = $("<a href='javascript:void(0);' class='btn btn-xs btn-danger' data-paymentid='" + payments[i].id + "' onclick='javascript:Payment.remove(" + payments[i].id + ", \"" + payments[i].date + "\")'><i class='fa fa-trash'></i></a>");
 
@@ -1846,9 +1847,9 @@ Bill.initDetail = function(billId){
 						   removeBtn = "";
 					   }
 						   
-					   var td3 = $("<td class=\"centered\"></td>").append(removeBtn);
+					   var td4 = $("<td class=\"centered\"></td>").append(removeBtn);
 					   
-					   tr.append(td0).append(td1).append(td2).append(td3);
+					   tr.append(td0).append(td1).append(td2).append(td3).append(td4);
 					   
 					   pBody.append(tr);
 				   }
