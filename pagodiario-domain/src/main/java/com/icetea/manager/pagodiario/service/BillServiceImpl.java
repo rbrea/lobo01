@@ -277,8 +277,14 @@ public class BillServiceImpl
 		d.setClientName(bill.getClient().getName());
 		d.setCreditAmount(NumberUtils.toString(bill.getTotalAmount()));
 		d.setCreditDate(DateUtils.toDate(bill.getStartDate()));
+		
+		BigDecimal firstPayment = BigDecimal.ZERO;
+		if(bill.getPayments() != null && bill.getPayments().size() > 0){
+			firstPayment = bill.getPayments().get(0).getAmount();
+		}
+		
 		d.setFirstInstallmentAmount(
-				NumberUtils.toString(bill.getPayments().get(0).getAmount()));
+				NumberUtils.toString(firstPayment));
 		d.setInstallmentAmount(NumberUtils.toString(bill.getTotalDailyInstallment()));
 		
 		d.setWeekAmount(NumberUtils.toString(NumberUtils.multiply(bill.getTotalDailyInstallment(), new BigDecimal(7))));

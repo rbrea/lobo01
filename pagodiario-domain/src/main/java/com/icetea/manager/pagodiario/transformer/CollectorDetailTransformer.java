@@ -38,7 +38,7 @@ public class CollectorDetailTransformer {
 			});
 			List<Payment> payments = bill.getPayments();
 			
-			Payment payment = payments.get(0);
+			
 
 			if(d == null){
 				d = new CollectorDetailDto();
@@ -51,7 +51,13 @@ public class CollectorDetailTransformer {
 			if(StringUtils.isBlank(d.getAmountToCollect())){
 				d.setAmountToCollect("0.00");
 			}
-			BigDecimal amountToCollect = NumberUtils.multiply(payment.getAmount(), new BigDecimal(7));
+			
+			BigDecimal amountToCollect = BigDecimal.ZERO;
+			
+			if(payments != null && payments.size() > 0){
+				Payment payment = payments.get(0);
+				amountToCollect = NumberUtils.multiply(payment.getAmount(), new BigDecimal(7));
+			}
 			
 			d.setAmountToCollect(
 					NumberUtils.toString(

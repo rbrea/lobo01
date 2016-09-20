@@ -1843,10 +1843,6 @@ Bill.initDetail = function(billId){
 					   
 					   var removeBtn = $("<a href='javascript:void(0);' class='btn btn-xs btn-danger' data-paymentid='" + payments[i].id + "' onclick='javascript:Payment.remove(" + payments[i].id + ", \"" + payments[i].date + "\")'><i class='fa fa-trash'></i></a>");
 
-					   if(i==0){
-						   removeBtn = "";
-					   }
-						   
 					   var td4 = $("<td class=\"centered\"></td>").append(removeBtn);
 					   
 					   tr.append(td0).append(td1).append(td2).append(td3).append(td4);

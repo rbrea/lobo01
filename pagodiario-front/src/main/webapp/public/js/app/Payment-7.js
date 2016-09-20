@@ -229,7 +229,8 @@ Payment.init = function(){
 				
 				creditNumberInput.keyup(function(e){
 				    if(e.keyCode == 13){
-				    	$(this).parent().parent().parent().find('input:last').focus();
+				    	var oid = $(this).attr("id");
+				    	$("#paymentAmount_" + oid.substring(oid	.indexOf("_") + 1)).focus();
 				    }
 				    
 				    return;
@@ -283,6 +284,7 @@ Payment.init = function(){
 		
 		$("#totalToPay").val("0.00");
 		$("#traderPayment_0").prop("checked", false);
+		$("#bCollectorId").focus();
 		
 		Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
 		
@@ -329,7 +331,8 @@ Payment.addInputs = function(){
 	
 	$("input[id*='creditNumber_']").keyup(function(e){
 	    if(e.keyCode == 13){
-	    	$(this).parent().parent().parent().find('input:last').focus();
+	    	var oid = $(this).attr("id");
+	    	$("#paymentAmount_" + oid.substring(oid	.indexOf("_") + 1)).focus();
 	    }
 	    
 	    return;

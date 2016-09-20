@@ -157,7 +157,7 @@
 		  			<table id="tBillPayment" class="table table-bordered table-striped">
 		  				<thead>
 			  				<tr>
-			  					<th colspan="4" class="centered">PAGOS</th>
+			  					<th colspan="5" class="centered">PAGOS</th>
 			  				</tr>
 			  				<tr>
 			  					<th class="centered">FECHA</th>
@@ -169,7 +169,7 @@
 		  				</thead>
 		  				<tbody>
 		  					<tr>
-		  						<td colspan="3" class="centered">No se han encontrado resultados</td>
+		  						<td colspan="5" class="centered">No se han encontrado resultados</td>
 		  					</tr>
 		  				</tbody>
 		  			</table>

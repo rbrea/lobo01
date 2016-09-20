@@ -122,7 +122,7 @@ public class BillTicketTransformer {
 					}
 				}
 			}
-			p.setLastPayday(DateUtils.toDate(max.getDate()));
+			p.setLastPayday((max != null) ? DateUtils.toDate(max.getDate()) : " - ");
 		}
 		
 		return p;

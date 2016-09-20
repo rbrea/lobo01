@@ -125,7 +125,7 @@
 						  				</div>
 						  				<div class="col-md-3">
 						  					<div class="form-group">
-												<label for="billDateToValue">Fecha Desde</label>
+												<label for="billDateToValue">Fecha Hasta</label>
 								                <div class='input-group date' id="billDateTo">
 								                    <input type='text' class="form-control" id="billDateToValue" name="billDateToValue" placeholder="Fecha Hasta"/>
 								                    <span class="input-group-addon">
