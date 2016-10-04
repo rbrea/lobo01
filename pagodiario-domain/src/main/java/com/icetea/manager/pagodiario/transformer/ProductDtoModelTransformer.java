@@ -20,6 +20,11 @@ public class ProductDtoModelTransformer extends AbstractDtoModelTransformer<Prod
 		dto.setWeekInstallment(NumberUtils.toString(e.weekInstallment()));
 		dto.setTwoWeeksInstallment(NumberUtils.toString(e.twoWeeksInstallment()));
 		dto.setPriceWithDiscount(NumberUtils.toString(e.priceWithDiscount()));
+		if(e.getProductType() != null){
+			dto.setProductTypeCode(e.getProductType().name());
+			dto.setProductTypeDescription(e.getProductType().getDescription());
+		}
+		dto.setStockCount(e.getStockCount());
 		
 		return dto;
 	}

@@ -327,5 +327,36 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		
 		return criteria.list();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Bill> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives, boolean cancelationOnDate,
+			boolean cancelationBeforeMore){
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("client", "client");
+		
+		if(zone != null){
+			criteria.createAlias("collector", "collector");
+			criteria.add(Restrictions.eq("collector.zone", zone));
+		}
+		if(hasReductionMark){
+			criteria.add(Restrictions.isNotNull("client.reductionMark"));
+		}
+		if(cancelationMark){
+			criteria.add(Restrictions.isNotNull("client.cancelationMark"));
+		}
+		if(actives){
+			criteria.add(Restrictions.eq("status", Status.ACTIVE));
+		}
+		if(cancelationOnDate){
+			criteria.add(Restrictions.leProperty("endDate", "completedDate"));
+		}
+		if(cancelationBeforeMore){
+			// esta se debe terminar de filtrar en el service por java ...
+			criteria.add(Restrictions.ltProperty("endDate", "completedDate"));
+		}
+		
+		return criteria.list();
+	}
 	
 }

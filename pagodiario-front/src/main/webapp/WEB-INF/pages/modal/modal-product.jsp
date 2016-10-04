@@ -41,7 +41,7 @@
 							<label for="productPrice">Precio Unitario</label>
 							<div class="input-group">
 								<span class="input-group-addon">$</span>
-							    <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="Ingrese Precio unitario...">
+							    <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="Ingrese Precio unitario..." required>
 							</div>
 						    <div class="help-block with-errors"></div>
 						</div>
@@ -49,8 +49,21 @@
 							<label for="dailyInstallment">Cuota Diaria</label>
 							<div class="input-group">
 								<span class="input-group-addon">$</span>
-							    <input type="text" class="form-control" id="dailyInstallment" name="dailyInstallment" placeholder="Ingrese Cuota Diaria...">
+							    <input type="text" class="form-control" id="dailyInstallment" name="dailyInstallment" placeholder="Ingrese Cuota Diaria..." required>
 							</div>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="productType">Tipo de Producto</label>
+							<select class="form-control" id="productType" name="productType" required>
+								<option value="BLANCO">Blanco</option>
+								<option value="ELECTRODOMESTICO">Electrodomestico</option>
+							</select>
+						    <div class="help-block with-errors"></div>
+						</div>
+						<div class="form-group">
+							<label for="stockCount">Stock</label>
+							<input type="number" class="form-control" id="stockCount" name="stockCount" placeholder="Ingrese Stock..." required>
 						    <div class="help-block with-errors"></div>
 						</div>
 					</form>

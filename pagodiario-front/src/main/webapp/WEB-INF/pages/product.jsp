@@ -68,6 +68,8 @@
 							                <th>Cuota Diaria</th>
 							                <th>Cuota Semanal</th>
 							                <th>Cuota Quincenal</th>
+							                <th>Tipo</th>
+							                <th>Stock</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

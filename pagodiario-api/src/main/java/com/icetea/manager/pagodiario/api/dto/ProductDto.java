@@ -13,6 +13,9 @@ public class ProductDto extends BasicDto {
 	private String weekInstallment;
 	private String twoWeeksInstallment;
 	private String priceWithDiscount;
+	private String productTypeCode;
+	private String productTypeDescription;
+	private int stockCount = 0;
 
 	public Long getId() {
 		return id;
@@ -61,6 +64,24 @@ public class ProductDto extends BasicDto {
 	}
 	public void setPriceWithDiscount(String priceWithDiscount) {
 		this.priceWithDiscount = priceWithDiscount;
+	}
+	public String getProductTypeCode() {
+		return productTypeCode;
+	}
+	public void setProductTypeCode(String productTypeCode) {
+		this.productTypeCode = productTypeCode;
+	}
+	public String getProductTypeDescription() {
+		return productTypeDescription;
+	}
+	public void setProductTypeDescription(String productTypeDescription) {
+		this.productTypeDescription = productTypeDescription;
+	}
+	public int getStockCount() {
+		return stockCount;
+	}
+	public void setStockCount(int stockCount) {
+		this.stockCount = stockCount;
 	}
 	
 }

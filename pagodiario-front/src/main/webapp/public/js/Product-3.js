@@ -48,6 +48,14 @@ Product.initDataTable = function(imgCheckUrl){
             	"className": 'centered',
             	"data": "twoWeeksInstallment" 
             },
+            { 	
+            	"className": 'centered',
+            	"data": "productTypeDescription" 
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "stockCount" 
+            },
             {
             	"className":      'centered',
 	         	// The `data` parameter refers to the data for the cell (defined by the
@@ -86,6 +94,8 @@ Product.add = function(dialog, btn){
 	var productDescription = $("#productDescription").val();
 	var productPrice = $("#productPrice").val();
 	var dailyInstallment = $("#dailyInstallment").val();
+	var productType = $("#productType").val();
+	var stockCount = $("#stockCount").val();
 	
 	var obj = new Object();
 	obj.id = id;
@@ -93,6 +103,8 @@ Product.add = function(dialog, btn){
 	obj.description = productDescription;
 	obj.price = productPrice;
 	obj.dailyInstallment = dailyInstallment;
+	obj.productTypeCode = productType;
+	obj.stockCount = stockCount;
 	
 	$.ajax({ 
 	   type    : "POST",
@@ -168,10 +180,30 @@ Product.showModal = function(id){
         		var dailyInstallment = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(4)').html().trim();
         		
+        		var productType = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+						.parent().parent().find('td:eq(8)').html().trim();
+        		var stockCount = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+						.parent().parent().find('td:eq(9)').html().trim();
+        		
         		$("#productCode").attr("readonly", true).val(code);
         		$("#productDescription").val(description);
         		$("#productPrice").val(price);
         		$("#dailyInstallment").val(dailyInstallment);
+        		
+        		var optProductTypes = $("#productType > option");
+				   
+        		$.each(optProductTypes, function(){
+				   
+				   if($(this).html().trim() == productType){
+					   $(this).prop("selected",true);
+					   
+					   return false;
+				   }
+				   
+				   return;
+        		});
+        		$("#stockCount").val(stockCount);
+        		
         	} else {
         		$("#productId").val("");
         	}
@@ -278,6 +310,8 @@ Product.resetModal = function(){
 	$("#productPrice").val('');
 	$("#dailyInstallment").val('');
 	$("#frmProduct").validator('destroy');
+	$("#productType > option:first").prop("selected", true);
+	$("#stockCount").val("0");
 	
 	return;
 }
@@ -343,13 +377,51 @@ Product.initControls = function(){
 	
 	$("#dailyInstallment").keyup(function(e){
 		if(e.keyCode == 13) {
-			$("#btnAccept").focus();			
+			$("#productType").focus();			
 		}
 	    
 	    return;
 	});
 
 	$('#dailyInstallment').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#productType").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#productType").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#stockCount").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#productType').keydown(function(e){
+		// 13: enter
+		// 9: tab
+	    if(e.keyCode == 9){
+	    	e.preventDefault();
+			$("#stockCount").focus();			
+	    }
+	    
+	    return;
+	});
+	
+	$("#stockCount").keyup(function(e){
+		if(e.keyCode == 13) {
+			$("#btnAccept").focus();			
+		}
+	    
+	    return;
+	});
+
+	$('#stockCount').keydown(function(e){
 		// 13: enter
 		// 9: tab
 	    if(e.keyCode == 9){

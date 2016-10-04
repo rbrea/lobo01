@@ -5,8 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -134,6 +137,40 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 	@Override
 	public List<ClientDto> searchByName(String q){
 		return this.getTransformer().transformAllTo(this.getDao().findByName(q));
+	}
+
+	@Override
+	public List<ClientDto> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives, boolean cancelationOnDate,
+			boolean cancelationBeforeMore){
+		
+		List<Bill> billsTemp = this.billDao.filter(zone, hasReductionMark, cancelationMark, actives, cancelationOnDate, cancelationBeforeMore);
+		List<Bill> bills = Lists.newArrayList();
+		
+		if(cancelationBeforeMore){
+			for (Bill b : billsTemp) {
+				if(b.getEndDate() != null && b.getCompletedDate() != null
+						&& b.getEndDate().compareTo(b.getCompletedDate()) < 50){
+					bills.add(b);
+				}
+			}
+		}
+		List<Client> customers = Lists.newArrayList();
+		
+		
+		for (Bill bill : bills) {
+			final Client client = bill.getClient();
+			Client customer = CollectionUtils.find(customers, new Predicate<Client>() {
+				@Override
+				public boolean evaluate(Client c) {
+					return c.getId().equals(client.getId());
+				}
+			});
+			if(customer == null){
+				customers.add(client);
+			}
+		}
+		
+		return this.getTransformer().transformAllTo(customers);
 	}
 	
 }

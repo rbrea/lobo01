@@ -41,7 +41,7 @@
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/extensions/Responsive/js/dataTables.responsive.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Client-2.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/Product-2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Product-3.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bill-8.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-8.js"></script>

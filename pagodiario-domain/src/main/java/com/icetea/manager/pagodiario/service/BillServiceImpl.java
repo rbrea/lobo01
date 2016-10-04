@@ -52,6 +52,7 @@ import com.icetea.manager.pagodiario.model.ProductReduction;
 import com.icetea.manager.pagodiario.model.Trader;
 import com.icetea.manager.pagodiario.transformer.BillDtoModelTransformer;
 import com.icetea.manager.pagodiario.transformer.BillTicketTransformer;
+import com.icetea.manager.pagodiario.transformer.ClientDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 import com.icetea.manager.pagodiario.utils.StringUtils;
@@ -71,6 +72,7 @@ public class BillServiceImpl
 	private final CollectorDao collectorDao;
 	private final ConciliationItemCollectDao conciliationItemCollectDao;
 	private final BillProductDao billProductDao;
+	private final ClientDtoModelTransformer clientDtoModelTransformer;
 	
 	@Inject
 	public BillServiceImpl(BillDao dao, BillDtoModelTransformer transformer,
@@ -79,7 +81,8 @@ public class BillServiceImpl
 			ConciliationItemDao conciliationItemDao,
 			CollectorDao collectorDao,
 			ConciliationItemCollectDao conciliationItemCollectDao,
-			BillProductDao billProductDao) {
+			BillProductDao billProductDao,
+			ClientDtoModelTransformer clientDtoModelTransformer) {
 		super(dao, transformer);
 		this.clientDao = clientDao;
 		this.traderDao = traderDao;
@@ -89,6 +92,7 @@ public class BillServiceImpl
 		this.collectorDao = collectorDao;
 		this.conciliationItemCollectDao = conciliationItemCollectDao;
 		this.billProductDao = billProductDao;
+		this.clientDtoModelTransformer = clientDtoModelTransformer;
 	}
 
 	@Override
@@ -138,6 +142,8 @@ public class BillServiceImpl
 					ErrorType.PRODUCT_NOT_FOUND);
 			
 			bp.setProduct(product);
+			product.decrementStock(p.getCount());
+			this.productDao.saveOrUpdate(product);
 			e.addBillProduct(bp);
 		}
 		e.setClient(client);
@@ -568,5 +574,5 @@ public class BillServiceImpl
 		
 		return this.getDao().saveOrUpdate(bill);
 	}
-	
+
 }

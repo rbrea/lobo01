@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+import com.icetea.manager.pagodiario.model.type.ProductType;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Entity
@@ -24,6 +27,11 @@ public class Product extends Identifiable {
 	private BigDecimal price;
 	@Column(name = "DAILY_INSTALLMENT", precision = BIG_DECIMAL_PRECISION, scale = BIG_DECIMAL_SCALE)
 	private BigDecimal dailyInstallment;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "PRODUCT_TYPE", length = 100)
+	private ProductType productType;
+	@Column(name = "STOCK_COUNT", nullable = false)
+	private int stockCount = 0;
 
 	public String getCode() {
 		return code;
@@ -62,6 +70,26 @@ public class Product extends Identifiable {
 		BigDecimal perc = NumberUtils.calculatePercentage(this.price, new BigDecimal(20));
 		
 		return NumberUtils.subtract(this.price, perc);
+	}
+	public ProductType getProductType() {
+		return productType;
+	}
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
+	public int getStockCount() {
+		return stockCount;
+	}
+	public void setStockCount(int stockCount) {
+		this.stockCount = stockCount;
+	}
+
+	public void decrementStock(int count){
+		this.stockCount = this.stockCount - count;
+	}
+	
+	public void incrementStock(int count){
+		this.stockCount = this.stockCount + count;
 	}
 	
 }

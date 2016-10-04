@@ -7,9 +7,6 @@ public interface PayrollCollectService
 		extends
 		BasicIdentifiableService<PayrollCollect, PayrollCollectDto> {
 
-	@Deprecated
-	PayrollCollectDto processPayroll(String inputDate);
-
 	PayrollCollectDto commitPayroll(Long id);
 
 	PayrollCollectDto processPayrollAlternative(String inputDate);

@@ -139,7 +139,7 @@ public class PayrollCollectServiceTest extends AbstractPayrollServiceTest {
 		
 		this.billDao.saveOrUpdate(bill);
 		
-		PayrollCollectDto result = this.instance.processPayroll(
+		PayrollCollectDto result = this.instance.processPayrollAlternative(
 				DateUtils.toDate(
 						paymentDate));
 		

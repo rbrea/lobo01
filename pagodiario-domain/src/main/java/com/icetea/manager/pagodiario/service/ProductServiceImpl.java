@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.icetea.manager.pagodiario.api.dto.ProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillProductDao;
@@ -13,6 +15,7 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.BillProduct;
 import com.icetea.manager.pagodiario.model.Product;
+import com.icetea.manager.pagodiario.model.type.ProductType;
 import com.icetea.manager.pagodiario.transformer.ProductDtoModelTransformer;
 import com.icetea.manager.pagodiario.utils.NumberUtils;
 
@@ -44,6 +47,10 @@ public class ProductServiceImpl extends
 		e.setDescription(input.getDescription());
 		e.setPrice(NumberUtils.toBigDecimal(input.getPrice()));
 		e.setDailyInstallment(NumberUtils.toBigDecimal(input.getDailyInstallment()));
+		if(StringUtils.isNotBlank(input.getProductTypeCode())){
+			e.setProductType(ProductType.valueOf(input.getProductTypeCode()));
+		}
+		e.setStockCount(input.getStockCount());
 		
 		this.getDao().saveOrUpdate(e);
 		
@@ -59,6 +66,10 @@ public class ProductServiceImpl extends
 		e.setDescription(d.getDescription());
 		e.setPrice(NumberUtils.toBigDecimal(d.getPrice()));
 		e.setDailyInstallment(NumberUtils.toBigDecimal(d.getDailyInstallment()));
+		if(StringUtils.isNotBlank(d.getProductTypeCode())){
+			e.setProductType(ProductType.valueOf(d.getProductTypeCode()));
+		}
+		e.setStockCount(d.getStockCount());
 		
 		this.getDao().saveOrUpdate(e);
 		
