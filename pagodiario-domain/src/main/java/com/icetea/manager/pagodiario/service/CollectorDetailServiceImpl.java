@@ -12,8 +12,10 @@ import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.CollectorDetailDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
+import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.transformer.CollectorDetailTransformer;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 
@@ -25,6 +27,8 @@ public class CollectorDetailServiceImpl extends BasicServiceImpl implements
 	private BillDao billDao;
 	@Inject
 	private CollectorDetailTransformer collectorDetailTransformer;
+	@Inject
+	private PaymentDao paymentDao;
 	
 	@Override
 	public List<CollectorDetailDto> search(String fromArg, String toArg){
@@ -38,12 +42,20 @@ public class CollectorDetailServiceImpl extends BasicServiceImpl implements
 		Date to = DateUtils.parseDate(toArg);
 		
 		List<Bill> bills = this.billDao.findBillsWithCollectors(from, to);
+//		List<Bill> bills = this.billDao.findActivesByDate(from, to);
 		
 		if(bills == null){
 			return Lists.newArrayList();
 		}
 		
-		return this.collectorDetailTransformer.transform(bills, from, to); 
+		List<CollectorDetailDto> resultList = this.collectorDetailTransformer.transform(bills);
+		
+		
+		List<Payment> payments = this.paymentDao.findToCollect(from, to);
+		
+		this.collectorDetailTransformer.transformPayments(resultList, payments);
+		
+		return resultList;
 	}
 	
 }

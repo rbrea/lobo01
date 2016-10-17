@@ -310,7 +310,7 @@ Bill.init = function(){
 		
     	$.ajax({ 
 		   type    : "GET",
-		   url     : Constants.contextRoot + "/controller/html/trader",
+		   url     : Constants.contextRoot + "/controller/html/trader?status=Activo",
 		   dataType: 'json',
 		   contentType: "application/json;",
 		   success:function(data) {

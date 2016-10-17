@@ -115,6 +115,16 @@
 					    </div>
 					    <div class="help-block with-errors"></div>
 					</div>
+					<div class="form-group">
+						<label for="traderStatus">Estado</label>
+						<div class='input-group'>
+		                    <select id="traderStatus" name="traderStatus" class="form-control">
+		                    	<option value="Activo">Activo</option>
+		                    	<option value="Inactivo">Inactivo</option>
+		                    </select>
+					    </div>
+					    <div class="help-block with-errors"></div>
+					</div>
 			  	</div>
 			</div>
 		</div>

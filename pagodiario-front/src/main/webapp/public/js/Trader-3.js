@@ -77,6 +77,10 @@ Trader.initDataTable = function(imgCheckUrl){
                     return "<a href=\"javascript:Trader.showTraders('" + row.id + "');\" class=\"btn btn-xs btn-info " + clazz + "\"><i class=\"glyphicon glyphicon-th-list\"></i></a>";
                 }
          	},
+         	{ 
+            	"className": 'centered',
+            	"data": "status" 
+            },
             {
             	"className":      'centered',
 	         	// The `data` parameter refers to the data for the cell (defined by the
@@ -133,6 +137,7 @@ Trader.add = function(dialog, btn){
 	var phone = $("#phone").val();
 	var address = $("#address").val();
 	var city = $("#city").val();
+	var traderStatus = $("#traderStatus").val();
 	
 	var supervisor = false;
 	if($("#supervisor:checked").length > 0){
@@ -150,6 +155,7 @@ Trader.add = function(dialog, btn){
 	obj.city = city;
 	obj.supervisor = supervisor;
 	obj.parentId = traderParentId;
+	obj.status = traderStatus;
 	
 	$.ajax({ 
 	   type    : "POST",
@@ -190,8 +196,6 @@ Trader.add = function(dialog, btn){
 	   }
 	});
 	
-	
-	
 	return;
 }
 
@@ -231,6 +235,9 @@ Trader.showModal = function(id, email, parentId, parentDescription){
 					.parent().parent().find('td:eq(5)').html().trim();
         		var isSupervisor = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(6)').html().trim();
+        		
+        		var traderStatus = $("#tTraderResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
+					.parent().parent().find('td:eq(8)').html().trim();
 
         		$("#name").val(name).attr("readonly", "readonly");
  			   	$("#documentNumber").val(documentNumber).attr("readonly", "readonly");
@@ -245,6 +252,18 @@ Trader.showModal = function(id, email, parentId, parentDescription){
  			   	}
  			   	
  			   	$("#btnCleanSupervisor").addClass("disabled");
+ 			   	
+ 			   	$.each($("#traderStatus > option"), function(){
+ 			   		
+ 			   		if($(this).val() == traderStatus){
+ 			   			$(this).prop("selected", true);
+ 			   			
+ 			   			return false;
+ 			   		}
+ 			   		
+ 			   		return;
+ 			   	});
+ 			   	
  			   
  			   	$.ajax({ 
  				   type    : "GET",
@@ -396,6 +415,7 @@ Trader.resetModal = function(){
 	$("#supervisor").prop("checked", false);
 	$("#traderParentId").val('');
 	$("#traderParentDescription").val('');
+	$("#traderStatus > option:first").prop("selected", true);
 	$("#frmTrader").validator('destroy');
 	
 	return;

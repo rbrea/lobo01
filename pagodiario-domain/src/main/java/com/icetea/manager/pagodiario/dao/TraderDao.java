@@ -10,4 +10,6 @@ public interface TraderDao extends BasicIdentificableDao<Trader> {
 
 	List<Trader> findSupervisors();
 
+	List<Trader> find(Trader.Status status);
+
 }

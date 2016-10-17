@@ -441,3 +441,10 @@ Product.exportToPdf = function(){
 	
 	return;
 }
+
+Product.exportToCsv = function(){
+
+	$("#frmProductExportCsv").submit();
+	
+	return;
+}

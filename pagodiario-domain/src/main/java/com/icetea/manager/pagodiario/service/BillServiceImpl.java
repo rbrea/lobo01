@@ -121,6 +121,9 @@ public class BillServiceImpl
 		ErrorTypedConditions.checkArgument(trader != null, String.format("Vendedor no encontrado con id: %s", d.getTraderId()), 
 				ErrorType.TRADER_NOT_FOUND);
 		
+		ErrorTypedConditions.checkArgument(trader.getStatus() == Trader.Status.Activo, String.format("Vendedor con id: %s esta Inactivo para realizar ventas. Por favor activelo nuevamente.", d.getTraderId()), 
+				ErrorType.TRADER_NOT_FOUND);
+		
 		ErrorTypedConditions.checkArgument(d.getCreditNumber() != null, "nro de credito requerido", ErrorType.VALIDATION_ERRORS);
 		
 		Bill found = this.getDao().findByCreditNumber(d.getCreditNumber());

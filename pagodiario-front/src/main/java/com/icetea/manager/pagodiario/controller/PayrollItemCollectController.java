@@ -67,6 +67,7 @@ private static final Logger LOGGER = getLogger(PayrollItemCollectController.clas
 			modelMap.addAttribute("totalCollectedGross", p.getTotalPayment());
 			modelMap.addAttribute("totalCommission", p.getTotalAmountToPay());
 			modelMap.addAttribute("totalCollectedNet", p.getTotalToCollect());
+			modelMap.addAttribute("payrollDate", p.getPayrollDate());
 		}
 		
 		return "payrollCollectItem";

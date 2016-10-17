@@ -17,5 +17,7 @@ public interface TraderService extends
 	boolean addChild(Long parentId, Long childId);
 
 	List<TraderDto> searchSupervisors();
+
+	List<TraderDto> search(String status);
 	
 }

@@ -12,6 +12,7 @@ public class TraderDto extends PersonDto {
 	private Long parentId;
 	private String parentDescription;
 	private List<Long> listOfTraderIds = Lists.newArrayList();
+	private String status;
 
 	public List<Long> getListOfTraderIds() {
 		return listOfTraderIds;
@@ -36,6 +37,12 @@ public class TraderDto extends PersonDto {
 	}
 	public void setParentDescription(String parentDescription) {
 		this.parentDescription = parentDescription;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

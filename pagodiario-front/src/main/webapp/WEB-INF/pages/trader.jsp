@@ -73,6 +73,7 @@
 							                <th>Localidad / Barrio</th>
 							                <th>Es supervisor?</th>
 							                <th>Vendedores a cargo</th>
+							                <th>Estado</th>
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>

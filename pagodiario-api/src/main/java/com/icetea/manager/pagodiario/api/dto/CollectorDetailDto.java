@@ -12,6 +12,7 @@ public class CollectorDetailDto extends BasicDto {
 	private String remainingAmount;
 	private String fromDate;
 	private String toDate;
+	private Long billId;
 
 	public String getZone() {
 		return zone;
@@ -60,6 +61,12 @@ public class CollectorDetailDto extends BasicDto {
 	}
 	public void setToDate(String toDate) {
 		this.toDate = toDate;
+	}
+	public Long getBillId() {
+		return billId;
+	}
+	public void setBillId(Long billId) {
+		this.billId = billId;
 	}
 	
 }

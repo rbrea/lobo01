@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,23 +46,28 @@ public class TraderController extends ExceptionHandlingController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public @ResponseBody ListOutputDto<TraderDto> getList(@RequestParam(required = false) final Long id,
-			@RequestParam(required = false) final Long parentId){
+			@RequestParam(required = false) final Long parentId,
+			@RequestParam(required = false) final String status){
 		ListOutputDto<TraderDto> r = new ListOutputDto<TraderDto>();
 
 		List<TraderDto> list = Lists.newArrayList();
 		
 		if(id == null){
-			list = this.traderService.searchAll();
-			if(parentId != null && list != null && !list.isEmpty()){
-				TraderDto parent = CollectionUtils.find(list, new Predicate<TraderDto>() {
-					@Override
-					public boolean evaluate(TraderDto object) {
-						
-						return object.getId().equals(parentId);
+			if(StringUtils.isNotBlank(status)){
+				list = this.traderService.search(status);
+			} else {
+				list = this.traderService.searchAll();
+				if(parentId != null && list != null && !list.isEmpty()){
+					TraderDto parent = CollectionUtils.find(list, new Predicate<TraderDto>() {
+						@Override
+						public boolean evaluate(TraderDto object) {
+							
+							return object.getId().equals(parentId);
+						}
+					}); 
+					if(parent != null){
+						list.remove(parent);
 					}
-				}); 
-				if(parent != null){
-					list.remove(parent);
 				}
 			}
 		} else {

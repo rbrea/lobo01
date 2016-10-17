@@ -28,6 +28,7 @@ public class TraderDtoModelTransformer extends AbstractDtoModelTransformer<Trade
 				d.getListOfTraderIds().add(t.getId());
 			}
 		}
+		d.setStatus(e.getStatus().name());
 		
 		return d;
 	}

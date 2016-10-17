@@ -26,7 +26,9 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		p:maxUploadSize="100000000" />
 
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
+	<bean id="csvViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver" p:order="0" />
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
 
 	<!-- Convenience subclass of UrlBasedViewResolver that supports TilesView 
 		(i.e. Tiles definitions) and custom subclasses of it. -->
@@ -34,7 +36,7 @@
 	<!-- See http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/tiles2/TilesViewResolver.html -->
 	<bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"
-		p:order="1" />
+		p:order="2" />
 
 	<!-- Helper class to configure Tiles 2.x for the Spring Framework -->
 	<!-- See http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/tiles2/TilesConfigurer.html -->
@@ -57,7 +59,7 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
-		<property name="order" value="2" />
+		<property name="order" value="3" />
 	</bean>
 
 	<!-- jackson configuration : http://stackoverflow.com/questions/3661769 -->
@@ -95,10 +97,12 @@
 			<map>
 				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
+				<entry key="csv" value="text/csv" />
 			</map>
 		</property>
 		<property name="viewResolvers">
 			<list>
+				<ref bean="csvViewResolver" />
 				<ref bean="tilesViewResolver" />
 				<ref bean="viewResolver" />
 			</list>

@@ -47,6 +47,17 @@
 							</ol>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-1">
+							&nbsp;
+						</div>
+		  				<div class="col-md-4">
+		  					<h3><b>Fecha:</b> ${payrollDate}</h3>
+		  				</div>
+		  				<div class="col-md-7">
+							&nbsp;
+						</div>
+		  			</div>
 		    		<div class="row" >
 		  				<div class="col-md-12">
 		  					&nbsp;

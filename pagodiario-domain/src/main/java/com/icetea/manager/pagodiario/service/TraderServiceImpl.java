@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.icetea.manager.pagodiario.api.dto.TraderDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.dao.BillDao;
@@ -37,6 +39,8 @@ public class TraderServiceImpl
 
 		ErrorTypedConditions.checkArgument(e == null, "Vendedor ya existe con dni: " + input.getDocumentNumber(),
 				ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(input.getStatus()), "Estado de vendedor es requerido",
+				ErrorType.VALIDATION_ERRORS);
 		
 		e = new Trader();
 		e.setAddress(input.getAddress());
@@ -48,6 +52,7 @@ public class TraderServiceImpl
 		e.setNearStreets(input.getNearStreets());
 		e.setPhone(input.getPhone());
 		e.setSupervisor(input.isSupervisor());
+		e.setStatus(Trader.Status.valueOf(input.getStatus()));
 		
 		if(input.getParentId() != null){
 			Trader parent = this.getDao().findById(input.getParentId());
@@ -64,6 +69,8 @@ public class TraderServiceImpl
 	@Override
 	public TraderDto update(TraderDto d) {
 		ErrorTypedConditions.checkArgument(d.getId() != null, "Id de vendedor requerido", ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(d.getStatus()), "Estado de vendedor es requerido",
+				ErrorType.VALIDATION_ERRORS);
 		
 		Trader e = this.getDao().findById(d.getId());
 		
@@ -79,6 +86,7 @@ public class TraderServiceImpl
 		e.setNearStreets(d.getNearStreets());
 		e.setPhone(d.getPhone());
 		e.setSupervisor(d.isSupervisor());
+		e.setStatus(Trader.Status.valueOf(d.getStatus()));
 		
 		if(d.getParentId() != null){
 			ErrorTypedConditions.checkArgument(!d.getId().equals(d.getParentId()), "El vendedor no puede ser supervisor de si mismo", 
@@ -156,6 +164,16 @@ public class TraderServiceImpl
 	@Override
 	public List<TraderDto> searchSupervisors(){
 		return this.getTransformer().transformAllTo(this.getDao().findSupervisors());
+	}
+
+	@Override
+	public List<TraderDto> search(String status){
+		Trader.Status statusEnum = null;
+		if(StringUtils.isNotBlank(status)){
+			statusEnum = Trader.Status.valueOf(status);
+		}
+		
+		return this.getTransformer().transformAllTo(this.getDao().find(statusEnum));
 	}
 	
 }

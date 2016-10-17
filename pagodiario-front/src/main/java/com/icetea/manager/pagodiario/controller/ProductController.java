@@ -12,11 +12,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -35,6 +31,11 @@ import com.icetea.manager.pagodiario.api.dto.ProductDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.ProductService;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping(value = "/html/product")
@@ -137,7 +138,26 @@ public class ProductController extends ExceptionHandlingController {
 			throw new ErrorTypedException("Ha ocurrido un error al tratar generar el export de pdf de productos", 
 					ErrorType.UNKNOWN_ERROR);
 		}
+	}
+
+	@RequestMapping(value = "/export/csv", method = RequestMethod.POST)
+	public ModelAndView exportProductsCsv(HttpServletRequest request,
+			HttpServletResponse response){
 		
+		List<ProductDto> list = this.productService.searchAll();
+		
+		String[] header = {"code", "description", "price", "dailyInstallment", "weekInstallment", "twoWeeksInstallment" , "priceWithDiscount", "productTypeDescription", "stockCount"};
+		//String[] header = {"CODIGO", "DESCRIPCION", "PRECIO", "CUOTA DIARIA", "CUOTA SEMANAL", "CUOTA QUINCENAL" , "PRECIO C/DESCUENTO", "TIPO PRODUCTO CODIGO", "TIPO PRODUCTO", "STOCK"};
+	 
+	    ModelAndView mav = new ModelAndView("ProductCsvView");
+	    mav.addObject("csvData", list);
+	    mav.addObject("csvHeader", header);
+	    
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",
+                "products_" + System.currentTimeMillis() + ".csv"));
+	    response.setContentType("text/csv");
+	 
+	    return mav;
 	}
 	
 }

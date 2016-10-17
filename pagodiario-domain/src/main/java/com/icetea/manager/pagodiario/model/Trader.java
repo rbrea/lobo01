@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,6 +21,10 @@ import com.google.common.collect.Lists;
 public class Trader extends Person {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static enum Status {
+		Activo, Inactivo
+	}
 
 	@Column(name = "SUPERVISOR")
 	private boolean supervisor = false;
@@ -26,6 +32,9 @@ public class Trader extends Person {
 	private Trader parent;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Trader> traders = Lists.newArrayList();
+	@Enumerated(EnumType.STRING)
+	@Column(name = "STATUS", length = 50)
+	private Status status = Status.Activo;
 
 	public Trader() {
 		super();
@@ -87,6 +96,14 @@ public class Trader extends Person {
 		}
 		
 		return false;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 }

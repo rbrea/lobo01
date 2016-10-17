@@ -19,6 +19,8 @@
 	</div>
 	<form id="frmProductExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/product/export/pdf">
 	</form>
+	<form id="frmProductExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/product/export/csv" enctype="multipart/form-data">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -33,6 +35,11 @@
                                 <li>
                                 	<a href="javascript:void(0);" onclick="javascript:Product.exportToPdf();">
                                     	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Product.exportToCsv();">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Exportar CSV
                                     </a>
                                 </li>
                             </ul>

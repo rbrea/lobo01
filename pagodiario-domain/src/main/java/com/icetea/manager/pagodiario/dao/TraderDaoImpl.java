@@ -35,4 +35,15 @@ public class TraderDaoImpl extends BasicIdentificableDaoImpl<Trader> implements
 		return criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Trader> find(Trader.Status status){
+		Criteria criteria = super.createCriteria();
+		if(status != null){
+			criteria.add(Restrictions.eq("status", status));
+		}
+		
+		return criteria.list();
+	}
+	
 }
