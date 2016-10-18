@@ -76,6 +76,7 @@ public class BillDtoModelTransformer extends AbstractDtoModelTransformer<BillDto
 		
 		Date payrollDate = this.conciliationItemService.searchPayrollDateFromBillId(e.getId());
 		d.setPayrollDate(DateUtils.toDate(payrollDate));
+		d.setDevTotalMark(e.getDevTotalMark());
 		
 		return d;
 	}

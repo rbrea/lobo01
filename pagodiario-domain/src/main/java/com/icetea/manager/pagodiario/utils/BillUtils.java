@@ -17,6 +17,7 @@ public class BillUtils {
 			Date now = DateUtils.now();
 			bill.setCompletedDate(now);
 			bill.getClient().setCancelationMark(now);
+			bill.setDevTotalMark(true);
 		}
 		
 		return true;

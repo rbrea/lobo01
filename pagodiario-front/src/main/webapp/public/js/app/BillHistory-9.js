@@ -26,152 +26,6 @@ BillHistory.init = function(){
 		
 		return;
 	});
-	/*
-	var table = $("#tBillResult").dataTable( {
-		/*
-		//"fnRowCallback": function(nRow, aData, iDisplayIndex){
-		//	$('td', nRow).attr('nowrap', 'nowrap');
-		//	
-		//	return nRow;
-		//},
-		"fnInitComplete": function(){
-			$('#tBillResult tbody tr').each(function(){
-				$(this).find('td:eq(1)').attr('nowrap', 'nowrap');
-				$(this).find('td:eq(2)').attr('nowrap', 'nowrap');
-				$(this).find('td:eq(10)').attr('nowrap', 'nowrap');
-				
-				return;
-			});
-			
-			return;
-		},
-		//"bAutoWidth": false,
-		"bDestroy" : true,
-		responsive: false,
-		"createdRow": function ( row, data, index ) {
-    		
-    		$(row).data('billId', data.id);
-    		
-    		return;
-        },
-        "ajax": Constants.contextRoot + "/controller/html/bill",
-        "columns": [
-            { 	
-            	"className": 'centered',
-            	"data": "id" 
-            },
-            { 
-            	"className": 'centered',
-            	"orderable": false,
-            	"data": "startDate"
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"data": "endDate" 
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": true,
-            	"data": "creditNumber" 
-            },
-            { 
-            	"className": 'centered',
-            	"orderable": false,
-            	"data": "collectorId" 
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"render": function ( data, type, row ) {
-			        
-			        return "<span id='overdueDays_" + row.id + "'>" + row.overdueDays + "</span>";
-			    } 
-            },
-            { 
-            	"className": 'centered',
-            	"orderable": false,
-            	"render": function ( data, type, row ) {
-			        
-			        return "<span id='installmentAmount_" + row.id + "'>" + row.totalDailyInstallment + "</span>";
-			    } 
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"render": function ( data, type, row ) {
-			        
-			        return "<span id='totalAmount_" + row.id + "'>" + row.totalAmount + "</span>";
-			    } 
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"render": function ( data, type, row ) {
-			        
-			        return "<span id='remainingAmount_" + row.id + "'>" + row.remainingAmount + "</span>";
-			    }  
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"render": function ( data, type, row ) {
-			        
-			        var value = Bill.translateStatus(row.status);
-			        var label = BillHistory.selectLabel(value);
-			        
-			        return "<span id='status_" + row.id + "' class='label " + label + "'>" + value + "</span>";
-			    } 
-            },
-            { 	
-            	"className": 'centered',
-            	"orderable": false,
-            	"data": "payrollDate" 
-            },
-            {
-            	"className":      'centered',
-	         	// The `data` parameter refers to the data for the cell (defined by the
-                // `data` option, which defaults to the column being worked with, in
-                // this case `data: 0`.
-                "orderable": false,
-                "render": function ( data, type, row ) {
-                	
-                	var clazzDisabled = "";
-                	if(row.status == 'CANCELED' || row.status == 'CANCELED_DISCOUNT' || row.status == 'REDUCED'){
-                		clazzDisabled = 'disabled';
-                	}
-                	
-                	return BillHistory.getActionSelectElement(row.id, {
-                		"totalDailyInstallment": row.totalDailyInstallment,
-                		"collectorId" : row.collectorId,
-                		"detailClazzDisabled": clazzDisabled,
-                		"creditNumber" : row.creditNumber,
-                		"status" : row.status,
-                		"weekSunday": row.weekSunday,
-                		"weekMonday": row.weekMonday,
-                		"weekTuesday": row.weekTuesday,
-                		"weekWednesday": row.weekWednesday,
-                		"weekThursday": row.weekThursday,
-                		"weekFriday": row.weekFriday,
-                		"weekSaturday": row.weekSaturday
-                	});
-                } // onmouseover=\"javascript:Commons.setTooltip('btnShowPayments_');\"
-         	}
-        ],
-        "order": [[3, 'desc']],
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
-            "zeroRecords": "No se ha encontrado ningun elemento",
-            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ facturas)</b>",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "", //"(filtrados de un total de _MAX_ registros)"
-            "search": "Buscar: ",
-            "paginate": {
-            	"previous": "Anterior",
-				"next": "Siguiente"
-			}
-        } 
-    });*/
 	
 	$("#btnBillHistorySearch").on('click', function(){
 		
@@ -181,8 +35,12 @@ BillHistory.init = function(){
 		var clientId = $("#billClientIdSelected").val();
 		var dateFrom = $("#billDateFromValue").val();
 		var dateTo = $("#billDateToValue").val();
+		var devTotalMark = $("#devTotalMark").val();
+		if(devTotalMark == "all"){
+			devTotalMark = null;
+		}
 		
-		BillHistory.searchByFilter(collectorId, creditNumber, status, clientId, dateFrom, dateTo);
+		BillHistory.searchByFilter(collectorId, creditNumber, status, clientId, dateFrom, dateTo, devTotalMark);
 		
 		return;
 	});
@@ -1301,7 +1159,7 @@ BillHistory.exportToPdf = function(){
 	return;
 }
 
-BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId, dateFrom, dateTo){
+BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId, dateFrom, dateTo, devTotalMark){
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
@@ -1353,6 +1211,15 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "dateTo=" + dateTo;
 		$("#bhDateTo").val(dateTo);
+	}
+	if(devTotalMark != null && devTotalMark != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "devTotalMark=" + devTotalMark;
+		$("#bhDevTotalMark").val(devTotalMark);
 	}
 	
 	$.ajax({ 
@@ -1481,6 +1348,19 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		            	"className": 'centered',
 		            	"orderable": false,
 		            	"data": "payrollDate" 
+		            },
+		            { 	
+		            	"className": 'centered',
+		            	"orderable": false,
+		            	"render": function ( data, type, row ) {
+
+		            		var devTotalMark = "-";
+		            		if(row.devTotalMark != null && row.devTotalMark == true){
+		            			devTotalMark = "<span id='devTotalMark_" + row.id + "' class='label label-info'>D</span>";
+		            		}
+					        
+					        return devTotalMark;
+					    } 
 		            },
 		            {
 		            	"className":      'centered',

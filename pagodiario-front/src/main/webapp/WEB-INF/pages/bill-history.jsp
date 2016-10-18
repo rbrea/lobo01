@@ -24,6 +24,7 @@
 		<input type="hidden" id="bhClientId" name="bhClientId">
 		<input type="hidden" id="bhDateFrom" name="bhDateFrom">
 		<input type="hidden" id="bhDateTo" name="bhDateTo">
+		<input type="hidden" id="bhDevTotalMark" name="bhDevTotalMark">
 	</form>
 	<div class="row">
 		<div class="col-md-12">
@@ -76,7 +77,7 @@
 												<div class="help-block with-errors"></div>
 								            </div>		  					
 						  				</div>
-						  				<div class="col-md-3">
+						  				<div class="col-md-2">
 						  					<div class="form-group">
 							  					<label for="billHistoryStatus">Estado</label>
 							  					<select id="billHistoryStatus" class="form-control">
@@ -96,6 +97,17 @@
 								            </div>
 						  				</div>
 						  				<div class="col-md-1">
+						  					<div class="form-group">
+												<label for="devTotalMark">Dev.Total?</label><br>
+								                <select id="devTotalMark" class="form-control">
+							  						<option selected="selected" value="all">Todos</option>
+							  						<option value="true">Si</option>
+							  						<option value="false">No</option>
+							  					</select>
+								              	<div class="help-block with-errors"></div>
+									        </div>
+						  				</div>
+						  				<div class="col-md-1">
 						  					&nbsp;
 						  				</div>
 						  			</div>
@@ -111,7 +123,7 @@
 												<div id="billClientErrorMessageDiv" class="help-block with-errors"></div>
 								            </div>
 						  				</div>
-						  				<div class="col-md-3">
+						  				<div class="col-md-2">
 						  					<div class="form-group">
 												<label for="billDateFromValue">Fecha Desde</label>
 								                <div class='input-group date' id="billDateFrom">
@@ -123,7 +135,7 @@
 								              	<div class="help-block with-errors"></div>
 									        </div>
 						  				</div>
-						  				<div class="col-md-3">
+						  				<div class="col-md-2">
 						  					<div class="form-group">
 												<label for="billDateToValue">Fecha Hasta</label>
 								                <div class='input-group date' id="billDateTo">
@@ -134,6 +146,9 @@
 								                </div>
 								              	<div class="help-block with-errors"></div>
 									        </div>
+						  				</div>
+						  				<div class="col-md-2">
+						  					&nbsp;
 						  				</div>
 						  			</div>
 						  			<div class="row">
@@ -175,6 +190,7 @@
 								                <th>$ Saldo Restante</th>
 								                <th>Estado</th>
 								                <th>Fec Liq</th>
+								                <th>Dev Total?</th>
 								                <th>Acciones</th>
 								            </tr>
 								        </thead>
@@ -184,6 +200,7 @@
 									            <th id="totInstallment"></th>
 									            <th id="totImpTotal"></th>
 									            <th id="totSaldoRestante"></th>
+									            <th></th>
 									            <th></th>
 									            <th></th>
 									            <th></th>

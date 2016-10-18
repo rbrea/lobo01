@@ -30,7 +30,7 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 	List findActivesGroupingByWeekAndTrader();
 
 	List<Bill> findByFilter(Long creditNumber, Long collectorId, Status status, Long clientId,
-			Date dateFrom, Date dateTo);
+			Date dateFrom, Date dateTo, Boolean devTotalMark);
 
 	List<Bill> findToMakeVouchers(Date fromDate, Date toDate);
 

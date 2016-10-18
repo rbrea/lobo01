@@ -426,7 +426,7 @@ public class BillServiceImpl
 
 	@Override
 	public List<BillDto> searchByFilter(Long creditNumber, Long collectorId, String statusArg, Long clientId,
-			String dateFromValue, String dateToValue){
+			String dateFromValue, String dateToValue, Boolean devTotalMark){
 	
 		Bill.Status status = Bill.Status.getValueOf(statusArg);
 		
@@ -442,7 +442,7 @@ public class BillServiceImpl
 		dateTo = DateUtils.lastSecondOfDay(dateTo);
 		
 		return this.getTransformer().transformAllTo(this.getDao().findByFilter(
-				creditNumber, collectorId, status, clientId, dateFrom, dateTo));
+				creditNumber, collectorId, status, clientId, dateFrom, dateTo, devTotalMark));
 	}
 
 	@Override

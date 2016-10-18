@@ -105,6 +105,8 @@ public class Bill extends Identifiable {
 	private String weekFriday = "S";
 	@Column(name = "WEEK_SATURDAY", nullable = false, columnDefinition = "varchar(1) not null default 'S'")
 	private String weekSaturday = "S";
+	@Column(name = "DEV_TOTAL_MARK", columnDefinition = "BIT")
+	private Boolean devTotalMark;
 	
 	public Bill() {
 		super();
@@ -451,5 +453,12 @@ public class Bill extends Identifiable {
 		this.weekSaturday = weekSaturday;
 	}
 
+	public Boolean getDevTotalMark() {
+		return devTotalMark;
+	}
+
+	public void setDevTotalMark(Boolean devTotalMark) {
+		this.devTotalMark = devTotalMark;
+	}
 
 }

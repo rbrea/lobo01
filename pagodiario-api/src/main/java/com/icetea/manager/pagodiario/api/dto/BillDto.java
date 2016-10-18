@@ -39,6 +39,7 @@ public class BillDto extends BasicIdentifiableDto {
 	private boolean weekFriday;
 	private boolean weekSaturday;
 	private String payrollDate;
+	private Boolean devTotalMark;
 	
 	public BillDto() {
 		super();
@@ -247,6 +248,14 @@ public class BillDto extends BasicIdentifiableDto {
 
 	public void setPayrollDate(String payrollDate) {
 		this.payrollDate = payrollDate;
+	}
+
+	public Boolean getDevTotalMark() {
+		return devTotalMark;
+	}
+
+	public void setDevTotalMark(Boolean devTotalMark) {
+		this.devTotalMark = devTotalMark;
 	}
 	
 }
