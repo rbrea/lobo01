@@ -44,8 +44,8 @@ public interface BillDao extends BasicIdentificableDao<Bill> {
 
 	List<Bill> findActivesByDateWithoutDayOfWeek(Date date);
 
-	List<Bill> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives,
-			boolean cancelationOnDate, boolean cancelationBeforeMore);
+	List<Bill> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, Status status, Boolean cancelationOnDate,
+			Boolean cancelationBeforeMore, Date dateFrom, Date dateTo);
 
 	List<Bill> findActivesByDate(Date from, Date to);
 }

@@ -41,8 +41,9 @@ public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	public static Date parseDate(String value, String pattern){
-		Preconditions.checkArgument(StringUtils.isNotBlank(value), "value is required");
-		
+		if(StringUtils.isBlank(value)){
+			return null;
+		}
 		try {
 			return org.apache.commons.lang3.time.DateUtils.parseDate(value, pattern);
 		} catch (ParseException e) {

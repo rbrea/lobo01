@@ -12,11 +12,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -35,6 +30,11 @@ import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.ClientService;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping(value = "/html/client")
@@ -152,6 +152,29 @@ public class ClientController extends ExceptionHandlingController {
 					ErrorType.UNKNOWN_ERROR);
 		}
 		
+	}
+
+	@RequestMapping(value = "/filter/index", method = RequestMethod.GET)
+	public String showFilter(){
+		
+		return "customer-filter";
+	}
+	
+	@RequestMapping(value = "/filter", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<ClientDto> getCustomers(
+			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false) String status,
+			@RequestParam(required = false) Boolean cancelationOnDate,
+			@RequestParam(required = false) Boolean cancelationBeforeMore,
+			@RequestParam(required = false) String dateFrom,
+			@RequestParam(required = false) String dateTo){
+		
+		List<ClientDto> list = this.clientService.filter(collectorId, null, null, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
+		
+		ListOutputDto<ClientDto> listOutputDto = new ListOutputDto<ClientDto>();
+		listOutputDto.addAll(list);
+		
+		return listOutputDto;
 	}
 	
 }

@@ -13,7 +13,7 @@ public interface ClientService extends BasicIdentifiableService<Client, ClientDt
 
 	List<ClientDto> searchByName(String q);
 
-	List<ClientDto> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives,
-			boolean cancelationOnDate, boolean cancelationBeforeMore);
+	List<ClientDto> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, String statusArg, Boolean cancelationOnDate,
+			Boolean cancelationBeforeMore, String dateFrom, String dateTo);
 
 }

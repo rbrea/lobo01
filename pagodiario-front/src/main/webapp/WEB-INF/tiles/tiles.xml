@@ -199,5 +199,13 @@
         <put-list-attribute name="modals">
     	</put-list-attribute>
     </definition>
-                            
+
+	<definition name="customer-filter" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Consulta de Clientes" />
+        <put-attribute name="body" value="/WEB-INF/pages/customerFilter.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        </put-list-attribute>
+    </definition>
+                                
 </tiles-definitions>

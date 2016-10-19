@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,7 +8,7 @@ import javax.inject.Named;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.BooleanUtils;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
@@ -17,8 +18,11 @@ import com.icetea.manager.pagodiario.dao.ClientDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.Client;
 import com.icetea.manager.pagodiario.transformer.ClientDtoModelTransformer;
+import com.icetea.manager.pagodiario.utils.DateUtils;
+import com.icetea.manager.pagodiario.utils.StringUtils;
 
 @Named
 public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, ClientDao, ClientDto, ClientDtoModelTransformer> 
@@ -140,22 +144,35 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 	}
 
 	@Override
-	public List<ClientDto> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives, boolean cancelationOnDate,
-			boolean cancelationBeforeMore){
+	public List<ClientDto> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, String statusArg, Boolean cancelationOnDate,
+			Boolean cancelationBeforeMore, String dateFromArg, String dateToArg){
 		
-		List<Bill> billsTemp = this.billDao.filter(zone, hasReductionMark, cancelationMark, actives, cancelationOnDate, cancelationBeforeMore);
+		Status status = null;
+		if(!StringUtils.equals(statusArg, "all")){
+			status = Status.getValueOf(statusArg);
+		}
+		
+		Date dateFrom = DateUtils.truncate(DateUtils.parseDate(dateFromArg));
+		Date dateTo = DateUtils.normalizeTo(DateUtils.parseDate(dateToArg));
+
+		if(dateFrom != null && dateTo != null){
+			ErrorTypedConditions.checkArgument(dateFrom.before(dateTo), "La 'Fecha Inicio Desde' debe ser anterior a la 'Fecha Inicio Hasta'");
+		}
+		
+		List<Bill> billsTemp = this.billDao.filter(zone, hasReductionMark, cancelationMark, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
 		List<Bill> bills = Lists.newArrayList();
 		
-		if(cancelationBeforeMore){
+		if(BooleanUtils.isTrue(cancelationBeforeMore)){
 			for (Bill b : billsTemp) {
 				if(b.getEndDate() != null && b.getCompletedDate() != null
 						&& b.getEndDate().compareTo(b.getCompletedDate()) < 50){
 					bills.add(b);
 				}
 			}
+		} else {
+			bills.addAll(billsTemp);
 		}
 		List<Client> customers = Lists.newArrayList();
-		
 		
 		for (Bill bill : bills) {
 			final Client client = bill.getClient();

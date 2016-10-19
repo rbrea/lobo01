@@ -342,8 +342,8 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Bill> filter(Long zone, boolean hasReductionMark, boolean cancelationMark, boolean actives, boolean cancelationOnDate,
-			boolean cancelationBeforeMore){
+	public List<Bill> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, Status status, Boolean cancelationOnDate,
+			Boolean cancelationBeforeMore, Date dateFrom, Date dateTo){
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("client", "client");
 		
@@ -351,21 +351,27 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 			criteria.createAlias("collector", "collector");
 			criteria.add(Restrictions.eq("collector.zone", zone));
 		}
-		if(hasReductionMark){
+		if(hasReductionMark != null){
 			criteria.add(Restrictions.isNotNull("client.reductionMark"));
 		}
-		if(cancelationMark){
+		if(cancelationMark != null){
 			criteria.add(Restrictions.isNotNull("client.cancelationMark"));
 		}
-		if(actives){
-			criteria.add(Restrictions.eq("status", Status.ACTIVE));
+		if(status != null){
+			criteria.add(Restrictions.eq("status", status));
 		}
-		if(cancelationOnDate){
-			criteria.add(Restrictions.leProperty("endDate", "completedDate"));
+		if(cancelationOnDate != null && cancelationOnDate){
+			criteria.add(Restrictions.leProperty("completedDate", "endDate"));
 		}
-		if(cancelationBeforeMore){
+		if(cancelationBeforeMore != null && cancelationBeforeMore){
 			// esta se debe terminar de filtrar en el service por java ...
 			criteria.add(Restrictions.ltProperty("endDate", "completedDate"));
+		}
+		if(dateFrom != null){
+			criteria.add(Restrictions.ge("startDate", dateFrom));
+		}
+		if(dateTo != null){
+			criteria.add(Restrictions.le("startDate", dateTo));
 		}
 		
 		return criteria.list();

@@ -60,6 +60,7 @@
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-4.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Voucher-2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/CustomerFilter-1.js"></script>
     
     <script src="${pageContext.request.contextPath}/public/js/load-image.all.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/canvas-to-blob.min.js"></script>

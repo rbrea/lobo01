@@ -56,6 +56,11 @@
 	               			<i class="fa fa-money"></i>&nbsp;Generar voucher de Descuento
 	               		</a>
 	               	</li>
+	               	<li role="presentation" class="icon-circle">
+	               		<a id="optCustomerFilter" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/client/filter/index">
+	               			<i class="fa fa-calculator"></i>&nbsp;Consulta de Clientes
+	               		</a>
+	               	</li>
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">
