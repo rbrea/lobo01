@@ -20,6 +20,8 @@
 	<form id="frmCustomerFilterExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/client/export/csv">
 		<input type="hidden" id="cfCollectorId" name="cfCollectorId">
 		<input type="hidden" id="cfStatus" name="cfStatus">
+		<input type="hidden" id="cfCancelationOnDate" name="cfCancelationOnDate">
+		<input type="hidden" id="cfCancelationBeforeMore" name="cfCancelationBeforeMore">
 		<input type="hidden" id="cfDateFrom" name="cfDateFrom">
 		<input type="hidden" id="cfDateTo" name="cfDateTo">
 	</form>

@@ -21,13 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
 import com.icetea.manager.pagodiario.api.dto.ClientDto;
 import com.icetea.manager.pagodiario.api.dto.ListOutputDto;
+import com.icetea.manager.pagodiario.api.dto.csv.ClientFilterCsvDto;
 import com.icetea.manager.pagodiario.api.dto.exception.ErrorType;
+import com.icetea.manager.pagodiario.csv.transformer.ClientFilterTransformer;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.ClientService;
 
@@ -46,6 +49,8 @@ public class ClientController extends ExceptionHandlingController {
 	private ClientService clientService;
 	@Inject
 	private ServletContext servletContext;
+	@Inject
+	private ClientFilterTransformer clientFilterTransformer; 
 	
 	@Override
 	protected Logger getOwnLogger() {
@@ -175,6 +180,33 @@ public class ClientController extends ExceptionHandlingController {
 		listOutputDto.addAll(list);
 		
 		return listOutputDto;
+	}
+	
+	@RequestMapping(value = "/export/csv", method = RequestMethod.POST)
+	public ModelAndView exportProductsCsv(
+			@RequestParam(required = false, value="cfCollectorId") Long collectorId,
+			@RequestParam(required = false, value="cfStatus") String status,
+			@RequestParam(required = false, value="cfCancelationOnDate") Boolean cancelationOnDate,
+			@RequestParam(required = false, value="cfCancelationBeforeMore") Boolean cancelationBeforeMore,
+			@RequestParam(required = false, value="cfDateFrom") String dateFrom,
+			@RequestParam(required = false, value="cfDateTo") String dateTo,
+			HttpServletResponse response){
+		
+		List<ClientDto> list = this.clientService.filter(collectorId, null, null, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
+
+		List<ClientFilterCsvDto> transformedList = this.clientFilterTransformer.transform(list);
+		
+		String[] header = {"nombreApellido", "domicilioEmpresa", "localidad", "tel", "dni", "tipoDeComercio"};
+	 
+	    ModelAndView mav = new ModelAndView("ClientFilterCsvView");
+	    mav.addObject("csvData", transformedList);
+	    mav.addObject("csvHeader", header);
+	    
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",
+                "reporte_clientes_" + System.currentTimeMillis() + ".csv"));
+	    response.setContentType("text/csv");
+	 
+	    return mav;
 	}
 	
 }

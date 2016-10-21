@@ -154,7 +154,7 @@ public class ProductController extends ExceptionHandlingController {
 	    mav.addObject("csvHeader", header);
 	    
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",
-                "products_" + System.currentTimeMillis() + ".csv"));
+                "productos_" + System.currentTimeMillis() + ".csv"));
 	    response.setContentType("text/csv");
 	 
 	    return mav;

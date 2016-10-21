@@ -339,7 +339,7 @@ CustomerFilter.searchByFilter = function(collectorId, status, cancelationOnDate,
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
 		urlQueryString = "?collectorId=" + collectorId;
-		$("#bhCollectorId").val(collectorId);
+		$("#cfCollectorId").val(collectorId);
 	}
 	if(status != null && status != ""){
 		if(urlQueryString == ""){
@@ -348,7 +348,7 @@ CustomerFilter.searchByFilter = function(collectorId, status, cancelationOnDate,
 			urlQueryString = urlQueryString + "&";
 		}
 		urlQueryString = urlQueryString + "status=" + status;
-		$("#bhStatus").val(status);
+		$("#cfStatus").val(status);
 	}
 	if(cancelationOnDate != null && cancelationOnDate != ""){
 		if(urlQueryString == ""){
@@ -377,7 +377,7 @@ CustomerFilter.searchByFilter = function(collectorId, status, cancelationOnDate,
 			urlQueryString = urlQueryString + "&";
 		}
 		urlQueryString = urlQueryString + "dateFrom=" + dateFrom;
-		$("#bhDateFrom").val(dateFrom);
+		$("#cfDateFrom").val(dateFrom);
 	}
 	if(dateTo != null && dateTo != ""){
 		if(urlQueryString == ""){
@@ -386,7 +386,7 @@ CustomerFilter.searchByFilter = function(collectorId, status, cancelationOnDate,
 			urlQueryString = urlQueryString + "&";
 		}
 		urlQueryString = urlQueryString + "dateTo=" + dateTo;
-		$("#bhDateTo").val(dateTo);
+		$("#cfDateTo").val(dateTo);
 	}
 	
 	$.ajax({ 
@@ -573,6 +573,12 @@ CustomerFilter.resetCollectorFilter = function(enabled){
 	$("#customerFilterCollectorDescription").val("");
 	$("#customerFilterCollectorZone").parent().parent().removeClass("has-error");
 	$("#customerFilterCollectorDescription").parent().parent().removeClass("has-error");
+	
+	$("#cfStatus").val("");
+	$("#cfCancelationOnDate").val("");
+	$("#cfCancelationBeforeMore").val("");
+	$("#cfDateFrom").val("");
+	$("#cfDateTo").val("");
 	
 	return;
 }

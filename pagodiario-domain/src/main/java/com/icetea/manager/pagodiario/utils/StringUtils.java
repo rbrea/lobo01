@@ -131,5 +131,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     	
     	return input.toString();
     }
+
+    public static String valueOf(Long obj) {
+        return (obj == null) ? EMPTY : obj.toString();
+	}
     
 }
