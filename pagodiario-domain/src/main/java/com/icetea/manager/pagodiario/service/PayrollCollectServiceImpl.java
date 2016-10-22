@@ -119,19 +119,20 @@ public class PayrollCollectServiceImpl extends
 								return pic.getCollector().getId().equals(collector.getId());
 							}
 				});
-				
-				// entonces x cada pago,, hago lo q falta ...
-				payrollItemCollect.acumTotalPayment(payment.getAmount());
-				payrollCollect.acumTotalPayment(payment.getAmount());
-				payrollItemCollect.incrementCardsReal();
-				payrollCollect.incrementCardsReal();
-
-				ConciliationItemCollect cic = new ConciliationItemCollect();
-				cic.setAmount(payment.getAmount());
-				cic.setBill(bill);
-				cic.setDescription(StringUtils.EMPTY);
-				cic.setPayrollItemCollect(payrollItemCollect);
-				payrollItemCollect.addConciliationItemCollect(cic);
+				if(payrollItemCollect != null){
+					payrollItemCollect.acumTotalPayment(payment.getAmount());
+					payrollItemCollect.incrementCardsReal();
+					// entonces x cada pago,, hago lo q falta ...
+					payrollCollect.acumTotalPayment(payment.getAmount());
+					payrollCollect.incrementCardsReal();
+					
+					ConciliationItemCollect cic = new ConciliationItemCollect();
+					cic.setAmount(payment.getAmount());
+					cic.setBill(bill);
+					cic.setDescription(StringUtils.EMPTY);
+					cic.setPayrollItemCollect(payrollItemCollect);
+					payrollItemCollect.addConciliationItemCollect(cic);
+				}
 			}
 		}
 		// finalmente calculo las comisiones de cada cobrador ...
