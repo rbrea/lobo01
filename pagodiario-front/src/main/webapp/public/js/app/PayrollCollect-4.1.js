@@ -368,7 +368,7 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
 		},
 		draggable: true,
 		type: BootstrapDialog.TYPE_DANGER,
-		title: "Detalle de Liquidaci&oacute;n de Cobrador",
+		title: "Hoja de Ruta",
 		autodestroy: true,
 		closable: true,
 		//cssClass: 'dialog-large dialog-flow-detail',
@@ -395,17 +395,32 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
     					   
     					   var items = detail.items;
     					   
+    					   var sum = 0;
+    					   
+    					   var idx = 0;
+    					   
     					   $.each(items, function(){
     						   
     						   var tr = $("<tr></tr>");
+    						   var td0 = $("<td class='centered'></td>").append(""+ (++idx));
     						   var td1 = $("<td class='centered'></td>").append(this.creditNumber);
     						   var td2 = $("<td class='centered'></td>").append(this.amount);
     						   
-    						   tr.append(td1).append(td2);
+    						   sum += parseFloat(this.amount);
+    						   
+    						   tr.append(td0).append(td1).append(td2);
     						   tbody.append(tr);
     						   
     						   return;
     					   });
+    					   
+    					   var footerRow = $("<tr></tr>");
+    					   var tdFooter0 = $("<td class=''></td>");
+    					   var tdFooter1 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
+						   var tdFooter2 = $("<td class='centered'></td>").append(sum.toFixed(2));
+						   
+						   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2);
+						   tbody.append(footerRow);
     				   }
     	
     			   } else {
@@ -424,6 +439,122 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
 	        		'<div class="panel-body">' +
 	        		'<table class="table table-striped">' +
 	        		'<tr>' +
+	        		'<th class="centered">Indice</th>' +
+	        		'<th class="centered">Nro Cr&eacute;dito</th>' +
+	        		'<th class="centered">Monto</th>' +
+	        		'</tr>' +
+	        		tbody.html() +
+	        		'</table>' +
+	        		'</div>' + 
+	        		'</div></div></div>';
+        
+        	return divContainer;
+        },
+        buttons: [
+            {
+	        	id: 'btnPayrollCollectDetailClose',
+	        	label: 'Cerrar',
+	        	icon: 'glyphicon glyphicon-ok-sign',
+	        	cssClass: 'btn-primary',
+	        	action: function(dialog){
+	        		var btn = this;
+	        		
+	        		dialog.close();
+					
+	        		return;
+	        	}
+            }
+        ]
+    });
+	
+	return;
+}
+
+PayrollCollect.showPayrollCollectDetailNoPaid = function(payrollCollectItemId){
+	
+	BootstrapDialog.show({
+		onshown: function(){
+			
+			return;
+		},
+		onhidden:function(){
+			
+			return;
+		},
+		draggable: true,
+		type: BootstrapDialog.TYPE_DANGER,
+		title: "Detalle de Facturas no pagadas",
+		autodestroy: true,
+		closable: true,
+		//cssClass: 'dialog-large dialog-flow-detail',
+        message: function(dialog) {
+
+        	var tbody = $("<tbody></tbody>");
+        	
+        	$.ajax({ 
+    		   type    : "GET",
+    		   url     : Constants.contextRoot + "/controller/html/payrollcollectitem/detail/payrollItemCollect?id=" + payrollCollectItemId,
+    		   dataType: 'json',
+    		   contentType: "application/json;",
+    		   async : false,
+    		   success:function(data) {
+    				
+    			   Message.hideMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"));
+    				
+    			   if(data != null){
+    	
+    				   var payrollItemCollectList = data.data;
+    				   
+    				   if(payrollItemCollectList.length > 0){
+    					   var detail = payrollItemCollectList[0];
+    					   
+    					   var items = detail.items;
+    					   
+    					   var sum = 0;
+    					   
+    					   var idx = 0;
+    					   
+    					   $.each(items, function(){
+    						   
+    						   var tr = $("<tr></tr>");
+    						   var td0 = $("<td class='centered'></td>").append(""+ (++idx));
+    						   var td1 = $("<td class='centered'></td>").append(this.creditNumber);
+    						   var td2 = $("<td class='centered'></td>").append(this.amount);
+    						   
+    						   sum += parseFloat(this.amount);
+    						   
+    						   tr.append(td0).append(td1).append(td2);
+    						   tbody.append(tr);
+    						   
+    						   return;
+    					   });
+    					   
+    					   var footerRow = $("<tr></tr>");
+    					   var tdFooter0 = $("<td class=''></td>");
+    					   var tdFooter1 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
+						   var tdFooter2 = $("<td class='centered'></td>").append(sum.toFixed(2));
+						   
+						   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2);
+						   tbody.append(footerRow);
+    				   }
+    	
+    			   } else {
+    				   Message.showMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"), data.message);
+    			   }
+    		   },
+    		   error:function(data){
+    			   Message.showMessages($('#payrollCollectItemAlertMessages'), $("#payrollCollectItemMessages"), data.responseJSON.message);
+			   
+    			   return;
+    		   }
+			});
+        
+	        var divContainer = '<div class="row"><div class="col-md-12"><div class="panel panel-default">' +
+	        	'<div class="panel-heading">Detalle</div>' +
+	        		'<div class="panel-body">' +
+	        		'<table class="table table-striped">' +
+	        		'<tr>' +
+	        		'<th class="centered">Indice</th>' +
 	        		'<th class="centered">Nro Cr&eacute;dito</th>' +
 	        		'<th class="centered">Monto</th>' +
 	        		'</tr>' +

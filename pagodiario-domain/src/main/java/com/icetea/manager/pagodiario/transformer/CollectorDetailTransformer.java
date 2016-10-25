@@ -3,6 +3,7 @@ package com.icetea.manager.pagodiario.transformer;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,6 +20,14 @@ import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
 public class CollectorDetailTransformer {
+	
+	private final PaymentDtoModelTransformer paymentTransformer;
+	
+	@Inject
+	public CollectorDetailTransformer(PaymentDtoModelTransformer paymentTransformer) {
+		super();
+		this.paymentTransformer = paymentTransformer;
+	}
 
 	public List<CollectorDetailDto> transform(List<Bill> bills){
 		
@@ -75,8 +84,6 @@ public class CollectorDetailTransformer {
 			return;
 		}
 		
-		List<CollectorDetailDto> list = Lists.newArrayList();
-		
 		for(Payment payment : payments){
 			
 			final Bill bill = payment.getBill();
@@ -85,7 +92,7 @@ public class CollectorDetailTransformer {
 			
 			final Long collectorId = collector.getId();
 
-			CollectorDetailDto d = CollectionUtils.find(list, new Predicate<CollectorDetailDto>() {
+			CollectorDetailDto d = CollectionUtils.find(resultList, new Predicate<CollectorDetailDto>() {
 				@Override
 				public boolean evaluate(CollectorDetailDto c) {
 					return c.getId().equals(collectorId);
@@ -101,6 +108,7 @@ public class CollectorDetailTransformer {
 				d.setAmountCollected(NumberUtils.toString(NumberUtils.add(d.getAmountCollected(), payment.getAmount())));
 				d.setRemainingAmount(NumberUtils.toString(
 						NumberUtils.subtract(new BigDecimal(d.getAmountToCollect()), d.getAmountCollected())));
+				d.addPayment(this.paymentTransformer.transform(payment));
 			}
 		}
 	}

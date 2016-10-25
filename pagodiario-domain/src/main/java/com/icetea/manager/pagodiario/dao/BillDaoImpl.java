@@ -362,6 +362,7 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 		}
 		if(cancelationOnDate != null && cancelationOnDate){
 			criteria.add(Restrictions.leProperty("completedDate", "endDate"));
+			criteria.add(Restrictions.eqOrIsNull("devTotalMark", Boolean.FALSE));
 		}
 		if(cancelationBeforeMore != null && cancelationBeforeMore){
 			// esta se debe terminar de filtrar en el service por java ...

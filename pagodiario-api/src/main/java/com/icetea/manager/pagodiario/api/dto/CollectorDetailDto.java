@@ -1,5 +1,9 @@
 package com.icetea.manager.pagodiario.api.dto;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 public class CollectorDetailDto extends BasicDto {
 
 	private static final long serialVersionUID = 1L;
@@ -13,6 +17,7 @@ public class CollectorDetailDto extends BasicDto {
 	private String fromDate;
 	private String toDate;
 	private Long billId;
+	private List<PaymentDto> payments = Lists.newArrayList();
 
 	public String getZone() {
 		return zone;
@@ -67,6 +72,17 @@ public class CollectorDetailDto extends BasicDto {
 	}
 	public void setBillId(Long billId) {
 		this.billId = billId;
+	}
+	public List<PaymentDto> getPayments() {
+		return payments;
+	}
+	public void setPayments(List<PaymentDto> payments) {
+		this.payments = payments;
+	}
+	public void addPayment(PaymentDto payment){
+		if(payment != null){
+			this.payments.add(payment);
+		}
 	}
 	
 }

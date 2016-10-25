@@ -16,7 +16,7 @@ public class PaymentDtoModelTransformer extends AbstractDtoModelTransformer<Paym
 		d.setAmount(NumberUtils.toString(e.getAmount()));
 		d.setBillId(e.getBill().getId());
 		d.setCollectorId((e.getCollector() != null) ? e.getCollector().getId() : null);
-		d.setDate(DateUtils.toDate(e.getDate(), "dd/MM/yyyy"));
+		d.setDate(DateUtils.toDate(e.getDate()));
 		d.setId(e.getId());
 		d.setCreditNumber(e.getBill().getCreditNumber());
 		d.setBillStatus(e.getBill().getStatus().name());

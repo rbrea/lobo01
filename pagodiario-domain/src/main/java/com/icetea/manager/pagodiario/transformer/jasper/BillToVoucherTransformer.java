@@ -18,7 +18,7 @@ public class BillToVoucherTransformer {
 
 	public VoucherPojo transform(final BillDto bill, final Date date){
 		VoucherPojo v = new VoucherPojo();
-		v.setVoucherId("V" + bill.getId());
+		v.setVoucherId("V" + bill.getCreditNumber());
 		v.setTraderData(bill.getTraderName() + "(" + bill.getTraderPhone() + ")");
 		v.setClientName(StringUtils.upperCase(bill.getClientName()));
 		v.setClientData(bill.getClientAddress() + "(" + bill.getClientCompanyType() + ")");

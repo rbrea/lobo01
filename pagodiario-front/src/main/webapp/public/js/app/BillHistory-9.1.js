@@ -1356,7 +1356,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 
 		            		var devTotalMark = "-";
 		            		if(row.devTotalMark != null && row.devTotalMark == true){
-		            			devTotalMark = "<span id='devTotalMark_" + row.id + "' class='label label-info'>D</span>";
+		            			devTotalMark = "<span id='devTotalMark_" + row.id + "' class='label label-warning'>DT</span>";
 		            		}
 					        
 					        return devTotalMark;
