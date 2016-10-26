@@ -26,6 +26,8 @@ public class PaymentDtoModelTransformer extends AbstractDtoModelTransformer<Paym
 		d.setTotalAmount(NumberUtils.toString(e.getBill().getTotalAmount()));
 		d.setCollectorId((e.getBill().getCollector() != null) ? e.getBill().getCollector().getId() : null);
 		d.setTraderPayment(e.isTraderPayment());
+		d.setClientName(e.getBill().getClient().getName());
+		d.setClientCompanyType(e.getBill().getClient().getCompanyType());
 		
 		return d;
 	}

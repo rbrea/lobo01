@@ -432,11 +432,13 @@ Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
  						   var td0 = $("<td class='centered'></td>").append(""+ (++idx));
  						   var td1 = $("<td class='centered'></td>").append(this.date);
  						   var td2 = $("<td class='centered'></td>").append(this.creditNumber);
- 						   var td3 = $("<td class='centered'></td>").append(this.amount);
+ 						   var td3 = $("<td class='' nowrap></td>").append(this.clientName);
+						   var td4 = $("<td class='centered'></td>").append(this.clientCompanyType);
+ 						   var td5 = $("<td class='centered'></td>").append(this.amount);
  						   
  						   sum += parseFloat(this.amount);
  						   
- 						   tr.append(td0).append(td1).append(td2).append(td3);
+ 						   tr.append(td0).append(td1).append(td2).append(td3).append(td4).append(td5);
  						   tbody.append(tr);
  						   
  						   return;
@@ -445,10 +447,12 @@ Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
  					   var footerRow = $("<tr></tr>");
  					   var tdFooter0 = $("<td class=''></td>");
  					   var tdFooter1 = $("<td class=''></td>");
- 					   var tdFooter2 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
- 					   var tdFooter3 = $("<td class='centered'></td>").append(sum.toFixed(2));
+ 					   var tdFooter2 = $("<td class=''></td>");
+ 					   var tdFooter3 = $("<td class=''></td>");
+ 					   var tdFooter4 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
+ 					   var tdFooter5 = $("<td class='centered'></td>").append(sum.toFixed(2));
 						   
- 					   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2).append(tdFooter3);
+ 					   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2).append(tdFooter3).append(tdFooter4).append(tdFooter5);
  					   tbody.append(footerRow);
  				   	}
                 	
@@ -460,6 +464,8 @@ Collector.initCollectorDetail = function(fromDate, toDate, imgCheckUrl){
     	        		'<th class="centered">Indice</th>' +
     	        		'<th class="centered">Fecha</th>' +
     	        		'<th class="centered">Nro Cr&eacute;dito</th>' +
+    	        		'<th class="centered">Nombre Cliente</th>' +
+    	        		'<th class="centered">Tipo Comercio</th>' +
     	        		'<th class="centered">Monto</th>' +
     	        		'</tr>' +
     	        		tbody.html() +

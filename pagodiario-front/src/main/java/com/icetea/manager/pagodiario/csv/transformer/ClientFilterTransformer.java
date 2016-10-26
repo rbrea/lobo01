@@ -16,10 +16,18 @@ public class ClientFilterTransformer {
 		ClientFilterCsvDto out = new ClientFilterCsvDto();
 		out.setDni(StringUtils.valueOf(input.getDocumentNumber()));
 		out.setDomicilioEmpresa(input.getCompanyAddress());
-		out.setLocalidad(input.getCompanyCity());
+		out.setLocalidadEmpresa(input.getCompanyCity());
 		out.setNombreApellido(input.getName());
-		out.setTel(input.getCompanyPhone());
+		out.setTelEmpresa(input.getCompanyPhone());
 		out.setTipoDeComercio(input.getCompanyType());
+		
+		out.setId(input.getId());
+		out.setDomicilio(input.getAddress());
+		out.setTel(input.getPhone());
+		out.setEmail(input.getEmail());
+		out.setLocalidad(input.getCity());
+		out.setTuvoCancelacion(StringUtils.isNotBlank(input.getCancelationMark()) ? "SI" : "NO");
+		out.setTuvoDevolucion(StringUtils.isNotBlank(input.getReductionMark()) ? "SI" : "NO");
 		
 		return out;
 	}

@@ -196,7 +196,8 @@ public class ClientController extends ExceptionHandlingController {
 
 		List<ClientFilterCsvDto> transformedList = this.clientFilterTransformer.transform(list);
 		
-		String[] header = {"nombreApellido", "domicilioEmpresa", "localidad", "tel", "dni", "tipoDeComercio"};
+		String[] header = {"id", "nombreApellido", "dni", "domicilioEmpresa", "localidadEmpresa", "telEmpresa", "tipoDeComercio", 
+				"email", "domicilio", "localidad", "tel", "callesCercanas", "tuvoDevolucion", "tuvoCancelacion"};
 	 
 	    ModelAndView mav = new ModelAndView("ClientFilterCsvView");
 	    mav.addObject("csvData", transformedList);

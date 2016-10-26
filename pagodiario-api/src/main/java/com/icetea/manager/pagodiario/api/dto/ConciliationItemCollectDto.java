@@ -7,6 +7,8 @@ public class ConciliationItemCollectDto extends BasicIdentifiableDto {
 	private Long creditNumber;
 	private String amount;
 	private String description;
+	private String clientName;
+	private String clientCompanyType;
 	
 	public ConciliationItemCollectDto() {
 		super();
@@ -34,6 +36,22 @@ public class ConciliationItemCollectDto extends BasicIdentifiableDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getClientCompanyType() {
+		return clientCompanyType;
+	}
+
+	public void setClientCompanyType(String clientCompanyType) {
+		this.clientCompanyType = clientCompanyType;
 	}
 
 }

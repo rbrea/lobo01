@@ -403,12 +403,14 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
     						   
     						   var tr = $("<tr></tr>");
     						   var td0 = $("<td class='centered'></td>").append(""+ (++idx));
-    						   var td1 = $("<td class='centered'></td>").append(this.creditNumber);
-    						   var td2 = $("<td class='centered'></td>").append(this.amount);
+    						   var td1 = $("<td class='centered' nowrap></td>").append(this.creditNumber);
+    						   var td2 = $("<td class='' nowrap></td>").append(this.clientName);
+    						   var td3 = $("<td class='centered'></td>").append(this.clientCompanyType);
+    						   var td4 = $("<td class='centered' nowrap></td>").append(this.amount);
     						   
     						   sum += parseFloat(this.amount);
     						   
-    						   tr.append(td0).append(td1).append(td2);
+    						   tr.append(td0).append(td1).append(td2).append(td3).append(td4);
     						   tbody.append(tr);
     						   
     						   return;
@@ -416,10 +418,12 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
     					   
     					   var footerRow = $("<tr></tr>");
     					   var tdFooter0 = $("<td class=''></td>");
-    					   var tdFooter1 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
-						   var tdFooter2 = $("<td class='centered'></td>").append(sum.toFixed(2));
+    					   var tdFooter1 = $("<td class=''></td>");
+    					   var tdFooter2 = $("<td class=''></td>");
+    					   var tdFooter3 = $("<td class=''><span style='text-align:right;'><b>Total: </b></span></td>");
+						   var tdFooter4 = $("<td class='centered'></td>").append(sum.toFixed(2));
 						   
-						   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2);
+						   footerRow.append(tdFooter0).append(tdFooter1).append(tdFooter2).append(tdFooter3).append(tdFooter4);
 						   tbody.append(footerRow);
     				   }
     	
@@ -441,6 +445,8 @@ PayrollCollect.showPayrollCollectDetail = function(payrollCollectItemId){
 	        		'<tr>' +
 	        		'<th class="centered">Indice</th>' +
 	        		'<th class="centered">Nro Cr&eacute;dito</th>' +
+	        		'<th class="centered">Nombre Cliente</th>' +
+	        		'<th class="centered">Tipo Comercio</th>' +
 	        		'<th class="centered">Monto</th>' +
 	        		'</tr>' +
 	        		tbody.html() +

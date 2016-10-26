@@ -10,6 +10,8 @@ public class PaymentDto extends BillInfoDto {
 	private Long collectorId;
 	private Long creditNumber;
 	private boolean traderPayment;
+	private String clientName;
+	private String clientCompanyType;
 	
 	public String getAmount() {
 		return amount;
@@ -57,6 +59,22 @@ public class PaymentDto extends BillInfoDto {
 
 	public void setTraderPayment(boolean traderPayment) {
 		this.traderPayment = traderPayment;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getClientCompanyType() {
+		return clientCompanyType;
+	}
+
+	public void setClientCompanyType(String clientCompanyType) {
+		this.clientCompanyType = clientCompanyType;
 	}
 
 }

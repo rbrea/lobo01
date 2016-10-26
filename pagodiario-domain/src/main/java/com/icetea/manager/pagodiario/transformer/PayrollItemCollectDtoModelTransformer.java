@@ -34,6 +34,8 @@ public class PayrollItemCollectDtoModelTransformer extends
 			i.setCreditNumber(c.getBill().getCreditNumber());
 			i.setDescription(c.getDescription());
 			i.setId(c.getId());
+			i.setClientCompanyType(c.getBill().getClient().getCompanyType());
+			i.setClientName(c.getBill().getClient().getName());
 			
 			d.getItems().add(i);
 		}
