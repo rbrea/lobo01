@@ -14,21 +14,24 @@
 	<context:component-scan base-package="com.icetea.manager.pagodiario" />
 
 	<import resource="classpath:hibernate-db.xml" />
-	<import resource="freemarker-context.xml" />
 
 	<mvc:annotation-driven />
 
 	<!-- <import resource="web-security-config.xml" /> -->
 
-	<!-- <context:component-scan base-package="com.despegar.library.version.controller" /> -->
+	<!-- <context:component-scan base-package="com.despegar.library.version.controller" 
+		/> -->
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		p:maxUploadSize="100000000" />
 
-	<bean id="csvViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver" p:order="0" />
-	
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
+	<bean id="csvViewResolver"
+		class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
+		p:order="0" />
+
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="1" />
 
 	<!-- Convenience subclass of UrlBasedViewResolver that supports TilesView 
 		(i.e. Tiles definitions) and custom subclasses of it. -->
@@ -63,22 +66,12 @@
 	</bean>
 
 	<!-- jackson configuration : http://stackoverflow.com/questions/3661769 -->
-	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
-	<bean id="jacksonSerializationConfig" class="org.codehaus.jackson.map.SerializationConfig"
+	<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+	<bean id="jacksonSerializationConfig" class="com.fasterxml.jackson.databind.SerializationConfig"
 		factory-bean="jacksonObjectMapper" factory-method="getSerializationConfig" />
-	<bean
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetObject" ref="jacksonSerializationConfig" />
-		<property name="targetMethod" value="setSerializationInclusion" />
-		<property name="arguments">
-			<list>
-				<value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_NULL</value>
-			</list>
-		</property>
-	</bean>
 
 	<bean id="jacksonMessageConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="objectMapper" ref="jacksonObjectMapper" />
 	</bean>
 
@@ -91,15 +84,27 @@
 		</property>
 	</bean>
 
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<!-- <bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="false" />
+		<property name="favorParameter" value="true" />
+		<property name="parameterName" value="mediaType" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="useJaf" value="false" />
+		<property name="defaultContentType" value="application/json" />
+
 		<property name="mediaTypes">
 			<map>
-				<entry key="html" value="text/html" />
-				<entry key="json" value="application/json" />
 				<entry key="csv" value="text/csv" />
+				<entry key="xls" value="application/msexcel" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
 			</map>
 		</property>
+	</bean> -->
+
+	<!-- <bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">
 			<list>
 				<ref bean="csvViewResolver" />
@@ -110,13 +115,14 @@
 		<property name="defaultViews">
 			<list>
 				<bean
-					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 			</list>
 		</property>
+	</bean> -->
+
+	<bean
+		class="com.icetea.manager.pagodiario.configuration.LogbackConfiguration">
+		<property name="location" value="classpath:${logback.configuration.filename}" />
 	</bean>
-	
-	<bean class="com.icetea.manager.pagodiario.configuration.LogbackConfiguration">
-  		<property name="location" value="classpath:${logback.configuration.filename}"/>
-	</bean>
-	
+
 </beans>

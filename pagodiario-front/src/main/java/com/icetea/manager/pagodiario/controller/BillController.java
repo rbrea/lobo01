@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -325,6 +326,39 @@ public class BillController extends ExceptionHandlingController {
 		r.setStatus(0);
 		
 		return r;
+	}
+
+	@RequestMapping(value = "/detail/export/xls", method = RequestMethod.POST)
+	public ModelAndView exportBillDetailXls(HttpServletResponse response, @RequestParam Long billId){
+		
+		BillDetailDto d = this.billService.searchDetail(billId);
+		
+		String filename = "detalle_de_credito_" + billId + "-" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+			
+		return new ModelAndView("BillHistoryExcelView", "list", Lists.newArrayList(d));
+		
+	}
+
+	@RequestMapping(value = "/export/xls", method = RequestMethod.POST)
+	public ModelAndView exportBillsXls(HttpServletResponse response,
+			@RequestParam(required = false) Long bhCollectorId,
+			@RequestParam(required = false, value = "bhxCreditNumber") Long creditNumber,
+			@RequestParam(required = false, value = "bhxStatus") String status,
+			@RequestParam(required = false, value = "bhxClientId") Long clientId,
+			@RequestParam(required = false, value = "bhxDateFrom") String dateFrom,
+			@RequestParam(required = false, value = "bhxDateTo") String dateTo,
+			@RequestParam(required = false, value = "bhxDevTotalMark") Boolean devTotalMark){
+		
+		List<BillDto> list = this.billService.searchByFilter(
+				creditNumber, bhCollectorId, status, clientId, dateFrom, dateTo, devTotalMark);
+		
+		String filename = "creditos_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+		
+		return new ModelAndView("billExcelView", "list", list);
 	}
 	
 }

@@ -38,6 +38,10 @@
 		<input type="hidden" id="billId" name="billId" value="${billId}">
 		<input type="hidden" id="creditNumber" name="creditNumber" value="${creditNumber}">
 	</form>
+	<form id="frmCreditDetailExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/detail/export/xls">
+		<input type="hidden" id="billId" name="billId" value="${billId}">
+		<input type="hidden" id="creditNumber" name="creditNumber" value="${creditNumber}">
+	</form>
 	<div class="row">
 		<div class="col-md-2">
 	        &nbsp;
@@ -60,6 +64,11 @@
                                 <li>
                                 	<a href="javascript:void(0);" onclick="javascript:Bill.exportDetailToPdf();">
                                     	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Bill.exportDetailToXls();">
+                                    	<i class="glyphicon glyphicon-download"></i>&nbsp;&nbsp;Exportar a Excel
                                     </a>
                                 </li>
                             </ul>

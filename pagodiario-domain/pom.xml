@@ -155,5 +155,18 @@
 			<groupId>net.sf.supercsv</groupId>
 			<artifactId>super-csv</artifactId>
 		</dependency>
+		<!-- APACHE POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+		</dependency>
 	</dependencies>
 </project>

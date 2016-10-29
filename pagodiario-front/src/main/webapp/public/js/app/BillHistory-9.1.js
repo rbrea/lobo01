@@ -1159,12 +1159,20 @@ BillHistory.exportToPdf = function(){
 	return;
 }
 
+BillHistory.exportToXls = function(){
+
+	$("#frmBillHistoryExportXls").submit();
+	
+	return;
+}
+
 BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientId, dateFrom, dateTo, devTotalMark){
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
 		urlQueryString = "?collectorId=" + collectorId;
 		$("#bhCollectorId").val(collectorId);
+		$("#bhxCollectorId").val(collectorId);
 	}
 	if(creditNumber != null && creditNumber != ""){
 		if(urlQueryString == ""){
@@ -1175,6 +1183,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		urlQueryString = urlQueryString + "creditNumber=" + creditNumber;
 			
 		$("#bhCreditNumber").val(creditNumber);
+		$("#bhxCreditNumber").val(creditNumber);
 	}
 	if(status != null && status != ""){
 		if(urlQueryString == ""){
@@ -1184,6 +1193,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "status=" + status;
 		$("#bhStatus").val(status);
+		$("#bhxStatus").val(status);
 	}
 	if(clientId != null && clientId != ""){
 		if(urlQueryString == ""){
@@ -1193,6 +1203,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "clientId=" + clientId;
 		$("#bhClientId").val(clientId);
+		$("#bhxClientId").val(clientId);
 	}
 	if(dateFrom != null && dateFrom != ""){
 		if(urlQueryString == ""){
@@ -1202,6 +1213,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "dateFrom=" + dateFrom;
 		$("#bhDateFrom").val(dateFrom);
+		$("#bhxDateFrom").val(dateFrom);
 	}
 	if(dateTo != null && dateTo != ""){
 		if(urlQueryString == ""){
@@ -1211,6 +1223,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "dateTo=" + dateTo;
 		$("#bhDateTo").val(dateTo);
+		$("#bhxDateTo").val(dateTo);
 	}
 	if(devTotalMark != null && devTotalMark != ""){
 		if(urlQueryString == ""){
@@ -1220,6 +1233,7 @@ BillHistory.searchByFilter = function(collectorId, creditNumber, status, clientI
 		}
 		urlQueryString = urlQueryString + "devTotalMark=" + devTotalMark;
 		$("#bhDevTotalMark").val(devTotalMark);
+		$("#bhxDevTotalMark").val(devTotalMark);
 	}
 	
 	$.ajax({ 
@@ -1511,6 +1525,7 @@ BillHistory.resetTicketNumber = function(enabled){
 	$("#billHistoryTicketNumber").val("");
 	if(enabled){
 		$("#bhCreditNumber").val("");
+		$("#bhxCreditNumber").val("");
 	}
 	
 	return;
@@ -1521,6 +1536,7 @@ BillHistory.resetStatus = function(enabled){
 	$('#billHistoryStatus option:contains("Todos")').prop('selected', true);
 	if(enabled){
 		$("#bhStatus").val("");
+		$("#bhxStatus").val("");
 	}
 	
 	return;
@@ -1532,6 +1548,7 @@ BillHistory.resetClient = function(enabled){
 	$("#baddress").val("");
 	if(enabled){
 		$("#bhClientId").val("");
+		$("#bhxClientId").val("");
 	}
 	
 	return;
@@ -1641,8 +1658,10 @@ BillHistory.resetDates = function(enabled){
 	//$("#billDateToValue").val("");
 	if(enabled){
 		$("#bhDateFrom").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
+		$("#bhxDateFrom").val(moment().subtract(3, 'months').format('DD/MM/YYYY'));
 		// asigno el dia de hoy
 		$("#bhDateTo").val(moment().format('DD/MM/YYYY'));
+		$("#bhxDateTo").val(moment().format('DD/MM/YYYY'));
 	}
 	
 	return;

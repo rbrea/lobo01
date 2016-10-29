@@ -17,7 +17,7 @@
 	<properties>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<junit.version>4.11</junit.version>
-		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.version>4.3.3.RELEASE</spring.version>
 		<jackson.version>2.3.2</jackson.version>
 		<despegar-fwk.version>1.4.148</despegar-fwk.version>
 		<tiles.jsp.version>2.2.2</tiles.jsp.version>
@@ -30,6 +30,7 @@
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 		<jasperreport.version>6.1.0</jasperreport.version>
 		<jasperreport.font-version>6.0.0</jasperreport.font-version>
+		<poi.version>3.10.1</poi.version>
 	</properties>
 
 	<scm>
@@ -357,6 +358,22 @@
 				<groupId>net.sf.supercsv</groupId>
 				<artifactId>super-csv</artifactId>
 				<version>2.4.0</version>
+			</dependency>
+			<!-- APACHE POI -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>${poi.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

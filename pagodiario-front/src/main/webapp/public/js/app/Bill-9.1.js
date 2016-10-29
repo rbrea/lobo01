@@ -2404,3 +2404,10 @@ Bill.updatePayday = function(billId, dialog, btn){
 	
 	return;
 }
+
+Bill.exportDetailToXls = function(){
+	
+	$("#frmCreditDetailExportXls").submit();
+	
+	return;
+}

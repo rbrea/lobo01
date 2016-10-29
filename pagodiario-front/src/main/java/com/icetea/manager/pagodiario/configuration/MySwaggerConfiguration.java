@@ -9,8 +9,8 @@ import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 
-@Configuration
-@EnableSwagger
+//@Configuration
+//@EnableSwagger
 // Loads the spring beans required by the framework
 public class MySwaggerConfiguration {
 
