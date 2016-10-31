@@ -3,6 +3,7 @@ package com.icetea.manager.pagodiario.xls.bill;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +26,7 @@ import com.icetea.manager.pagodiario.api.dto.BillProductDetailDto;
 import com.icetea.manager.pagodiario.utils.Counter;
 import com.icetea.manager.pagodiario.utils.DateUtils;
 
+@Named
 public class BillHistoryExcelView
     extends AbstractXlsxView {
 

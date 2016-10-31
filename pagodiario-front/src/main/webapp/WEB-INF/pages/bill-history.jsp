@@ -26,7 +26,7 @@
 		<input type="hidden" id="bhDateTo" name="bhDateTo">
 		<input type="hidden" id="bhDevTotalMark" name="bhDevTotalMark">
 	</form>
-	<form id="frmBillHistoryExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/export/xls">
+	<form id="frmBillHistoryExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/export.xls" enctype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 		<input type="hidden" id="bhxCollectorId" name="bhxCollectorId">
 		<input type="hidden" id="bhxCreditNumber" name="bhxCreditNumber">
 		<input type="hidden" id="bhxStatus" name="bhxStatus">

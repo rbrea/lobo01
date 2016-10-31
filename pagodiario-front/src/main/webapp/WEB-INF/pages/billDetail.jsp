@@ -38,7 +38,7 @@
 		<input type="hidden" id="billId" name="billId" value="${billId}">
 		<input type="hidden" id="creditNumber" name="creditNumber" value="${creditNumber}">
 	</form>
-	<form id="frmCreditDetailExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/detail/export/xls">
+	<form id="frmCreditDetailExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/bill/detail/export.xls">
 		<input type="hidden" id="billId" name="billId" value="${billId}">
 		<input type="hidden" id="creditNumber" name="creditNumber" value="${creditNumber}">
 	</form>

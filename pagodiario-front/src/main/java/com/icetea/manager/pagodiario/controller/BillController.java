@@ -328,7 +328,7 @@ public class BillController extends ExceptionHandlingController {
 		return r;
 	}
 
-	@RequestMapping(value = "/detail/export/xls", method = RequestMethod.POST)
+	@RequestMapping(value = "/detail/export.xls", method = RequestMethod.POST)
 	public ModelAndView exportBillDetailXls(HttpServletResponse response, @RequestParam Long billId){
 		
 		BillDetailDto d = this.billService.searchDetail(billId);
@@ -337,11 +337,11 @@ public class BillController extends ExceptionHandlingController {
 		response.setHeader("Content-Disposition", "inline; filename=" + filename);
 		response.setContentType("application/msexcel");
 			
-		return new ModelAndView("BillHistoryExcelView", "list", Lists.newArrayList(d));
+		return new ModelAndView("billHistoryExcelView", "list", Lists.newArrayList(d));
 		
 	}
 
-	@RequestMapping(value = "/export/xls", method = RequestMethod.POST)
+	@RequestMapping(value = "/export.xls", method = RequestMethod.POST)
 	public ModelAndView exportBillsXls(HttpServletResponse response,
 			@RequestParam(required = false) Long bhCollectorId,
 			@RequestParam(required = false, value = "bhxCreditNumber") Long creditNumber,

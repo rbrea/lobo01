@@ -15,13 +15,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.DefaultJasperReportsContext;
-import net.sf.jasperreports.engine.JRPropertiesUtil;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -44,6 +37,13 @@ import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.factory.TicketNumberListFactory;
 import com.icetea.manager.pagodiario.manager.FilePrintManager;
 import com.icetea.manager.pagodiario.service.BillService;
+
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping(value = "/html/ticket")
@@ -136,7 +136,7 @@ public class TicketController extends ExceptionHandlingController {
 
 	}
 
-	@RequestMapping(value = "/validate", method = RequestMethod.GET)
+	@RequestMapping(value = "/validate", method = RequestMethod.GET, produces = "application/json")
 	public BasicOutputDto validate(
 			@RequestParam(required = false) String ticketDateValue,
 			@RequestParam(required = false) Long collectorId,

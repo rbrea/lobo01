@@ -64,9 +64,10 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="3" />
 	</bean>
+	
+	<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
 
 	<!-- jackson configuration : http://stackoverflow.com/questions/3661769 -->
-	<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
 	<bean id="jacksonSerializationConfig" class="com.fasterxml.jackson.databind.SerializationConfig"
 		factory-bean="jacksonObjectMapper" factory-method="getSerializationConfig" />
 
@@ -84,7 +85,7 @@
 		</property>
 	</bean>
 
-	<!-- <bean id="contentNegotiationManager"
+	<bean id="contentNegotiationManager"
 		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 		<property name="favorPathExtension" value="false" />
 		<property name="favorParameter" value="true" />
@@ -101,9 +102,9 @@
 				<entry key="xml" value="application/xml" />
 			</map>
 		</property>
-	</bean> -->
+	</bean>
 
-	<!-- <bean
+	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">
 			<list>
@@ -114,11 +115,12 @@
 		</property>
 		<property name="defaultViews">
 			<list>
-				<bean
-					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<bean class="com.icetea.manager.pagodiario.xls.bill.BillHistoryExcelView" />
 			</list>
 		</property>
-	</bean> -->
+	</bean>
+	
 
 	<bean
 		class="com.icetea.manager.pagodiario.configuration.LogbackConfiguration">
