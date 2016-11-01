@@ -18,7 +18,7 @@
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<junit.version>4.11</junit.version>
 		<spring.version>4.3.3.RELEASE</spring.version>
-		<jackson.version>2.3.2</jackson.version>
+		<jackson.version>2.8.4</jackson.version>
 		<despegar-fwk.version>1.4.148</despegar-fwk.version>
 		<tiles.jsp.version>2.2.2</tiles.jsp.version>
 		<jstl.version>1.2</jstl.version>
