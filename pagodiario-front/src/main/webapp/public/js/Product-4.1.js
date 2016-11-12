@@ -178,7 +178,7 @@ Product.showModal = function(id){
         		var price = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 					.parent().parent().find('td:eq(3)').html().trim();
         		var dailyInstallment = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
-					.parent().parent().find('td:eq(4)').html().trim();
+					.parent().parent().find('td:eq(5)').html().trim();
         		
         		var productType = $("#tProductResult").find('tr', 'tbody').find('td:eq(0)').children("img[id='imgCheck_" + id + "']")
 						.parent().parent().find('td:eq(8)').html().trim();
