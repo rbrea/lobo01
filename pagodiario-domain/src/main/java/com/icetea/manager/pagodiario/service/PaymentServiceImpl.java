@@ -20,6 +20,7 @@ import com.icetea.manager.pagodiario.dao.PaymentDao;
 import com.icetea.manager.pagodiario.exception.ErrorTypedConditions;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.model.Bill;
+import com.icetea.manager.pagodiario.model.Bill.Status;
 import com.icetea.manager.pagodiario.model.Collector;
 import com.icetea.manager.pagodiario.model.Payment;
 import com.icetea.manager.pagodiario.transformer.PaymentDtoModelTransformer;
@@ -170,6 +171,18 @@ public class PaymentServiceImpl
 		
 		return this.getTransformer().transformAllTo(this.getDao().find(billId, from, to));
 	}
+	
+	@Override
+	public List<PaymentDto> searchByCreditNumber(Long creditNumber, String paymentDate){
+		
+		ErrorTypedConditions.checkArgument(creditNumber != null, ErrorType.BILL_REQUIRED);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(paymentDate), ErrorType.VALIDATION_ERRORS);
+		
+		Date from = DateUtils.truncate(DateUtils.parseDate(paymentDate));
+		Date to = DateUtils.normalizeTo(from);
+		
+		return this.getTransformer().transformAllTo(this.getDao().findByCreditNumber(creditNumber, from, to));
+	}
 
 	@Override
 	public PaymentDto insert(PaymentDto o) {
@@ -205,7 +218,10 @@ public class PaymentServiceImpl
 				bill.setOverdueDays(overdueDays + bill.getOverdueDays());
 				bill.setOverdueDaysFlag(now);
 			}
-			
+			if(Status.isCanceled(bill.getStatus()) 
+					&& NumberUtils.isPositive(bill.getRemainingAmount())){
+				bill.setStatus(Status.ACTIVE);
+			}
 			
 			this.billDao.saveOrUpdate(bill);
 		}

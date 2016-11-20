@@ -201,4 +201,8 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
     	return amount.compareTo(BigDecimal.ZERO) < 0;
     }
     
+    public static boolean isPositive(BigDecimal amount){
+    	return !isNegative(amount) && !isZero(amount);
+    }
+    
 }

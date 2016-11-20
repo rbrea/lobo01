@@ -40,7 +40,7 @@
 		  		<div class="panel-body">
 		  			<form id="frmVoucher" action="${pageContext.request.contextPath}/controller/html/voucher/export" method="post">
 		  			<div class="row">
-		  				<div class="form-group col-md-2">
+		  				<div class="form-group col-md-3">
 		  					<div class="form-group">
 		  						<label for="voucherDateFromValue">Fecha de Cancelaci&oacute;n de Cr&eacute;dito</label>
 				                <div class='input-group date' id='voucherFromDate'>
@@ -51,7 +51,7 @@
 				                </div>
 				            </div>
 		  				</div>
-		  				<div class="form-group col-md-2">
+		  				<div class="form-group col-md-3">
 		  					<div class="form-group">
 		  						<label for="voucherDateToValue">&nbsp;</label>
 				                <div class='input-group date' id='voucherToDate'>
@@ -61,9 +61,6 @@
 				                    </span>
 				                </div>
 				            </div>
-		  				</div>
-		  				<div class="col-md-8">
-		  					&nbsp;
 		  				</div>
 		  			</div>
 		  			</form>

@@ -25,8 +25,6 @@ import com.icetea.manager.pagodiario.api.dto.PaymentResponseDto;
 import com.icetea.manager.pagodiario.exception.ErrorTypedException;
 import com.icetea.manager.pagodiario.service.BillService;
 import com.icetea.manager.pagodiario.service.PaymentService;
-import com.icetea.manager.pagodiario.service.PayrollCollectService;
-import com.icetea.manager.pagodiario.service.PayrollService;
 
 @Controller
 @RequestMapping(value = "/html/payment")
@@ -38,15 +36,10 @@ public class PaymentController extends ExceptionHandlingController {
 	protected Logger getOwnLogger() {
 		return LOGGER;
 	}
-	
 	@Inject
 	private PaymentService paymentService;
 	@Inject
 	private BillService billService;
-	@Inject
-	private PayrollCollectService payrollCollectService;
-	@Inject
-	private PayrollService payrollService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showForm(){
@@ -86,6 +79,22 @@ public class PaymentController extends ExceptionHandlingController {
 		return r;
 	}
 	
+	@RequestMapping(value = "/creditNumber", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<PaymentDto> getPaymentsByCreditNumber(
+			@RequestParam(required = false) Long creditNumber, 
+			@RequestParam(required = false) String paymentDate){
+		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
+
+		List<PaymentDto> payments = this.paymentService.searchByCreditNumber(creditNumber, paymentDate);
+		if(payments == null){
+			payments = Lists.newArrayList();
+		}
+		
+		r.setData(payments);
+		
+		return r;
+	}
+	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public @ResponseBody ListOutputDto<PaymentDto> addPayment(@RequestBody PaymentDto input){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
@@ -101,20 +110,19 @@ public class PaymentController extends ExceptionHandlingController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody BasicOutputDto deletePayment(@PathVariable Long id){
+	public @ResponseBody BillDto deletePayment(@PathVariable Long id){
 		BasicOutputDto r = new BasicOutputDto();
 
-//		boolean existsPayrollCollect = this.payrollCollectService.existsByPaymentId(id);
-//		boolean existsPayroll = this.payrollService.existsByPaymentId(id);
-//		
-//		ErrorTypedConditions.checkArgument(!existsPayrollCollect,
-//				String.format("No se puede borrar el pago id: %s, porque ya existe una liq de cobrador asociada.", id));
-//		ErrorTypedConditions.checkArgument(!existsPayroll,
-//				String.format("No se puede borrar el pago id: %s, porque ya existe una liq de vendedor asociada.", id));
-		
+		Long billId = null; 
+		PaymentDto payment = this.paymentService.searchById(id);
+		if(payment != null){
+			billId = payment.getBillId();
+		}
 		this.paymentService.remove(id);
-		
-		return r;
+
+		BillDto bill = this.billService.searchById(billId);
+			
+		return bill;
 	}
 	
 	@RequestMapping(value = "/payments", method = RequestMethod.GET)

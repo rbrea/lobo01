@@ -41,6 +41,18 @@ public class PaymentDaoImpl extends BasicIdentificableDaoImpl<Payment>
 		
 		return criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Payment> findByCreditNumber(Long creditNumber, Date paymentDateFrom, Date paymentDateTo){
+		
+		Criteria criteria = super.createCriteria();
+		criteria.createAlias("bill", "bill");
+		criteria.add(Restrictions.eq("bill.creditNumber", creditNumber));
+		criteria.add(Restrictions.between("date", paymentDateFrom, paymentDateTo));
+		
+		return criteria.list();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

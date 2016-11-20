@@ -41,6 +41,10 @@ public class Bill extends Identifiable {
 			return null;
 		}
 		
+		public static boolean isCanceled(Status status){
+			return status == CANCELED_DISCOUNT || status == CANCELED;
+		}
+		
 	}
 	
 	@ManyToOne

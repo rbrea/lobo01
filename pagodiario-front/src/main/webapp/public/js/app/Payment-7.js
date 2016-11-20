@@ -365,7 +365,6 @@ Payment.add = function(dialog){
 		
 		return false;
 	}
-	
 	var idxList = [];
 	var paymentRows = $("div[id*='paymentRow_']");
 	
@@ -377,10 +376,9 @@ Payment.add = function(dialog){
 		
 		return;
 	});
-	
-	
-	//var size = $("div[id*='paymentRow_']").length;
 	var list = [];
+	
+	var existsPayments = false;
 	
 	for(var i=0;i<idxList.length;i++){
 		var obj = new Object();
@@ -393,53 +391,84 @@ Payment.add = function(dialog){
 		obj.traderPayment = $("#traderPayment_" + idxList[i] + ":checked") != null && $("#traderPayment_" + idxList[i] + ":checked").length > 0;
 		
 		list.push(obj);
+		
+		$.ajax({ 
+			   type    : "GET",
+			   url     : Constants.contextRoot + "/controller/html/payment/creditNumber?creditNumber=" + obj.creditNumber + "&paymentDate=" + obj.date,
+			   dataType: 'json',
+			   contentType: "application/json;",
+			   async: false, 
+			   success:function(data) {
+				   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+				   if(data != null && data.status == 0){
+					   
+					   if(data.data.length > 0){
+						   
+						   var errorSpan = $("#paymentMessageError_" + obj.idx);
+						   errorSpan.html("<i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;Pago ya realizado");
+						   errorSpan.removeClass("hide");
+						   $("#paymentRow_" + obj.idx).children("div[class*='form-group']").addClass("has-error");
+						   existsPayments = true;
+					   }
+				   }
+				   
+				   return;
+			   }
+		});
+	}
+	var enabled = true;
+	if(existsPayments == true){
+		enabled = confirm("Existen facturas que ya tienen 1 o más pagos hechos para el dia seleccionado. Quiere continuar?");
 	}
 	
-	$.ajax({ 
-	   type    : "POST",
-	   url     : Constants.contextRoot + "/controller/html/payment/list",
-	   dataType: 'json',
-	   data: JSON.stringify(list),
-	   contentType: "application/json;",
-	   success:function(data) {
-		   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
-		   $("div[id*='paymentRow_']").children("div[class*='form-group']").removeClass("has-error");
-		   if(data != null && data.status == 0){
-			   
-			   var list = data.data;
-			   if(list != null && list.length > 0){
-				   for(var i=0;i<list.length;i++){
-					   var p = list[i];
-					   var errorMessage = p.errorMessage;
-					   if(errorMessage != null && errorMessage != ""){
-						   var errorSpan = $("#paymentMessageError_" + p.idx);
-						   errorSpan.html("<i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;" + errorMessage);
-						   errorSpan.removeClass("hide");
-						   $("#paymentRow_" + p.idx).children("div[class*='form-group']").addClass("has-error");
-					   } else {
-						   // si no tuvimos errores entonces reseteamos ...
-						   if(p.idx == 0){
-							   $("#creditNumber_0").val("");
-							   $("#paymentAmount_0").val("");
-							   $("#traderPayment_0").prop("checked", false);
-							   $("#totalToPay").val("0.00");
+	if(enabled){
+		$.ajax({ 
+		   type    : "POST",
+		   url     : Constants.contextRoot + "/controller/html/payment/list",
+		   dataType: 'json',
+		   data: JSON.stringify(list),
+		   contentType: "application/json;",
+		   success:function(data) {
+			   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+			   $("div[id*='paymentRow_']").children("div[class*='form-group']").removeClass("has-error");
+			   if(data != null && data.status == 0){
+				   
+				   var list = data.data;
+				   if(list != null && list.length > 0){
+					   for(var i=0;i<list.length;i++){
+						   var p = list[i];
+						   var errorMessage = p.errorMessage;
+						   if(errorMessage != null && errorMessage != ""){
+							   var errorSpan = $("#paymentMessageError_" + p.idx);
+							   errorSpan.html("<i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;" + errorMessage);
+							   errorSpan.removeClass("hide");
+							   $("#paymentRow_" + p.idx).children("div[class*='form-group']").addClass("has-error");
 						   } else {
-							   $("#paymentRow_" + p.idx).remove();
+							   // si no tuvimos errores entonces reseteamos ...
+							   if(p.idx == 0){
+								   $("#creditNumber_0").val("");
+								   $("#paymentAmount_0").val("");
+								   $("#traderPayment_0").prop("checked", false);
+								   $("#totalToPay").val("0.00");
+								   $("span[id*='paymentMessageError_']").addClass("hide");
+							   } else {
+								   $("#paymentRow_" + p.idx).remove();
+							   }
 						   }
 					   }
 				   }
-			   }
 
-		   }else{
-			   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.message);
+			   }else{
+				   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.message);
+			   }
+		   },
+		   error:function(data){
+			   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.responseJSON.message);
+			   
+			   return;
 		   }
-	   },
-	   error:function(data){
-		   Message.showMessages($('#paymentAlertMessages'), $("#paymentMessages"), data.responseJSON.message);
-		   
-		   return;
-	   }
-	});
+		});
+	}
 	dialog.close();
 
 	return;
@@ -624,8 +653,12 @@ Payment.remove = function(id, paymentDate){
 				   url     : Constants.contextRoot + url,
 				   success:function(data) {
 
-					   if(data.status == 0){
+					   if(data != null){
 						   $("#paymentRow_" + id).remove();
+						   if(data.status == "ACTIVE"){
+							   $("#status").html("ACTIVO");
+							   Bill.changeColorOnStatusContainer($("#status"), data.status);
+						   }
 					   } else {
 						   Message.showMessages($('#billDetailAlertMessages'), $("#billDetailMessages"), data.message);
 					   }
