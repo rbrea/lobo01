@@ -51,11 +51,17 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(companyAddress), 
 				String.format("El domicilio comercial del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
 
+		ErrorTypedConditions.checkArgument(input.getDocumentNumber() != null, "DNI es requerido");
+		
 		Client e = this.getDao().findByNameAndAddress(name, companyAddress);
 
 		ErrorTypedConditions.checkArgument(e == null, 
 				String.format("Cliente ya existe con nombre: %s y domicilio comercial: %s.", name, companyAddress),
 				ErrorType.VALIDATION_ERRORS);
+		
+		Client found = this.getDao().find(input.getDocumentNumber());
+		
+		ErrorTypedConditions.checkArgument(found == null, String.format("Cliente ya existe con dni: %s", input.getDocumentNumber()));
 		
 		e = new Client();
 		e.setAddress(input.getAddress());
@@ -94,6 +100,8 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(companyAddress), 
 				String.format("El domicilio comercial del Cliente es requerido"), ErrorType.VALIDATION_ERRORS);
 		
+		ErrorTypedConditions.checkArgument(d.getDocumentNumber() != null, "DNI es requerido");
+		
 		if(!StringUtils.equalsIgnoreCase(e.getName(), name)
 				|| !StringUtils.equalsIgnoreCase(e.getCompanyAddress(), companyAddress)){
 			
@@ -102,6 +110,11 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 					String.format("Cliente ya existe con nombre: %s y domicilio comercial: %s.", name, companyAddress),
 					ErrorType.VALIDATION_ERRORS);
 		}
+		// no lo valido pq esta grisado en pantalla ...
+//		if(!e.getDocumentNumber().equals(d.getDocumentNumber())){
+//			Client found = this.getDao().find(d.getDocumentNumber());
+//			ErrorTypedConditions.checkArgument(found == null, String.format("Cliente ya existe con dni: %s", d.getDocumentNumber()));
+//		}
 		
 		e.setAddress(d.getAddress());
 		e.setCity(d.getCity());

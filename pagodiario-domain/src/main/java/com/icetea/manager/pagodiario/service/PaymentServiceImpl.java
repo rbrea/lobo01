@@ -228,5 +228,22 @@ public class PaymentServiceImpl
 		
 		return super.remove(id);
 	}
+
+	@Override
+	public List<PaymentDto> search(String from, String to, Long collectorId, Long clientId){
+		
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(from), ErrorType.VALIDATION_ERRORS);
+		
+		Date f = DateUtils.truncate(DateUtils.parseDate(from));
+		Date t = null;
+		if(StringUtils.isNotBlank(to)){
+			t = DateUtils.normalizeTo(DateUtils.parseDate(to));
+		}
+		if(f.after(t)){
+			throw new RuntimeException("La fecha desde es posterior a la fecha hasta");
+		}
+		
+		return this.getTransformer().transformAllTo(this.getDao().find(f, t, collectorId, clientId));
+	}
 	
 }

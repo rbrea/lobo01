@@ -61,6 +61,11 @@
 	               			<i class="fa fa-calculator"></i>&nbsp;Consulta de Clientes
 	               		</a>
 	               	</li>
+	               	<li role="presentation" class="icon-circle">
+	               		<a id="optPaymentFilter" style="cursor:pointer;" role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/controller/html/payment/filter/index">
+	               			<i class="fa fa-cc-visa"></i>&nbsp;Consulta de Pagos
+	               		</a>
+	               	</li>
 	              </ul>
 	            </li>
 	            <li class="dropdown icon-circle">

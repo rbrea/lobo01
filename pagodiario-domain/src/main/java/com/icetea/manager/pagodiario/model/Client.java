@@ -4,10 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "client")
+@Table(name = "client", indexes = {@Index(columnList = "DOCUMENT_NUMBER", unique = true)})
 public class Client extends Person {
 
 	private static final long serialVersionUID = 1L;

@@ -72,5 +72,28 @@ public class PaymentDaoImpl extends BasicIdentificableDaoImpl<Payment>
 		
 		return criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Payment> find(Date paymentDateFrom, Date paymentDateTo, Long collectorId, Long clientId) {
+		Criteria criteria = super.createCriteria();
+		if(paymentDateFrom != null){
+			criteria.add(Restrictions.ge("date", paymentDateFrom));
+		}
+		if(paymentDateTo != null){
+			criteria.add(Restrictions.le("date", paymentDateTo));
+		}
+		if(collectorId != null){
+			criteria.createAlias("collector", "collector");
+			criteria.add(Restrictions.eq("collector.id", collectorId));
+		}
+		if(clientId != null){
+			criteria.createAlias("bill", "bill");
+			criteria.createAlias("bill.client", "client");
+			criteria.add(Restrictions.eq("client.id", clientId));
+		}
+		
+		return criteria.list();
+	}
 
 }

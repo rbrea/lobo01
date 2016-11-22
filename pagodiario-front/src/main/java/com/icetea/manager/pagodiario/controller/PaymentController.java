@@ -167,4 +167,29 @@ public class PaymentController extends ExceptionHandlingController {
 		return r;
 	}
 	
+	@RequestMapping(value = "/filter/index", method = RequestMethod.GET)
+	public String showPage(){
+		
+		return "payment-filter";
+	}
+	
+	@RequestMapping(value = "/filter", method = RequestMethod.GET)
+	public @ResponseBody ListOutputDto<PaymentDto> getPaymentsQuery(
+			@RequestParam(required = false) String from,
+			@RequestParam(required = false) String to,
+			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false) Long clientId){
+		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
+
+		List<PaymentDto> list = Lists.newArrayList();
+		
+		list = this.paymentService.search(from, to, collectorId, clientId);
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		r.setData(list);
+		
+		return r;
+	}
+	
 }

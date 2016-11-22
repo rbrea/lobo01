@@ -22,4 +22,6 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 
 	List<PaymentDto> searchByCreditNumber(Long creditNumber, String paymentDate);
 
+	List<PaymentDto> search(String from, String to, Long collectorId, Long clientId);
+
 }
