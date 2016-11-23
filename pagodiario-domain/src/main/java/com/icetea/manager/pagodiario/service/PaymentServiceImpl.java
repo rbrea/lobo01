@@ -232,14 +232,15 @@ public class PaymentServiceImpl
 	@Override
 	public List<PaymentDto> search(String from, String to, Long collectorId, Long clientId){
 		
-		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(from), ErrorType.VALIDATION_ERRORS);
+		ErrorTypedConditions.checkArgument(StringUtils.isNotBlank(from) || collectorId != null || clientId != null, 
+				"Alguno de los filtros es requerido");
 		
 		Date f = DateUtils.truncate(DateUtils.parseDate(from));
 		Date t = null;
 		if(StringUtils.isNotBlank(to)){
 			t = DateUtils.normalizeTo(DateUtils.parseDate(to));
 		}
-		if(f.after(t)){
+		if(f != null && t != null && f.after(t)){
 			throw new RuntimeException("La fecha desde es posterior a la fecha hasta");
 		}
 		

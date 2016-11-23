@@ -5,6 +5,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
 import com.icetea.manager.pagodiario.api.dto.BasicOutputDto;
@@ -175,21 +177,40 @@ public class PaymentController extends ExceptionHandlingController {
 	
 	@RequestMapping(value = "/filter", method = RequestMethod.GET)
 	public @ResponseBody ListOutputDto<PaymentDto> getPaymentsQuery(
-			@RequestParam(required = false) String from,
-			@RequestParam(required = false) String to,
+			@RequestParam(required = false) String dateFrom,
+			@RequestParam(required = false) String dateTo,
 			@RequestParam(required = false) Long collectorId,
 			@RequestParam(required = false) Long clientId){
 		ListOutputDto<PaymentDto> r = new ListOutputDto<PaymentDto>();
 
 		List<PaymentDto> list = Lists.newArrayList();
 		
-		list = this.paymentService.search(from, to, collectorId, clientId);
+		list = this.paymentService.search(dateFrom, dateTo, collectorId, clientId);
 		if(list == null){
 			list = Lists.newArrayList();
 		}
 		r.setData(list);
 		
 		return r;
+	}
+
+	@RequestMapping(value = "/export.xls", method = RequestMethod.POST)
+	public ModelAndView exportBillsXls(HttpServletResponse response,
+			@RequestParam(required = false, value="cfCollectorId") Long collectorId,
+			@RequestParam(required = false, value="cfDateFrom") String dateFrom,
+			@RequestParam(required = false, value="cfDateTo") String dateTo,
+			@RequestParam(required = false, value="cfClientId") Long clientId){
+		
+		List<PaymentDto> list = this.paymentService.search(dateFrom, dateTo, collectorId, clientId);
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		
+		String filename = "pagos_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+		
+		return new ModelAndView("paymentExcelView", "list", list);
 	}
 	
 }

@@ -7,11 +7,12 @@ public class PaymentDto extends BillInfoDto {
 	private Integer idx;
 	private String amount;
 	private String date;
-	private Long collectorId;
 	private Long creditNumber;
 	private boolean traderPayment;
 	private String clientName;
 	private String clientCompanyType;
+	private String collectorDescription;
+	private Long collectorZone;
 	
 	public String getAmount() {
 		return amount;
@@ -27,14 +28,6 @@ public class PaymentDto extends BillInfoDto {
 	
 	public void setDate(String date) {
 		this.date = date;
-	}
-	
-	public Long getCollectorId() {
-		return collectorId;
-	}
-	
-	public void setCollectorId(Long collectorId) {
-		this.collectorId = collectorId;
 	}
 	
 	public Long getCreditNumber() {
@@ -75,6 +68,22 @@ public class PaymentDto extends BillInfoDto {
 
 	public void setClientCompanyType(String clientCompanyType) {
 		this.clientCompanyType = clientCompanyType;
+	}
+
+	public String getCollectorDescription() {
+		return collectorDescription;
+	}
+
+	public void setCollectorDescription(String collectorDescription) {
+		this.collectorDescription = collectorDescription;
+	}
+
+	public Long getCollectorZone() {
+		return collectorZone;
+	}
+
+	public void setCollectorZone(Long collectorZone) {
+		this.collectorZone = collectorZone;
 	}
 
 }

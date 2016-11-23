@@ -22,18 +22,11 @@ PaymentFilter.init = function(){
 		$("#btnPaymentFilterSearch").on('click', function(){
 			
 			var collectorId = $("#paymentFilterCollectorId").val();
-			var status = $("#paymentFilterStatus").val();
 			var dateFrom = $("#paymentFilterDateFromValue").val();
 			var dateTo = $("#paymentFilterDateToValue").val();
-			var none = $("#cancelationOnDateNone:checked").length > 0;
-			var cancelationOnDate = $("#cancelationOnDate:checked").length > 0;
-			var cancelationBeforeMore = $("#cancelationBeforeMore:checked").length > 0;
-			if(none == true){
-				cancelationOnDate = null;
-				cancelationBeforeMore = null;
-			}
+			var clientId = $("#paymentFilterClientIdSelected").val();
 			
-			PaymentFilter.searchByFilter(collectorId, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
+			PaymentFilter.searchByFilter(collectorId, dateFrom, dateTo, clientId);
 			
 			return;
 		});
@@ -82,25 +75,6 @@ PaymentFilter.init = function(){
 					$("#paymentFilterStatus").focus();
 					return PaymentFilter.getCollectorByZone(value, $('#paymentFilterAlertMessages'), $("#paymentFilterMessages"));
 				}
-		    }
-		    
-		    return;
-		});
-		
-		$("#paymentFilterStatus").keyup(function(e){
-			if(e.keyCode == 13) {
-				$("#paymentFilterDateFrom").focus();			
-			}
-		    
-		    return;
-		});
-		
-		$('#paymentFilterStatus').keydown(function(e){
-			// 13: enter
-			// 9: tab
-		    if(e.keyCode == 9){
-		    	e.preventDefault();
-				$("#paymentFilterDateFrom").focus();			
 		    }
 		    
 		    return;
@@ -281,39 +255,55 @@ PaymentFilter.init = function(){
 				{ 	
 					"className": '',
 					"orderable": true,
-					"data": "name" 
+					"data": "id" 
 				},        
+				{ 
+	            	"className": 'centered',
+	            	"orderable": true,
+	            	"data": "creditNumber"
+	            },
 	            { 
 	            	"className": '',
-	            	"orderable": false,
-	            	"data": "companyAddress"
+	            	"orderable": true,
+	            	"data": "amount"
 	            },
 	            { 	
+	            	"className": 'centered',
+	            	"orderable": true,
+	            	"data": "date" 
+	            },
+	            { 
+	            	"className": 'centered',
+	            	"orderable": true,
+	            	"data": "collectorZone" 
+	            },
+	            { 
+	            	"className": 'centered',
+	            	"orderable": true,
+	            	"data": "collectorDescription" 
+	            },
+	            { 
+	            	"className": 'centered',
+	            	"orderable": true,
+	            	"render": function(data, type, row){
+	            		if(row.traderPayment == true){
+	            			return 'Si';
+	            		}
+	            		
+	            		return 'No';
+	            	}
+	            },
+	            { 
 	            	"className": '',
-	            	"orderable": false,
-	            	"data": "companyCity" 
-	            },
-	            { 
-	            	"className": 'centered',
-	            	"orderable": false,
-	            	"data": "companyPhone" 
-	            },
-	            { 
-	            	"className": 'centered',
 	            	"orderable": true,
-	            	"data": "documentNumber" 
-	            },
-	            { 
-	            	"className": 'centered',
-	            	"orderable": true,
-	            	"data": "companyType" 
+	            	"data": "clientName" 
 	            }
 	        ],
 	        "order": [[0, 'asc']],
 	        "language": {
 	            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
 	            "zeroRecords": "No se ha encontrado ningun elemento",
-	            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ clientes)</b>",
+	            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ Pagos)</b>",
 	            "infoEmpty": "No hay registros disponibles",
 	            "infoFiltered": /*"(filtrados de un total de _MAX_ registros)"*/"",
 	            "search": "Buscar: ",
@@ -328,47 +318,30 @@ PaymentFilter.init = function(){
 }
 
 PaymentFilter.exportToCsv = function(){
+	
+	var collectorId = $("#cfCollectorId").val();
+	var dateFrom = $("#cfDateFrom").val();
+	var clientId = $("#cfClientId").val();
+	
+	if((collectorId == null || collectorId == "") && (dateFrom == null || dateFrom == "") && (clientId == null || clientId == "")){
+		Message.showMessages($('#paymentFilterAlertMessages'), $("#paymentFilterMessages"), "Alguno de los filtros es requerido");
+		
+		return false;
+	}
 
 	$("#frmPaymentFilterExportCsv").submit();
 	
 	return;
 }
 
-PaymentFilter.searchByFilter = function(collectorId, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo){
+PaymentFilter.searchByFilter = function(collectorId, dateFrom, dateTo, clientId){
+	
+	Message.hideMessages($('#paymentFilterAlertMessages'), $("#paymentFilterMessages"));
 	
 	var urlQueryString = "";
 	if(collectorId != null && collectorId != ""){
 		urlQueryString = "?collectorId=" + collectorId;
 		$("#cfCollectorId").val(collectorId);
-	}
-	if(status != null && status != ""){
-		if(urlQueryString == ""){
-			urlQueryString = "?";
-		} else {
-			urlQueryString = urlQueryString + "&";
-		}
-		urlQueryString = urlQueryString + "status=" + status;
-		$("#cfStatus").val(status);
-	}
-	if(cancelationOnDate != null && cancelationOnDate != ""){
-		if(urlQueryString == ""){
-			urlQueryString = "?";
-		} else {
-			urlQueryString = urlQueryString + "&";
-		}
-		urlQueryString = urlQueryString + "cancelationOnDate=" + cancelationOnDate;
-			
-		$("#cfCancelationOnDate").val(cancelationOnDate);
-	}
-	if(cancelationBeforeMore != null && cancelationBeforeMore != ""){
-		if(urlQueryString == ""){
-			urlQueryString = "?";
-		} else {
-			urlQueryString = urlQueryString + "&";
-		}
-		urlQueryString = urlQueryString + "cancelationBeforeMore=" + cancelationBeforeMore;
-			
-		$("#cfCancelationBeforeMore").val(cancelationBeforeMore);
 	}
 	if(dateFrom != null && dateFrom != ""){
 		if(urlQueryString == ""){
@@ -388,10 +361,19 @@ PaymentFilter.searchByFilter = function(collectorId, status, cancelationOnDate, 
 		urlQueryString = urlQueryString + "dateTo=" + dateTo;
 		$("#cfDateTo").val(dateTo);
 	}
+	if(clientId != null && clientId != ""){
+		if(urlQueryString == ""){
+			urlQueryString = "?";
+		} else {
+			urlQueryString = urlQueryString + "&";
+		}
+		urlQueryString = urlQueryString + "clientId=" + clientId;
+		$("#cfClientId").val(clientId);
+	}
 	
 	$.ajax({ 
 	   type    : "GET",
-	   url     : Constants.contextRoot + "/controller/html/client/filter" + urlQueryString,
+	   url     : Constants.contextRoot + "/controller/html/payment/filter" + urlQueryString,
 	   dataType: 'json',
 	   contentType: "application/json;",
 	   success:function(data) {
@@ -418,9 +400,21 @@ PaymentFilter.searchByFilter = function(collectorId, status, cancelationOnDate, 
 				/*"bAutoWidth": false,*/
 				"bDestroy" : true,
 				responsive: true,
+				"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+					
+					var totalAmountAcum = 0;
+					
+					for ( var i=0 ; i<aaData.length ; i++ ){
+						totalAmountAcum += parseFloat(aaData[i].amount);
+					}
+					
+                    $("#totAmount").html("$ " + totalAmountAcum.toFixed(2));
+                    
+                    return;
+                },
 				"createdRow": function ( row, data, index ) {
 		    		
-		    		$(row).data('client_id', data.id);
+		    		$(row).data('rowid', data.id);
 		    		
 		    		return;
 		        },
@@ -429,39 +423,55 @@ PaymentFilter.searchByFilter = function(collectorId, status, cancelationOnDate, 
 					{ 	
 						"className": '',
 						"orderable": true,
-						"data": "name" 
-					},        
+						"data": "id" 
+					},
+					{ 
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"data": "creditNumber"
+		            },
 		            { 
-		            	"className": '',
-		            	"orderable": false,
-		            	"data": "companyAddress"
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"data": "amount"
 		            },
 		            { 	
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"data": "date" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"data": "collectorZone" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"data": "collectorDescription" 
+		            },
+		            { 
+		            	"className": 'centered',
+		            	"orderable": true,
+		            	"render": function(data, type, row){
+		            		if(row.traderPayment == true){
+		            			return 'Si';
+		            		}
+		            		
+		            		return 'No';
+		            	}
+		            },
+		            { 
 		            	"className": '',
-		            	"orderable": false,
-		            	"data": "companyCity" 
-		            },
-		            { 
-		            	"className": 'centered',
-		            	"orderable": false,
-		            	"data": "companyPhone" 
-		            },
-		            { 
-		            	"className": 'centered',
 		            	"orderable": true,
-		            	"data": "documentNumber" 
-		            },
-		            { 
-		            	"className": 'centered',
-		            	"orderable": true,
-		            	"data": "companyType" 
+		            	"data": "clientName" 
 		            }
 		        ],
-		        "order": [[0, 'asc']],
+		        "order": [[3, 'asc']],
 		        "language": {
 		            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
 		            "zeroRecords": "No se ha encontrado ningun elemento",
-		            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ clientes)</b>",
+		            "info": "P&aacute;gina _PAGE_ de _PAGES_ <b>(Total: _MAX_ Pagos)</b>",
 		            "infoEmpty": "No hay registros disponibles",
 		            "infoFiltered": /*"(filtrados de un total de _MAX_ registros)"*/"",
 		            "search": "Buscar: ",
@@ -553,9 +563,7 @@ PaymentFilter.showFilter = function(){
 PaymentFilter.resetFilter = function(enabled){
 
 	PaymentFilter.resetCollectorFilter(enabled);
-	PaymentFilter.resetStatus(enabled);
 	PaymentFilter.resetDates(enabled);
-	PaymentFilter.resetOptions(enabled);
 	
 	return;
 }
@@ -566,6 +574,7 @@ PaymentFilter.resetCollectorFilter = function(enabled){
 	if(enabled){
 		$("#paymentFilterCollectorZone").val("");
 		$("#cfCollectorId").val("");
+		$("#cfClientId").val("");
 	}
 	$("#paymentFilterCollectorDescription").val("");
 	
@@ -574,21 +583,11 @@ PaymentFilter.resetCollectorFilter = function(enabled){
 	$("#paymentFilterCollectorZone").parent().parent().removeClass("has-error");
 	$("#paymentFilterCollectorDescription").parent().parent().removeClass("has-error");
 	
-	$("#cfStatus").val("");
-	$("#cfCancelationOnDate").val("");
-	$("#cfCancelationBeforeMore").val("");
 	$("#cfDateFrom").val("");
 	$("#cfDateTo").val("");
 	
-	return;
-}
-
-PaymentFilter.resetStatus = function(enabled){
-	
-	$('#paymentFilterStatus option:contains("Todos")').prop('selected', true);
-	if(enabled){
-		$("#cfStatus").val("");
-	}
+	$("#paymentFilterClientIdSelected").val("");
+	$("#baddress").val("");
 	
 	return;
 }
@@ -608,7 +607,139 @@ PaymentFilter.resetDates = function(enabled){
 	return;
 }
 
-PaymentFilter.resetOptions = function(){
+$("#btnSearchPaymentFilterClient").on("click", function(){
+	
+	var lovClientContainer = $("#lov-client-container");
+	
+	$.ajax({ 
+	   type    : "GET",
+	   url     : Constants.contextRoot + "/controller/html/client",
+	   dataType: 'json',
+	   contentType: "application/json;",
+	   success:function(data) {
+			
+		   var tbody = $("#tLovClientResult tbody");
+		   
+		   tbody.children('tr').remove();
+		   
+		   Message.hideMessages($('#paymentFilterAlertMessages'), $("#paymentFilterMessages"));
+		   if(data != null && data.status == 0){
+
+			   var table = $("#tLovClientResult").dataTable( {
+			   		"data" : data.data,
+			   		"bDestroy" : true,
+			   		"pagingType": "simple", 
+			        "columns": [
+						{ 
+							"className": 'centered',
+							"data": "id" 
+						},
+						{ 
+							"className": 'centered',
+							"data": "name" 
+						},
+			            { 	
+			            	"className": 'centered',
+			            	"data": "companyAddress" 
+			            },
+			            { 	
+			            	"className": 'centered',
+			            	"data": "companyType" 
+			            },
+			            { 	
+			            	"className": 'centered',
+			            	"render": function ( data, type, row ) {
+			                    //return data +' ('+ row[3]+')';
+			            		var mark = "<i class=\"fa fa-square-o fa-4\"></i>";
+			            		if(row.reductionMark != null && row.reductionMark != ""){
+			            			mark = "<i class=\"fa fa-check-square-o fa-4\"></i>";
+			            		}
+			            		
+			                    return "<span id='reductionMark_'" + row.id + " style='font-weight:bold;'>" + mark + "</span>"; 
+			                }
+			            }
+			        ],
+			        "order": [[1, 'asc']],
+			        "language": {
+			            "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+			            "zeroRecords": "No se ha encontrado ningun elemento",
+			            "info": "P&aacute;gina _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay registros disponibles",
+			            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			            	"previous": "Anterior",
+							"next": "Siguiente"
+						}
+			        } 
+			   	});
+			   
+			   var tbodyLovClientResult = $('#tLovClientResult tbody');
+			   
+			   tbodyLovClientResult.on('mouseover', 'tr', function () {
+					$(this).css({"cursor": "pointer"});	
+					
+					return;
+				});
+				
+			   tbodyLovClientResult.on( 'click', 'tr', function () {
+				   
+				   var me = $(this);
+				   
+			       if ( me.hasClass('selected') ) {
+			    	   me.removeClass('selected');
+			       } else {
+			    	   table.$('tr.selected').removeClass('selected');
+			    	   me.addClass('selected');
+			    	   
+			    	   var selectedId = me.children('td').eq(0).html().trim();
+			    	   var selectedDescription = me.children('td').eq(1).html().trim();
+			    	   var address = me.children('td').eq(2).html().trim();
+			    	   var companyType = me.children('td').eq(3).html().trim();
+			    	   var reductionMark = me.children('td').eq(4).html().trim();
+			    	   
+			    	   var hasMark = $(reductionMark).children("i").hasClass("fa-check-square-o");
+			            
+			    	   var mark = "";
+			    	   if(hasMark){
+			    		   mark = " / B";
+			    	   }
+			    	   
+			    	   $("#paymentFilterClientIdSelected").val(selectedId);
+			    	   //$("#bClientId").val(selectedId);
+			    	   $("#baddress").val(selectedDescription + " / " + address + " / " + companyType + mark);
+			    	   lovClientContainer.css({"display": "none"});
+
+			    	   // si esta todo ok entonces doy de alta ...
+			    	   BootstrapDialog.closeAll();
+			       }
+			        
+			       return;
+			   });
+				
+				BootstrapDialog.show({
+					type:BootstrapDialog.TYPE_DANGER,
+					title: 'Clientes',
+					autodestroy: false,
+					draggable: true,
+			        message: function(dialog) {
+			        	
+			        	lovClientContainer.css({"display":"block"});
+			        	
+			        	return lovClientContainer;
+			        }
+			    });
+				
+			} else {
+				Message.showMessages($('#paymentFilterAlertMessages'), $("#paymentFilterMessages"), data.message);
+			}
+	   },
+	   error:function(data){
+		   Message.showMessages($('#paymentFilterAlertMessages'), $("#paymentFilterMessages"), data.responseJSON.message);
+		   
+		   return;
+	   }
+	});
 	
 	return;
-}
+});

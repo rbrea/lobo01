@@ -213,6 +213,7 @@
         <put-attribute name="body" value="/WEB-INF/pages/paymentFilter.jsp" />
         <put-list-attribute name="modals">
         	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-client.jsp" />
         </put-list-attribute>
     </definition>
                                 

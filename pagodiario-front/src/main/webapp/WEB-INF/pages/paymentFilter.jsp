@@ -17,7 +17,7 @@
 	        &nbsp;
 	    </div>
 	</div>
-	<form id="frmPaymentFilterExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/payment/export/csv">
+	<form id="frmPaymentFilterExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/payment/export.xls" enctype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 		<input type="hidden" id="cfCollectorId" name="cfCollectorId">
 		<input type="hidden" id="cfClientId" name="cfClientId">
 		<input type="hidden" id="cfDateFrom" name="cfDateFrom">
@@ -44,14 +44,14 @@
                     </div>
                     <div class="widget-icons pull-right">
                  		<a id="paymentFilterCollapseButton" class="wminimize" data-toggle="collapse" href="#payment-filter" 
-                 			 aria-expanded="true" aria-controls="customer-filter">
+                 			 aria-expanded="true" aria-controls="payment-filter">
                  			<i class="fa fa-chevron-up"></i>
                  		</a>&nbsp;&nbsp; 
                		</div>
 		  		</div>
 		  		<div class="panel-body">
 		  			<div class="container-fluid">
-		  				<div id="customer-filter" class="row">
+		  				<div id="payment-filter" class="row">
 		  					<div class="col-md-12">
 		  						<div class="container-fluid">
 		  							<div class="row">
@@ -73,6 +73,19 @@
 												</div>
 												<div class="help-block with-errors"></div>
 								            </div>		  					
+						  				</div>
+						  			</div>
+						  			<div class="row">
+						  				<div class="col-md-6">
+								  			<div id="paymentFilter-client-form-group" class="form-group">
+						  						<label for="baddress">Cliente</label>
+						  						<div class="input-group">
+						  							<input type="hidden" id="paymentFilterClientIdSelected" name="paymentFilterClientIdSelected">
+									                <input type="text" class="form-control" id="baddress" name="baddress" placeholder="Ingrese nombre de cliente">
+													<span id="btnSearchPaymentFilterClient" class="input-group-addon"><i class="glyphicon glyphicon-search lov"></i></span>		  						
+						  						</div>
+												<div id="paymentFilterClientErrorMessageDiv" class="help-block with-errors"></div>
+								            </div>
 						  				</div>
 						  			</div>
 						  			<div class="row">
@@ -134,27 +147,27 @@
 										<thead>
 								            <tr>
 								            	<th class="centered">Id</th>
+								            	<th class="centered">Nro. Crédito</th>
 								                <th class="centered">Monto</th>
 								                <th class="centered">Fecha</th>
-								                <th class="centered">Cobrador/Zona</th>
+								                <th class="centered">Zona</th>
+								                <th class="centered">Cobrador</th>
 								                <th class="centered">Pago Vend?</th>
 								                <th class="centered">Cliente</th>
 								            </tr>
 								        </thead>
-								        <!-- 
 								        <tfoot>
 									        <tr>
-									            <th style="text-align:right" colspan="5"><b>Totales:</b></th>
-									            <th id="totInstallment"></th>
-									            <th id="totImpTotal"></th>
-									            <th id="totSaldoRestante"></th>
+									            <th></th>
+									            <th><b>Total:</b></th>
+									            <th id="totAmount"></th>
+									            <th></th>
 									            <th></th>
 									            <th></th>
 									            <th></th>
 									            <th></th>
 									        </tr>
 									    </tfoot>
-									     -->
 									</table>							
 								</div>
 							</div>
@@ -177,6 +190,42 @@
 			var imgCheckUrl = "${pageContext.request.contextPath}/public/images/checkmark-outline_32x32.png";
 			
 			PaymentFilter.init();
+			
+			$("#baddress").autocomplete({
+			    paramName: 'q',
+			    serviceUrl: "${pageContext.request.contextPath}/controller/html/client/autocomplete",
+			    transformResult: function(response) {
+			    	
+			    	var list = [];
+			    	
+			    	var parsed = JSON.parse(response);
+
+			    	$.each(parsed, function(){
+			    		
+			    		var obj = new Object();
+			    		obj.data = "" + this.id;
+			    		
+			    		var mark = "";
+			    	   	if(this.reductionMark != null && this.reductionMark != ""){
+			    			mark = " / B";
+			    	   	}
+			    		
+			    		obj.value = this.name + " / " + this.address + " / " + this.companyType + mark;
+			    		list.push(obj);
+			    		
+			    		return;
+			    	});
+			    	
+			        return {
+			            suggestions: list 
+			        };
+			    },
+			    onSelect: function (suggestion) {
+			        $("#paymentFilterClientIdSelected").val(suggestion.data);
+			        
+			        return;
+			    }
+			});
 			
 			return;
 		}	
