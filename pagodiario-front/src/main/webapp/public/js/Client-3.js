@@ -631,3 +631,10 @@ Client.exportToPdf = function(){
 	
 	return;
 }
+
+Client.exportToXls = function(){
+
+	$("#frmClientExportXls").submit();
+	
+	return;
+}

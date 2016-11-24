@@ -21,6 +21,9 @@
 	</form>
 	<form id="frmProductExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/product/export/csv" enctype="multipart/form-data">
 	</form>
+	<form id="frmProductExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/product/export.xls" enctype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+		<input type="hidden" name="cfProductType" id="cfProductType" value="">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -38,8 +41,18 @@
                                     </a>
                                 </li>
                                 <li>
-                                	<a href="javascript:void(0);" onclick="javascript:Product.exportToCsv();">
-                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Exportar CSV
+                                	<a href="javascript:void(0);" onclick="javascript:Product.exportToXls('');">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Exportar Todos
+                                    </a>
+                                </li>
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Product.exportToXls('BLANCO');">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Exportar Blanco
+                                    </a>
+                                </li>
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Product.exportToXls('ELECTRODOMESTICO');">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Exportar Electrodoméstico
                                     </a>
                                 </li>
                             </ul>

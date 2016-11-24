@@ -448,3 +448,11 @@ Product.exportToCsv = function(){
 	
 	return;
 }
+
+Product.exportToXls = function(productType){
+	
+	$("#cfProductType").val(productType);
+	$("#frmProductExportXls").submit();
+	
+	return;
+}

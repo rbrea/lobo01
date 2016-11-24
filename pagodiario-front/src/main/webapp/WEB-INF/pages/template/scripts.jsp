@@ -40,11 +40,11 @@
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/public/DataTables-1.10.7/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/Client-2.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/Product-4.1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Client-3.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/Product-4.2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/Trader-3.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Bill-9.1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-9.1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Bill-9.2.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/BillHistory-9.2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Discount-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Bonus-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ProductReduction-1.js"></script>
@@ -60,7 +60,7 @@
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollCollect-4.1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Chart-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Voucher-2.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/CustomerFilter-1.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/CustomerFilter-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PaymentFilter-1.js"></script>
     
     <script src="${pageContext.request.contextPath}/public/js/load-image.all.min.js"></script>

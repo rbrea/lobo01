@@ -98,4 +98,15 @@ public class ProductServiceImpl extends
 		return this.getDao().delete(e);
 	}
 	
+	@Override
+	public List<ProductDto> search(String code, String description, String productType){
+		
+		ProductType pt = null;
+		if(StringUtils.isNotBlank(productType)){
+			pt = ProductType.valueOf(productType);
+		}
+		
+		return this.getTransformer().transformAllTo(this.getDao().find(code, description, pt));
+	}
+	
 }

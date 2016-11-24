@@ -17,7 +17,7 @@
 	        &nbsp;
 	    </div>
 	</div>
-	<form id="frmCustomerFilterExportCsv" method="POST" action="${pageContext.request.contextPath}/controller/html/client/export/csv">
+	<form id="frmCustomerFilterExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/client/filter/export.xls" enctype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 		<input type="hidden" id="cfCollectorId" name="cfCollectorId">
 		<input type="hidden" id="cfStatus" name="cfStatus">
 		<input type="hidden" id="cfCancelationOnDate" name="cfCancelationOnDate">
@@ -37,8 +37,8 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>
-                                	<a href="javascript:void(0);" onclick="javascript:CustomerFilter.exportToCsv();">
-                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Exportar
+                                	<a href="javascript:void(0);" onclick="javascript:CustomerFilter.exportToXls();">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Descargar
                                     </a>
                                 </li>
                             </ul>

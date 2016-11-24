@@ -36,7 +36,7 @@
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>
                                 	<a href="javascript:void(0);" onclick="javascript:PaymentFilter.exportToCsv();">
-                                    	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Exportar
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Descargar
                                     </a>
                                 </li>
                             </ul>

@@ -136,4 +136,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return (obj == null) ? EMPTY : obj.toString();
 	}
     
+    public static String nvl(Object value){
+    	return value == null ? StringUtils.EMPTY : value.toString();
+    }
+    
 }

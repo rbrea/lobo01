@@ -327,9 +327,9 @@ CustomerFilter.init = function(){
 	return;
 }
 
-CustomerFilter.exportToCsv = function(){
+CustomerFilter.exportToXls = function(){
 
-	$("#frmCustomerFilterExportCsv").submit();
+	$("#frmCustomerFilterExportXls").submit();
 	
 	return;
 }

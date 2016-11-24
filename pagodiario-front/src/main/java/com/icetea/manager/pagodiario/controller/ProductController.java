@@ -160,4 +160,21 @@ public class ProductController extends ExceptionHandlingController {
 	    return mav;
 	}
 	
+	@RequestMapping(value = "/export.xls", method = RequestMethod.POST)
+	public ModelAndView exportProductsXls(HttpServletResponse response,
+			@RequestParam(required = false, value="cfProductType") String productType){
+		
+		List<ProductDto> list = this.productService.search(null, null, productType);
+		
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		
+		String filename = "productos_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+		
+		return new ModelAndView("productExcelView", "list", list);
+	}
+	
 }

@@ -19,6 +19,8 @@
 	</div>
 	<form id="frmClientExportPdf" method="POST" action="${pageContext.request.contextPath}/controller/html/client/export/pdf">
 	</form>
+	<form id="frmClientExportXls" method="POST" action="${pageContext.request.contextPath}/controller/html/client/export.xls" enctype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+	</form>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -33,6 +35,11 @@
                                 <li>
                                 	<a href="javascript:void(0);" onclick="javascript:Client.exportToPdf();">
                                     	<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;Imprimir
+                                    </a>
+                                </li>
+                                <li>
+                                	<a href="javascript:void(0);" onclick="javascript:Client.exportToXls();">
+                                    	<i class="fa fa-download"></i>&nbsp;&nbsp;Descargar
                                     </a>
                                 </li>
                             </ul>

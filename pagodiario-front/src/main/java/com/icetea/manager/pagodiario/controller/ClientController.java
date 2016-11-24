@@ -209,5 +209,43 @@ public class ClientController extends ExceptionHandlingController {
 	 
 	    return mav;
 	}
+
+	@RequestMapping(value = "/export.xls", method = RequestMethod.POST)
+	public ModelAndView exportClientsXls(HttpServletResponse response){
+		
+		List<ClientDto> list = this.clientService.searchAll();
+		
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		
+		String filename = "clientes_abm_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+		
+		return new ModelAndView("clientExcelView", "list", list);
+	}
+
+	@RequestMapping(value = "/filter/export.xls", method = RequestMethod.POST)
+	public ModelAndView exportProductsXls(
+			@RequestParam(required = false, value="cfCollectorId") Long collectorId,
+			@RequestParam(required = false, value="cfStatus") String status,
+			@RequestParam(required = false, value="cfCancelationOnDate") Boolean cancelationOnDate,
+			@RequestParam(required = false, value="cfCancelationBeforeMore") Boolean cancelationBeforeMore,
+			@RequestParam(required = false, value="cfDateFrom") String dateFrom,
+			@RequestParam(required = false, value="cfDateTo") String dateTo,
+			HttpServletResponse response){
+		
+		List<ClientDto> list = this.clientService.filter(collectorId, null, null, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
+
+		if(list == null){
+			list = Lists.newArrayList();
+		}
+		String filename = "clientes_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + filename);
+		response.setContentType("application/msexcel");
+		
+		return new ModelAndView("clientExcelView", "list", list);
+	}
 	
 }
