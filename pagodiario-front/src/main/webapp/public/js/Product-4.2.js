@@ -8,6 +8,12 @@ Product.initDataTable = function(imgCheckUrl){
         //"processing": true,
         //"bServerSide": true,
         "ajax": Constants.contextRoot + "/controller/html/product",
+        "createdRow": function ( row, data, index ) {
+    		
+    		$(row).data('rowid', data.id);
+    		
+    		return;
+        },
         "columns": [
 			{
 				"className":      'centered',
@@ -117,7 +123,30 @@ Product.add = function(dialog, btn){
 		   if(data != null && data.status == 0){
 			   var table = $('#tProductResult').dataTable();
 
-			   table.api().ajax.url(Constants.contextRoot + "/controller/html/product").load();
+			   var product = data.data[0];
+			   
+			   if(id == null || id == ""){
+				   table.api().ajax.url(Constants.contextRoot + "/controller/html/product").load();
+			   } else {
+				   var trList = $("#tProductResult > tbody > tr");
+				   $.each(trList, function(){
+					   
+					   var rowId = $(this).data("rowid");
+					   if(rowId == id){
+						   var tdList = $(this).children("td");
+						   tdList.eq(2).html(product.description);
+						   tdList.eq(3).html(product.price);
+						   tdList.eq(4).html(product.priceWithDiscount);
+						   tdList.eq(5).html(product.dailyInstallment);
+						   tdList.eq(6).html(product.weekInstallment);
+						   tdList.eq(7).html(product.twoWeeksInstallment);
+						   tdList.eq(8).html(product.productTypeDescription);
+						   tdList.eq(9).html(product.stockCount);
+					   }
+					   
+					   return;
+				   });
+			   }
 			   
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);

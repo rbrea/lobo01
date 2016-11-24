@@ -7,7 +7,8 @@ Client.initDataTable = function(imgCheckUrl){
         "ajax": Constants.contextRoot + "/controller/html/client",
         "createdRow": function ( row, data, index ) {
     		
-    		$(row).data('email', data.email).data('phone', data.phone).data('address', data.address).data('city', data.city);
+        	$(row).data('rowid', data.id);
+    		$(row).data('email', data.email).data('phone', data.phone).data('address', data.address).data('city', data.city).data('near', data.nearStreets);
     		
     		return;
         },
@@ -23,12 +24,6 @@ Client.initDataTable = function(imgCheckUrl){
 			        return row.id + "<img id=\"imgCheck_" + row.id + "\" class=\"hide\" width=\"60%\" src=\"" + imgCheckUrl + "\">";
 			    }
 			},
-            /*{
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },*/
             { 	
             	"className": 'centered',
             	"data": "name" 
@@ -71,6 +66,11 @@ Client.initDataTable = function(imgCheckUrl){
             { 	
             	"className": 'centered',
             	"data": "city",
+            	"visible":false
+            },
+            { 	
+            	"className": 'centered',
+            	"data": "nearStreets",
             	"visible":false
             },
             { 	
@@ -168,7 +168,39 @@ Client.add = function(dialog, btn){
 		   if(data != null && data.status == 0){
 			   var table = $('#tClientResult').dataTable();
 			   
-			   table.api().ajax.url(Constants.contextRoot + "/controller/html/client").load();
+			   var client = data.data[0];
+			   
+			   if(id == null || id == ""){
+			   		table.api().ajax.url(Constants.contextRoot + "/controller/html/client").load();
+			   } else {
+				   var trList = $("#tClientResult > tbody > tr");
+				   $.each(trList, function(){
+					   
+					   var rowId = $(this).data("rowid");
+					   if(rowId == id){
+						   var tdList = $(this).children("td");
+						   tdList.eq(1).html(client.name);
+						   tdList.eq(3).html(client.companyPhone);
+						   tdList.eq(4).html(client.companyAddress);
+						   tdList.eq(5).html(client.companyCity);
+						   tdList.eq(6).html(client.companyType);
+						   
+						   
+						   $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+		        				.children("img[id='imgCheck_" + id + "']").parent().parent().data('email', client.email);
+						   $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+								.children("img[id='imgCheck_" + id + "']").parent().parent().data('phone', client.phone);
+						   $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+								.children("img[id='imgCheck_" + id + "']").parent().parent().data('address', client.address);
+						   $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+								.children("img[id='imgCheck_" + id + "']").parent().parent().data('city', client.city);
+						   $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+									.children("img[id='imgCheck_" + id + "']").parent().parent().data('near', client.nearStreets);
+					   }
+					   
+					   return;
+				   });
+			   }
 			   
 			   dialog.enableButtons(true);
 			   dialog.setClosable(true);
@@ -246,6 +278,9 @@ Client.showModal = function(id){
         		var city = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
 					.children("img[id='imgCheck_" + id + "']").parent().parent().data('city');
         		
+        		var nearStreets = $("#tClientResult").find('tr', 'tbody').find('td:eq(0)')
+						.children("img[id='imgCheck_" + id + "']").parent().parent().data('near');
+        		
  			    $("#name").val(name);
  			    $("#documentNumber").attr("readonly", true).val(documentNumber);
  			    $("#email").val(email);
@@ -256,6 +291,7 @@ Client.showModal = function(id){
  			    $("#phone").val(phone);
  			    $("#address").val(address);
  			    $("#city").val(city);
+ 			    $("#nearStreets").val(nearStreets);
         	}
         	
         	$("#modal-client-container").css({"display":"block"});

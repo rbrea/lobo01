@@ -78,6 +78,7 @@
 							                <th>Telefono Particular</th>
 							                <th>Domicilio Particular</th>
 							                <th>Ciudad Particular</th>
+							                <th>Entre Calles</th>
 							                <th>Tuvo Baja?</th>
 							                <th>Cancel&oacute;?</th>
 							                <th>Acciones</th>
