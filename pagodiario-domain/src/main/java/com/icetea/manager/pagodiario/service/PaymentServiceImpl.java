@@ -246,5 +246,31 @@ public class PaymentServiceImpl
 		
 		return this.getTransformer().transformAllTo(this.getDao().find(f, t, collectorId, clientId));
 	}
+
+	@Override
+	public List<PaymentDto> validate(List<PaymentDto> paymentList){
+		
+		List<PaymentDto> result = Lists.newArrayList();
+		if(paymentList == null){
+			return result;
+		}
+		
+		for (PaymentDto p : paymentList) {
+			Bill found = this.billDao.findByCreditNumber(p.getCreditNumber());
+			if(found != null && !found.getCollector().getId().equals(p.getCollectorId())){
+				result.add(p);
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean validate(Long creditNumber, Long collectorId){
+		
+		Bill found = this.billDao.findByCreditNumber(creditNumber);
+
+		return found != null && found.getCollector().getId().equals(collectorId);
+	}
 	
 }

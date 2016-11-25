@@ -83,7 +83,8 @@ public class DiscountServiceImpl extends
 		this.getDao().saveOrUpdate(e);
 		
 		bill.getDiscounts().add(e);
-		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
+		// [roher] segun flor, no deberia descontar del total factura, solo del remanente ...
+//		bill.setTotalAmount(NumberUtils.subtract(bill.getTotalAmount(), e.getAmount()));
 		bill.setRemainingAmount(NumberUtils.subtract(bill.getRemainingAmount(), e.getAmount()));
 		bill.setTotalDailyInstallment(newInstallmentAmount);
 

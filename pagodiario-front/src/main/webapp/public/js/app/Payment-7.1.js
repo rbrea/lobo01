@@ -379,6 +379,7 @@ Payment.add = function(dialog){
 	var list = [];
 	
 	var existsPayments = false;
+	var wrongCollector = false;
 	
 	for(var i=0;i<idxList.length;i++){
 		var obj = new Object();
@@ -415,13 +416,37 @@ Payment.add = function(dialog){
 				   return;
 			   }
 		});
+		$.ajax({ 
+			   type    : "GET",
+			   url     : Constants.contextRoot + "/controller/html/payment/validate?collectorId=" + obj.collectorId + "&creditNumber=" + obj.creditNumber,
+			   dataType: 'json',
+			   contentType: "application/json;",
+			   async: false, 
+			   success:function(data) {
+				   Message.hideMessages($('#paymentAlertMessages'), $("#paymentMessages"));
+				   if(data.status != 0){
+					   
+					   var errorSpan = $("#paymentMessageError_" + obj.idx);
+					   errorSpan.append("&nbsp;<i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;Cobrador Diferente");
+					   errorSpan.removeClass("hide");
+					   $("#paymentRow_" + obj.idx).children("div[class*='form-group']").addClass("has-error");
+					   wrongCollector = true;
+				   }
+				   
+				   return;
+			   }
+		});
 	}
 	var enabled = true;
 	if(existsPayments == true){
 		enabled = confirm("Existen facturas que ya tienen 1 o más pagos hechos para el dia seleccionado. Quiere continuar?");
 	}
+	var wrongEnabled = true;
+	if(wrongCollector == true){
+		wrongEnabled = confirm("Existen pagos con un cobrador distinto al de la factura seleccionada. Quiere continuar?");
+	}
 	
-	if(enabled){
+	if(enabled && wrongEnabled){
 		$.ajax({ 
 		   type    : "POST",
 		   url     : Constants.contextRoot + "/controller/html/payment/list",

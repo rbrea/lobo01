@@ -317,6 +317,15 @@ public class BillHistoryExcelView
     	style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
     	cell.setCellValue("Fecha Pago Total");
     	row.createCell(1).setCellValue(dto.getCompletedDate());
+    	row = sheet.createRow(counter.increment());
+    	cell = row.createCell(0);
+    	style = cell.getCellStyle();
+    	style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+    	style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+    	style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+    	style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+    	cell.setCellValue("Saldo Restante");
+    	row.createCell(1).setCellValue(dto.getRemainingAmount());
     }
 
     @Override

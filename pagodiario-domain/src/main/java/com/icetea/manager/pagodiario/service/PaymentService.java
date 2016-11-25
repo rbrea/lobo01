@@ -24,4 +24,8 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 
 	List<PaymentDto> search(String from, String to, Long collectorId, Long clientId);
 
+	List<PaymentDto> validate(List<PaymentDto> paymentList);
+
+	boolean validate(Long creditNumber, Long collectorId);
+
 }

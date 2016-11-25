@@ -52,7 +52,7 @@
     <script src="${pageContext.request.contextPath}/public/js/app/Payroll-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/PayrollDetail-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/ConciliationItem-1.js"></script>
-    <script src="${pageContext.request.contextPath}/public/js/app/Payment-7.js"></script>
+    <script src="${pageContext.request.contextPath}/public/js/app/Payment-7.1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Ticket-2.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/Permission-1.js"></script>
     <script src="${pageContext.request.contextPath}/public/js/app/User-3.js"></script>

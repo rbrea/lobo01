@@ -212,5 +212,18 @@ public class PaymentController extends ExceptionHandlingController {
 		
 		return new ModelAndView("paymentExcelView", "list", list);
 	}
+
+	@RequestMapping(value = "/validate", method = RequestMethod.GET)
+	public @ResponseBody BasicOutputDto validate(
+			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false) Long creditNumber){
+
+		boolean r = this.paymentService.validate(creditNumber, collectorId);
+		if(!r){
+			return new BasicOutputDto(-1);
+		}
+		
+		return new BasicOutputDto();
+	}
 	
 }
