@@ -342,14 +342,14 @@ public class BillDaoImpl extends BasicIdentificableDaoImpl<Bill>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Bill> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, Status status, Boolean cancelationOnDate,
+	public List<Bill> filter(Long collectorId, Boolean hasReductionMark, Boolean cancelationMark, Status status, Boolean cancelationOnDate,
 			Boolean cancelationBeforeMore, Date dateFrom, Date dateTo){
 		Criteria criteria = super.createCriteria();
 		criteria.createAlias("client", "client");
 		
-		if(zone != null){
+		if(collectorId != null){
 			criteria.createAlias("collector", "collector");
-			criteria.add(Restrictions.eq("collector.zone", zone));
+			criteria.add(Restrictions.eq("collector.id", collectorId));
 		}
 		if(hasReductionMark != null){
 			criteria.add(Restrictions.isNotNull("client.reductionMark"));

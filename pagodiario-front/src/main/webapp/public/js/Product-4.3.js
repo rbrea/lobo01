@@ -14,6 +14,21 @@ Product.initDataTable = function(imgCheckUrl){
     		
     		return;
         },
+        "fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+			
+			var totPrice = 0;
+			var totStock = 0;
+			
+			for ( var i=0 ; i<aaData.length ; i++ ){
+				totPrice += parseFloat(aaData[i].price);
+				totStock += parseInt(aaData[i].stockCount);
+			}
+			
+			$("#totPrice").html("$ " + totPrice.toFixed(2));
+            $("#totStock").html(totStock);
+            
+            return;
+        },
         "columns": [
 			{
 				"className":      'centered',

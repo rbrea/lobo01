@@ -4,6 +4,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -376,6 +378,13 @@ public class BillServiceImpl
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 	
 		List<Bill> bills = this.getDao().find(collectorZone, dateFrom, dateTo, dayOfWeek);
+		
+		Collections.sort(bills, new Comparator<Bill>() {
+			@Override
+			public int compare(Bill o1, Bill o2) {
+				return Integer.valueOf(o1.remainingDays()).compareTo(Integer.valueOf(o2.remainingDays()));
+			}
+		});
 		
 		return this.billTicketTransformer.transform(ticketDateValue, bills);
 	}

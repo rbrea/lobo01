@@ -266,11 +266,11 @@ public class PaymentServiceImpl
 	}
 	
 	@Override
-	public boolean validate(Long creditNumber, Long collectorId){
+	public boolean validate(Long creditNumber, Long zone){
 		
 		Bill found = this.billDao.findByCreditNumber(creditNumber);
 
-		return found != null && found.getCollector().getId().equals(collectorId);
+		return found != null && found.getCollector().getZone().equals(zone);
 	}
 	
 }

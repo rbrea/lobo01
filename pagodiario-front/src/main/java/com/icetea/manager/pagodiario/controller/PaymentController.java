@@ -215,10 +215,10 @@ public class PaymentController extends ExceptionHandlingController {
 
 	@RequestMapping(value = "/validate", method = RequestMethod.GET)
 	public @ResponseBody BasicOutputDto validate(
-			@RequestParam(required = false) Long collectorId,
+			@RequestParam(required = false, name = "collectorId") Long zone, // en realidad es la zona
 			@RequestParam(required = false) Long creditNumber){
 
-		boolean r = this.paymentService.validate(creditNumber, collectorId);
+		boolean r = this.paymentService.validate(creditNumber, zone);
 		if(!r){
 			return new BasicOutputDto(-1);
 		}

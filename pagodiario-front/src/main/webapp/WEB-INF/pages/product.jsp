@@ -93,7 +93,19 @@
 							                <th>Acciones</th>
 							            </tr>
 							        </thead>
-							 
+							 		<tfoot>
+								        <tr>
+								            <th style="text-align:right" colspan="3"><b>Totales:</b></th>
+								            <th id="totPrice"></th>
+								            <th></th>
+								            <th></th>
+								            <th></th>
+								            <th></th>
+								            <th></th>
+								            <th id="totStock"></th>
+								            <th></th>
+								        </tr>
+									</tfoot>
 								</table>							
 							</div>
 						</div>

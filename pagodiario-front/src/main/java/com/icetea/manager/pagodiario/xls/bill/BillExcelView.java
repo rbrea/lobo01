@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.xls.bill;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 import com.icetea.manager.pagodiario.api.dto.BillDto;
 import com.icetea.manager.pagodiario.utils.Counter;
 import com.icetea.manager.pagodiario.utils.DateUtils;
+import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
 public class BillExcelView extends AbstractXlsxView {
@@ -36,11 +38,16 @@ public class BillExcelView extends AbstractXlsxView {
         this.setHeaderRow(sheet, counter);
         
         List<BillDto> list = (List<BillDto>) model.get("list");
-        
+        BigDecimal totDaily = BigDecimal.ZERO; 
+        BigDecimal totAmount = BigDecimal.ZERO;
+        BigDecimal totRemaining = BigDecimal.ZERO;
         for(BillDto bill : list){
+        	totDaily = NumberUtils.add(totDaily, bill.getTotalDailyInstallment());
+        	totAmount = NumberUtils.add(totAmount, bill.getTotalAmount());
+        	totRemaining = NumberUtils.add(totRemaining, bill.getRemainingAmount());
         	this.setRow(sheet, counter, bill);
         }
-        
+        this.setTotalRow(sheet, counter, totDaily, totAmount, totRemaining);
 	}
 	
 	protected void setRow(Sheet sheet, Counter counter, BillDto bill){
@@ -117,6 +124,38 @@ public class BillExcelView extends AbstractXlsxView {
     	Row row = sheet.createRow(counter.increment());
     	Cell cell = row.createCell(0);
 		cell.setCellValue("FECHA: " + DateUtils.currentDate());
+    }
+	
+	protected void setTotalRow(Sheet sheet, Counter counter, BigDecimal totDaily, BigDecimal totAmount, BigDecimal totRemaining){
+		Row row = sheet.createRow(counter.increment());
+    	Cell cell = row.createCell(0);
+		cell.setCellValue("");
+		cell = row.createCell(1);
+		cell.setCellValue("");
+		cell = row.createCell(2);
+		cell.setCellValue("");
+		cell = row.createCell(3);
+		cell.setCellValue("");
+		cell = row.createCell(4);
+		cell.setCellValue("TOTALES: ");
+		cell = row.createCell(5);
+		cell.setCellValue(NumberUtils.toString(totDaily));
+		cell = row.createCell(6);
+		cell.setCellValue(NumberUtils.toString(totAmount));
+		cell = row.createCell(7);
+		cell.setCellValue(NumberUtils.toString(totRemaining));
+		cell = row.createCell(8);
+		cell.setCellValue("");
+		cell = row.createCell(9);
+		cell.setCellValue("");
+		cell = row.createCell(10);
+		cell.setCellValue("");
+		cell = row.createCell(11);
+		cell.setCellValue("");
+		cell = row.createCell(12);
+		cell.setCellValue("");
+		cell = row.createCell(13);
+		cell.setCellValue("");
     }
 	
 }

@@ -157,7 +157,7 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 	}
 
 	@Override
-	public List<ClientDto> filter(Long zone, Boolean hasReductionMark, Boolean cancelationMark, String statusArg, Boolean cancelationOnDate,
+	public List<ClientDto> filter(Long collectorId, Boolean hasReductionMark, Boolean cancelationMark, String statusArg, Boolean cancelationOnDate,
 			Boolean cancelationBeforeMore, String dateFromArg, String dateToArg){
 		
 		Status status = null;
@@ -172,7 +172,7 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 			ErrorTypedConditions.checkArgument(dateFrom.before(dateTo), "La 'Fecha Inicio Desde' debe ser anterior a la 'Fecha Inicio Hasta'");
 		}
 		
-		List<Bill> billsTemp = this.billDao.filter(zone, hasReductionMark, cancelationMark, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
+		List<Bill> billsTemp = this.billDao.filter(collectorId, hasReductionMark, cancelationMark, status, cancelationOnDate, cancelationBeforeMore, dateFrom, dateTo);
 		List<Bill> bills = Lists.newArrayList();
 		
 		if(BooleanUtils.isTrue(cancelationBeforeMore)){

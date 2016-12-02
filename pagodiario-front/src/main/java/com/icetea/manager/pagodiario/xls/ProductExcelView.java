@@ -1,5 +1,6 @@
 package com.icetea.manager.pagodiario.xls;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsView;
 import com.icetea.manager.pagodiario.api.dto.ProductDto;
 import com.icetea.manager.pagodiario.utils.Counter;
 import com.icetea.manager.pagodiario.utils.DateUtils;
+import com.icetea.manager.pagodiario.utils.NumberUtils;
 
 @Named
 public class ProductExcelView extends AbstractXlsView {
@@ -36,9 +38,15 @@ public class ProductExcelView extends AbstractXlsView {
         
         List<ProductDto> list = (List<ProductDto>) model.get("list");
         
+        BigDecimal totPrice = BigDecimal.ZERO;
+        int totStock = 0;
+        
         for(ProductDto payment : list){
+        	totPrice = NumberUtils.add(totPrice, payment.getPrice());
+        	totStock += payment.getStockCount();
         	this.setRow(sheet, counter, payment);
         }
+        this.setTotalRow(sheet, counter, totPrice, totStock);
 	}
 	
 	protected void setRow(Sheet sheet, Counter counter, ProductDto dto){
@@ -94,6 +102,28 @@ public class ProductExcelView extends AbstractXlsView {
     	Row row = sheet.createRow(counter.increment());
     	Cell cell = row.createCell(0);
 		cell.setCellValue("FECHA: " + DateUtils.currentDate());
+    }
+	
+	protected void setTotalRow(Sheet sheet, Counter counter, BigDecimal price, int totStock){
+    	Row row = sheet.createRow(counter.increment());
+    	Cell cell = row.createCell(0);
+		cell.setCellValue("TOTALES");
+		cell = row.createCell(1);
+		cell.setCellValue("");
+		cell = row.createCell(2);
+		cell.setCellValue(NumberUtils.toString(price));
+		cell = row.createCell(3);
+		cell.setCellValue("");
+		cell = row.createCell(4);
+		cell.setCellValue("");
+		cell = row.createCell(5);
+		cell.setCellValue("");
+		cell = row.createCell(6);
+		cell.setCellValue("");
+		cell = row.createCell(7);
+		cell.setCellValue("");
+		cell = row.createCell(8);
+		cell.setCellValue(totStock);
     }
 
 }

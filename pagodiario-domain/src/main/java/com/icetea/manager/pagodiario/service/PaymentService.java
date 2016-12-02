@@ -26,6 +26,6 @@ public interface PaymentService extends BasicIdentifiableService<Payment, Paymen
 
 	List<PaymentDto> validate(List<PaymentDto> paymentList);
 
-	boolean validate(Long creditNumber, Long collectorId);
+	boolean validate(Long creditNumber, Long zone);
 
 }
