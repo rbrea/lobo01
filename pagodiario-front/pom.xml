@@ -153,6 +153,7 @@
 							<enableNaming>false</enableNaming>
 							<finalName>pagodiario.jar</finalName>
 							<charset>utf-8</charset>
+							<port>9090</port>
 						</configuration>
 					</execution>
 				</executions>
