@@ -99,7 +99,7 @@ public class BillTicketTransformer {
 			p.setTraderName(traderName);
 			p.setTraderPhone(bill.getTrader().getPhone());
 		}
-		p.setRemainingDays("DR: " + String.valueOf(bill.remainingDays()));
+		p.setRemainingDays("DiasRest: " + String.valueOf(bill.remainingDays()));
 		if(bill.getCollector() != null){
 			p.setZone(String.valueOf(bill.getCollector().getZone()));
 		}
