@@ -3,11 +3,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+<!--  
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:conf/env/environment.properties</value>
+		</property>
+	</bean>
+-->
+
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:conf/env/environment.properties</value>
+				<value>classpath:environment.properties</value>
+				<!--<value>file:${ENV_DIR}/environment.properties</value>-->
 			</list>
 		</property>
 

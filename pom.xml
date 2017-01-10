@@ -472,5 +472,17 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<environment>prod</environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>cloud</id>
+			<properties>
+				<environment>cloud</environment>
+			</properties>
+		</profile>
 	</profiles>
 </project>
