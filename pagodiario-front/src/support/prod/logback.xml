@@ -26,10 +26,10 @@
 
 	<appender name="TIME_BASED_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${USER_HOME}/log-sgpd.log</file>
+		<file>C:/logs/log-sgpd.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>c:/logs/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.log
+			<fileNamePattern>C:/logs/log-sgpd.%d{yyyy-MM-dd-HH-mm}.log
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
