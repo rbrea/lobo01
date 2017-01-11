@@ -32,7 +32,7 @@ Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
  let-2.2.2.jar tiles-core-2.2.2.jar tiles-api-2.2.2.jar tiles-template
  -2.2.2.jar spring-webmvc-4.3.3.RELEASE.jar spring-web-4.3.3.RELEASE.j
  ar jstl-1.2.jar jackson-mapper-asl-1.9.13.jar commons-io-1.3.2.jar co
- mmons-fileupload-1.2.1.jar swagger-springmvc-0.8.5.jar swagger-core_2
+ mmons-fileupload-1.3.2.jar swagger-springmvc-0.8.5.jar swagger-core_2
  .10-1.3.5.jar jackson-module-scala_2.10-2.1.5.jar scala-library-2.10.
  0.jar paranamer-2.3.jar scala-reflect-2.10.0.jar jackson-module-jsonS
  chema-2.1.0.jar jackson-jaxrs-json-provider-2.0.0.jar jackson-module-
