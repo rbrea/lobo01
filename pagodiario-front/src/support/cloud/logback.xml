@@ -26,10 +26,10 @@
 
 	<appender name="TIME_BASED_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>~/workspace/icetea/pagodiario/logs/log-sgpd.log</file>
+		<file>/home/roher/workspace/icetea/pagodiario/logs/log-sgpd.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>~/workspace/icetea/pagodiario/logs/log-sgpd.%d{yyyy-MM-dd-HH-mm}.log
+			<fileNamePattern>/home/roher/workspace/icetea/pagodiario/logs/log-sgpd.%d{yyyy-MM-dd-HH-mm}.log
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
