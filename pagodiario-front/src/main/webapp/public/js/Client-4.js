@@ -180,6 +180,7 @@ Client.add = function(dialog, btn){
 					   if(rowId == id){
 						   var tdList = $(this).children("td");
 						   tdList.eq(1).html(client.name);
+						   tdList.eq(2).html(client.documentNumber);
 						   tdList.eq(3).html(client.companyPhone);
 						   tdList.eq(4).html(client.companyAddress);
 						   tdList.eq(5).html(client.companyCity);
@@ -282,7 +283,7 @@ Client.showModal = function(id){
 						.children("img[id='imgCheck_" + id + "']").parent().parent().data('near');
         		
  			    $("#name").val(name);
- 			    $("#documentNumber").attr("readonly", true).val(documentNumber);
+ 			    $("#documentNumber").val(documentNumber);
  			    $("#email").val(email);
  			    $("#companyPhone").val(companyPhone);
  			    $("#companyAddress").val(companyAddress);

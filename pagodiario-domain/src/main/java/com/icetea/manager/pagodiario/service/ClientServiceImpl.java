@@ -111,10 +111,10 @@ public class ClientServiceImpl extends BasicIdentifiableServiceImpl<Client, Clie
 					ErrorType.VALIDATION_ERRORS);
 		}
 		// no lo valido pq esta grisado en pantalla ...
-//		if(!e.getDocumentNumber().equals(d.getDocumentNumber())){
-//			Client found = this.getDao().find(d.getDocumentNumber());
-//			ErrorTypedConditions.checkArgument(found == null, String.format("Cliente ya existe con dni: %s", d.getDocumentNumber()));
-//		}
+		if(e.getDocumentNumber() == null || !e.getDocumentNumber().equals(d.getDocumentNumber())){
+			Client found = this.getDao().find(d.getDocumentNumber());
+			ErrorTypedConditions.checkArgument(found == null, String.format("Cliente ya existe con dni: %s", d.getDocumentNumber()));
+		}
 		
 		e.setAddress(d.getAddress());
 		e.setCity(d.getCity());
