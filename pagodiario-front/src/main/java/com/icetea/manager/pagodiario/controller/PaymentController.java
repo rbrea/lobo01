@@ -113,7 +113,6 @@ public class PaymentController extends ExceptionHandlingController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody BillDto deletePayment(@PathVariable Long id){
-		BasicOutputDto r = new BasicOutputDto();
 
 		Long billId = null; 
 		PaymentDto payment = this.paymentService.searchById(id);

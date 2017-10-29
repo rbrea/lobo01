@@ -17,4 +17,7 @@ java -DENV_DIR=. -jar pagodiario.jar
 
 set JAVA_OPTS=%JAVA_OPTS% -DMyLocation=d:\somewhere\some.properties
 
+# DEV ENVIRONMENT
+http://localhost:8080/pagodiario-front/controller/html/payment/filter/index
+
 
