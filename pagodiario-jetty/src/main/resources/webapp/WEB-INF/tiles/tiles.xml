@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<!-- Default Main Template -->
+    <definition name="mainTemplate" template="/WEB-INF/pages/template/mainTemplate.jsp">
+        <put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
+    </definition>
+    <definition name="loginTemplate" template="/WEB-INF/pages/template/loginTemplate.jsp" />
+    <definition name="lovTemplate" template="/WEB-INF/pages/template/lovTemplate.jsp" />
+    <definition name="mainModalTemplate" template="/WEB-INF/pages/template/mainModalTemplate.jsp">
+    	<put-attribute name="head" value="/WEB-INF/pages/template/head.jsp">
+    		
+    	</put-attribute>
+    	<put-attribute name="scripts" value="/WEB-INF/pages/template/scripts.jsp" />
+    	<put-attribute name="navbar" value="/WEB-INF/pages/template/navbar.jsp" />
+    </definition>
+    
+	<!-- login -->
+	<definition name="login" extends="loginTemplate">
+    	<put-attribute name="title" value="Login Sistema de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    
+	<!-- PLain Views -->    
+    <definition name="index" extends="mainTemplate">
+    	<put-attribute name="title" value="Sistema de Pago Diario" />
+        <put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
+    </definition>
+    
+    <definition name="user" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Usuarios" />
+        <put-attribute name="body" value="/WEB-INF/pages/user.jsp" />
+        <put-list-attribute name="modals">
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="client" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Clientes" />
+        <put-attribute name="body" value="/WEB-INF/pages/client.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-client.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="product" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Productos" />
+        <put-attribute name="body" value="/WEB-INF/pages/product.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="trader" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Vendedores/Supervisores" />
+        <put-attribute name="body" value="/WEB-INF/pages/trader.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
+    	</put-list-attribute>
+    </definition>
+	
+	<!-- lov -->
+	<definition name="lovTrader" extends="lovTemplate">
+    	<put-attribute name="title" value="Lista de Valores de Vendedores" />
+        <put-attribute name="body" value="/WEB-INF/pages/lovTrader.jsp" />
+    </definition>
+    
+    <definition name="bill" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Cargar Factura" />
+        <put-attribute name="body" value="/WEB-INF/pages/bill.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-trader.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-product.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/lov/lov-client.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/lov/lov-product.jsp" />
+	    	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="bill-history" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Historial de Factura" />
+        <put-attribute name="body" value="/WEB-INF/pages/bill-history.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-payment.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-discount.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-bonus.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-reduction.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-dev.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-product.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-payment.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-discount.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-bonus.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-productReduction.jsp" />
+        	<add-attribute value="/WEB-INF/pages/modal/modal-dev.jsp" />
+        </put-list-attribute>
+    </definition>
+
+	<definition name="payroll" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones" />
+        <put-attribute name="body" value="/WEB-INF/pages/payroll.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="payrollDetail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones - detalle" />
+        <put-attribute name="body" value="/WEB-INF/pages/payroll-detail.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="payrollSupervisorDetail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones Supervisor - detalle" />
+        <put-attribute name="body" value="/WEB-INF/pages/payroll-supervisor-detail.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="conciliationItem" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones - detalle por Vendedor" />
+        <put-attribute name="body" value="/WEB-INF/pages/conciliationItem.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="supervisorConciliationItem" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones - detalle por Vendedor" />
+        <put-attribute name="body" value="/WEB-INF/pages/supervisorConciliationItem.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+
+	<definition name="payment" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Pagos" />
+        <put-attribute name="body" value="/WEB-INF/pages/payment.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+    	</put-list-attribute>
+    </definition>
+
+	<definition name="bill-detail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Credito" />
+        <put-attribute name="body" value="/WEB-INF/pages/billDetail.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/modal/modal-payday.jsp" />
+    	</put-list-attribute>
+    </definition>
+
+	<definition name="ticket" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Generar tickets de cobro" />
+        <put-attribute name="body" value="/WEB-INF/pages/ticket.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="collector" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - ABM de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/collector.jsp" />
+        <put-list-attribute name="modals">
+	    	<add-attribute value="/WEB-INF/pages/modal/modal-collector.jsp" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="payrollCollect" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/payrollCollect.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="payrollCollectItem" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Liquidación de comisiones de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/payrollCollectItem.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="dashboard" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Tablero de control" />
+        <put-attribute name="body" value="/WEB-INF/pages/dashboard.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="voucher" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Tablero de control" />
+        <put-attribute name="body" value="/WEB-INF/pages/voucher.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+
+	<definition name="collector-detail" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Detalle de Cobradores" />
+        <put-attribute name="body" value="/WEB-INF/pages/collectorDetail.jsp" />
+        <put-list-attribute name="modals">
+    	</put-list-attribute>
+    </definition>
+
+	<definition name="customer-filter" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Consulta de Clientes" />
+        <put-attribute name="body" value="/WEB-INF/pages/customerFilter.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="payment-filter" extends="mainModalTemplate">
+    	<put-attribute name="title" value="Sistema de Gestión de Pago Diario - Consulta de Pagos" />
+        <put-attribute name="body" value="/WEB-INF/pages/paymentFilter.jsp" />
+        <put-list-attribute name="modals">
+        	<add-attribute value="/WEB-INF/pages/lov/lov-collector.jsp" />
+        	<add-attribute value="/WEB-INF/pages/lov/lov-client.jsp" />
+        </put-list-attribute>
+    </definition>
+                                
+</tiles-definitions>

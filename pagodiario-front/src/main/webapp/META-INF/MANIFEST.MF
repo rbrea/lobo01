@@ -15,31 +15,31 @@ Class-Path: pagodiario-domain.jar pagodiario-api.jar spring-context-4.
  jar hibernate-entitymanager-4.3.6.Final.jar mysql-connector-java-5.1.
  26.jar h2-1.3.174.jar aspectjrt-1.5.4.jar aspectjweaver-1.6.6.jar jav
  ax.inject-1.jar mail-1.4.7.jar activation-1.1.jar jcsv-1.4.0.jar logb
- ack-classic-1.1.1.jar logback-core-1.1.1.jar slf4j-api-1.7.6.jar jcl-
- over-slf4j-1.7.6.jar jasypt-1.9.2.jar jasperreports-6.1.0.jar commons
- -beanutils-1.9.0.jar commons-collections-3.2.1.jar commons-digester-2
- .1.jar jcommon-1.0.15.jar jfreechart-1.0.12.jar ecj-4.3.1.jar castor-
- xml-1.3.3.jar castor-core-1.3.3.jar commons-lang-2.4.jar stax-1.2.0.j
- ar stax-api-1.0.1.jar stax-api-1.0-2.jar lucene-core-4.5.1.jar lucene
- -analyzers-common-4.5.1.jar lucene-queryparser-4.5.1.jar lucene-queri
- es-4.5.1.jar lucene-sandbox-4.5.1.jar jakarta-regexp-1.4.jar olap4j-0
- .9.7.309-JS-3.jar core-2.3.0.jar itext-2.1.7.jar bcmail-jdk14-138.jar
-  bcprov-jdk14-138.jar bctsp-jdk14-1.38.jar bcprov-jdk14-1.38.jar bcma
- il-jdk14-1.38.jar HikariCP-2.4.1.jar commons-csv-1.4.jar super-csv-2.
- 4.0.jar poi-3.10.1.jar commons-codec-1.5.jar poi-ooxml-3.10.1.jar poi
- -ooxml-schemas-3.10.1.jar xmlbeans-2.6.0.jar spring-context-support-4
- .3.3.RELEASE.jar freemarker-2.3.15.jar tiles-jsp-2.2.2.jar tiles-serv
- let-2.2.2.jar tiles-core-2.2.2.jar tiles-api-2.2.2.jar tiles-template
- -2.2.2.jar spring-webmvc-4.3.3.RELEASE.jar spring-web-4.3.3.RELEASE.j
- ar jstl-1.2.jar jackson-mapper-asl-1.9.13.jar commons-io-1.3.2.jar co
- mmons-fileupload-1.2.1.jar swagger-springmvc-0.8.5.jar swagger-core_2
- .10-1.3.5.jar jackson-module-scala_2.10-2.1.5.jar scala-library-2.10.
- 0.jar paranamer-2.3.jar scala-reflect-2.10.0.jar jackson-module-jsonS
- chema-2.1.0.jar jackson-jaxrs-json-provider-2.0.0.jar jackson-module-
- jaxb-annotations-2.0.0.jar jsr311-api-1.1.1.jar swagger-annotations-1
- .3.5.jar json4s-ext_2.10-3.2.5.jar joda-time-2.1.jar joda-convert-1.2
- .jar json4s-native_2.10-3.2.5.jar json4s-core_2.10-3.2.5.jar json4s-a
- st_2.10-3.2.5.jar scalap-2.10.0.jar scala-compiler-2.10.0.jar json4s-
- jackson_2.10-3.2.5.jar cglib-2.2.jar asm-3.1.jar swagger-models-0.8.5
- .jar classmate-1.0.0.jar jasperreports-fonts-6.0.0.jar
+ ack-classic-1.1.1.jar logback-core-1.1.1.jar slf4j-api-1.7.25.jar jcl
+ -over-slf4j-1.7.6.jar jasypt-1.9.2.jar jasperreports-6.1.0.jar common
+ s-beanutils-1.9.0.jar commons-collections-3.2.1.jar commons-digester-
+ 2.1.jar jcommon-1.0.15.jar jfreechart-1.0.12.jar ecj-4.3.1.jar castor
+ -xml-1.3.3.jar castor-core-1.3.3.jar commons-lang-2.4.jar stax-1.2.0.
+ jar stax-api-1.0.1.jar stax-api-1.0-2.jar lucene-core-4.5.1.jar lucen
+ e-analyzers-common-4.5.1.jar lucene-queryparser-4.5.1.jar lucene-quer
+ ies-4.5.1.jar lucene-sandbox-4.5.1.jar jakarta-regexp-1.4.jar olap4j-
+ 0.9.7.309-JS-3.jar core-2.3.0.jar itext-2.1.7.jar bcmail-jdk14-138.ja
+ r bcprov-jdk14-138.jar bctsp-jdk14-1.38.jar bcprov-jdk14-1.38.jar bcm
+ ail-jdk14-1.38.jar HikariCP-2.4.1.jar commons-csv-1.4.jar super-csv-2
+ .4.0.jar poi-3.10.1.jar commons-codec-1.5.jar poi-ooxml-3.10.1.jar po
+ i-ooxml-schemas-3.10.1.jar xmlbeans-2.6.0.jar spring-context-support-
+ 4.3.3.RELEASE.jar freemarker-2.3.15.jar tiles-jsp-2.2.2.jar tiles-ser
+ vlet-2.2.2.jar tiles-core-2.2.2.jar tiles-api-2.2.2.jar tiles-templat
+ e-2.2.2.jar spring-webmvc-4.3.3.RELEASE.jar spring-web-4.3.3.RELEASE.
+ jar jstl-1.2.jar jackson-mapper-asl-1.9.13.jar commons-io-1.3.2.jar c
+ ommons-fileupload-1.2.1.jar swagger-springmvc-0.8.5.jar swagger-core_
+ 2.10-1.3.5.jar jackson-module-scala_2.10-2.1.5.jar scala-library-2.10
+ .0.jar paranamer-2.3.jar scala-reflect-2.10.0.jar jackson-module-json
+ Schema-2.1.0.jar jackson-jaxrs-json-provider-2.0.0.jar jackson-module
+ -jaxb-annotations-2.0.0.jar jsr311-api-1.1.1.jar swagger-annotations-
+ 1.3.5.jar json4s-ext_2.10-3.2.5.jar joda-time-2.1.jar joda-convert-1.
+ 2.jar json4s-native_2.10-3.2.5.jar json4s-core_2.10-3.2.5.jar json4s-
+ ast_2.10-3.2.5.jar scalap-2.10.0.jar scala-compiler-2.10.0.jar json4s
+ -jackson_2.10-3.2.5.jar cglib-2.2.jar asm-3.1.jar swagger-models-0.8.
+ 5.jar classmate-1.0.0.jar jasperreports-fonts-6.0.0.jar
 

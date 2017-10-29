@@ -1,0 +1,469 @@
+body {
+  /*min-height: 1000px;*/
+  padding-top: 70px;
+  background-color: #FBEFEF !important;
+  /*background:#FBEFEF url("../images/main-back.png") repeat !important;*/
+}
+.bodyColapsable {
+    border-bottom: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-radius: 0 0 4px 4px;
+    border-right: 1px solid #e5e5e5;
+    padding: 10px 5px;
+}
+
+#filterfieldset legend {
+	margin-bottom: 0;
+}
+#filterColapse {
+	margin-bottom: 15px;
+	font-size: 11px;
+}
+#filterColapse label{
+	display: block;
+    margin-bottom: 5px;
+}
+#filterColapse .row {
+	margin-bottom: 5px;
+}
+#filterColapse .row > div {
+	box-shadow: none;
+}
+#filterColapse button {
+	margin-top: 21px;
+}
+
+.table {
+	font-size: 1em;
+}
+.table thead {
+	background-color: #434857;
+}
+.table thead tr th {
+    color: white;
+    font-size: 11px;
+}
+.table th {
+    font-weight: bold;
+}
+.table a {
+	cursor: pointer;
+}
+#myo-enavbar-collapse {
+	color: #fff;
+}
+
+#clientModal {
+	font-size: 11px;
+	line-height: 0.8;
+}
+
+.ui-widget-header {
+	/*
+    background: url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") repeat-x scroll 50% 50% #f6a828;
+    border: 1px solid #e78f08;
+    */
+    background-image: linear-gradient(to bottom, #DF0101 0%, #B40404 100%) !important;
+    background-repeat: repeat-x !important;
+    border-color: #a52a2a !important;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.filter-container {
+	width: 100%;
+	margin-bottom: 5px;
+}
+#filterfieldset {
+	width: 100%;
+}
+#filterColapse {
+	width: 100%;
+}
+#toggle-filter,
+#toggle-filter-upload {
+	margin-top: 8px;
+}
+#dlgClient {
+	font-size: 11px;
+	line-height: 0.5;
+}
+.bar {
+    height: 18px;
+    background: green;
+}
+
+#filterColapseUpload button {
+    margin-top: 0;
+}
+
+#filterColapseUpload .container,
+#filterColapse .container {
+	width: 1130px !important;
+}
+
+#addBtn {
+	margin-bottom: 3px;
+}
+
+#filterColapse .row {
+	border: 1px solid #e5e5e5;
+	padding-bottom: 5px;
+}
+
+.form-group.required .control-label:after {
+  content:" *";color:red;
+}
+
+#client-form .error {
+ content:"*";color:red;
+}
+
+#excelBtn {
+	margin-right:3px;
+}
+
+.grad1 {
+    background: -webkit-linear-gradient(gray, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(gray, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(gray, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#FFF, #636660); /* Standard syntax (must be last) */
+    height:80%;
+}
+
+.grad2 {
+    background: -webkit-radial-gradient(#FFF, #ADB2B4); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#FFF, #ADB2B4); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#FFF, #ADB2B4); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#FFF, #ADB2B4); /* Standard syntax (must be last) */
+}
+
+.rounded-corner {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.centered {
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.tools-bar {
+	border-bottom: 1px solid #ccc;padding-bottom:16px;
+}
+
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  padding-right: 20px !important;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.lov {
+	cursor:pointer;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+
+.badge.badge-primary {
+	background-color: #428bca !important;
+}
+
+.badge.badge-info {
+	background-color: #5bc0de !important;
+}
+
+.badge.badge-success {
+	background-color: #47a447 !important;
+}
+
+.badge.badge-warning {
+	background-color: #ed9c28 !important;
+}
+
+.badge.badge-danger {
+	background-color: #d2322d !important;
+}
+
+.badge.badge-blank {
+	background-color: #FFF !important;
+	color: #47a447 !important;
+}
+
+#loading-message-div {
+	position: fixed;
+	bottom: 1%;
+	right: 1%;
+	background: rgba(25, 25, 25, .5);
+	/*background-color: RED;*/
+	border: 1px double #000;
+	text-align: center;
+	height: 60px;
+	width: 190px;
+	color: #fff;
+	z-index: 1000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 14px 0px;
+}
+/*
+.tooltip-inner {
+	background-color: #d2322d;
+	border-left-color: #d2322d !important;
+	border-top-color: #d2322d !important;
+	border-right-color: #d2322d !important;
+	border-bottom-color: #d2322d !important;
+}
+*/
+
+.bootstrap-dialog .modal-header.bootstrap-dialog-draggable {
+	cursor: move;	
+}
+
+.dialog-client .modal-dialog {
+	width: 70%;
+}
+
+.dialog-dev .modal-dialog {
+	width: 60%;
+}
+
+.title-td {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.table-hover tbody tr:hover > td {
+  cursor: pointer;
+}
+
+.navbar-grad {
+	background: -webkit-linear-gradient(left top, #DF0101, #B40404); /* For Safari 5.1 to 6.0 */
+ 		background: -o-linear-gradient(bottom right, #DF0101, #B40404); /* For Opera 11.1 to 12.0 */
+ 		background: -moz-linear-gradient(bottom right, #DF0101, #B40404); /* For Firefox 3.6 to 15 */
+ 		background: linear-gradient(to bottom right, #DF0101, #B40404); /* Standard syntax */
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+	color: #fff;
+	background-color: #DF0101;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #fff;
+}
+
+.panel-default {
+	border-width: 2px;
+}
+
+.pagination>.active>a {
+	background-color: #d9534f !important;
+    border-color: #EB3F39 !important;	
+}
+
+
+/*************************************************/
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green a {
+    color: #5cb85c;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+/*
+.panel-red a {
+    color: #d9534f;
+}*/
+
+.panel-red a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+    color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+    color: #df8a13;
+}
+
+.panel-grey {
+	border-color: #909090;
+}
+
+.panel-grey .panel-heading {
+    border-color: #909090;
+    color: #fff;
+    background-color: #909090;
+}
+
+.mainbar {
+	position: relative;
+	margin-left: 230px;
+	margin-right: 0px;
+	width: auto;
+	background:#eee url("../images/main-back.png") repeat;
+	border-left: 1px solid #ccc;
+	z-index: 50;
+	min-height: 800px;
+}
+
+.mainbar .container {
+   max-width:100% !important;
+	width: 100% !important;
+} 
+
+.bblue{
+	background:#5eb2d9;
+}
+
+.bbrown{
+	background:#b46e4c;
+}
+
+.bgreen{
+	background: #4ac344;
+}
+
+.borange{
+	background:#ff8421;
+}
+
+.bred{
+	background: #ff5d5e;
+}
+
+.byellow{
+	background: #d7a443;
+}
+
+.navbar-label {
+ 	padding:5px 7px !important;
+   	font-size:11px;
+   	border-radius:10px;
+}
+
+.navbar-label i{
+	margin-right: 0px;
+}
+
+.icon-circle i {
+	background-color: #fff !important;
+    border-radius: 50px !important;
+    box-shadow: 0 0 1px #777 inset !important;
+    /*color: #9d9d9d;*/
+    display: inline-block !important;
+    /*font-size: 17px;*/
+    line-height: 30px;
+    text-align: center !important;
+    width: 30px !important;
+}
+
+.fred {
+	color: #ff5d5e !important;
+}
+
+.fbrown{
+	color:#b46e4c !important;
+}
+
+.fgreen{
+	color: #4ac344 !important;
+}
+
+.forange{
+	color:#ff8421 !important;
+}
+
+.fblue{
+	color:#5eb2d9 !important;
+}
+
+.fblack {
+	color: #000 !important;
+}
+
+.fgrey {
+	color: #777 !important;	
+}
+
+.widget-icons a{
+	color: #aaa;
+	text-decoration:none !important;
+}
+
+.widget-icons a:hover{
+	color: #999;
+	text-decoration:none !important;
+}
+
+.widget-icons a:active{
+	color: #999;
+	text-decoration:none !important;
+}
+
+.widget-icons a:visited{
+	color: #999;
+	text-decoration:none !important;
+}
+
